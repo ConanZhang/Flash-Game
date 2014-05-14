@@ -4,6 +4,7 @@ package
 	
 	public class FlashGame extends Sprite
 	{
+		/**CONSTRUCTOR**/
 		public function FlashGame()
 		{
 			
