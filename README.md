@@ -1,4 +1,1 @@
-Game
-====
-
-Flash game for fun.
+Flash game
