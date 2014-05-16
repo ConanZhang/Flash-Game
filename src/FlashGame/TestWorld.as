@@ -3,8 +3,12 @@
  */
 package FlashGame
 {
-	import flash.display.Sprite;
+	import Assets.Ground;
+	
+	import Parents.Stage;
+	
 	import flash.display.MovieClip;
+	import flash.display.Sprite;
 	
 	public class TestWorld extends Stage
 	{
@@ -19,6 +23,8 @@ package FlashGame
 		{
 			screen = screenP;
 			screen.addChild(this);
+			
+			var testGround:Ground = new Ground(4, 50);
 		}
 	}
 }
