@@ -4,6 +4,7 @@
 package FlashGame
 {
 	import Assets.Ground;
+	import Assets.Player;
 	
 	import Parents.Stage;
 	
@@ -24,7 +25,11 @@ package FlashGame
 			screen = screenP;
 			screen.addChild(this);
 			
-			var testGround:Ground = new Ground(4, 50);
+			//PLAYER
+			var testPlayer:Player = new Player(11, 7, 1, 1);
+			
+			//GROUND
+			var testGround:Ground = new Ground(7, 10, 10, 2);
 		}
 	}
 }

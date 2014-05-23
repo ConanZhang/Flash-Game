@@ -15,10 +15,8 @@ package Parents
 		//sprite on Box2D body
 		private var _sprite:DisplayObject;
 		
-		/**Constructor*/
-		public function Objects()
-		{
-		}
+		/**Constructor DOES NOTHING*/
+		public function Objects(){}
 		
 		/**Returns the sprite's height/2*/
 		public function halfHeight():Number{

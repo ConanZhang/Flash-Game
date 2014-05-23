@@ -15,63 +15,82 @@ package Assets {
 	import flash.geom.Point;
 	
 	public class Ground extends Objects{
+		/**Class Member Variables*/
+		//STAGE
+		private var stage_Sprite:Sprite = Stage.sprites;
+		private var world_Sprite:b2World = Stage.world;
+		private var metricPixRatio:Number = Stage.metricPixRatio;
 		
-		//gather all the variables you need in this class
-		private var _m_sprite:Sprite = Stage.sprites;
-		private var _m_world:b2World = Stage.world;
-		private var _m2p:Number = Stage.metricPixRatio;
-		private var _location:Point;
-		private var _clip:Sprite;
-		private var _body:b2Body;
-		private var _width:Number = 10;
-		private var _height:Number = 2;
-		private var _friction:Number = 1;
-		private var _density:Number = 0;// static bodies require zero density
-		public var fixtureDef:b2FixtureDef = new b2FixtureDef();
+		//PROPERTIES
+		private var position:Point;
+		private var groundSprite:Sprite;
+		private var ground_Width:Number;
+		private var ground_Height:Number;
 		
-		public function Ground(locx:int,locy:int){
-			_location = new Point(locx,locy);
+		//BOX2D COLLISION & PHYSICS
+		private var collisionBody:b2Body;
+		private var groundFixture:b2FixtureDef;
+		private var ground_Friction:Number;
+		private var ground_Density:Number;
+		
+		/**Constructor*/
+		public function Ground(xPos:Number, yPos:Number, width:Number, height:Number){
+			//assign parameters to class member variables
+			position = new Point(xPos, yPos);
+			
+			//initialize default private variables
+			ground_Width = width;
+			ground_Height = height;
+			ground_Friction = 1;
+			ground_Density = 0;
+			
+			groundFixture = new b2FixtureDef();
+			
+			make();
 		}
 		
-		public function set Width(width:Number):void{
-			_width = width;
+		/**Makes Ground*/
+		public function make():void{
+			//Box2D shape
+			var groundShape:b2PolygonShape = new b2PolygonShape();
+			groundShape.SetAsBox(ground_Width/2, ground_Height/2);
+			
+			//Box2D shape properties
+			groundFixture.shape = groundShape;
+			groundFixture.friction = ground_Friction;
+			groundFixture.density = ground_Density;
+			
+			//Box2D collision shape
+			var groundCollision:b2BodyDef = new b2BodyDef();
+			groundCollision.position.Set(position.x + ground_Width/2, position.y + ground_Height/2);
+			
+			collisionBody = world_Sprite.CreateBody(groundCollision);
+			collisionBody.CreateFixture(groundFixture);
+			super.body = collisionBody;
+			
+			//Sprite
+//			groundSprite = new SPRITE_ASSET_NAME_GOES_HERE();
+//			groundSprite.width = ground_Width*metricPixRatio;
+//			groundSprite.height = ground_Height*metricPixRatio;
+//			super.sprite = groundSprite;
+//			Stage.sprites.addChild(groundSprite);
 		}
 		
-		public function set Height(height:Number):void{
-			_height = height;
+		/**Setters*/
+		public function set width(width:Number):void{
+			ground_Width = width;
+		}
+		
+		public function set height(height:Number):void{
+			ground_Height = height;
 		}
 		
 		public function set friction(friction:Number):void{
-			_friction = friction;
+			ground_Friction = friction;
 		}
 		
 		public function set density(density:Number):void{
-			_density = density;
-		}
-		
-		public function create():void{
-			var polyDef:b2PolygonShape;
-			polyDef = new b2PolygonShape();
-			polyDef.SetAsBox(_width/2,_height/2);
-			
-			fixtureDef.shape = polyDef;
-			
-			fixtureDef.friction = _friction;
-			fixtureDef.density = _density;
-			
-			var bodyDef:b2BodyDef = new b2BodyDef();
-			bodyDef.position.Set(_location.x+_width/2, _location.y+_height/2);	
-			
-			_body = _m_world.CreateBody(bodyDef);
-			_body.CreateFixture(fixtureDef);
-			super.body = _body;
-			
-//			_clip = new PhysGround();
-//			_clip.width = _width * _m2p;
-//			_clip.height = _height * _m2p;
-//			super.sprites = _clip;
-			
-			Stage.sprites.addChild(_clip);
+			ground_Density = density;
 		}
 	}
 }
