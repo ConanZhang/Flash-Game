@@ -11,6 +11,7 @@ package Assets
 	
 	import Parents.*;
 	
+	import flash.display.MovieClip;
 	import flash.display.Sprite;
 	import flash.geom.Point;
 
@@ -24,7 +25,7 @@ package Assets
 		
 		//PROPERTIES
 		private var position:Point;
-		private var playerSprite:Sprite;
+		private var playerClip:MovieClip;
 		private var player_Width:Number;
 		private var player_Height:Number;
 		
@@ -45,8 +46,8 @@ package Assets
 			//initialize default private variables
 			player_Width = width;
 			player_Height = height;
-			player_Friction = 1;
-			player_Density = 0.5;
+			player_Friction = 0.2;
+			player_Density = 0;
 			player_Restitution = 0;
 			player_LinearDamping =0;
 			
@@ -72,17 +73,18 @@ package Assets
 			playerCollision.position.Set(position.x + player_Width/2, position.y + player_Height/2);
 			playerCollision.linearDamping = player_LinearDamping;
 			playerCollision.type = b2Body.b2_dynamicBody;
+			playerCollision.fixedRotation = true;
 			
 			collisionBody = world_Sprite.CreateBody(playerCollision);
 			collisionBody.CreateFixture(playerFixture);
 			super.body = collisionBody;
 			
 			//Sprite
-			playerSprite = new testPlayer();
-			playerSprite.width = player_Width*metricPixRatio;
-			playerSprite.height = player_Height*metricPixRatio;
-			super.sprite = playerSprite;
-			Stage.sprites.addChild(playerSprite);
+			playerClip = new testPlayer();
+			playerClip.width = player_Width*metricPixRatio;
+			playerClip.height = player_Height*metricPixRatio;
+			super.sprite = playerClip;
+			Stage.sprites.addChild(playerClip);
 		}
 		
 		/**Setters*/

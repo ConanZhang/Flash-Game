@@ -18,7 +18,7 @@ package FlashGame
 		
 		/**Collision begins*/
 		override public function BeginContact(contact:b2Contact):void{
-			canJump(contact);
+//			canJump(contact);
 			super.BeginContact(contact);
 		}
 		
@@ -28,8 +28,8 @@ package FlashGame
 			super.EndContact(contact);
 		}
 		
-		private function canJump(contact:b2Contact):void{
-
+		private function canJump(contact:b2ContactPoint):void{
+//			if(contact.shape1.GetType()
 		}
 	}
 }

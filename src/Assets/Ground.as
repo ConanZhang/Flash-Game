@@ -11,6 +11,7 @@ package Assets {
 	
 	import Parents.*;
 	
+	import flash.display.MovieClip;
 	import flash.display.Sprite;
 	import flash.geom.Point;
 	
@@ -23,7 +24,7 @@ package Assets {
 		
 		//PROPERTIES
 		private var position:Point;
-		private var groundSprite:Sprite;
+		private var groundClip:MovieClip;
 		private var ground_Width:Number;
 		private var ground_Height:Number;
 		
@@ -41,7 +42,7 @@ package Assets {
 			//initialize default private variables
 			ground_Width = width;
 			ground_Height = height;
-			ground_Friction = 1;
+			ground_Friction = 0.9;
 			ground_Density = 0;
 			
 			groundFixture = new b2FixtureDef();
@@ -69,11 +70,12 @@ package Assets {
 			super.body = collisionBody;
 			
 			//Sprite
-			groundSprite = new testGround();
-			groundSprite.width = ground_Width*metricPixRatio;
-			groundSprite.height = ground_Height*metricPixRatio;
-			super.sprite = groundSprite;
-			Stage.sprites.addChild(groundSprite);
+			groundClip = new testGround();
+			groundClip.stop();
+			groundClip.width = ground_Width*metricPixRatio;
+			groundClip.height = ground_Height*metricPixRatio;
+			super.sprite = groundClip;
+			Stage.sprites.addChild(groundClip);
 		}
 		
 		/**Setters*/

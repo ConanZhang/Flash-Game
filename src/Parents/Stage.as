@@ -134,16 +134,17 @@ package Parents
 							break;
 						//up arrow
 						case 38:
-							if(jumping){
+							if(!jumping){
 								direction.Set(0,-25);
 								player.SetAwake(true);
 								player.ApplyImpulse(direction, player.GetPosition() );
+								trace("jump");
 							}
 							break;
 						//left arrow	
 						case 37:
 							//limit speed
-							if(horizontal>-2){
+							if(horizontal>-5){
 								direction.Set(-50,0);
 								player.SetAwake(true);
 								player.ApplyForce(direction,player.GetPosition());
@@ -152,7 +153,7 @@ package Parents
 						//right arrow
 						case 39:
 							//limit speed
-							if(horizontal<2){
+							if(horizontal<5){
 								direction.Set(50,0);
 								player.SetAwake(true);
 								player.ApplyForce(direction,player.GetPosition());

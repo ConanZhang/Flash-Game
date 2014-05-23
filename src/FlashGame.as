@@ -9,6 +9,9 @@ package
 	import flash.display.Sprite;
 	import flash.events.KeyboardEvent;
 	
+	/**SWF Options*/
+	[SWF(backgroundColor="#FFFFFF", width="800", height="600", frameRate="30")]
+	
 	public class FlashGame extends Sprite
 	{
 		/**Class Member Variables*/
