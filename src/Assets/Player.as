@@ -77,11 +77,11 @@ package Assets
 			super.body = collisionBody;
 			
 			//Sprite
-//			playerSprite = new SPRITE_ASSET_NAME_GOES_HERE();
-//			playerSprite.width = player_Width*metricPixRatio;
-//			playerSprite.height = player_Height*metricPixRatio;
-//			super.sprite = playerSprite;
-//			Stage.sprites.addChild(playerSprite);
+			playerSprite = new testPlayer();
+			playerSprite.width = player_Width*metricPixRatio;
+			playerSprite.height = player_Height*metricPixRatio;
+			super.sprite = playerSprite;
+			Stage.sprites.addChild(playerSprite);
 		}
 		
 		/**Setters*/

@@ -69,11 +69,11 @@ package Assets {
 			super.body = collisionBody;
 			
 			//Sprite
-//			groundSprite = new SPRITE_ASSET_NAME_GOES_HERE();
-//			groundSprite.width = ground_Width*metricPixRatio;
-//			groundSprite.height = ground_Height*metricPixRatio;
-//			super.sprite = groundSprite;
-//			Stage.sprites.addChild(groundSprite);
+			groundSprite = new testGround();
+			groundSprite.width = ground_Width*metricPixRatio;
+			groundSprite.height = ground_Height*metricPixRatio;
+			super.sprite = groundSprite;
+			Stage.sprites.addChild(groundSprite);
 		}
 		
 		/**Setters*/
