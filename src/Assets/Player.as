@@ -4,6 +4,8 @@
 package Assets
 {
 	import Box2D.Collision.Shapes.b2PolygonShape;
+	import Box2D.Common.Math.b2Vec2;
+	import Box2D.Dynamics.Joints.b2RevoluteJointDef;
 	import Box2D.Dynamics.b2Body;
 	import Box2D.Dynamics.b2BodyDef;
 	import Box2D.Dynamics.b2FixtureDef;
@@ -32,6 +34,7 @@ package Assets
 		//BOX2D COLLISION & PHYSICS
 		private var collisionBody:b2Body;
 		private var playerFixture:b2FixtureDef;
+		private var playerJoints:b2RevoluteJointDef;
 		private var player_Friction:Number;
 		private var player_Density:Number;
 		private var player_Restitution:Number;
@@ -52,15 +55,18 @@ package Assets
 			player_LinearDamping =0;
 			
 			playerFixture = new b2FixtureDef();
+			playerJoints = new b2RevoluteJointDef();
 			
 			make();
 		}
 		
-		/**Makes Ground*/
+		/**Makes Player*/
 		public function make():void{
+			
+			/**Head*/
 			//Box2D shape
 			var playerShape:b2PolygonShape = new b2PolygonShape();
-			playerShape.SetAsBox(player_Width/2, player_Height/2);
+			playerShape.SetAsBox(player_Width/3.75, player_Height/4);
 			
 			//Box2D shape properties
 			playerFixture.shape = playerShape;
@@ -79,8 +85,32 @@ package Assets
 			collisionBody.CreateFixture(playerFixture);
 			super.body = collisionBody;
 			
+			/**Feet*/
+			playerShape = new b2PolygonShape();
+			playerShape.SetAsBox(player_Width/2.45, player_Height/8);
+			
+			playerFixture.shape = playerShape;
+			playerFixture.friction = player_Friction;
+			playerFixture.density = player_Density;
+			playerFixture.restitution = player_Restitution;
+			
+			playerCollision.position.Set(position.x + player_Width/1.9, position.y + player_Height/1.15);
+			var feet:b2Body = world_Sprite.CreateBody(playerCollision);
+			feet.CreateFixture(playerFixture);
+			
+			/**Connecting body*/
+			//head to feet
+			playerJoints.enableLimit = true;
+			
+			playerJoints.lowerAngle = -90/(180/Math.PI);
+			playerJoints.upperAngle = 90/(180/Math.PI);
+			
+			playerJoints.Initialize(collisionBody, feet, new b2Vec2(position.x + player_Width/2, position.y + player_Height/2) );
+			world_Sprite.CreateJoint(playerJoints);
+			
 			//Sprite
-			playerClip = new testPlayer();
+//			playerClip = new MovieClip();
+			playerClip = new player_idle();
 			playerClip.width = player_Width*metricPixRatio;
 			playerClip.height = player_Height*metricPixRatio;
 			super.sprite = playerClip;

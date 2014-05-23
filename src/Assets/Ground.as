@@ -70,7 +70,7 @@ package Assets {
 			super.body = collisionBody;
 			
 			//Sprite
-			groundClip = new testGround();
+			groundClip = new ground();
 			groundClip.stop();
 			groundClip.width = ground_Width*metricPixRatio;
 			groundClip.height = ground_Height*metricPixRatio;
