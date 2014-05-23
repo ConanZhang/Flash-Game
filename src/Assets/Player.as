@@ -48,7 +48,7 @@ package Assets
 			player_Friction = 1;
 			player_Density = 0.5;
 			player_Restitution = 0;
-			player_LinearDamping =0.5;
+			player_LinearDamping =0;
 			
 			playerFixture = new b2FixtureDef();
 			
@@ -71,6 +71,7 @@ package Assets
 			var playerCollision:b2BodyDef = new b2BodyDef();
 			playerCollision.position.Set(position.x + player_Width/2, position.y + player_Height/2);
 			playerCollision.linearDamping = player_LinearDamping;
+			playerCollision.type = b2Body.b2_dynamicBody;
 			
 			collisionBody = world_Sprite.CreateBody(playerCollision);
 			collisionBody.CreateFixture(playerFixture);

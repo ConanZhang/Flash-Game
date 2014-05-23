@@ -26,7 +26,7 @@ package Parents
 		/**Update your state*/
 		public function update():void{
 			//only update sprites that visually change
-			if(!_body.IsActive() ){
+			if(_body.IsActive() ){
 				updateSprite();
 			}
 			

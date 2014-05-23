@@ -26,10 +26,11 @@ package FlashGame
 			screen.addChild(this);
 			
 			//PLAYER
-			var testPlayer:Player = new Player(11, 7, 1, 1);
+			var testPlayer:Player = new Player(10, 7, 3, 3);
+			testPlayer.setPlayer();
 			
 			//GROUND
-			var testGround:Ground = new Ground(7, 10, 10, 2);
+			var testGround:Ground = new Ground(7, 15, 13, 1);
 		}
 	}
 }

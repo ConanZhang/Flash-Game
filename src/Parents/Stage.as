@@ -76,7 +76,7 @@ package Parents
 			/**EVENT*/
 			//update every frame
 			this.addEventListener(Event.ENTER_FRAME, update, false, 0, true);
-			
+
 			/**WORLD*/
 			var gravity:b2Vec2 = new b2Vec2(0, 9.8);
 			var doSleep:Boolean = true;//don't simulate sleeping bodies
@@ -95,17 +95,17 @@ package Parents
 		/**Stages can update their properties*/
 		public function update(e:Event):void{
 			//get last position player was in for initial speed calculation
-//			if(initial){
-//				lastPos = new Point(player.GetPosition().x, player.GetPosition().y);
-//				//never need to do it again
-//				initial = false;
-//			}
+			if(initial){
+				lastPos = new Point(player.GetPosition().x, player.GetPosition().y);
+				//never need to do it again
+				initial = false;
+			}
 			
 			//clear sprites from last frame
 			sprites.graphics.clear();
 			
 			/**CAMERA*/
-//			centerScreen(player.GetPosition().x, player.GetPosition().y);
+			centerScreen(player.GetPosition().x, player.GetPosition().y);
 			
 			/**BOX2D*/
 			world.Step(timeStep,iterations,iterations);
@@ -115,7 +115,7 @@ package Parents
 			/**SPRITES*/
 			for(var bodies:b2Body = world.GetBodyList(); bodies; bodies = bodies.GetNext() ){
 				//if they exist update them
-				if(bodies.GetUserData() !=null){
+				if(bodies.GetUserData() != null){
 					bodies.GetUserData().update();
 				}
 			}
@@ -162,14 +162,14 @@ package Parents
 				}
 				
 				//get current physics
-//				var currentPos:Point = new Point(player.GetPosition().x, player.GetPosition().y);
-//				var currentVelocity:Number = currentPos.x - lastPos.x;
-//				
-//				//update forces and positions
-//				acceleration = currentVelocity - horizontal;
-//				horizontal = currentVelocity;
-//				vertical = currentPos.y - lastPos.y;
-//				lastPos = currentPos;
+				var currentPos:Point = new Point(player.GetPosition().x, player.GetPosition().y);
+				var currentVelocity:Number = currentPos.x - lastPos.x;
+				
+				//update forces and positions
+				acceleration = currentVelocity - horizontal;
+				horizontal = currentVelocity;
+				vertical = currentPos.y - lastPos.y;
+				lastPos = currentPos;
 				
 				//reset delay
 				delay = 0;
