@@ -30,7 +30,11 @@ package FlashGame
 			testPlayer.setPlayer();
 			
 			//GROUND
-			var testGround:Ground = new Ground(7, 15, 13, 1);
+			var testGround:Ground = new Ground(7, 15, 100, 5);
+			
+			for(var i: int = 0; i < 50; i++){
+				var referenceGround:Ground = new Ground(7+(i*10), 5, 3, 3);
+			}
 		}
 	}
 }

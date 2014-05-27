@@ -49,8 +49,8 @@ package Assets
 			//initialize default private variables
 			player_Width = width;
 			player_Height = height;
-			player_Friction = 0.2;
-			player_Density = 0;
+			player_Friction = 3;
+			player_Density = 0.3;
 			player_Restitution = 0;
 			player_LinearDamping =0;
 			
@@ -87,14 +87,14 @@ package Assets
 			
 			/**Feet*/
 			playerShape = new b2PolygonShape();
-			playerShape.SetAsBox(player_Width/2.45, player_Height/8);
+			playerShape.SetAsBox(player_Width/3.75, player_Height/8);
 			
 			playerFixture.shape = playerShape;
 			playerFixture.friction = player_Friction;
 			playerFixture.density = player_Density;
 			playerFixture.restitution = player_Restitution;
 			
-			playerCollision.position.Set(position.x + player_Width/1.9, position.y + player_Height/1.15);
+			playerCollision.position.Set(position.x + player_Width/2, position.y + player_Height/1.15);
 			var feet:b2Body = world_Sprite.CreateBody(playerCollision);
 			feet.CreateFixture(playerFixture);
 			

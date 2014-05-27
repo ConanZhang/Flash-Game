@@ -42,7 +42,7 @@ package Assets {
 			//initialize default private variables
 			ground_Width = width;
 			ground_Height = height;
-			ground_Friction = 0.9;
+			ground_Friction = 1;
 			ground_Density = 0;
 			
 			groundFixture = new b2FixtureDef();
