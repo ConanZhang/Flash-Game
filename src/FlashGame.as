@@ -3,6 +3,7 @@
  */
 package
 {
+	import FlashGame.DebugScreen;
 	import FlashGame.TestWorld;
 	
 	import flash.display.MovieClip;
@@ -16,6 +17,7 @@ package
 	{
 		/**Class Member Variables*/
 		private var test:MovieClip;
+		private var debug:DebugScreen;
 		
 		/**Constructor*/
 		public function FlashGame()
@@ -24,6 +26,9 @@ package
 			test = new TestWorld(this);
 			test.stage.addEventListener(KeyboardEvent.KEY_DOWN, test.keyPressed, false, 0, true);
 			test.stage.addEventListener(KeyboardEvent.KEY_UP, test.keyReleased, false, 0, true);
+			
+			//display frame rate
+			debug = new DebugScreen(this);
 		}
 	}
 }

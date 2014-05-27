@@ -28,8 +28,6 @@ package Parents
 		private var iterations:int;
 		//speed of checks
 		private var timeStep:Number;
-		//delay frequency of forces applied
-		private var delay:int;
 		
 		/**LOGIC*/
 		//check if the stage has just been initiated; SEE update()
@@ -78,7 +76,7 @@ package Parents
 			this.addEventListener(Event.ENTER_FRAME, update, false, 0, true);
 
 			/**WORLD*/
-			var gravity:b2Vec2 = new b2Vec2(0, 9.8);
+			var gravity:b2Vec2 = new b2Vec2(0, 85);
 			var doSleep:Boolean = true;//don't simulate sleeping bodies
 			worldStage = new b2World(gravity, doSleep);
 			worldStage.SetContactListener(new ContactListener() );
@@ -121,60 +119,54 @@ package Parents
 			}
 			
 			/**FORCES & KEY PRESSES*/
-			if(delay == 4){
-				var direction:b2Vec2 = new b2Vec2();
-				
-				for(var i:uint = 0; i < keyPresses.length;i++){
-					switch(keyPresses[i]){
-						//down arrow
-						case 40:
-							direction.Set(0, 40);
+			var direction:b2Vec2 = new b2Vec2();
+			
+			for(var i:uint = 0; i < keyPresses.length;i++){
+				switch(keyPresses[i]){
+					//down arrow
+					case 40:
+						direction.Set(0, 40);
+						player.SetAwake(true);
+						player.ApplyForce(direction, player.GetPosition() );
+						break;
+					//up arrow
+					case 38:
+						if(!jumping){
+							direction.Set(0,-20);
 							player.SetAwake(true);
-							player.ApplyForce(direction, player.GetPosition() );
-							break;
-						//up arrow
-						case 38:
-							if(!jumping){
-								direction.Set(0,-10);
-								player.SetAwake(true);
-								player.ApplyImpulse(direction, player.GetPosition() );
-							}
-							break;
-						//left arrow	
-						case 37:
-							//limit speed
-							if(horizontal>-3){
-								direction.Set(-500,0);
-								player.SetAwake(true);
-								player.ApplyForce(direction,player.GetPosition());
-							}
-							break;
-						//right arrow
-						case 39:
-							//limit speed
-							if(horizontal<3){
-								direction.Set(500,0);
-								player.SetAwake(true);
-								player.ApplyForce(direction,player.GetPosition());
-							}
-							break;
-					}
+							player.ApplyImpulse(direction, player.GetPosition() );
+						}
+						break;
+					//left arrow	
+					case 37:
+						//limit speed
+						if(horizontal>-3){
+							direction.Set(-300,0);
+							player.SetAwake(true);
+							player.ApplyForce(direction,player.GetPosition());
+						}
+						break;
+					//right arrow
+					case 39:
+						//limit speed
+						if(horizontal<3){
+							direction.Set(300,0);
+							player.SetAwake(true);
+							player.ApplyForce(direction,player.GetPosition());
+						}
+						break;
 				}
-				
-				//get current physics
-				var currentPos:Point = new Point(player.GetPosition().x, player.GetPosition().y);
-				var currentVelocity:Number = currentPos.x - lastPos.x;
-				
-				//update forces and positions
-				acceleration = currentVelocity - horizontal;
-				horizontal = currentVelocity;
-				vertical = currentPos.y - lastPos.y;
-				lastPos = currentPos;
-				
-				//reset delay
-				delay = 0;
 			}
-			delay++;
+			
+			//get current physics
+			var currentPos:Point = new Point(player.GetPosition().x, player.GetPosition().y);
+			var currentVelocity:Number = currentPos.x - lastPos.x;
+			
+			//update forces and positions
+			acceleration = currentVelocity - horizontal;
+			horizontal = currentVelocity;
+			vertical = currentPos.y - lastPos.y;
+			lastPos = currentPos;
 		}
 		
 		/**Stages always center the screen on the player*/

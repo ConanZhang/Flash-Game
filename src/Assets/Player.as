@@ -49,10 +49,10 @@ package Assets
 			//initialize default private variables
 			player_Width = width;
 			player_Height = height;
-			player_Friction = 3;
-			player_Density = 0.3;
-			player_Restitution = 0;
-			player_LinearDamping =0;
+			player_Friction = 0.5;
+			player_Density = 0.22;
+			player_Restitution = 0.1;
+			player_LinearDamping = 1.75;
 			
 			playerFixture = new b2FixtureDef();
 			playerJoints = new b2RevoluteJointDef();
@@ -66,7 +66,7 @@ package Assets
 			/**Head*/
 			//Box2D shape
 			var playerShape:b2PolygonShape = new b2PolygonShape();
-			playerShape.SetAsBox(player_Width/3.75, player_Height/4);
+			playerShape.SetAsBox(player_Width/3.75, player_Height/3.75);
 			
 			//Box2D shape properties
 			playerFixture.shape = playerShape;
@@ -87,7 +87,7 @@ package Assets
 			
 			/**Feet*/
 			playerShape = new b2PolygonShape();
-			playerShape.SetAsBox(player_Width/3.75, player_Height/8);
+			playerShape.SetAsBox(player_Width/3.75, player_Height/8.1);
 			
 			playerFixture.shape = playerShape;
 			playerFixture.friction = player_Friction;
