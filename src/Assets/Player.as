@@ -8,6 +8,7 @@ package Assets
 	import Box2D.Dynamics.Joints.b2RevoluteJointDef;
 	import Box2D.Dynamics.b2Body;
 	import Box2D.Dynamics.b2BodyDef;
+	import Box2D.Dynamics.b2Fixture;
 	import Box2D.Dynamics.b2FixtureDef;
 	import Box2D.Dynamics.b2World;
 	
@@ -34,11 +35,14 @@ package Assets
 		//BOX2D COLLISION & PHYSICS
 		private var collisionBody:b2Body;
 		private var playerFixture:b2FixtureDef;
+		private var playerFootSensor:b2Fixture;
 		private var playerJoints:b2RevoluteJointDef;
 		private var player_Friction:Number;
 		private var player_Density:Number;
 		private var player_Restitution:Number;
 		private var player_LinearDamping:Number;
+		
+		public static var footContacts:int;
 		
 		/**Constructor*/
 		public function Player(xPos:Number, yPos:Number, width:Number, height:Number)
@@ -56,6 +60,8 @@ package Assets
 			
 			playerFixture = new b2FixtureDef();
 			playerJoints = new b2RevoluteJointDef();
+			
+			footContacts = 0;
 			
 			make();
 		}
@@ -87,8 +93,8 @@ package Assets
 			
 			/**Feet*/
 			playerShape = new b2PolygonShape();
-			playerShape.SetAsBox(player_Width/3.75, player_Height/8.1);
-			
+			playerShape.SetAsBox(player_Width/3.74, player_Height/8.1);
+
 			playerFixture.shape = playerShape;
 			playerFixture.friction = player_Friction;
 			playerFixture.density = player_Density;
@@ -107,6 +113,17 @@ package Assets
 			
 			playerJoints.Initialize(collisionBody, feet, new b2Vec2(position.x + player_Width/2, position.y + player_Height/2) );
 			world_Sprite.CreateJoint(playerJoints);
+			
+			/**Sensor*/
+			playerShape = new b2PolygonShape();
+			playerShape.SetAsBox(player_Width/2, player_Height);
+			
+			playerFixture.isSensor = true;
+			
+			playerFootSensor = collisionBody.CreateFixture(playerFixture);
+			playerFootSensor.SetUserData(void);
+			
+			
 			
 			//Sprite
 //			playerClip = new MovieClip();

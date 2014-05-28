@@ -18,7 +18,9 @@ package FlashGame
 		
 		/**Collision begins*/
 		override public function BeginContact(contact:b2Contact):void{
-			canJump(contact);
+			if(contact.GetFixtureA().GetUserData() == 3){
+				Player.footContacts++;
+			}
 			super.BeginContact(contact);
 		}
 		
@@ -26,10 +28,6 @@ package FlashGame
 		override public function EndContact(contact:b2Contact):void{
 			Stage.jumping = false;
 			super.EndContact(contact);
-		}
-		
-		private function canJump(contact:b2Contact):void{
-			
 		}
 	}
 }

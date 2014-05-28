@@ -141,7 +141,7 @@ package Parents
 					case 37:
 						//limit speed
 						if(horizontal>-3){
-							direction.Set(-300,0);
+							direction.Set(-350,0);
 							player.SetAwake(true);
 							player.ApplyForce(direction,player.GetPosition());
 						}
@@ -150,7 +150,7 @@ package Parents
 					case 39:
 						//limit speed
 						if(horizontal<3){
-							direction.Set(300,0);
+							direction.Set(350,0);
 							player.SetAwake(true);
 							player.ApplyForce(direction,player.GetPosition());
 						}
