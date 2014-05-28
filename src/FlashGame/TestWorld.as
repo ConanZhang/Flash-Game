@@ -26,7 +26,7 @@ package FlashGame
 			screen.addChild(this);
 			
 			//PLAYER
-			var testPlayer:Player = new Player(10, 7, 5, 5);
+			var testPlayer:Player = new Player(10, 7, 7, 7);
 			testPlayer.setPlayer();
 			
 			//GROUND
