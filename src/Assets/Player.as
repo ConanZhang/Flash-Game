@@ -1,5 +1,5 @@
 /**
- * Code to make player.
+ * Code to make player.  [CONFLICT TEST]
  */
 package Assets
 {
@@ -33,7 +33,7 @@ package Assets
 		private var player_Height:Number;
 		
 		//ANIMATION STATES
-		private var STATE     :int;
+		private var   STATE   :int;
 		private const IDLE    :int = 0;
 		private const R_WALK  :int = 1;
 		private const L_WALK  :int = 2;
