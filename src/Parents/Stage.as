@@ -3,6 +3,8 @@
  */
 package Parents
 {
+	import Assets.Player;
+	
 	import Box2D.Collision.b2AABB;
 	import Box2D.Common.Math.b2Vec2;
 	import Box2D.Dynamics.b2Body;
@@ -44,8 +46,6 @@ package Parents
 		/**PLAYER*/
 		//player body for collision detection
 		public static var player:b2Body;
-		//is the player jumping?
-		public static var jumping:Boolean;
 		//the last position the player was (for speed calculation)
 		private var lastPos:Point;
 		//horizontal speed
@@ -131,7 +131,7 @@ package Parents
 						break;
 					//up arrow
 					case 38:
-						if(!jumping){
+						if(true){
 							direction.Set(0,-20);
 							player.SetAwake(true);
 							player.ApplyImpulse(direction, player.GetPosition() );

@@ -125,7 +125,8 @@ package Assets
 			
 			/**Sensor*/
 			playerShape = new b2PolygonShape();
-			playerShape.SetAsBox(player_Width/2, player_Height);
+			playerShape.SetAsBox(player_Width*2, player_Height*2);
+			playerCollision.position.Set(position.x + player_Width/2, position.y + player_Height/2);
 			
 			playerFixture.isSensor = true;
 			
@@ -135,8 +136,8 @@ package Assets
 			
 			
 			//Sprite
-//			playerClip = new MovieClip();
-			playerClip = new player_walking();
+			playerClip = new MovieClip();
+//			playerClip = new player_walking();
 			playerClip.width = player_Width*metricPixRatio;
 			playerClip.height = player_Height*metricPixRatio;
 			super.sprite = playerClip;

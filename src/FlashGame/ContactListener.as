@@ -21,10 +21,12 @@ package FlashGame
 			//fixture A is foot sensor
 			if(contact.GetFixtureA().GetUserData() == 3){
 				Player.footContacts++;
+				trace("true");
 			}
 			//fixture B is foot sensor
 			else if(contact.GetFixtureB().GetUserData() == 3){
 				Player.footContacts++;
+				trace("true");
 			}
 		}
 		
