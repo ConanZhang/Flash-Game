@@ -110,7 +110,7 @@ package Parents
 			world.ClearForces();
 			world.DrawDebugData();
 			
-			/**SPRITES*/
+			/**OBJECTS*/
 			for(var bodies:b2Body = world.GetBodyList(); bodies; bodies = bodies.GetNext() ){
 				//if they exist update them
 				if(bodies.GetUserData() != null){

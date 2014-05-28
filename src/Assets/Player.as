@@ -32,6 +32,13 @@ package Assets
 		private var player_Width:Number;
 		private var player_Height:Number;
 		
+		//ANIMATION STATES
+		private var STATE     :int;
+		private const IDLE    :int = 0;
+		private const R_WALK  :int = 1;
+		private const L_WALK  :int = 2;
+		private const JUMPING :int = 3;		
+		
 		//BOX2D COLLISION & PHYSICS
 		private var collisionBody:b2Body;
 		private var playerFixture:b2FixtureDef;
@@ -60,6 +67,8 @@ package Assets
 			
 			playerFixture = new b2FixtureDef();
 			playerJoints = new b2RevoluteJointDef();
+			
+			STATE = IDLE;
 			
 			footContacts = 0;
 			
@@ -132,6 +141,12 @@ package Assets
 			playerClip.height = player_Height*metricPixRatio;
 			super.sprite = playerClip;
 			Stage.sprites.addChild(playerClip);
+		}
+		
+		/**Child Update [called by Object's update]**/
+		public override function childUpdate():void
+		{
+			
 		}
 		
 		/**Setters*/
