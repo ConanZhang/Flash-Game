@@ -110,7 +110,7 @@ package Assets
 			
 			//Sprite
 //			playerClip = new MovieClip();
-			playerClip = new player_idle();
+			playerClip = new player_walking();
 			playerClip.width = player_Width*metricPixRatio;
 			playerClip.height = player_Height*metricPixRatio;
 			super.sprite = playerClip;
