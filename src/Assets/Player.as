@@ -45,14 +45,14 @@ package Assets
 		public static var footContacts:int;
 		
 		/**Constructor*/
-		public function Player(xPos:Number, yPos:Number, width:Number, height:Number)
+		public function Player(xPos:Number, yPos:Number, size:Number)
 		{
 			//assign parameters to class member variables
 			position = new Point(xPos, yPos);
 			
 			//initialize default private variables
-			player_Width = width;
-			player_Height = height;
+			player_Width = size;
+			player_Height = size;
 			player_Friction = 0.5;
 			player_Density = 0.22;
 			player_Restitution = 0.1;
@@ -121,7 +121,7 @@ package Assets
 			playerFixture.isSensor = true;
 			
 			playerFootSensor = collisionBody.CreateFixture(playerFixture);
-			playerFootSensor.SetUserData(void);
+			playerFootSensor.SetUserData(3);
 			
 			
 			

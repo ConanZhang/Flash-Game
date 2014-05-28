@@ -18,16 +18,26 @@ package FlashGame
 		
 		/**Collision begins*/
 		override public function BeginContact(contact:b2Contact):void{
+			//fixture A is foot sensor
 			if(contact.GetFixtureA().GetUserData() == 3){
 				Player.footContacts++;
 			}
-			super.BeginContact(contact);
+			//fixture B is foot sensor
+			else if(contact.GetFixtureB().GetUserData() == 3){
+				Player.footContacts++;
+			}
 		}
 		
 		/**Collison ends*/
 		override public function EndContact(contact:b2Contact):void{
-			Stage.jumping = false;
-			super.EndContact(contact);
+			//fixture A is foot sensor
+			if(contact.GetFixtureA().GetUserData() == 3){
+				Player.footContacts--;
+			}
+				//fixture B is foot sensor
+			else if(contact.GetFixtureB().GetUserData() == 3){
+				Player.footContacts--;
+			}
 		}
 	}
 }
