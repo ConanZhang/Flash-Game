@@ -1,5 +1,5 @@
 /**
- * Code to make player.  [CONFLICT TEST]
+ * Code to make player.
  */
 package Assets
 {
