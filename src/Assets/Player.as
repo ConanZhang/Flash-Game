@@ -33,11 +33,11 @@ package Assets
 		private var player_Height:Number;
 		
 		//ANIMATION STATES
-		private var   STATE   :int;
-		private const IDLE    :int = 0;
-		private const R_WALK  :int = 1;
-		private const L_WALK  :int = 2;
-		private const JUMPING :int = 3;
+		public static var   STATE   :int;
+		public static const IDLE    :int = 0;
+		public static const R_WALK  :int = 1;
+		public static const L_WALK  :int = 2;
+		public static const JUMPING :int = 3;
 		
 		//BOX2D COLLISION & PHYSICS
 		private var collisionBody:b2Body;
@@ -47,8 +47,6 @@ package Assets
 		private var player_Density:Number;
 		private var player_Restitution:Number;
 		private var player_LinearDamping:Number;
-		
-		public static var jumping:Boolean;
 		
 		/**Constructor*/
 		public function Player(xPos:Number, yPos:Number, size:Number)
@@ -68,8 +66,6 @@ package Assets
 			playerJoints = new b2RevoluteJointDef();
 			
 			STATE = IDLE;
-			
-			jumping = false;
 			
 			make();
 		}
@@ -151,26 +147,19 @@ package Assets
 			Stage.sprites.addChild(playerClip);
 		}
 		
-		/**Child Update [called by Object's update]**/
-		public override function childUpdate():void
-		{
-//			trace(STATE);
-			
-			if(Stage.player.GetPosition().x > 20  &&  Stage.player.GetPosition().x < 30){
+		/**Child Update [called by Object's update]*/
+		public override function childUpdate():void{
+			if(STATE == R_WALK){
 				playerClip.gotoAndStop("walking_right");
-				STATE = R_WALK;
 			}
-			else if(Stage.player.GetPosition().x > 30  &&  Stage.player.GetPosition().x < 40){
+			else if(STATE == L_WALK){
 				playerClip.gotoAndStop("walking_left");				
-				STATE = L_WALK;
 			}
-			else if(Stage.player.GetPosition().y < 10){
+			else if(STATE == JUMPING){
 				playerClip.gotoAndStop("jumping");
-				STATE = JUMPING;
 			}
 			else{
 				playerClip.gotoAndStop("idle");
-				STATE = IDLE;
 			}
 				
 			 

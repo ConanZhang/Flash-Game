@@ -17,6 +17,7 @@ package Parents
 	import flash.display.Sprite;
 	import flash.events.Event;
 	import flash.events.KeyboardEvent;
+	import flash.ui.Keyboard;
 	import flash.geom.Point;
 
 	public class Stage extends MovieClip
@@ -54,6 +55,14 @@ package Parents
 		private var vertical:Number;
 		//acceleration
 		private var acceleration:Number;
+		//is the player jumping
+		public static var jumping:Boolean;
+		//how long have they been jumping
+		public static var jumpTime:int;
+		//current number of times player can jump
+		public static const defaultJumpAmount:int = 2;
+		//current number of times player can jump
+		public static var jumpAmount:int;
 		
 		/**Constructor*/
 		public function Stage()
@@ -87,6 +96,10 @@ package Parents
 			horizontal = 0;
 			vertical = 0;
 			acceleration = 0;
+			jumping = false;
+			jumpTime = 0;
+			jumpAmount = defaultJumpAmount;
+			
 			/**DEBUGGING*/
 			debugDrawing();
 		}
@@ -125,36 +138,59 @@ package Parents
 			for(var i:uint = 0; i < keyPresses.length;i++){
 				switch(keyPresses[i]){
 					//down arrow
-					case 40:
+					case Keyboard.DOWN:
 						direction.Set(0, 40);
 						player.SetAwake(true);
 						player.ApplyForce(direction, player.GetPosition() );
 						break;
 					//up arrow
-					case 38:
-						if(Player.jumping == false){
-							direction.Set(0,-60);
+					case Keyboard.UP:
+						//initial jump
+						if(jumping == false){
+							jumping = true;
+							direction.Set(0,-23);
 							player.SetAwake(true);
 							player.ApplyImpulse(direction, player.GetPosition() );
 						}
+						//continuing initial jump
+						else if(jumping == true && 
+								jumpTime <= 5 && 
+								jumpAmount == defaultJumpAmount){
+							jumpTime++;
+							direction.Set(0,-700);
+							player.SetAwake(true);
+							player.ApplyForce(direction, player.GetPosition() );
+						}
+						//double jump
+						else if(jumping == true &&
+								jumpTime <= 5 &&
+								jumpAmount < defaultJumpAmount && 
+								jumpAmount > 0){
+							jumpTime++;
+							direction.Set(0,-700);
+							player.SetAwake(true);
+							player.ApplyForce(direction, player.GetPosition() );
+						}
 						break;
 					//left arrow	
-					case 37:
+					case Keyboard.LEFT:
 						//limit speed
 						if(horizontal>-3){
 							direction.Set(-350,0);
 							player.SetAwake(true);
 							player.ApplyForce(direction,player.GetPosition());
 						}
+						Player.STATE = Player.L_WALK;
 						break;
 					//right arrow
-					case 39:
+					case Keyboard.RIGHT:
 						//limit speed
 						if(horizontal<3){
 							direction.Set(350,0);
 							player.SetAwake(true);
 							player.ApplyForce(direction,player.GetPosition());
 						}
+						Player.STATE = Player.R_WALK;
 						break;
 				}
 			}
@@ -210,6 +246,12 @@ package Parents
 					keyPresses.splice(i,1);
 					i--;
 				}
+			}
+			
+			//jumping
+			if(e.keyCode == Keyboard.UP){
+				jumpTime = 0;
+				jumpAmount--;
 			}
 		}
 		

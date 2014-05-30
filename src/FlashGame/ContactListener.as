@@ -20,12 +20,16 @@ package FlashGame
 		override public function BeginContact(contact:b2Contact):void{
 			//fixture A is foot sensor
 			if(contact.GetFixtureA().GetUserData() == "foot"){
-				Player.jumping = false;
+				Stage.jumping = false;
+				Stage.jumpTime = 0;
+				Stage.jumpAmount = Stage.defaultJumpAmount;
 				trace("contact A");
 			}
 			//fixture B is foot sensor
 			else if(contact.GetFixtureB().GetUserData() == "foot"){
-				Player.jumping = false;
+				Stage.jumping = false;
+				Stage.jumpTime = 0;
+				Stage.jumpAmount = Stage.defaultJumpAmount;
 				trace("contact B");
 			}
 		}
@@ -34,12 +38,12 @@ package FlashGame
 		override public function EndContact(contact:b2Contact):void{
 			//fixture A is foot sensor
 			if(contact.GetFixtureA().GetUserData() == "foot"){
-				Player.jumping = true;
+				Stage.jumping = true;
 				trace("remove A");
 			}
 				//fixture B is foot sensor
 			else if(contact.GetFixtureB().GetUserData() == "foot" ){
-				Player.jumping = true;
+				Stage.jumping = true;
 				trace("remove B");
 			}
 		}

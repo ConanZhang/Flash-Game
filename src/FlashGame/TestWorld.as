@@ -33,7 +33,7 @@ package FlashGame
 			var testGround:Ground = new Ground(7, 15, 100, 5);
 			
 			for(var i: int = 0; i < 50; i++){
-				var referenceGround:Ground = new Ground(7+(i*10), 5, 3, 3);
+				var referenceGround:Ground = new Ground(35+(i*10), 5, 3, 3);
 			}
 		}
 	}
