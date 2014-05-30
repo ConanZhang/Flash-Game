@@ -54,6 +54,7 @@ package Parents
 		private var vertical:Number;
 		//acceleration
 		private var acceleration:Number;
+		
 		/**Constructor*/
 		public function Stage()
 		{
@@ -131,8 +132,8 @@ package Parents
 						break;
 					//up arrow
 					case 38:
-						if(true){
-							direction.Set(0,-20);
+						if(Player.jumping == false){
+							direction.Set(0,-60);
 							player.SetAwake(true);
 							player.ApplyImpulse(direction, player.GetPosition() );
 						}

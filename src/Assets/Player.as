@@ -42,14 +42,13 @@ package Assets
 		//BOX2D COLLISION & PHYSICS
 		private var collisionBody:b2Body;
 		private var playerFixture:b2FixtureDef;
-		private var playerFootSensor:b2Fixture;
 		private var playerJoints:b2RevoluteJointDef;
 		private var player_Friction:Number;
 		private var player_Density:Number;
 		private var player_Restitution:Number;
 		private var player_LinearDamping:Number;
 		
-		public static var footContacts:int;
+		public static var jumping:Boolean;
 		
 		/**Constructor*/
 		public function Player(xPos:Number, yPos:Number, size:Number)
@@ -70,7 +69,7 @@ package Assets
 			
 			STATE = IDLE;
 			
-			footContacts = 0;
+			jumping = false;
 			
 			make();
 		}
@@ -113,6 +112,22 @@ package Assets
 			var feet:b2Body = world_Sprite.CreateBody(playerCollision);
 			feet.CreateFixture(playerFixture);
 			
+			/**Sensor*/
+			playerShape = new b2PolygonShape();
+			playerShape.SetAsBox(player_Width/3.74, player_Height/100);
+			
+			playerFixture.isSensor = true;
+			playerFixture.userData = "foot";
+			
+			playerFixture.shape = playerShape;
+			playerFixture.friction = player_Friction;
+			playerFixture.density = player_Density;
+			playerFixture.restitution = player_Restitution;
+			
+			playerCollision.position.Set(position.x + player_Width/2, position.y + player_Height);
+			var footSensor:b2Body = world_Sprite.CreateBody(playerCollision);
+			footSensor.CreateFixture(playerFixture);
+			
 			/**Connecting body*/
 			//head to feet
 			playerJoints.enableLimit = true;
@@ -123,21 +138,13 @@ package Assets
 			playerJoints.Initialize(collisionBody, feet, new b2Vec2(position.x + player_Width/2, position.y + player_Height/2) );
 			world_Sprite.CreateJoint(playerJoints);
 			
-			/**Sensor*/
-			playerShape = new b2PolygonShape();
-			playerShape.SetAsBox(player_Width*2, player_Height*2);
-			playerCollision.position.Set(position.x + player_Width/2, position.y + player_Height/2);
-			
-			playerFixture.isSensor = true;
-			
-			playerFootSensor = collisionBody.CreateFixture(playerFixture);
-			playerFootSensor.SetUserData(3);
-			
-			
+			//feet to sensor
+			playerJoints.Initialize(feet, footSensor, new b2Vec2(position.x + player_Width/2, position.y + player_Height/2) );
+			world_Sprite.CreateJoint(playerJoints);
 			
 			//Sprite
-			playerClip = new MovieClip();
-//			playerClip = new player_walking();
+//			playerClip = new MovieClip();
+			playerClip = new player_idle();
 			playerClip.width = player_Width*metricPixRatio;
 			playerClip.height = player_Height*metricPixRatio;
 			super.sprite = playerClip;
