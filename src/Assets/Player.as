@@ -37,7 +37,7 @@ package Assets
 		private const IDLE    :int = 0;
 		private const R_WALK  :int = 1;
 		private const L_WALK  :int = 2;
-		private const JUMPING :int = 3;		
+		private const JUMPING :int = 3;
 		
 		//BOX2D COLLISION & PHYSICS
 		private var collisionBody:b2Body;
@@ -136,7 +136,7 @@ package Assets
 			
 			//Sprite
 //			playerClip = new MovieClip();
-			playerClip = new player_walking();
+			playerClip = new player();
 			playerClip.width = player_Width*metricPixRatio;
 			playerClip.height = player_Height*metricPixRatio;
 			super.sprite = playerClip;
@@ -146,7 +146,26 @@ package Assets
 		/**Child Update [called by Object's update]**/
 		public override function childUpdate():void
 		{
+//			trace(STATE);
 			
+			if(Stage.player.GetPosition().x > 20  &&  Stage.player.GetPosition().x < 30){
+				playerClip.gotoAndStop("walking_right");
+				STATE = R_WALK;
+			}
+			else if(Stage.player.GetPosition().x > 30  &&  Stage.player.GetPosition().x < 40){
+				playerClip.gotoAndStop("walking_left");				
+				STATE = L_WALK;
+			}
+			else if(Stage.player.GetPosition().y < 10){
+				playerClip.gotoAndStop("jumping");
+				STATE = JUMPING;
+			}
+			else{
+				playerClip.gotoAndStop("idle");
+				STATE = IDLE;
+			}
+				
+			 
 		}
 		
 		/**Setters*/
