@@ -17,8 +17,8 @@ package Parents
 	import flash.display.Sprite;
 	import flash.events.Event;
 	import flash.events.KeyboardEvent;
-	import flash.ui.Keyboard;
 	import flash.geom.Point;
+	import flash.ui.Keyboard;
 
 	public class Stage extends MovieClip
 	{
@@ -50,19 +50,24 @@ package Parents
 		//the last position the player was (for speed calculation)
 		private var lastPos:Point;
 		//horizontal speed
-		private var horizontal:Number;
+		private static var horizontal:Number;
 		//vertical speed
-		private var vertical:Number;
+		private static var vertical:Number;
 		//acceleration
 		private var acceleration:Number;
 		//is the player jumping
 		public static var jumping:Boolean;
+		//is the player wall jumping from the right
+		public static var rightWall:Boolean;
+		//is the player wall jumping from the left
+		public static var leftWall:Boolean;
 		//how long have they been jumping
 		public static var jumpTime:int;
 		//current number of times player can jump
 		public static const defaultJumpAmount:int = 2;
 		//current number of times player can jump
 		public static var jumpAmount:int;
+		
 		
 		/**Constructor*/
 		public function Stage()
@@ -97,6 +102,8 @@ package Parents
 			vertical = 0;
 			acceleration = 0;
 			jumping = false;
+			rightWall = false;
+			leftWall = false;
 			jumpTime = 0;
 			jumpAmount = defaultJumpAmount;
 			
@@ -146,11 +153,12 @@ package Parents
 					//up arrow
 					case Keyboard.UP:
 						//initial jump
-						if(jumping == false){
+						if(jumping == false && !rightWall && !leftWall){
 							jumping = true;
-							direction.Set(0,-23);
+							direction.Set(0,-35);
 							player.SetAwake(true);
 							player.ApplyImpulse(direction, player.GetPosition() );
+							Player.STATE = Player.JUMPING;
 						}
 						//continuing initial jump
 						else if(jumping == true && 
@@ -167,9 +175,25 @@ package Parents
 								jumpAmount < defaultJumpAmount && 
 								jumpAmount > 0){
 							jumpTime++;
-							direction.Set(0,-700);
+							direction.Set(0,-30);
 							player.SetAwake(true);
-							player.ApplyForce(direction, player.GetPosition() );
+							player.ApplyImpulse(direction, player.GetPosition() );
+						}
+						//initial jump off right wall
+						else if(rightWall){
+							jumping = true;
+							direction.Set(-120,-43);
+							player.SetAwake(true);
+							player.ApplyImpulse(direction, player.GetPosition() );
+							Player.STATE = Player.JUMPING;
+						}
+						//initial jump off left wall
+						else if(leftWall){
+							jumping = true;
+							direction.Set(120,-43);
+							player.SetAwake(true);
+							player.ApplyImpulse(direction, player.GetPosition() );
+							Player.STATE = Player.JUMPING;
 						}
 						break;
 					//left arrow	
@@ -179,8 +203,11 @@ package Parents
 							direction.Set(-350,0);
 							player.SetAwake(true);
 							player.ApplyForce(direction,player.GetPosition());
+							Player.playerRotation = -40;
 						}
-						Player.STATE = Player.L_WALK;
+						if(!jumping){
+							Player.STATE = Player.L_WALK;
+						}
 						break;
 					//right arrow
 					case Keyboard.RIGHT:
@@ -189,8 +216,11 @@ package Parents
 							direction.Set(350,0);
 							player.SetAwake(true);
 							player.ApplyForce(direction,player.GetPosition());
+							Player.playerRotation = 40;
 						}
-						Player.STATE = Player.R_WALK;
+						if(!jumping){
+							Player.STATE = Player.R_WALK;
+						}
 						break;
 				}
 			}
@@ -230,7 +260,7 @@ package Parents
 				}
 			}
 			
-			//add to array it wasn't in it
+			//add to array if wasn't in it
 			if(!inArray){
 				keyPresses.push(e.keyCode);
 			}
@@ -251,7 +281,13 @@ package Parents
 			//jumping
 			if(e.keyCode == Keyboard.UP){
 				jumpTime = 0;
-				jumpAmount--;
+				if(jumpAmount > 0){
+					jumpAmount--;
+				}
+			}
+			//movement
+			else if(e.keyCode == Keyboard.RIGHT && !jumping || e.keyCode == Keyboard.LEFT && !jumping){
+				Player.STATE = Player.IDLE;
 			}
 		}
 		
@@ -270,6 +306,15 @@ package Parents
 				images = imagesP;
 			}
 		}
+		
+		/**Get for Debug*/
+		static public function get horizontalSpeed():Number{return horizontal;}
+		static public function get verticalSpeed():Number{return vertical;}
+		static public function get jumpsRemaining():int{return jumpAmount;}
+		static public function get isJumping():Boolean{return jumping;}
+		static public function get timeJumping():int{return jumpTime;}
+		static public function get rightContact():Boolean{return rightWall;}
+		static public function get leftContact():Boolean{return leftWall;}
 		
 		/**Draws Box2D collision shapes*/
 		private function debugDrawing():void{

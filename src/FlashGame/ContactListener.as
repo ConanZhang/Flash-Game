@@ -18,33 +18,41 @@ package FlashGame
 		
 		/**Collision begins*/
 		override public function BeginContact(contact:b2Contact):void{
-			//fixture A is foot sensor
-			if(contact.GetFixtureA().GetUserData() == "foot"){
+			if(contact.GetFixtureA().GetUserData() == "FOOT"){
 				Stage.jumping = false;
 				Stage.jumpTime = 0;
 				Stage.jumpAmount = Stage.defaultJumpAmount;
-				trace("contact A");
+				Player.STATE = Player.IDLE;
 			}
-			//fixture B is foot sensor
-			else if(contact.GetFixtureB().GetUserData() == "foot"){
+			else if(contact.GetFixtureA().GetUserData() == "RIGHT"){
 				Stage.jumping = false;
 				Stage.jumpTime = 0;
 				Stage.jumpAmount = Stage.defaultJumpAmount;
-				trace("contact B");
+				Stage.rightWall = true;
+			}
+			else if(contact.GetFixtureA().GetUserData() == "LEFT"){
+				Stage.jumping = false;
+				Stage.jumpTime = 0;
+				Stage.jumpAmount = Stage.defaultJumpAmount;
+				Stage.leftWall = true;
 			}
 		}
 		
 		/**Collison ends*/
 		override public function EndContact(contact:b2Contact):void{
-			//fixture A is foot sensor
-			if(contact.GetFixtureA().GetUserData() == "foot"){
+			if(contact.GetFixtureA().GetUserData() == "FOOT"){
 				Stage.jumping = true;
-				trace("remove A");
+				Player.STATE = Player.JUMPING;
 			}
-				//fixture B is foot sensor
-			else if(contact.GetFixtureB().GetUserData() == "foot" ){
+			else if(contact.GetFixtureA().GetUserData() == "RIGHT"){
+				Stage.rightWall = false;
 				Stage.jumping = true;
-				trace("remove B");
+				Player.STATE = Player.JUMPING;
+			}
+			else if(contact.GetFixtureA().GetUserData() == "LEFT"){
+				Stage.leftWall = false;
+				Stage.jumping = true;
+				Player.STATE = Player.JUMPING;
 			}
 		}
 	}

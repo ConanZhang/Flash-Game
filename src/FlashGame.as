@@ -3,7 +3,7 @@
  */
 package
 {
-	import FlashGame.DebugScreen;
+		import FlashGame.DebugScreen;
 	import FlashGame.TestWorld;
 	
 	import flash.display.MovieClip;
@@ -11,7 +11,7 @@ package
 	import flash.events.KeyboardEvent;
 	
 	/**SWF Options*/
-	[SWF(backgroundColor="#FFFFFF", width="800", height="600", frameRate="30")]
+	[SWF(backgroundColor="#FFFFFF", width="1600", height="800", frameRate="30")]
 	
 	public class FlashGame extends Sprite
 	{
@@ -27,7 +27,7 @@ package
 			test.stage.addEventListener(KeyboardEvent.KEY_DOWN, test.keyPressed, false, 0, true);
 			test.stage.addEventListener(KeyboardEvent.KEY_UP, test.keyReleased, false, 0, true);
 			
-			//display frame rate
+			//display debug information
 			debug = new DebugScreen(this);
 		}
 	}

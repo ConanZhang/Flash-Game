@@ -31,6 +31,7 @@ package Assets
 		private var playerClip:MovieClip;
 		private var player_Width:Number;
 		private var player_Height:Number;
+		public static var playerRotation: int;
 		
 		//ANIMATION STATES
 		public static var   STATE   :int;
@@ -53,13 +54,14 @@ package Assets
 		{
 			//assign parameters to class member variables
 			position = new Point(xPos, yPos);
+			playerRotation = 40;
 			
 			//initialize default private variables
 			player_Width = size;
 			player_Height = size;
 			player_Friction = 0.5;
 			player_Density = 0.22;
-			player_Restitution = 0.1;
+			player_Restitution = 0.2;
 			player_LinearDamping = 1.75;
 			
 			playerFixture = new b2FixtureDef();
@@ -108,12 +110,12 @@ package Assets
 			var feet:b2Body = world_Sprite.CreateBody(playerCollision);
 			feet.CreateFixture(playerFixture);
 			
-			/**Sensor*/
+			/**Foot Sensor*/
 			playerShape = new b2PolygonShape();
 			playerShape.SetAsBox(player_Width/3.74, player_Height/100);
 			
 			playerFixture.isSensor = true;
-			playerFixture.userData = "foot";
+			playerFixture.userData = "FOOT";
 			
 			playerFixture.shape = playerShape;
 			playerFixture.friction = player_Friction;
@@ -123,6 +125,38 @@ package Assets
 			playerCollision.position.Set(position.x + player_Width/2, position.y + player_Height);
 			var footSensor:b2Body = world_Sprite.CreateBody(playerCollision);
 			footSensor.CreateFixture(playerFixture);
+			
+			/**Right Side Sensor*/
+			playerShape = new b2PolygonShape();
+			playerShape.SetAsBox(player_Width/100, player_Height/2.75);
+			
+			playerFixture.isSensor = true;
+			playerFixture.userData = "RIGHT";
+			
+			playerFixture.shape = playerShape;
+			playerFixture.friction = player_Friction;
+			playerFixture.density = player_Density;
+			playerFixture.restitution = player_Restitution;
+			
+			playerCollision.position.Set(position.x + player_Width/1.285, position.y + player_Height/1.6);
+			var rightSensor:b2Body = world_Sprite.CreateBody(playerCollision);
+			rightSensor.CreateFixture(playerFixture);
+			
+			/**LEFT Side Sensor*/
+			playerShape = new b2PolygonShape();
+			playerShape.SetAsBox(player_Width/100, player_Height/2.75);
+			
+			playerFixture.isSensor = true;
+			playerFixture.userData = "LEFT";
+			
+			playerFixture.shape = playerShape;
+			playerFixture.friction = player_Friction;
+			playerFixture.density = player_Density;
+			playerFixture.restitution = player_Restitution;
+			
+			playerCollision.position.Set(position.x + player_Width/4.5, position.y + player_Height/1.6);
+			var leftSensor:b2Body = world_Sprite.CreateBody(playerCollision);
+			leftSensor.CreateFixture(playerFixture);
 			
 			/**Connecting body*/
 			//head to feet
@@ -138,6 +172,14 @@ package Assets
 			playerJoints.Initialize(feet, footSensor, new b2Vec2(position.x + player_Width/2, position.y + player_Height/2) );
 			world_Sprite.CreateJoint(playerJoints);
 			
+			//head to right sensor
+			playerJoints.Initialize(collisionBody, rightSensor, new b2Vec2(position.x + player_Width/2, position.y + player_Height/2) );
+			world_Sprite.CreateJoint(playerJoints);
+			
+			//head to left sensor
+			playerJoints.Initialize(collisionBody, leftSensor, new b2Vec2(position.x + player_Width/2, position.y + player_Height/2) );
+			world_Sprite.CreateJoint(playerJoints);
+			
 			//Sprite
 //			playerClip = new MovieClip();
 			playerClip = new player();
@@ -151,18 +193,20 @@ package Assets
 		public override function childUpdate():void{
 			if(STATE == R_WALK){
 				playerClip.gotoAndStop("walking_right");
+				playerClip.rotation = 0;
 			}
 			else if(STATE == L_WALK){
-				playerClip.gotoAndStop("walking_left");				
+				playerClip.gotoAndStop("walking_left");		
+				playerClip.rotation = 0;
 			}
 			else if(STATE == JUMPING){
 				playerClip.gotoAndStop("jumping");
+				playerClip.rotation += playerRotation;
 			}
-			else{
+			else if(STATE == IDLE){
 				playerClip.gotoAndStop("idle");
+				playerClip.rotation = 0;
 			}
-				
-			 
 		}
 		
 		/**Setters*/

@@ -1,6 +1,7 @@
 package FlashGame
 {
 	import Parents.Stage;
+	import Assets.Player;
 	
 	import flash.display.MovieClip;
 	import flash.display.Sprite;
@@ -17,8 +18,8 @@ package FlashGame
 		public var frameRate:Number;
 		//display counter
 		public var FPS:TextField;
-		//player location display
-		public var playerPos:TextField;
+		//debug display
+		public var debug:TextField;
 		
 		
 		private var screen:Sprite;
@@ -34,13 +35,14 @@ package FlashGame
 			FPS = new TextField();
 			this.addChild(FPS);
 			
-			playerPos = new TextField();
-			playerPos.width = 200;
-			playerPos.y = FPS.y + 15;
-			this.addChild(playerPos);
+			debug = new TextField();
+			debug.width = 200;
+			debug.height = stage.stageHeight;
+			debug.y = FPS.y + 30;
+			this.addChild(debug);
 			
 			this.addEventListener(Event.ENTER_FRAME, countFPS);
-			this.addEventListener(Event.ENTER_FRAME, playerPosition);
+			this.addEventListener(Event.ENTER_FRAME, debugGet);
 		}
 		
 		/**Get & Display FPS*/
@@ -60,9 +62,18 @@ package FlashGame
 		}
 		
 		/**Get & Display Player Position*/
-		public function playerPosition(e:Event):void{
-			playerPos.text = "Player X: " + Stage.player.GetPosition().x + "\n" +
-							 "Player Y: " + Stage.player.GetPosition().y;
+		public function debugGet(e:Event):void{
+			debug.text = 	"Player X: " + Stage.player.GetPosition().x + "\n" +
+							  	"Player Y: " + Stage.player.GetPosition().y + "\n" + "\n" +
+							   	"Player Animation State: " + Player.STATE 	+ "\n" + "\n" +
+								"Player X Velocity: " + Stage.horizontalSpeed + "\n" + 
+								"Player Y Velocity: " + Stage.verticalSpeed + "\n" + "\n" +
+								"Player Jumps Remaining: " + Stage.jumpAmount + "\n" +
+								"Jumping/Airbourne: " + Stage.isJumping + "\n" + 
+								"Jump Time: " + Stage.jumpTime + "\n" + "\n" +
+								"Right Wall: " + Stage.rightContact + "\n" +
+								"Left Wall: " + Stage.leftContact + "\n" + "\n" +
+								"Collidable Body Count: " + (Stage.world.GetBodyCount()-5);
 		}
 	}
 }

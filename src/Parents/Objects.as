@@ -38,7 +38,6 @@ package Parents
 		private function updateSprite():void{
 			_sprite.x = _body.GetPosition().x * Stage.metricPixRatio;
 			_sprite.y = _body.GetPosition().y * Stage.metricPixRatio;
-			_sprite.rotation = _body.GetAngle()*180/Math.PI;
 		}
 		
 		/**Overwritten by child for it's own update*/
@@ -72,7 +71,7 @@ package Parents
 			_body.SetUserData(this);
 		}
 		
-		/**Sets sprite*/
+		/**Set sprite*/
 		public function set sprite(spriteP:DisplayObject):void{
 			_sprite = spriteP;
 			updateSprite();
