@@ -57,6 +57,8 @@ package Parents
 		private var acceleration:Number;
 		//is the player jumping
 		public static var jumping:Boolean;
+		//is the player air jumping
+		public static var airJumping:Boolean;
 		//is the player wall jumping from the right
 		public static var rightWall:Boolean;
 		//is the player wall jumping from the left
@@ -102,6 +104,7 @@ package Parents
 			vertical = 0;
 			acceleration = 0;
 			jumping = false;
+			airJumping = false;
 			rightWall = false;
 			leftWall = false;
 			jumpTime = 0;
@@ -146,7 +149,7 @@ package Parents
 				switch(keyPresses[i]){
 					//down arrow
 					case Keyboard.DOWN:
-						direction.Set(0, 40);
+						direction.Set(0, 300);
 						player.SetAwake(true);
 						player.ApplyForce(direction, player.GetPosition() );
 						break;
@@ -169,15 +172,30 @@ package Parents
 							player.SetAwake(true);
 							player.ApplyForce(direction, player.GetPosition() );
 						}
-						//double jump
+						//air jump initial
 						else if(jumping == true &&
-								jumpTime <= 5 &&
 								jumpAmount < defaultJumpAmount && 
+								jumpAmount > 0 &&
+								!airJumping){
+							jumpTime = 0;
+							airJumping = true;
+							direction.Set(player.GetLinearVelocity().x,-30);
+							player.SetLinearVelocity(direction);
+						}
+						//continuing air jump
+						else if(airJumping == true && 
+								jumpTime <=5 && 
 								jumpAmount > 0){
 							jumpTime++;
-							direction.Set(0,-30);
+							direction.Set(0,-700);
 							player.SetAwake(true);
-							player.ApplyImpulse(direction, player.GetPosition() );
+							player.ApplyForce(direction, player.GetPosition() );
+						}
+						//hover
+						else if(jumpTime == 6 && player.GetLinearVelocity().y > 0){
+							direction.Set(0,-150);
+							player.SetAwake(true);
+							player.ApplyForce(direction, player.GetPosition() );
 						}
 						//initial jump off right wall
 						else if(rightWall){
@@ -280,7 +298,7 @@ package Parents
 			
 			//jumping
 			if(e.keyCode == Keyboard.UP){
-				jumpTime = 0;
+				airJumping = false;
 				if(jumpAmount > 0){
 					jumpAmount--;
 				}

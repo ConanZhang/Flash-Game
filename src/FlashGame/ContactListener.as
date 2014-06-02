@@ -20,18 +20,21 @@ package FlashGame
 		override public function BeginContact(contact:b2Contact):void{
 			if(contact.GetFixtureA().GetUserData() == "FOOT"){
 				Stage.jumping = false;
+				Stage.airJumping = false;
 				Stage.jumpTime = 0;
 				Stage.jumpAmount = Stage.defaultJumpAmount;
 				Player.STATE = Player.IDLE;
 			}
 			else if(contact.GetFixtureA().GetUserData() == "RIGHT"){
 				Stage.jumping = false;
+				Stage.airJumping = false;
 				Stage.jumpTime = 0;
 				Stage.jumpAmount = Stage.defaultJumpAmount;
 				Stage.rightWall = true;
 			}
 			else if(contact.GetFixtureA().GetUserData() == "LEFT"){
 				Stage.jumping = false;
+				Stage.airJumping = false;
 				Stage.jumpTime = 0;
 				Stage.jumpAmount = Stage.defaultJumpAmount;
 				Stage.leftWall = true;
