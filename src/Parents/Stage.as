@@ -193,7 +193,7 @@ package Parents
 							player.ApplyForce(direction, player.GetPosition() );
 						}
 						//hover
-						else if(jumpTime == 6 && player.GetLinearVelocity().y > 0){
+						else if(jumpTime == 6 && player.GetLinearVelocity().y > 0 || jumpAmount == 0){
 							direction.Set(0,-150);
 							player.SetAwake(true);
 							player.ApplyForce(direction, player.GetPosition() );
