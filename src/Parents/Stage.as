@@ -37,6 +37,8 @@ package Parents
 		private var initial:Boolean;
 		//array to hold key presses
 		private var keyPresses:Array;
+		private var slowMotion:Boolean;
+		private var speed:Number;
 		
 		/**WORLD*/
 		//world for all objects to exist in
@@ -65,6 +67,8 @@ package Parents
 		public static var leftWall:Boolean;
 		//how long have they been jumping
 		public static var jumpTime:int;
+		//limit to length of jumping
+		public static var jumpLimit:int;
 		//current number of times player can jump
 		public static const defaultJumpAmount:int = 2;
 		//current number of times player can jump
@@ -97,6 +101,8 @@ package Parents
 			var doSleep:Boolean = true;//don't simulate sleeping bodies
 			worldStage = new b2World(gravity, doSleep);
 			worldStage.SetContactListener(new ContactListener() );
+			slowMotion = false;
+			speed = 1;
 			
 			/**PLAYER*/
 			lastPos = new Point();
@@ -108,6 +114,7 @@ package Parents
 			rightWall = false;
 			leftWall = false;
 			jumpTime = 0;
+			jumpLimit = 5;
 			jumpAmount = defaultJumpAmount;
 			
 			/**DEBUGGING*/
@@ -139,6 +146,17 @@ package Parents
 				//if they exist update them
 				if(bodies.GetUserData() != null){
 					bodies.GetUserData().update();
+					
+					//slow motion
+					var bodyVelocity:b2Vec2 = bodies.GetLinearVelocity();
+					if(slowMotion == true){
+						var slowVelocity:b2Vec2 = new b2Vec2(bodyVelocity.x*0.5,bodyVelocity.y*0.5);
+						
+						bodies.SetLinearVelocity(slowVelocity);
+					}
+					else if(slowMotion == false){
+						bodies.SetLinearVelocity(bodyVelocity);
+					}
 				}
 			}
 			
@@ -147,7 +165,7 @@ package Parents
 			
 			for(var i:uint = 0; i < keyPresses.length;i++){
 				switch(keyPresses[i]){
-					case Keyboard.DOWN:
+					case Keyboard.S:
 						//downward velocity in air
 						if(jumping){
 							direction.Set(0, 90);
@@ -155,7 +173,7 @@ package Parents
 							player.ApplyForce(direction, player.GetPosition() );
 						}
 						break;
-					case Keyboard.UP:
+					case Keyboard.W:
 						//initial jump
 						if(jumping == false && !rightWall && !leftWall){
 							jumping = true;
@@ -166,7 +184,7 @@ package Parents
 						}
 						//continuing initial jump
 						else if(jumping == true && 
-								jumpTime <= 5 && 
+								jumpTime <= jumpLimit && 
 								jumpAmount == defaultJumpAmount){
 							jumpTime++;
 							direction.Set(0,-500);
@@ -185,7 +203,7 @@ package Parents
 						}
 						//continuing air jump
 						else if(airJumping == true && 
-								jumpTime <=5 && 
+								jumpTime <= jumpLimit && 
 								jumpAmount > 0){
 							jumpTime++;
 							direction.Set(0,-500);
@@ -193,7 +211,7 @@ package Parents
 							player.ApplyForce(direction, player.GetPosition() );
 						}
 						//hover
-						else if(jumpTime == 6 && player.GetLinearVelocity().y > 0 || jumpAmount == 0){
+						else if(jumpTime == jumpLimit+1 && player.GetLinearVelocity().y > 0 || jumpAmount == 0){
 							direction.Set(0,-150);
 							player.SetAwake(true);
 							player.ApplyForce(direction, player.GetPosition() );
@@ -201,7 +219,7 @@ package Parents
 						//initial jump off right wall
 						else if(rightWall){
 							jumping = true;
-							direction.Set(-120,-43);
+							direction.Set(-90*speed,-43);
 							player.SetAwake(true);
 							player.ApplyImpulse(direction, player.GetPosition() );
 							Player.STATE = Player.JUMPING;
@@ -209,52 +227,69 @@ package Parents
 						//initial jump off left wall
 						else if(leftWall){
 							jumping = true;
-							direction.Set(120,-43);
+							direction.Set(90*speed,-43);
 							player.SetAwake(true);
 							player.ApplyImpulse(direction, player.GetPosition() );
 							Player.STATE = Player.JUMPING;
 						}
-						break;
-					//left arrow	
-					case Keyboard.LEFT:
+						break;	
+					case Keyboard.A:
 						//limit speed
-						if(horizontal>-1.5 && leftWall == false){
-							direction.Set(-300,0);
+						if(horizontal>-2 && leftWall == false){
+							direction.Set(-250,0);
 							player.SetAwake(true);
 							player.ApplyForce(direction,player.GetPosition());
-							Player.playerRotation = -40;
+							if(slowMotion){
+								Player.playerRotation = -20;
+							}
+							else{
+								Player.playerRotation = -40;
+							}
 						}
 						//wall slide
 						else if(leftWall == true){
 							direction.Set(-200,0);
 							player.SetAwake(true);
 							player.ApplyForce(direction,player.GetPosition());
-							Player.playerRotation = -40;
 						}
 						//animation
 						if(!jumping){
 							Player.STATE = Player.L_WALK;
 						}
 						break;
-					//right arrow
-					case Keyboard.RIGHT:
+					case Keyboard.D:
 						//limit speed
-						if(horizontal<15 && rightWall == false){
-							direction.Set(300,0);
+						if(horizontal<2 && rightWall == false){
+							direction.Set(250,0);
 							player.SetAwake(true);
 							player.ApplyForce(direction,player.GetPosition());
-							Player.playerRotation = 40;
+							if(slowMotion){
+								Player.playerRotation = 20;
+							}
+							else{
+								Player.playerRotation = 40;
+							}
 						}
 						//wall slide
 						else if(rightWall == true){
 							direction.Set(200,0);
 							player.SetAwake(true);
 							player.ApplyForce(direction,player.GetPosition());
-							Player.playerRotation = -40;
 						}
 						//animation
 						if(!jumping){
 							Player.STATE = Player.R_WALK;
+						}
+						break;
+					case Keyboard.SPACE:
+						if(slowMotion == false){
+							slowMotion = true;
+							jumpLimit = 12;
+							Player.playerRotation*=0.5;
+							speed = 0.75;
+							if(jumpTime == 6){
+								jumpTime = 13;
+							}
 						}
 						break;
 				}
@@ -314,15 +349,24 @@ package Parents
 			}
 			
 			//jumping
-			if(e.keyCode == Keyboard.UP){
+			if(e.keyCode == Keyboard.W){
 				airJumping = false;
 				if(jumpAmount > 0){
 					jumpAmount--;
 				}
 			}
 			//movement
-			else if(e.keyCode == Keyboard.RIGHT && !jumping || e.keyCode == Keyboard.LEFT && !jumping){
+			else if(e.keyCode == Keyboard.D && !jumping || e.keyCode == Keyboard.A && !jumping){
 				Player.STATE = Player.IDLE;
+			}
+			//slow motion
+			else if(e.keyCode == Keyboard.SPACE){
+				if(slowMotion == true){
+					slowMotion = false;
+					jumpLimit = 5;
+					Player.playerRotation *= 2;
+					speed = 1;
+				}
 			}
 		}
 		

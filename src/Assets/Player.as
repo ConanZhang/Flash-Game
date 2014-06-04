@@ -62,7 +62,7 @@ package Assets
 			player_Friction = 0.5;
 			player_Density = 0.4;
 			player_Restitution = 0;
-			player_LinearDamping = 2.5;
+			player_LinearDamping = 2;
 			
 			playerFixture = new b2FixtureDef();
 			playerJoints = new b2RevoluteJointDef();
@@ -99,7 +99,7 @@ package Assets
 			
 			/**Feet*/
 			playerShape = new b2PolygonShape();
-			playerShape.SetAsBox(player_Width/3.74, player_Height/8.1);
+			playerShape.SetAsBox(player_Width/3.73, player_Height/8.1);
 
 			playerFixture.shape = playerShape;
 			playerFixture.friction = player_Friction;
