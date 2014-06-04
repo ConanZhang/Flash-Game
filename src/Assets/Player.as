@@ -142,7 +142,7 @@ package Assets
 			var rightSensor:b2Body = world_Sprite.CreateBody(playerCollision);
 			rightSensor.CreateFixture(playerFixture);
 			
-			/**LEFT Side Sensor*/
+			/**Left Side Sensor*/
 			playerShape = new b2PolygonShape();
 			playerShape.SetAsBox(player_Width/100, player_Height/2.75);
 			

@@ -114,7 +114,7 @@ package Parents
 			debugDrawing();
 		}
 		
-		/**Stages can update their properties*/
+		/**Stages can uSpdate their properties*/
 		public function update(e:Event):void{
 			//get last position player was in for initial speed calculation
 			if(initial){
@@ -147,15 +147,14 @@ package Parents
 			
 			for(var i:uint = 0; i < keyPresses.length;i++){
 				switch(keyPresses[i]){
-					//down arrow
 					case Keyboard.DOWN:
+						//downward velocity in air
 						if(jumping){
 							direction.Set(0, 90);
 							player.SetAwake(true);
 							player.ApplyForce(direction, player.GetPosition() );
 						}
 						break;
-					//up arrow
 					case Keyboard.UP:
 						//initial jump
 						if(jumping == false && !rightWall && !leftWall){
@@ -219,12 +218,20 @@ package Parents
 					//left arrow	
 					case Keyboard.LEFT:
 						//limit speed
-						if(horizontal>-1.5){
+						if(horizontal>-1.5 && leftWall == false){
 							direction.Set(-300,0);
 							player.SetAwake(true);
 							player.ApplyForce(direction,player.GetPosition());
 							Player.playerRotation = -40;
 						}
+						//wall slide
+						else if(leftWall == true){
+							direction.Set(-200,0);
+							player.SetAwake(true);
+							player.ApplyForce(direction,player.GetPosition());
+							Player.playerRotation = -40;
+						}
+						//animation
 						if(!jumping){
 							Player.STATE = Player.L_WALK;
 						}
@@ -232,12 +239,20 @@ package Parents
 					//right arrow
 					case Keyboard.RIGHT:
 						//limit speed
-						if(horizontal<15){
+						if(horizontal<15 && rightWall == false){
 							direction.Set(300,0);
 							player.SetAwake(true);
 							player.ApplyForce(direction,player.GetPosition());
 							Player.playerRotation = 40;
 						}
+						//wall slide
+						else if(rightWall == true){
+							direction.Set(200,0);
+							player.SetAwake(true);
+							player.ApplyForce(direction,player.GetPosition());
+							Player.playerRotation = -40;
+						}
+						//animation
 						if(!jumping){
 							Player.STATE = Player.R_WALK;
 						}

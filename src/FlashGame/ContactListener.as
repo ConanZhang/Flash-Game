@@ -3,6 +3,7 @@
  */
 package FlashGame
 {
+	import Assets.Platform;
 	import Assets.Player;
 	
 	import Box2D.Collision.b2ContactPoint;
@@ -38,6 +39,10 @@ package FlashGame
 				Stage.jumpTime = 0;
 				Stage.jumpAmount = Stage.defaultJumpAmount;
 				Stage.leftWall = true;
+			}
+			
+			if(contact.GetFixtureB().GetUserData() == "PLATFORM"){
+				trace("platform");
 			}
 		}
 		

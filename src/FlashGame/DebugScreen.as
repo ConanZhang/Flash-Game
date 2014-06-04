@@ -63,7 +63,7 @@ package FlashGame
 		
 		/**Get & Display Player Position*/
 		public function debugGet(e:Event):void{
-			debug.text = 	"Player X: " + Stage.player.GetPosition().x + "\n" +
+			debug.text = 		"Player X: " + Stage.player.GetPosition().x + "\n" +
 							  	"Player Y: " + Stage.player.GetPosition().y + "\n" + "\n" +
 							   	"Player Animation State: " + Player.STATE 	+ "\n" + "\n" +
 								"Player X Velocity: " + Stage.horizontalSpeed + "\n" + 

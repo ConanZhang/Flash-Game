@@ -3,8 +3,7 @@
  */
 package FlashGame
 {
-	import Assets.Ground;
-	import Assets.Player;
+	import Assets.*;
 	
 	import Parents.Stage;
 	
@@ -35,6 +34,9 @@ package FlashGame
 			//WALLS
 			var leftWall:Ground = new Ground(7,-85, 2.5, 125);
 			var rightWall:Ground = new Ground(23,-85, 2.5, 125);
+			
+			//PLATFORM
+			var platform:Platform = new Platform(40,7, 10, 5);
 		}
 	}
 }
