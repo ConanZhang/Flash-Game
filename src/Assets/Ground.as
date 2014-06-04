@@ -54,7 +54,7 @@ package Assets {
 		public function make():void{
 			//Box2D shape
 			var groundShape:b2PolygonShape = new b2PolygonShape();
-			groundShape.SetAsBox(ground_Width/2, ground_Height/2);
+			groundShape.SetAsBox(ground_Width/2, ground_Height/4);
 			
 			//Box2D shape properties
 			groundFixture.shape = groundShape;

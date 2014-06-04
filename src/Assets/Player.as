@@ -60,9 +60,9 @@ package Assets
 			player_Width = size;
 			player_Height = size;
 			player_Friction = 0.5;
-			player_Density = 0.22;
+			player_Density = 0.4;
 			player_Restitution = 0;
-			player_LinearDamping = 1.75;
+			player_LinearDamping = 2.5;
 			
 			playerFixture = new b2FixtureDef();
 			playerJoints = new b2RevoluteJointDef();

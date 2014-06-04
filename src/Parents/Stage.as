@@ -149,16 +149,18 @@ package Parents
 				switch(keyPresses[i]){
 					//down arrow
 					case Keyboard.DOWN:
-						direction.Set(0, 300);
-						player.SetAwake(true);
-						player.ApplyForce(direction, player.GetPosition() );
+						if(jumping){
+							direction.Set(0, 90);
+							player.SetAwake(true);
+							player.ApplyForce(direction, player.GetPosition() );
+						}
 						break;
 					//up arrow
 					case Keyboard.UP:
 						//initial jump
 						if(jumping == false && !rightWall && !leftWall){
 							jumping = true;
-							direction.Set(0,-35);
+							direction.Set(0,-25);
 							player.SetAwake(true);
 							player.ApplyImpulse(direction, player.GetPosition() );
 							Player.STATE = Player.JUMPING;
@@ -168,7 +170,7 @@ package Parents
 								jumpTime <= 5 && 
 								jumpAmount == defaultJumpAmount){
 							jumpTime++;
-							direction.Set(0,-700);
+							direction.Set(0,-500);
 							player.SetAwake(true);
 							player.ApplyForce(direction, player.GetPosition() );
 						}
@@ -179,7 +181,7 @@ package Parents
 								!airJumping){
 							jumpTime = 0;
 							airJumping = true;
-							direction.Set(player.GetLinearVelocity().x,-30);
+							direction.Set(player.GetLinearVelocity().x,-25);
 							player.SetLinearVelocity(direction);
 						}
 						//continuing air jump
@@ -187,7 +189,7 @@ package Parents
 								jumpTime <=5 && 
 								jumpAmount > 0){
 							jumpTime++;
-							direction.Set(0,-700);
+							direction.Set(0,-500);
 							player.SetAwake(true);
 							player.ApplyForce(direction, player.GetPosition() );
 						}
@@ -217,8 +219,8 @@ package Parents
 					//left arrow	
 					case Keyboard.LEFT:
 						//limit speed
-						if(horizontal>-3){
-							direction.Set(-350,0);
+						if(horizontal>-1.5){
+							direction.Set(-300,0);
 							player.SetAwake(true);
 							player.ApplyForce(direction,player.GetPosition());
 							Player.playerRotation = -40;
@@ -230,8 +232,8 @@ package Parents
 					//right arrow
 					case Keyboard.RIGHT:
 						//limit speed
-						if(horizontal<3){
-							direction.Set(350,0);
+						if(horizontal<15){
+							direction.Set(300,0);
 							player.SetAwake(true);
 							player.ApplyForce(direction,player.GetPosition());
 							Player.playerRotation = 40;
