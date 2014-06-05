@@ -4,11 +4,12 @@
 package
 {
 		import FlashGame.DebugScreen;
-	import FlashGame.TestWorld;
-	
-	import flash.display.MovieClip;
-	import flash.display.Sprite;
-	import flash.events.KeyboardEvent;
+		import FlashGame.TestWorld;
+		
+		import flash.display.MovieClip;
+		import flash.display.Sprite;
+		import flash.events.KeyboardEvent;
+		import flash.events.MouseEvent;
 	
 	/**SWF Options*/
 	[SWF(backgroundColor="#FFFFFF", width="700", height="525", frameRate="30")]

@@ -73,6 +73,8 @@ package FlashGame
 								"Jump Time: " + Stage.jumpTime + "\n" + "\n" +
 								"Right Wall: " + Stage.rightContact + "\n" +
 								"Left Wall: " + Stage.leftContact + "\n" + "\n" +
+								"Slow Motion: " + Stage.usingSlowMotion + "\n" +
+								"Slow Meter: " + Stage.slowMotionAmount + "\n" + "\n" +
 								"Collidable Body Count: " + (Stage.world.GetBodyCount()-5);
 		}
 	}

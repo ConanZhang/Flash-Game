@@ -59,7 +59,7 @@ package Assets
 			//initialize default private variables
 			player_Width = size;
 			player_Height = size;
-			player_Friction = 0.5;
+			player_Friction = 0.4;
 			player_Density = 0.4;
 			player_Restitution = 0;
 			player_LinearDamping = 2;

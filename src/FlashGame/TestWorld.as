@@ -34,6 +34,14 @@ package FlashGame
 			//WALLS
 			var leftWall:Ground = new Ground(7,-85, 2.5, 125);
 			var rightWall:Ground = new Ground(23,-85, 2.5, 125);
+			
+			//PLATFORMS
+			for(var i:int = 0; i < 8; i++){
+				var platform:Ground = new Ground(50+(i*20), 5,10, 3);
+			}
+			
+			//test enemy
+			var testEnemy:FlyingEnemy = new FlyingEnemy(35,10, 2, 3);
 		}
 	}
 }

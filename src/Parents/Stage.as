@@ -37,8 +37,14 @@ package Parents
 		private var initial:Boolean;
 		//array to hold key presses
 		private var keyPresses:Array;
-		private var slowMotion:Boolean;
+		//world is in slow motion
+		private static var slowMotion:Boolean;
+		//amount of slow motion
+		private static var slowAmount:Number;
+		//speed world is; slow motion or normal
 		private var speed:Number;
+		//bar width
+		private var slowBarWidth:Number;
 		
 		/**WORLD*/
 		//world for all objects to exist in
@@ -73,6 +79,8 @@ package Parents
 		public static const defaultJumpAmount:int = 2;
 		//current number of times player can jump
 		public static var jumpAmount:int;
+		//fix player rotation speed after slow motion is over
+		private var slowRotation:Boolean;
 		
 		
 		/**Constructor*/
@@ -102,7 +110,9 @@ package Parents
 			worldStage = new b2World(gravity, doSleep);
 			worldStage.SetContactListener(new ContactListener() );
 			slowMotion = false;
+			slowAmount = 150;
 			speed = 1;
+			slowBarWidth = 225;
 			
 			/**PLAYER*/
 			lastPos = new Point();
@@ -116,6 +126,7 @@ package Parents
 			jumpTime = 0;
 			jumpLimit = 5;
 			jumpAmount = defaultJumpAmount;
+			slowRotation = false;
 			
 			/**DEBUGGING*/
 			debugDrawing();
@@ -149,7 +160,7 @@ package Parents
 					
 					//slow motion
 					var bodyVelocity:b2Vec2 = bodies.GetLinearVelocity();
-					if(slowMotion == true){
+					if(slowMotion == true && slowAmount > 0 ){
 						var slowVelocity:b2Vec2 = new b2Vec2(bodyVelocity.x*0.5,bodyVelocity.y*0.5);
 						
 						bodies.SetLinearVelocity(slowVelocity);
@@ -219,7 +230,8 @@ package Parents
 						//initial jump off right wall
 						else if(rightWall){
 							jumping = true;
-							direction.Set(-90*speed,-43);
+							rightWall = false;
+							direction.Set(-90,-43);
 							player.SetAwake(true);
 							player.ApplyImpulse(direction, player.GetPosition() );
 							Player.STATE = Player.JUMPING;
@@ -227,7 +239,8 @@ package Parents
 						//initial jump off left wall
 						else if(leftWall){
 							jumping = true;
-							direction.Set(90*speed,-43);
+							leftWall = false;
+							direction.Set(90,-43);
 							player.SetAwake(true);
 							player.ApplyImpulse(direction, player.GetPosition() );
 							Player.STATE = Player.JUMPING;
@@ -235,22 +248,16 @@ package Parents
 						break;	
 					case Keyboard.A:
 						//limit speed
-						if(horizontal>-2 && leftWall == false){
-							direction.Set(-250,0);
+						if(horizontal>-2){
+							direction.Set(-250*speed,0);
 							player.SetAwake(true);
 							player.ApplyForce(direction,player.GetPosition());
-							if(slowMotion){
+							if(slowMotion && slowAmount > 0){
 								Player.playerRotation = -20;
 							}
 							else{
 								Player.playerRotation = -40;
 							}
-						}
-						//wall slide
-						else if(leftWall == true){
-							direction.Set(-200,0);
-							player.SetAwake(true);
-							player.ApplyForce(direction,player.GetPosition());
 						}
 						//animation
 						if(!jumping){
@@ -259,22 +266,16 @@ package Parents
 						break;
 					case Keyboard.D:
 						//limit speed
-						if(horizontal<2 && rightWall == false){
-							direction.Set(250,0);
+						if(horizontal<2){
+							direction.Set(250*speed,0);
 							player.SetAwake(true);
 							player.ApplyForce(direction,player.GetPosition());
-							if(slowMotion){
+							if(slowMotion && slowAmount > 0){
 								Player.playerRotation = 20;
 							}
 							else{
 								Player.playerRotation = 40;
 							}
-						}
-						//wall slide
-						else if(rightWall == true){
-							direction.Set(200,0);
-							player.SetAwake(true);
-							player.ApplyForce(direction,player.GetPosition());
 						}
 						//animation
 						if(!jumping){
@@ -282,14 +283,19 @@ package Parents
 						}
 						break;
 					case Keyboard.SPACE:
-						if(slowMotion == false){
+						if(slowMotion == false && slowAmount > 0){
 							slowMotion = true;
 							jumpLimit = 12;
-							Player.playerRotation*=0.5;
+							Player.playerRotation = 20;
+							slowRotation = true;
 							speed = 0.75;
 							if(jumpTime == 6){
 								jumpTime = 13;
 							}
+						}
+						else if(slowAmount > 0 && slowBarWidth > 0){
+							slowAmount-=2.25;
+							slowBarWidth-=3.375;
 						}
 						break;
 				}
@@ -304,6 +310,27 @@ package Parents
 			horizontal = currentVelocity;
 			vertical = currentPos.y - lastPos.y;
 			lastPos = currentPos;
+			
+			//slow meter
+			if(slowAmount < 150 && !slowMotion && slowBarWidth < 225){
+				slowAmount+= 1.5;
+				slowBarWidth += 2.25;
+			}
+			else if(slowAmount <= 0 && slowMotion){
+				jumpLimit = 5;
+				speed = 1;
+			}
+			
+			this.graphics.clear();
+			this.graphics.beginFill(0xff0000);
+			this.graphics.drawRect(450, 25, slowBarWidth, 20);
+			this.graphics.endFill();
+			
+			//fix rotation if necessary
+			if(slowAmount <= 0 && slowRotation){
+				slowRotation = false;
+				Player.playerRotation = 40;
+			}
 		}
 		
 		/**Stages always center the screen on the player*/
@@ -364,7 +391,7 @@ package Parents
 				if(slowMotion == true){
 					slowMotion = false;
 					jumpLimit = 5;
-					Player.playerRotation *= 2;
+					Player.playerRotation = 40;
 					speed = 1;
 				}
 			}
@@ -394,6 +421,8 @@ package Parents
 		static public function get timeJumping():int{return jumpTime;}
 		static public function get rightContact():Boolean{return rightWall;}
 		static public function get leftContact():Boolean{return leftWall;}
+		static public function get usingSlowMotion():Boolean{return slowMotion;}
+		static public function get slowMotionAmount():Number{return slowAmount;}
 		
 		/**Draws Box2D collision shapes*/
 		private function debugDrawing():void{
