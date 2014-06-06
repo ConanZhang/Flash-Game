@@ -81,7 +81,7 @@ package FlashGame
 			if(fade.alpha < 0.2 && Stage.usingSlowMotion && Stage.slowMotionAmount > 0){
 				fade.alpha+=0.02;
 			}
-			else if(fade.alpha > 0 && !Stage.usingSlowMotion){
+			else if(fade.alpha > 0 && !Stage.usingSlowMotion || Stage.slowMotionAmount <= 0 && fade.alpha > 0){
 				fade.alpha-=0.02;
 			}
 			
