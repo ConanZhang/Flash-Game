@@ -136,7 +136,7 @@ package Parents
 			gameHUD = new PlayerHUD(this);
 			
 			/**DEBUGGING*/
-			debugDrawing();
+//			debugDrawing();
 		}
 		
 		/**Stages can update their properties*/
