@@ -12,6 +12,7 @@ package Parents
 	import Box2D.Dynamics.b2World;
 	
 	import FlashGame.ContactListener;
+	import FlashGame.playerHUD;
 	
 	import flash.display.MovieClip;
 	import flash.display.Sprite;
@@ -44,7 +45,11 @@ package Parents
 		//speed world is; slow motion or normal
 		private var speed:Number;
 		//bar width
-		private var slowBarWidth:Number;
+		public static var slowBarWidth:Number;
+		//HUD
+		private var gameHUD:playerHUD;
+		//paused or playing
+		private var paused:Boolean;
 		
 		/**WORLD*/
 		//world for all objects to exist in
@@ -127,6 +132,8 @@ package Parents
 			jumpLimit = 5;
 			jumpAmount = defaultJumpAmount;
 			slowRotation = false;
+			
+			gameHUD = new playerHUD(this);
 			
 			/**DEBUGGING*/
 			debugDrawing();
@@ -321,16 +328,14 @@ package Parents
 				speed = 1;
 			}
 			
-			this.graphics.clear();
-			this.graphics.beginFill(0xff0000);
-			this.graphics.drawRect(450, 25, slowBarWidth, 20);
-			this.graphics.endFill();
-			
 			//fix rotation if necessary
 			if(slowAmount <= 0 && slowRotation){
 				slowRotation = false;
 				Player.playerRotation = 40;
 			}
+			
+			//HUD
+			gameHUD.updateHUD();
 		}
 		
 		/**Stages always center the screen on the player*/
@@ -360,6 +365,15 @@ package Parents
 			//add to array if wasn't in it
 			if(!inArray){
 				keyPresses.push(e.keyCode);
+			}
+			
+			if(e.keyCode == Keyboard.P){
+				if(paused == false){
+					pause();
+				}
+				else if(paused == true){
+					start();
+				}
 			}
 		}
 		
@@ -395,6 +409,26 @@ package Parents
 					speed = 1;
 				}
 			}
+			
+			//pausing
+			if(e.keyCode == Keyboard.P){
+				if(paused == false){
+					paused = true;;
+				}
+				else if(paused == true){
+					paused = false;;
+				}
+			}
+		}
+		
+		/**Play*/
+		public function start():void{
+			stage.frameRate = 30;
+		}
+		
+		/**Pause*/
+		public function pause():void{
+			stage.frameRate = 0;
 		}
 		
 		/**Get and Set for stageWorld*/

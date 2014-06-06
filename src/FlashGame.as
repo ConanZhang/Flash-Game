@@ -17,7 +17,7 @@ package
 	public class FlashGame extends Sprite
 	{
 		/**Class Member Variables*/
-		private var test:MovieClip;
+		private var test:TestWorld;
 		private var debug:DebugScreen;
 		
 		/**Constructor*/

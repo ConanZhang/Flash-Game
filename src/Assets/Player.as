@@ -32,6 +32,8 @@ package Assets
 		private var player_Width:Number;
 		private var player_Height:Number;
 		public static var playerRotation: int;
+		public static var playerHealth: int;
+		public static var playerInvulnerable:int;
 		
 		//ANIMATION STATES
 		public static var   STATE   :int;
@@ -63,6 +65,8 @@ package Assets
 			player_Density = 0.4;
 			player_Restitution = 0;
 			player_LinearDamping = 2;
+			playerHealth = 3;
+			playerInvulnerable = 0;
 			
 			playerFixture = new b2FixtureDef();
 			playerJoints = new b2RevoluteJointDef();
@@ -85,6 +89,7 @@ package Assets
 			playerFixture.friction = player_Friction;
 			playerFixture.density = player_Density;
 			playerFixture.restitution = player_Restitution;
+			playerFixture.userData = "PLAYER";
 			
 			//Box2D collision shape
 			var playerCollision:b2BodyDef = new b2BodyDef();
@@ -206,6 +211,15 @@ package Assets
 			else if(STATE == IDLE){
 				playerClip.gotoAndStop("idle");
 				playerClip.rotation = 0;
+			}
+			
+			//player hit
+			if(playerInvulnerable > 0){
+				playerInvulnerable--;
+				playerClip.alpha = 0.7;
+			}
+			else{
+				playerClip.alpha = 1;
 			}
 		}
 		

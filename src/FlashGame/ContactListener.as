@@ -19,44 +19,71 @@ package FlashGame
 		
 		/**Collision begins*/
 		override public function BeginContact(contact:b2Contact):void{
-			if(contact.GetFixtureA().GetUserData() == "FOOT"){
+			if(contact.GetFixtureA().GetUserData() == "FOOT" && contact.GetFixtureB().GetUserData() != "ENEMY"){
 				Stage.jumping = false;
 				Stage.airJumping = false;
 				Stage.jumpTime = 0;
 				Stage.jumpAmount = Stage.defaultJumpAmount;
 				Player.STATE = Player.IDLE;
 			}
-			else if(contact.GetFixtureA().GetUserData() == "RIGHT"){
+			else if(contact.GetFixtureA().GetUserData() == "RIGHT" && contact.GetFixtureB().GetUserData() != "ENEMY"){
 				Stage.jumping = false;
 				Stage.airJumping = false;
 				Stage.jumpTime = 0;
 				Stage.jumpAmount = Stage.defaultJumpAmount;
 				Stage.rightWall = true;
 			}
-			else if(contact.GetFixtureA().GetUserData() == "LEFT"){
+			else if(contact.GetFixtureA().GetUserData() == "LEFT" && contact.GetFixtureB().GetUserData() != "ENEMY"){
 				Stage.jumping = false;
 				Stage.airJumping = false;
 				Stage.jumpTime = 0;
 				Stage.jumpAmount = Stage.defaultJumpAmount;
 				Stage.leftWall = true;
 			}
+			
+			//enemy contact
+			if(contact.GetFixtureA().GetUserData() == "PLAYER" && contact.GetFixtureB().GetUserData() == "ENEMY" ||
+			   contact.GetFixtureA().GetUserData() == "ENEMY" && contact.GetFixtureB().GetUserData() == "PLAYER"){
+				//take away health
+				if(Player.playerInvulnerable == 0 && !Stage.usingSlowMotion ){
+					Player.playerHealth--;
+					Player.playerInvulnerable = 50;
+				}
+				//if using slow motion, but don't have any
+				else if(Stage.usingSlowMotion && Stage.slowMotionAmount <=0){
+					if(Player.playerInvulnerable == 0){
+						Player.playerHealth--;
+						Player.playerInvulnerable = 50;
+					}
+				}
+				else{
+					return;
+				}
+			}
 		}
 		
 		/**Collison ends*/
 		override public function EndContact(contact:b2Contact):void{
-			if(contact.GetFixtureA().GetUserData() == "FOOT"){
+			if(contact.GetFixtureA().GetUserData() == "FOOT" && contact.GetFixtureB().GetUserData() != "ENEMY"){
 				Stage.jumping = true;
 				Player.STATE = Player.JUMPING;
 			}
-			else if(contact.GetFixtureA().GetUserData() == "RIGHT"){
+			else if(contact.GetFixtureA().GetUserData() == "RIGHT" && contact.GetFixtureB().GetUserData() != "ENEMY"){
 				Stage.rightWall = false;
 				Stage.jumping = true;
 				Player.STATE = Player.JUMPING;
 			}
-			else if(contact.GetFixtureA().GetUserData() == "LEFT"){
+			else if(contact.GetFixtureA().GetUserData() == "LEFT" && contact.GetFixtureB().GetUserData() != "ENEMY"){
 				Stage.leftWall = false;
 				Stage.jumping = true;
 				Player.STATE = Player.JUMPING;
+			}
+		}
+		
+		override public function PreSolve(contact:b2Contact, oldManifold:b2Manifold):void{
+			if(contact.GetFixtureA().GetUserData() == "PLAYER" && contact.GetFixtureB().GetUserData() == "ENEMY" ||
+				contact.GetFixtureA().GetUserData() == "ENEMY" && contact.GetFixtureB().GetUserData() == "PLAYER"){
+				contact.SetEnabled(false);
 			}
 		}
 	}

@@ -9,6 +9,8 @@ package FlashGame
 	
 	import flash.display.MovieClip;
 	import flash.display.Sprite;
+	import flash.events.TimerEvent;
+	import flash.utils.Timer;
 	
 	public class TestWorld extends Stage
 	{
@@ -37,11 +39,23 @@ package FlashGame
 			
 			//PLATFORMS
 			for(var i:int = 0; i < 8; i++){
-				var platform:Ground = new Ground(50+(i*20), 5,10, 3);
+				var highestPlatform:Ground = new Ground(40+(i*25), -40,15, 5);
+				var topPlatform:Ground = new Ground(50+(i*25), -25,15, 5);
+				var middlePlatform:Ground = new Ground(40+(i*25), -10,15, 5);
+				var bottomPlatform:Ground = new Ground(50+(i*25), 5,15, 5);
 			}
 			
+			//ENEMY
+			var testEnemy:FlyingEnemy = new FlyingEnemy(0, -20, 2, 3);
+
+			var enemyAdd:Timer = new Timer(3000, 30);
+			enemyAdd.addEventListener(TimerEvent.TIMER, addEnemy);
+			enemyAdd.start();
+		}
+		
+		private function addEnemy(e:TimerEvent):void{
 			//test enemy
-			var testEnemy:FlyingEnemy = new FlyingEnemy(35,10, 2, 3);
+			var testEnemy:FlyingEnemy = new FlyingEnemy(Math.random()*230, Math.random()*-55, 2, 3);
 		}
 	}
 }

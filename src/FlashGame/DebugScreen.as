@@ -33,12 +33,14 @@ package FlashGame
 			//initialize class member variables
 			start = getTimer();//MILLISECONDS
 			FPS = new TextField();
+			FPS.textColor = 0xff0000;
 			this.addChild(FPS);
 			
 			debug = new TextField();
 			debug.width = 200;
 			debug.height = stage.stageHeight;
 			debug.y = FPS.y + 30;
+			debug.textColor = 0xff0000;
 			this.addChild(debug);
 			
 			this.addEventListener(Event.ENTER_FRAME, countFPS);
@@ -75,6 +77,8 @@ package FlashGame
 								"Left Wall: " + Stage.leftContact + "\n" + "\n" +
 								"Slow Motion: " + Stage.usingSlowMotion + "\n" +
 								"Slow Meter: " + Stage.slowMotionAmount + "\n" + "\n" +
+								"Player Health: " + Player.playerHealth + "\n" + 
+								"Invulnerable Time: " + Player.playerInvulnerable + "\n" + "\n" +
 								"Collidable Body Count: " + (Stage.world.GetBodyCount()-5);
 		}
 	}
