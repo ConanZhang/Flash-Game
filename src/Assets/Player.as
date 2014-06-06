@@ -41,7 +41,10 @@ package Assets
 		public static const R_WALK  :int = 1;
 		public static const L_WALK  :int = 2;
 		public static const JUMPING :int = 3;
-		
+		public static const R_WALL	:int = 4;
+		public static const L_WALL	:int = 5;
+		public static const HOVER	:int = 6;
+
 		//BOX2D COLLISION & PHYSICS
 		private var collisionBody:b2Body;
 		private var playerFixture:b2FixtureDef;
@@ -117,7 +120,7 @@ package Assets
 			
 			/**Foot Sensor*/
 			playerShape = new b2PolygonShape();
-			playerShape.SetAsBox(player_Width/3.74, player_Height/100);
+			playerShape.SetAsBox(player_Width/3.8, player_Height/100);
 			
 			playerFixture.isSensor = true;
 			playerFixture.userData = "FOOT";
@@ -210,6 +213,18 @@ package Assets
 			}
 			else if(STATE == IDLE){
 				playerClip.gotoAndStop("idle");
+				playerClip.rotation = 0;
+			}
+			else if(STATE == R_WALL){
+				playerClip.gotoAndStop("wall_right");
+				playerClip.rotation = 0;
+			}
+			else if(STATE == L_WALL){
+				playerClip.gotoAndStop("wall_left");
+				playerClip.rotation = 0;
+			}
+			else if(STATE == HOVER){
+				playerClip.gotoAndStop("hover");
 				playerClip.rotation = 0;
 			}
 			

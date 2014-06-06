@@ -65,6 +65,11 @@ package FlashGame
 			this.addChild(heart2);
 			this.addChild(heart3);
 			
+			heart1.gotoAndStop("idle");
+			heart2.gotoAndStop("idle");
+			heart3.gotoAndStop("idle");
+			
+			
 			//slow motion bar
 			slowMotionBar = new Shape();
 			slowMotionBar.graphics.clear();

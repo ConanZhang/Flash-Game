@@ -136,7 +136,7 @@ package Parents
 			gameHUD = new PlayerHUD(this);
 			
 			/**DEBUGGING*/
-//			debugDrawing();
+			debugDrawing();
 		}
 		
 		/**Stages can update their properties*/
@@ -233,6 +233,7 @@ package Parents
 							direction.Set(0,-150);
 							player.SetAwake(true);
 							player.ApplyForce(direction, player.GetPosition() );
+							Player.STATE = Player.HOVER;
 						}
 						//initial jump off right wall
 						else if(rightWall){
@@ -267,8 +268,11 @@ package Parents
 							}
 						}
 						//animation
-						if(!jumping){
+						if(!jumping && !leftWall){
 							Player.STATE = Player.L_WALK;
+						}
+						else if(leftWall){
+							Player.STATE = Player.L_WALL;
 						}
 						break;
 					case Keyboard.D:
@@ -285,8 +289,11 @@ package Parents
 							}
 						}
 						//animation
-						if(!jumping){
+						if(!jumping && !rightWall){
 							Player.STATE = Player.R_WALK;
+						}
+						else if(rightWall){
+							Player.STATE = Player.R_WALL;
 						}
 						break;
 					case Keyboard.SPACE:
@@ -395,9 +402,13 @@ package Parents
 				if(jumpAmount > 0){
 					jumpAmount--;
 				}
+				
+				if(Player.STATE == Player.HOVER){
+					Player.STATE = Player.JUMPING;
+				}
 			}
 			//movement
-			else if(e.keyCode == Keyboard.D && !jumping || e.keyCode == Keyboard.A && !jumping){
+			else if(e.keyCode == Keyboard.D && !jumping && !rightWall || e.keyCode == Keyboard.A && !jumping && !leftWall){
 				Player.STATE = Player.IDLE;
 			}
 			//slow motion

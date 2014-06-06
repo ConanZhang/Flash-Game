@@ -25,6 +25,7 @@ package FlashGame
 				Stage.jumpTime = 0;
 				Stage.jumpAmount = Stage.defaultJumpAmount;
 				Player.STATE = Player.IDLE;
+				trace("ground");
 			}
 			else if(contact.GetFixtureA().GetUserData() == "RIGHT" && contact.GetFixtureB().GetUserData() != "ENEMY"){
 				Stage.jumping = false;
@@ -32,6 +33,7 @@ package FlashGame
 				Stage.jumpTime = 0;
 				Stage.jumpAmount = Stage.defaultJumpAmount;
 				Stage.rightWall = true;
+				Player.STATE = Player.R_WALL;
 			}
 			else if(contact.GetFixtureA().GetUserData() == "LEFT" && contact.GetFixtureB().GetUserData() != "ENEMY"){
 				Stage.jumping = false;
@@ -39,6 +41,7 @@ package FlashGame
 				Stage.jumpTime = 0;
 				Stage.jumpAmount = Stage.defaultJumpAmount;
 				Stage.leftWall = true;
+				Player.STATE = Player.L_WALL;
 			}
 			
 			//enemy contact
@@ -82,7 +85,8 @@ package FlashGame
 		
 		override public function PreSolve(contact:b2Contact, oldManifold:b2Manifold):void{
 			if(contact.GetFixtureA().GetUserData() == "PLAYER" && contact.GetFixtureB().GetUserData() == "ENEMY" ||
-				contact.GetFixtureA().GetUserData() == "ENEMY" && contact.GetFixtureB().GetUserData() == "PLAYER"){
+			   contact.GetFixtureA().GetUserData() == "ENEMY" && contact.GetFixtureB().GetUserData() == "PLAYER"){
+				
 				contact.SetEnabled(false);
 			}
 		}
