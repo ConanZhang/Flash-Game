@@ -11,7 +11,7 @@ package FlashGame
 	import flash.display.Sprite;
 	import flash.display.Shape;
 	
-	public class playerHUD extends Sprite
+	public class PlayerHUD extends Sprite
 	{
 		
 		private var screen:Sprite;
@@ -28,7 +28,7 @@ package FlashGame
 		private var fade:Shape;
 		
 		/**Constructor*/
-		public function playerHUD(screenP:Sprite)
+		public function PlayerHUD(screenP:Sprite)
 		{
 			screen = screenP;
 			screen.addChild(this);

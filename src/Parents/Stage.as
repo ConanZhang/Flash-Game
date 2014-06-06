@@ -12,7 +12,7 @@ package Parents
 	import Box2D.Dynamics.b2World;
 	
 	import FlashGame.ContactListener;
-	import FlashGame.playerHUD;
+	import FlashGame.PlayerHUD;
 	
 	import flash.display.MovieClip;
 	import flash.display.Sprite;
@@ -47,7 +47,7 @@ package Parents
 		//bar width
 		public static var slowBarWidth:Number;
 		//HUD
-		private var gameHUD:playerHUD;
+		private var gameHUD:PlayerHUD;
 		//paused or playing
 		private var paused:Boolean;
 		
@@ -133,13 +133,13 @@ package Parents
 			jumpAmount = defaultJumpAmount;
 			slowRotation = false;
 			
-			gameHUD = new playerHUD(this);
+			gameHUD = new PlayerHUD(this);
 			
 			/**DEBUGGING*/
-//			debugDrawing();
+			debugDrawing();
 		}
 		
-		/**Stages can uSpdate their properties*/
+		/**Stages can update their properties*/
 		public function update(e:Event):void{
 			//get last position player was in for initial speed calculation
 			if(initial){
