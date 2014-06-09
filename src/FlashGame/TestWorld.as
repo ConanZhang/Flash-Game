@@ -31,24 +31,28 @@ package FlashGame
 			testPlayer.setPlayer();
 			
 			//GROUND
-			var testGround:Ground = new Ground(7, 15, 200, 15);
+			var testGround:Platform = new Platform(7, 15, 200, 15, "ground");
 
 			//WALLS
-			var leftWall:Ground = new Ground(7,-85, 2.5, 125);
-			var rightWall:Ground = new Ground(23,-85, 2.5, 125);
+			var leftWall:Platform = new Platform(7,-65, 2.5, 75, "tall");
+			var rightWall:Platform = new Platform(23,-65, 2.5, 75, "tall");
 			
 			//PLATFORMS
 			for(var i:int = 0; i < 8; i++){
-				var highestPlatform:Ground = new Ground(40+(i*25), -40,15, 5);
-				var topPlatform:Ground = new Ground(50+(i*25), -25,15, 5);
-				var middlePlatform:Ground = new Ground(40+(i*25), -10,15, 5);
-				var bottomPlatform:Ground = new Ground(50+(i*25), 5,15, 5);
+				var topWallPlatform:Platform = new Platform(53+(i*25), -25,3, 15, "tall");
+				var middleWallPlatform:Platform = new Platform(40+(i*25), -10,3, 15, "tall");
+				var bottomPlatform:Platform = new Platform(48+(i*25), 7,10, 2, "wide");
+			}
+			for(var j:int = 0; j < 20; j++){
+				var topSquarePlatform:Platform = new Platform(42+(j*12), -55,3, 3, "square");
+				var middleSquarePlatform:Platform = new Platform(36+(j*12), -45,3, 3, "square");
+				var bottomSquarePlatform:Platform = new Platform(42+(j*12), -35,3, 3, "square");
 			}
 			
 			//ENEMY
 			var testEnemy:FlyingEnemy = new FlyingEnemy(0, -20, 2, 3);
 
-			var enemyAdd:Timer = new Timer(3000, 30);
+			var enemyAdd:Timer = new Timer(3000, 50);
 			enemyAdd.addEventListener(TimerEvent.TIMER, addEnemy);
 			enemyAdd.start();
 		}
