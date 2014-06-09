@@ -297,7 +297,7 @@ package Parents
 						}
 						break;
 					case Keyboard.SPACE:
-						if(slowMotion == false && slowAmount > 0){
+						if(slowMotion == false && slowAmount > 0 && Player.playerHealth > 0){
 							slowMotion = true;
 							jumpLimit = 12;
 							Player.playerRotation = 20;
@@ -307,7 +307,7 @@ package Parents
 								jumpTime = 13;
 							}
 						}
-						else if(slowAmount > 0 && slowBarWidth > 0){
+						else if(slowAmount > 0 && slowBarWidth > 0 && Player.playerHealth > 0){
 							slowAmount-=2.25;
 							slowBarWidth-=3.375;
 						}

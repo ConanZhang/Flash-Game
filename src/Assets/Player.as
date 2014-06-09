@@ -241,6 +241,7 @@ package Assets
 				world_Sprite.DestroyBody(footSensor);
 				world_Sprite.DestroyBody(leftSensor);
 				world_Sprite.DestroyBody(rightSensor);
+
 			}
 			
 			//player hit

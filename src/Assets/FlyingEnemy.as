@@ -87,10 +87,9 @@ package Assets {
 			/**Follow player*/
 			
 			//get direction and magnitude to player
-			direction = b2Math.SubtractVV(collisionBody.GetPosition(),Stage.player.GetPosition() );
+			direction = b2Math.SubtractVV(Stage.player.GetPosition() , collisionBody.GetPosition());
 			
 			direction.Normalize();
-			direction.NegativeSelf();
 			
 			//limit speed
 			if(collisionBody.GetLinearVelocity().x < 20 &&
