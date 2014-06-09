@@ -47,6 +47,10 @@ package Assets
 
 		//BOX2D COLLISION & PHYSICS
 		private var collisionBody:b2Body;
+		private var feet:b2Body;
+		private var rightSensor:b2Body;
+		private var leftSensor:b2Body;
+		private var footSensor:b2Body;
 		private var playerFixture:b2FixtureDef;
 		private var playerJoints:b2RevoluteJointDef;
 		private var player_Friction:Number;
@@ -115,7 +119,7 @@ package Assets
 			playerFixture.restitution = player_Restitution;
 			
 			playerCollision.position.Set(position.x + player_Width/2, position.y + player_Height/1.15);
-			var feet:b2Body = world_Sprite.CreateBody(playerCollision);
+			feet = world_Sprite.CreateBody(playerCollision);
 			feet.CreateFixture(playerFixture);
 			
 			/**Foot Sensor*/
@@ -131,7 +135,7 @@ package Assets
 			playerFixture.restitution = player_Restitution;
 			
 			playerCollision.position.Set(position.x + player_Width/2, position.y + player_Height);
-			var footSensor:b2Body = world_Sprite.CreateBody(playerCollision);
+			footSensor = world_Sprite.CreateBody(playerCollision);
 			footSensor.CreateFixture(playerFixture);
 			
 			/**Right Side Sensor*/
@@ -147,7 +151,7 @@ package Assets
 			playerFixture.restitution = player_Restitution;
 			
 			playerCollision.position.Set(position.x + player_Width/1.285, position.y + player_Height/1.6);
-			var rightSensor:b2Body = world_Sprite.CreateBody(playerCollision);
+			rightSensor = world_Sprite.CreateBody(playerCollision);
 			rightSensor.CreateFixture(playerFixture);
 			
 			/**Left Side Sensor*/
@@ -163,7 +167,7 @@ package Assets
 			playerFixture.restitution = player_Restitution;
 			
 			playerCollision.position.Set(position.x + player_Width/4.5, position.y + player_Height/1.6);
-			var leftSensor:b2Body = world_Sprite.CreateBody(playerCollision);
+			leftSensor = world_Sprite.CreateBody(playerCollision);
 			leftSensor.CreateFixture(playerFixture);
 			
 			/**Connecting body*/
@@ -199,33 +203,44 @@ package Assets
 		
 		/**Child Update [called by Object's update]*/
 		public override function childUpdate():void{
-			if(STATE == R_WALK){
+			if(STATE == R_WALK && playerHealth != 0){
 				playerClip.gotoAndStop("walking_right");
 				playerClip.rotation = 0;
 			}
-			else if(STATE == L_WALK){
+			else if(STATE == L_WALK && playerHealth != 0){
 				playerClip.gotoAndStop("walking_left");		
 				playerClip.rotation = 0;
 			}
-			else if(STATE == JUMPING){
+			else if(STATE == JUMPING && playerHealth != 0){
 				playerClip.gotoAndStop("jumping");
 				playerClip.rotation += playerRotation;
 			}
-			else if(STATE == IDLE){
+			else if(STATE == IDLE && playerHealth != 0){
 				playerClip.gotoAndStop("idle");
 				playerClip.rotation = 0;
 			}
-			else if(STATE == R_WALL){
+			else if(STATE == R_WALL && playerHealth != 0){
 				playerClip.gotoAndStop("wall_right");
 				playerClip.rotation = 0;
 			}
-			else if(STATE == L_WALL){
+			else if(STATE == L_WALL && playerHealth != 0){
 				playerClip.gotoAndStop("wall_left");
 				playerClip.rotation = 0;
 			}
-			else if(STATE == HOVER){
+			else if(STATE == HOVER && playerHealth != 0){
 				playerClip.gotoAndStop("hover");
 				playerClip.rotation = 0;
+			}
+			else if(playerHealth == 0){
+				playerClip.rotation = 0;
+				playerClip.gotoAndStop("death");
+				
+				//remove body
+				world_Sprite.DestroyBody(collisionBody);
+				world_Sprite.DestroyBody(feet);
+				world_Sprite.DestroyBody(footSensor);
+				world_Sprite.DestroyBody(leftSensor);
+				world_Sprite.DestroyBody(rightSensor);
 			}
 			
 			//player hit

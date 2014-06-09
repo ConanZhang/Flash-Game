@@ -47,13 +47,13 @@ package FlashGame
 			if(contact.GetFixtureA().GetUserData() == "PLAYER" && contact.GetFixtureB().GetUserData() == "ENEMY" ||
 			   contact.GetFixtureA().GetUserData() == "ENEMY" && contact.GetFixtureB().GetUserData() == "PLAYER"){
 				//take away health
-				if(Player.playerInvulnerable == 0 && !Stage.usingSlowMotion ){
+				if(Player.playerInvulnerable == 0 && !Stage.usingSlowMotion && Player.playerHealth != 0){
 					Player.playerHealth--;
 					Player.playerInvulnerable = 50;
 				}
 				//if using slow motion, but don't have any
 				else if(Stage.usingSlowMotion && Stage.slowMotionAmount <=0){
-					if(Player.playerInvulnerable == 0){
+					if(Player.playerInvulnerable == 0 && Player.playerHealth != 0){
 						Player.playerHealth--;
 						Player.playerInvulnerable = 50;
 					}
