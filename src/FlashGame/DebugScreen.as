@@ -78,7 +78,8 @@ package FlashGame
 								"Slow Motion: " + Stage.usingSlowMotion + "\n" +
 								"Slow Meter: " + Stage.slowMotionAmount + "\n" + "\n" +
 								"Player Health: " + Player.playerHealth + "\n" + 
-								"Invulnerable Time: " + Player.playerInvulnerable + "\n" + "\n" +
+								"Invulnerable Time: " + Player.playerInvulnerable + "\n" +
+								"Stun Time: " + Stage.flinchTime+ "\n" + "\n" +
 								"Collidable Body Count: " + (Stage.world.GetBodyCount()-5);
 		}
 	}

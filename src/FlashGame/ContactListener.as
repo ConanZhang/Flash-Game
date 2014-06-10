@@ -9,6 +9,7 @@ package FlashGame
 	import Box2D.Collision.b2Manifold;
 	import Box2D.Dynamics.Contacts.b2Contact;
 	import Box2D.Dynamics.b2ContactListener;
+	import Box2D.Common.Math.b2Vec2;
 	
 	import Parents.Stage;
 	
@@ -44,18 +45,56 @@ package FlashGame
 			}
 			
 			//enemy contact
-			if(contact.GetFixtureA().GetUserData() == "PLAYER" && contact.GetFixtureB().GetUserData() == "ENEMY" ||
-			   contact.GetFixtureA().GetUserData() == "ENEMY" && contact.GetFixtureB().GetUserData() == "PLAYER"){
+			if(contact.GetFixtureA().GetUserData() == "PLAYER" && contact.GetFixtureB().GetUserData() == "ENEMY"){
 				//take away health
 				if(Player.playerInvulnerable == 0 && !Stage.usingSlowMotion && Player.playerHealth != 0){
-					Player.playerHealth--;
 					Player.playerInvulnerable = 50;
+					Player.playerHealth--;
+					
+					//flinch
+					if(contact.GetFixtureA().GetBody().GetPosition().x < contact.GetFixtureB().GetBody().GetPosition().x){
+						Stage.player.SetLinearVelocity( new b2Vec2(-75, 0) );
+						Stage.flinchTime = 12;
+					}
+					else if(contact.GetFixtureA().GetBody().GetPosition().x > contact.GetFixtureB().GetBody().GetPosition().x){
+						Stage.player.SetLinearVelocity( new b2Vec2(75, 0) );
+						Stage.flinchTime = 12;
+					}
+					
 				}
 				//if using slow motion, but don't have any
 				else if(Stage.usingSlowMotion && Stage.slowMotionAmount <=0){
 					if(Player.playerInvulnerable == 0 && Player.playerHealth != 0){
-						Player.playerHealth--;
 						Player.playerInvulnerable = 50;
+						Player.playerHealth--;
+					}
+				}
+				else{
+					return;
+				}
+			}
+			else if(contact.GetFixtureA().GetUserData() == "ENEMY" && contact.GetFixtureB().GetUserData() == "PLAYER"){
+				//take away health
+				if(Player.playerInvulnerable == 0 && !Stage.usingSlowMotion && Player.playerHealth != 0){
+					Player.playerInvulnerable = 50;
+					Player.playerHealth--;
+					
+					//flinch
+					if(contact.GetFixtureB().GetBody().GetPosition().x < contact.GetFixtureA().GetBody().GetPosition().x){
+						Stage.player.SetLinearVelocity( new b2Vec2(-75, 0) );
+						Stage.flinchTime = 12;
+					}
+					else if(contact.GetFixtureB().GetBody().GetPosition().x > contact.GetFixtureA().GetBody().GetPosition().x){
+						Stage.player.SetLinearVelocity( new b2Vec2(75, 0) );
+						Stage.flinchTime = 12;
+					}
+					
+				}
+					//if using slow motion, but don't have any
+				else if(Stage.usingSlowMotion && Stage.slowMotionAmount <=0){
+					if(Player.playerInvulnerable == 0 && Player.playerHealth != 0){
+						Player.playerInvulnerable = 50;
+						Player.playerHealth--;
 					}
 				}
 				else{

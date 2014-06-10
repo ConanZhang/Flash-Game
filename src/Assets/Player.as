@@ -245,7 +245,7 @@ package Assets
 			}
 			
 			//player hit
-			if(playerInvulnerable > 0){
+			if(playerInvulnerable > 0 && playerHealth != 0){
 				playerInvulnerable--;
 				playerClip.alpha = 0.7;
 			}

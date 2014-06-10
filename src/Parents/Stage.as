@@ -86,6 +86,8 @@ package Parents
 		public static var jumpAmount:int;
 		//fix player rotation speed after slow motion is over
 		private var slowRotation:Boolean;
+		//flinching
+		public static var flinchTime:int;
 		
 		
 		/**Constructor*/
@@ -132,6 +134,7 @@ package Parents
 			jumpLimit = 5;
 			jumpAmount = defaultJumpAmount;
 			slowRotation = false;
+			flinchTime = 0;
 			
 			gameHUD = new PlayerHUD(this);
 			
@@ -182,137 +185,140 @@ package Parents
 			var direction:b2Vec2 = new b2Vec2();
 			
 			for(var i:uint = 0; i < keyPresses.length;i++){
-				switch(keyPresses[i]){
-					case Keyboard.S:
-						//downward velocity in air
-						if(jumping){
-							direction.Set(0, 90);
-							player.SetAwake(true);
-							player.ApplyForce(direction, player.GetPosition() );
-						}
-						break;
-					case Keyboard.W:
-						//initial jump
-						if(jumping == false && !rightWall && !leftWall){
-							jumping = true;
-							direction.Set(0,-25);
-							player.SetAwake(true);
-							player.ApplyImpulse(direction, player.GetPosition() );
-							Player.STATE = Player.JUMPING;
-						}
-						//continuing initial jump
-						else if(jumping == true && 
+				if(flinchTime == 0){
+					switch(keyPresses[i]){
+						case Keyboard.S:
+							//downward velocity in air
+							if(jumping){
+								direction.Set(0, 90);
+								player.SetAwake(true);
+								player.ApplyForce(direction, player.GetPosition() );
+							}
+							break;
+						case Keyboard.W:
+							//initial jump
+							if(jumping == false && !rightWall && !leftWall){
+								jumping = true;
+								direction.Set(0,-25);
+								player.SetAwake(true);
+								player.ApplyImpulse(direction, player.GetPosition() );
+								Player.STATE = Player.JUMPING;
+							}
+								//continuing initial jump
+							else if(jumping == true && 
 								jumpTime <= jumpLimit && 
 								jumpAmount == defaultJumpAmount){
-							jumpTime++;
-							direction.Set(0,-500);
-							player.SetAwake(true);
-							player.ApplyForce(direction, player.GetPosition() );
-						}
-						//air jump initial
-						else if(jumping == true &&
+								jumpTime++;
+								direction.Set(0,-500);
+								player.SetAwake(true);
+								player.ApplyForce(direction, player.GetPosition() );
+							}
+								//air jump initial
+							else if(jumping == true &&
 								jumpAmount < defaultJumpAmount && 
 								jumpAmount > 0 &&
 								!airJumping){
-							jumpTime = 0;
-							airJumping = true;
-							direction.Set(player.GetLinearVelocity().x,-25);
-							player.SetLinearVelocity(direction);
-						}
-						//continuing air jump
-						else if(airJumping == true && 
+								jumpTime = 0;
+								airJumping = true;
+								direction.Set(player.GetLinearVelocity().x,-25);
+								player.SetLinearVelocity(direction);
+							}
+								//continuing air jump
+							else if(airJumping == true && 
 								jumpTime <= jumpLimit && 
 								jumpAmount > 0){
-							jumpTime++;
-							direction.Set(0,-500);
-							player.SetAwake(true);
-							player.ApplyForce(direction, player.GetPosition() );
-						}
-						//hover
-						else if(jumpTime == jumpLimit+1 && player.GetLinearVelocity().y > 0 || jumpAmount == 0){
-							direction.Set(0,-150);
-							player.SetAwake(true);
-							player.ApplyForce(direction, player.GetPosition() );
-							Player.STATE = Player.HOVER;
-						}
-						//initial jump off right wall
-						else if(rightWall){
-							jumping = true;
-							rightWall = false;
-							direction.Set(-90,-43);
-							player.SetAwake(true);
-							player.ApplyImpulse(direction, player.GetPosition() );
-							Player.STATE = Player.JUMPING;
-						}
-						//initial jump off left wall
-						else if(leftWall){
-							jumping = true;
-							leftWall = false;
-							direction.Set(90,-43);
-							player.SetAwake(true);
-							player.ApplyImpulse(direction, player.GetPosition() );
-							Player.STATE = Player.JUMPING;
-						}
-						break;	
-					case Keyboard.A:
-						//limit speed
-						if(horizontal>-2){
-							direction.Set(-250*speed,0);
-							player.SetAwake(true);
-							player.ApplyForce(direction,player.GetPosition());
-							if(slowMotion && slowAmount > 0){
-								Player.playerRotation = -20;
+								jumpTime++;
+								direction.Set(0,-500);
+								player.SetAwake(true);
+								player.ApplyForce(direction, player.GetPosition() );
 							}
-							else{
-								Player.playerRotation = -40;
+								//hover
+							else if(jumpTime == jumpLimit+1 && player.GetLinearVelocity().y > 0 || jumpAmount == 0){
+								direction.Set(0,-150);
+								player.SetAwake(true);
+								player.ApplyForce(direction, player.GetPosition() );
+								Player.STATE = Player.HOVER;
 							}
-						}
-						//animation
-						if(!jumping && !leftWall){
-							Player.STATE = Player.L_WALK;
-						}
-						else if(leftWall){
-							Player.STATE = Player.L_WALL;
-						}
-						break;
-					case Keyboard.D:
-						//limit speed
-						if(horizontal<2){
-							direction.Set(250*speed,0);
-							player.SetAwake(true);
-							player.ApplyForce(direction,player.GetPosition());
-							if(slowMotion && slowAmount > 0){
+								//initial jump off right wall
+							else if(rightWall){
+								jumping = true;
+								rightWall = false;
+								direction.Set(-90,-43);
+								player.SetAwake(true);
+								player.ApplyImpulse(direction, player.GetPosition() );
+								Player.STATE = Player.JUMPING;
+							}
+								//initial jump off left wall
+							else if(leftWall){
+								jumping = true;
+								leftWall = false;
+								direction.Set(90,-43);
+								player.SetAwake(true);
+								player.ApplyImpulse(direction, player.GetPosition() );
+								Player.STATE = Player.JUMPING;
+							}
+							break;	
+						case Keyboard.A:
+							//limit speed
+							if(horizontal>-2){
+								direction.Set(-250*speed,0);
+								player.SetAwake(true);
+								player.ApplyForce(direction,player.GetPosition());
+								if(slowMotion && slowAmount > 0){
+									Player.playerRotation = -20;
+								}
+								else{
+									Player.playerRotation = -40;
+								}
+							}
+							//animation
+							if(!jumping && !leftWall){
+								Player.STATE = Player.L_WALK;
+							}
+							else if(leftWall){
+								Player.STATE = Player.L_WALL;
+							}
+							break;
+						case Keyboard.D:
+							//limit speed
+							if(horizontal<2){
+								direction.Set(250*speed,0);
+								player.SetAwake(true);
+								player.ApplyForce(direction,player.GetPosition());
+								if(slowMotion && slowAmount > 0){
+									Player.playerRotation = 20;
+								}
+								else{
+									Player.playerRotation = 40;
+								}
+							}
+							//animation
+							if(!jumping && !rightWall){
+								Player.STATE = Player.R_WALK;
+							}
+							else if(rightWall){
+								Player.STATE = Player.R_WALL;
+							}
+							break;
+						case Keyboard.SPACE:
+							if(slowMotion == false && slowAmount > 0 && Player.playerHealth > 0){
+								slowMotion = true;
+								jumpLimit = 12;
 								Player.playerRotation = 20;
+								slowRotation = true;
+								speed = 0.75;
+								if(jumpTime == 6){
+									jumpTime = 13;
+								}
 							}
-							else{
-								Player.playerRotation = 40;
+							else if(slowAmount > 0 && slowBarWidth > 0 && Player.playerHealth > 0){
+								slowAmount-=2.25;
+								slowBarWidth-=3.375;
 							}
-						}
-						//animation
-						if(!jumping && !rightWall){
-							Player.STATE = Player.R_WALK;
-						}
-						else if(rightWall){
-							Player.STATE = Player.R_WALL;
-						}
-						break;
-					case Keyboard.SPACE:
-						if(slowMotion == false && slowAmount > 0 && Player.playerHealth > 0){
-							slowMotion = true;
-							jumpLimit = 12;
-							Player.playerRotation = 20;
-							slowRotation = true;
-							speed = 0.75;
-							if(jumpTime == 6){
-								jumpTime = 13;
-							}
-						}
-						else if(slowAmount > 0 && slowBarWidth > 0 && Player.playerHealth > 0){
-							slowAmount-=2.25;
-							slowBarWidth-=3.375;
-						}
-						break;
+							break;
+					}
 				}
+				
 			}
 			
 			//get current physics
@@ -339,6 +345,11 @@ package Parents
 			if(slowAmount <= 0 && slowRotation){
 				slowRotation = false;
 				Player.playerRotation = 40;
+			}
+			
+			//flinch
+			if(flinchTime > 0){
+				flinchTime--;
 			}
 			
 			//HUD
