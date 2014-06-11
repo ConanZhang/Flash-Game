@@ -1,4 +1,4 @@
-KEYBOARD CONTROLS
+-------------KEYBOARD CONTROLS-------------
 
 W - Jump/Double Jump/Hover
 
@@ -8,13 +8,11 @@ S - Fall faster
 
 D - Right
 
-
 Space - Slow motion/Invulnerability
 	
 P - Pause
 
-
-MOUSE CONTROLS
+-------------MOUSE CONTROLS-------------
 
 Cursor - Aim
 
