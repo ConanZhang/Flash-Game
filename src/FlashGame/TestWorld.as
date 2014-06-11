@@ -30,6 +30,9 @@ package FlashGame
 			var testPlayer:Player = new Player(15, 7, 3.5);
 			testPlayer.setPlayer();
 			
+			//WEAPON
+			var testWeapon:Weapon = new Weapon(15, 7,2,1, "pistol");
+			
 			//GROUND
 			var testGround:Platform = new Platform(7, 15, 200, 15, "ground");
 

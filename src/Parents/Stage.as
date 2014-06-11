@@ -18,6 +18,7 @@ package Parents
 	import flash.display.Sprite;
 	import flash.events.Event;
 	import flash.events.KeyboardEvent;
+	import flash.events.MouseEvent;
 	import flash.geom.Point;
 	import flash.ui.Keyboard;
 
@@ -50,6 +51,8 @@ package Parents
 		private var gameHUD:PlayerHUD;
 		//paused or playing
 		private var paused:Boolean;
+		//rotate weapon
+		public static var weaponRotation:Number;
 		
 		/**WORLD*/
 		//world for all objects to exist in
@@ -101,6 +104,7 @@ package Parents
 			/**LOGIC*/
 			initial = true;
 			keyPresses = new Array();
+			weaponRotation = 0;
 			
 			/**VISUAL*/
 			//initiate images
@@ -110,7 +114,7 @@ package Parents
 			/**EVENT*/
 			//update every frame
 			this.addEventListener(Event.ENTER_FRAME, update, false, 0, true);
-
+			
 			/**WORLD*/
 			var gravity:b2Vec2 = new b2Vec2(0, 85);
 			var doSleep:Boolean = true;//don't simulate sleeping bodies
@@ -350,7 +354,7 @@ package Parents
 			//flinch
 			if(flinchTime > 0){
 				flinchTime--;
-			}
+			} 	
 			
 			//HUD
 			gameHUD.updateHUD();
@@ -441,6 +445,11 @@ package Parents
 					paused = false;;
 				}
 			}
+		}
+		
+		/**Stages can detect left clicks*/
+		public function leftClick(e:MouseEvent):void{
+			
 		}
 		
 		/**Play*/

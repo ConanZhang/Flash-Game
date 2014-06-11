@@ -27,6 +27,7 @@ package
 			test = new TestWorld(this);
 			test.stage.addEventListener(KeyboardEvent.KEY_DOWN, test.keyPressed, false, 0, true);
 			test.stage.addEventListener(KeyboardEvent.KEY_UP, test.keyReleased, false, 0, true);
+			test.stage.addEventListener(MouseEvent.CLICK, test.leftClick);
 			
 			//display debug information
 			debug = new DebugScreen(this);
