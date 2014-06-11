@@ -276,8 +276,11 @@ package Parents
 								}
 							}
 							//animation
-							if(!jumping && !leftWall){
+							if(!jumping && !leftWall && !slowMotion || !jumping && !leftWall && slowMotion && slowAmount <= 0){
 								Player.STATE = Player.L_WALK;
+							}
+							else if(!jumping && !leftWall && slowMotion && slowAmount > 0){
+								Player.STATE = Player.L_WALK_SLOW;
 							}
 							else if(leftWall){
 								Player.STATE = Player.L_WALL;
@@ -297,8 +300,11 @@ package Parents
 								}
 							}
 							//animation
-							if(!jumping && !rightWall){
+							if(!jumping && !rightWall && !slowMotion || !jumping && !rightWall && slowMotion && slowAmount <= 0 ){
 								Player.STATE = Player.R_WALK;
+							}
+							else if(!jumping && !rightWall && slowMotion && slowAmount > 0){
+								Player.STATE = Player.R_WALK_SLOW;
 							}
 							else if(rightWall){
 								Player.STATE = Player.R_WALL;
@@ -355,6 +361,11 @@ package Parents
 			if(flinchTime > 0){
 				flinchTime--;
 			} 	
+			
+			var mouseDirectionX:Number = mouseX - stage.stageWidth/2;
+			var mouseDirectionY:Number = mouseY - stage.stageHeight/2;
+			
+			weaponRotation = Math.atan2(mouseDirectionY, mouseDirectionX)*180/Math.PI;
 			
 			//HUD
 			gameHUD.updateHUD();

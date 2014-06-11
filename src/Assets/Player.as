@@ -36,14 +36,16 @@ package Assets
 		public static var playerInvulnerable:int;
 		
 		//ANIMATION STATES
-		public static var   STATE   :int;
-		public static const IDLE    :int = 0;
-		public static const R_WALK  :int = 1;
-		public static const L_WALK  :int = 2;
-		public static const JUMPING :int = 3;
-		public static const R_WALL	:int = 4;
-		public static const L_WALL	:int = 5;
-		public static const HOVER	:int = 6;
+		public static var   STATE   	:int;
+		public static const IDLE    	:int = 0;
+		public static const R_WALK  	:int = 1;
+		public static const L_WALK 		:int = 2;
+		public static const R_WALK_SLOW :int = 3;
+		public static const L_WALK_SLOW :int = 4;
+		public static const JUMPING 	:int = 5;
+		public static const R_WALL		:int = 6;
+		public static const L_WALL		:int = 7;
+		public static const HOVER		:int = 8;
 
 		//BOX2D COLLISION & PHYSICS
 		private var collisionBody:b2Body;
@@ -211,6 +213,14 @@ package Assets
 				playerClip.gotoAndStop("walking_left");		
 				playerClip.rotation = 0;
 			}
+			else if(STATE == R_WALK_SLOW && playerHealth != 0){
+				playerClip.gotoAndStop("walking_right_slow");
+				playerClip.rotation = 0;
+			}
+			else if(STATE == L_WALK_SLOW && playerHealth != 0){
+				playerClip.gotoAndStop("walking_left_slow");		
+				playerClip.rotation = 0;
+			}
 			else if(STATE == JUMPING && playerHealth != 0){
 				playerClip.gotoAndStop("jumping");
 				playerClip.rotation += playerRotation;
@@ -235,13 +245,10 @@ package Assets
 				playerClip.rotation = 0;
 				playerClip.gotoAndStop("death");
 				
-				//remove body
-				world_Sprite.DestroyBody(collisionBody);
-				world_Sprite.DestroyBody(feet);
-				world_Sprite.DestroyBody(footSensor);
-				world_Sprite.DestroyBody(leftSensor);
-				world_Sprite.DestroyBody(rightSensor);
-
+				//remove yourself from visually and logically
+//				if(playerClip.currentFrame > LAST_FRAME_OF_DEATH){
+//					destroy();
+//				}
 			}
 			
 			//player hit
@@ -252,6 +259,15 @@ package Assets
 			else{
 				playerClip.alpha = 1;
 			}
+		}
+		
+		/**Child remove [called by destroy()]*/
+		public override function childRemove():void{
+			//remove body's components
+			world_Sprite.DestroyBody(feet);
+			world_Sprite.DestroyBody(footSensor);
+			world_Sprite.DestroyBody(leftSensor);
+			world_Sprite.DestroyBody(rightSensor);
 		}
 		
 		/**Setters*/
