@@ -3,7 +3,9 @@
  */
 package Parents
 {
+	import Assets.Bullet;
 	import Assets.Player;
+	import Assets.Weapon;
 	
 	import Box2D.Collision.b2AABB;
 	import Box2D.Common.Math.b2Vec2;
@@ -143,7 +145,7 @@ package Parents
 			gameHUD = new PlayerHUD(this);
 			
 			/**DEBUGGING*/
-			debugDrawing();
+//			debugDrawing();
 		}
 		
 		/**Stages can update their properties*/
@@ -365,7 +367,7 @@ package Parents
 			var mouseDirectionX:Number = mouseX - stage.stageWidth/2;
 			var mouseDirectionY:Number = mouseY - stage.stageHeight/2;
 			
-			weaponRotation = Math.atan2(mouseDirectionY, mouseDirectionX)*180/Math.PI;
+			weaponRotation = Math.atan2(mouseDirectionY, mouseDirectionX);
 			
 			//HUD
 			gameHUD.updateHUD();
@@ -460,7 +462,10 @@ package Parents
 		
 		/**Stages can detect left clicks*/
 		public function leftClick(e:MouseEvent):void{
-			
+			if(Weapon.weaponAmmo > 0 && !paused){
+				var bullet:Bullet = new Bullet(player.GetPosition().x, player.GetPosition().y,0.3,0.3);	
+				Weapon.weaponAmmo--;
+			}
 		}
 		
 		/**Play*/

@@ -26,9 +26,10 @@ package Assets {
 		//PROPERTIES
 		private var position:Point;
 		private var weaponClip:Sprite;
-		private var weapon_Width:Number;
+		public static var weapon_Width:Number;
 		private var weapon_Height:Number;
-		private var weaponType:String;
+		public static var weaponType:String;
+		public static var weaponAmmo:int;
 		
 		//BOX2D COLLISION & PHYSICS
 		private var collisionBody:b2Body;
@@ -43,6 +44,7 @@ package Assets {
 			//initialize default private variables
 			weapon_Width = width;
 			weapon_Height = height;
+			weaponAmmo = 50;
 			
 			weaponFixture = new b2FixtureDef();
 			
@@ -68,7 +70,7 @@ package Assets {
 			super.body = collisionBody;
 			
 			//Sprite
-			if(weaponType == "pistol"){
+			if(weaponType == "Pistol"){
 				weaponClip = new pistol();
 				weaponClip.width = weapon_Width*metricPixRatio;
 				weaponClip.height = weapon_Height*metricPixRatio;
@@ -80,7 +82,7 @@ package Assets {
 		/**Child Update [called by Object's update]*/
 		public override function childUpdate():void{
 			collisionBody.SetPosition( Stage.player.GetPosition() );
-			weaponClip.rotation = Stage.weaponRotation;
+			weaponClip.rotation = Stage.weaponRotation*180/Math.PI;
 		}
 		
 		/**Setters*/

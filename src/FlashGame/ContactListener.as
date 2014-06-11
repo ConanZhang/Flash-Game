@@ -4,6 +4,7 @@
 package FlashGame
 {
 	import Assets.Player;
+	import Assets.FlyingEnemy;
 	
 	import Box2D.Collision.b2ContactPoint;
 	import Box2D.Collision.b2Manifold;
@@ -99,6 +100,19 @@ package FlashGame
 				}
 				else{
 					return;
+				}
+			}
+			//destroy bullet
+			else if(contact.GetFixtureA().GetUserData() == "BULLET"){
+				contact.GetFixtureA().SetUserData("DEAD");
+				if(contact.GetFixtureB().GetUserData() == "ENEMY"){
+					contact.GetFixtureB().SetUserData("DAMAGE");
+				}
+			}
+			else if(contact.GetFixtureB().GetUserData() == "BULLET"){
+				contact.GetFixtureB().SetUserData("DEAD");
+				if(contact.GetFixtureA().GetUserData() == "ENEMY"){
+					contact.GetFixtureA().SetUserData("DAMAGE");
 				}
 			}
 		}

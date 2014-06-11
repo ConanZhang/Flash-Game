@@ -52,7 +52,7 @@ package Assets {
 			make();
 		}
 		
-		/**Makes Ground*/
+		/**Makes Platform*/
 		public function make():void{
 			//Box2D shape
 			var platformShape:b2PolygonShape = new b2PolygonShape();
@@ -74,6 +74,7 @@ package Assets {
 			platformFixture.shape = platformShape;
 			platformFixture.friction = platform_Friction;
 			platformFixture.density = platform_Density;
+			platformFixture.filter.categoryBits = 2;
 			
 			//Box2D collision shape
 			var platformCollision:b2BodyDef = new b2BodyDef();

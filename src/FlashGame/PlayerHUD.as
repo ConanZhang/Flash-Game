@@ -4,12 +4,14 @@
 package FlashGame
 {
 	import Assets.Player;
+	import Assets.Weapon;
 	
 	import Parents.Stage;
 	
 	import flash.display.MovieClip;
-	import flash.display.Sprite;
 	import flash.display.Shape;
+	import flash.display.Sprite;
+	import flash.text.TextField;
 	
 	public class PlayerHUD extends Sprite
 	{
@@ -26,6 +28,9 @@ package FlashGame
 		
 		//fade
 		private var fade:Shape;
+		
+		//ammo
+		private var ammoCount:TextField;
 		
 		/**Constructor*/
 		public function PlayerHUD(screenP:Sprite)
@@ -78,6 +83,14 @@ package FlashGame
 			slowMotionBar.graphics.endFill();
 			
 			this.addChild(slowMotionBar);
+			
+			//ammunition
+			ammoCount = new TextField();
+			ammoCount.height = 500;
+			ammoCount.x = 600;
+			ammoCount.y = 450;
+			ammoCount.textColor = 0xff0000;
+			this.addChild(ammoCount);
 		}
 		
 		/**Called in stage update*/
@@ -106,6 +119,10 @@ package FlashGame
 			slowMotionBar.graphics.beginFill(0xff0000);
 			slowMotionBar.graphics.drawRect(450, 25, Stage.slowBarWidth, 20);
 			slowMotionBar.graphics.endFill();
+			
+			//ammo
+			ammoCount.text = Weapon.weaponType + "\n" +
+							 "Ammo: " + Weapon.weaponAmmo;
 		}
 	}
 			

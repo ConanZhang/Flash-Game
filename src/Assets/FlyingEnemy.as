@@ -31,6 +31,7 @@ package Assets {
 		private var flyingEnemy_Width:Number;
 		private var flyingEnemy_Height:Number;
 		private var flyingEnemy_LinearDamping:Number;
+		private var flyingEnemyHealth:int;
 		
 		//BOX2D COLLISION & PHYSICS
 		private var collisionBody:b2Body;
@@ -45,6 +46,7 @@ package Assets {
 			flyingEnemy_Width = width;
 			flyingEnemy_Height = height;
 			flyingEnemy_LinearDamping = 1;
+			flyingEnemyHealth = 2;
 			
 			flyingEnemyFixture = new b2FixtureDef();
 			
@@ -60,6 +62,7 @@ package Assets {
 			//Box2D shape properties
 			flyingEnemyFixture.shape = flyingEnemyShape;
 			flyingEnemyFixture.userData = "ENEMY";
+			flyingEnemyFixture.filter.categoryBits = 2;
 			
 			//Box2D collision shape
 			var flyingEnemyCollision:b2BodyDef = new b2BodyDef();
@@ -85,7 +88,6 @@ package Assets {
 			var direction:b2Vec2 = new b2Vec2();
 			
 			/**Follow player*/
-			
 			//get direction and magnitude to player
 			direction = b2Math.SubtractVV(Stage.player.GetPosition() , collisionBody.GetPosition());
 			
@@ -107,6 +109,21 @@ package Assets {
 			direction.Set(0, -85);
 			collisionBody.SetAwake(true);
 			collisionBody.ApplyForce(direction, collisionBody.GetPosition() );
+			
+			/**Hurt yourself*/
+			//destroy yourself with any contact
+			if(collisionBody.GetFixtureList().GetUserData() == "DAMAGE"){				
+				if(flyingEnemyHealth > 0){
+					flyingEnemyHealth--;
+				}
+
+				collisionBody.GetFixtureList().SetUserData("ENEMY");
+			}
+			
+			/**Kill yourself*/
+			if(flyingEnemyHealth <= 0){
+				flyingEnemyClip.gotoAndStop("death");
+			}
 		}
 		
 		/**Setters*/
@@ -117,5 +134,6 @@ package Assets {
 		public function set height(height:Number):void{
 			flyingEnemy_Height = height;
 		}
+		
 	}
 }
