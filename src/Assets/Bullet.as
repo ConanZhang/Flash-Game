@@ -33,6 +33,8 @@ package Assets {
 		private var collisionBody:b2Body;
 		private var bulletFixture:b2FixtureDef;
 		private var bullet_Density:Number;
+		private var bulletXDirection:Number;
+		private var bulletYDirection:Number;
 		
 		/**Constructor*/
 		public function Bullet(xPos:Number, yPos:Number, width:Number, height:Number){
@@ -80,7 +82,11 @@ package Assets {
 			super.sprite = bulletClip;
 			Stage.sprites.addChild(bulletClip);
 			
-			collisionBody.ApplyImpulse(new b2Vec2( Math.cos(Stage.weaponRotation)*300, Math.sin(Stage.weaponRotation )*300 ), collisionBody.GetPosition());
+			//initial velocity
+			bulletXDirection = Math.cos(Stage.weaponRotation)*300;
+			bulletYDirection = Math.sin(Stage.weaponRotation)*300;
+
+			collisionBody.ApplyImpulse(new b2Vec2( bulletXDirection, bulletYDirection), collisionBody.GetPosition());
 		}
 		
 		/**Child Update [called by Object's update]*/
@@ -90,7 +96,7 @@ package Assets {
 				destroy();
 			}
 			//shoot
-			collisionBody.ApplyForce(new b2Vec2( Math.cos(Stage.weaponRotation)*300, Math.sin(Stage.weaponRotation )*300 ), collisionBody.GetPosition());
+			collisionBody.ApplyForce(new b2Vec2( bulletXDirection, bulletYDirection), collisionBody.GetPosition());
 			collisionBody.ApplyForce(new b2Vec2( 0, -85 ), collisionBody.GetPosition());
 		}
 		
