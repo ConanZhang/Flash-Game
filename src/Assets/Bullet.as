@@ -88,7 +88,7 @@ package Assets {
 
 			collisionBody.ApplyImpulse(new b2Vec2( bulletXDirection, bulletYDirection), collisionBody.GetPosition());
 		}
-		
+
 		/**Child Update [called by Object's update]*/
 		public override function childUpdate():void{
 			//destroy yourself with any contact

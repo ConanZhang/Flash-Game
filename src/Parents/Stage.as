@@ -462,7 +462,7 @@ package Parents
 		
 		/**Stages can detect left clicks*/
 		public function leftClick(e:MouseEvent):void{
-			if(Weapon.weaponAmmo > 0 && !paused){
+			if(Weapon.weaponAmmo > 0 && !paused && Player.playerHealth > 0){
 				var bullet:Bullet = new Bullet(player.GetPosition().x, player.GetPosition().y,0.3,0.3);	
 				Weapon.weaponAmmo--;
 			}
