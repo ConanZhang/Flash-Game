@@ -69,6 +69,12 @@ package Assets {
 			else if(platformType == "wide"){
 				platformShape.SetAsBox(platform_Width/2, platform_Height/2.75);
 			}
+			else if(platformType == "b_tall"){
+				platformShape.SetAsBox(platform_Width/2, platform_Height/2);
+			}
+			else if(platformType == "b_wide"){
+				platformShape.SetAsBox(platform_Width/2, platform_Height/2);
+			}
 			
 			//Box2D shape properties
 			platformFixture.shape = platformShape;
@@ -76,6 +82,9 @@ package Assets {
 			platformFixture.density = platform_Density;
 			platformFixture.filter.categoryBits = 2;
 			
+			if(platformType == "b_tall"){
+				platformFixture.userData = "NO_JUMP";
+			}
 			//Box2D collision shape
 			var platformCollision:b2BodyDef = new b2BodyDef();
 			platformCollision.position.Set(position.x + platform_Width/2, position.y + platform_Height/2);
@@ -112,6 +121,22 @@ package Assets {
 			}
 			else if(platformType == "wide"){
 				platformClip = new platform_wide();
+				platformClip.stop();
+				platformClip.width = platform_Width*metricPixRatio;
+				platformClip.height = platform_Height*metricPixRatio;
+				super.sprite = platformClip;
+				Stage.sprites.addChild(platformClip);
+			}
+			else if(platformType == "b_tall"){
+				platformClip = new barrier_tall();
+				platformClip.stop();
+				platformClip.width = platform_Width*metricPixRatio;
+				platformClip.height = platform_Height*metricPixRatio;
+				super.sprite = platformClip;
+				Stage.sprites.addChild(platformClip);
+			}
+			else if(platformType == "b_wide"){
+				platformClip = new barrier_wide();
 				platformClip.stop();
 				platformClip.width = platform_Width*metricPixRatio;
 				platformClip.height = platform_Height*metricPixRatio;

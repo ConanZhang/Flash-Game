@@ -25,9 +25,10 @@ package FlashGame
 
 		//slow motion bar
 		private var slowMotionBar:Shape;
+		private var slowBarClip:MovieClip;
 		
 		//fade
-		private var fade:Shape;
+		private var fadeClip:MovieClip;
 		
 		//ammo
 		private var ammoCount:TextField;
@@ -38,14 +39,17 @@ package FlashGame
 			screen = screenP;
 			screen.addChild(this);
 			
-			fade = new Shape();
-			fade.graphics.beginFill(0x000000);
-			fade.graphics.drawRect(0, 0, 700, 525);
-			fade.graphics.endFill();
+			fadeClip = new slowscreen();
 			
-			fade.alpha = 0;
+			fadeClip.alpha = 0;
 			
-			this.addChild(fade);
+			fadeClip.width = 300;
+			fadeClip.height = 300;
+			
+			fadeClip.x = 350;
+			fadeClip.y = 262.5;
+			
+			this.addChild(fadeClip);
 			
 			//health
 			heart1 = new heart();
@@ -60,11 +64,11 @@ package FlashGame
 			heart3.width = 40;
 			
 			heart1.x = 560;
-			heart1.y = 75;
+			heart1.y = 80;
 			heart2.x = 610;
-			heart2.y = 75;
+			heart2.y = 80;
 			heart3.x = 660;
-			heart3.y = 75;
+			heart3.y = 80;
 			
 			this.addChild(heart1);
 			this.addChild(heart2);
@@ -84,6 +88,15 @@ package FlashGame
 			
 			this.addChild(slowMotionBar);
 			
+			slowBarClip = new slowbar();
+			slowBarClip.width = 230;
+			slowBarClip.height = 45;
+			
+			slowBarClip.x = 565;
+			slowBarClip.y = 33;
+			
+			this.addChild(slowBarClip);
+			
 			//ammunition
 			ammoCount = new TextField();
 			ammoCount.height = 500;
@@ -96,11 +109,11 @@ package FlashGame
 		/**Called in stage update*/
 		public function updateHUD():void{
 			//VISUAL fade effect
-			if(fade.alpha < 0.2 && Stage.usingSlowMotion && Stage.slowMotionAmount > 0){
-				fade.alpha+=0.02;
+			if(fadeClip.alpha < 0.2 && Stage.usingSlowMotion && Stage.slowMotionAmount > 0){
+				fadeClip.alpha+=0.02;
 			}
-			else if(fade.alpha > 0 && !Stage.usingSlowMotion || Stage.slowMotionAmount <= 0 && fade.alpha > 0){
-				fade.alpha-=0.02;
+			else if(fadeClip.alpha > 0 && !Stage.usingSlowMotion || Stage.slowMotionAmount <= 0 && fadeClip.alpha > 0){
+				fadeClip.alpha-=0.02;
 			}
 			
 			//health

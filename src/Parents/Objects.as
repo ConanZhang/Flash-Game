@@ -45,14 +45,31 @@ package Parents
 			
 		}
 		
-		/**Remove yourself if necessary*/
-		public function destroy():void{
+		/**Total removal*/
+		public function destroyAll():void{
 			//child's specific functions it needs to do when removed
 			childRemove();
-			//remove sprite
-			_sprite.parent.removeChild(_sprite);
+			
 			//remove Box2D body
 			Stage.world.DestroyBody(_body);
+			
+			//remove sprite
+			_sprite.parent.removeChild(_sprite);
+		}
+		
+		/**Remove collision body*/
+		public function destroyBody():void{
+			//child's specific functions it needs to do when removed
+			childRemove();
+
+			//remove Box2D body
+			Stage.world.DestroyBody(_body);
+		}
+	
+		/**Remove sprite*/
+		public function destroySprite():void{
+			//remove sprite
+			_sprite.parent.removeChild(_sprite);
 		}
 		
 		/**Overwritten by child for it's own remove*/

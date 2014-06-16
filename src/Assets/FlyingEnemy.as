@@ -86,7 +86,7 @@ package Assets {
 		/**Child Update [called by Object's update]*/
 		public override function childUpdate():void{
 			var direction:b2Vec2 = new b2Vec2();
-			
+			   
 			/**Follow player*/
 			//get direction and magnitude to player
 			direction = b2Math.SubtractVV(Stage.player.GetPosition() , collisionBody.GetPosition());
@@ -123,6 +123,12 @@ package Assets {
 			/**Kill yourself*/
 			if(flyingEnemyHealth <= 0){
 				flyingEnemyClip.gotoAndStop("death");
+				destroyBody();
+				
+				if(EndAnimation.endEnemyDeath){
+					destroySprite();
+					EndAnimation.endEnemyDeath = false;
+				}
 			}
 		}
 		

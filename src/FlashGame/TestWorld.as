@@ -34,11 +34,11 @@ package FlashGame
 			var testWeapon:Weapon = new Weapon(15, 7,2,1, "Pistol");
 			
 			//GROUND
-			var testGround:Platform = new Platform(7, 15, 200, 15, "ground");
+			var testGround:Platform = new Platform(7, 15, 200, 15, "b_wide");
 
 			//WALLS
-			var leftWall:Platform = new Platform(7,-65, 2.5, 75, "tall");
-			var rightWall:Platform = new Platform(23,-65, 2.5, 75, "tall");
+			var leftWall:Platform = new Platform(7,-55, 2.5, 75, "b_tall");
+			var rightWall:Platform = new Platform(23,-65, 2.5, 75, "b_tall");
 			
 			//PLATFORMS
 			for(var i:int = 0; i < 8; i++){

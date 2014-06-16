@@ -114,6 +114,9 @@ package Assets {
 				weaponClip.gotoAndStop("pistol_left_fire");
 			}
 			
+			if(EndAnimation.endPlayerDeath){
+				destroyAll();
+			}
 		}
 		
 		/**Setters*/

@@ -93,7 +93,7 @@ package Assets {
 		public override function childUpdate():void{
 			//destroy yourself with any contact
 			if(collisionBody.GetFixtureList().GetUserData() == "DEAD"){
-				destroy();
+				destroyAll();
 			}
 			//shoot
 			collisionBody.ApplyForce(new b2Vec2( bulletXDirection, bulletYDirection), collisionBody.GetPosition());
