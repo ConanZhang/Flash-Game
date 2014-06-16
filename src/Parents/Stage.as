@@ -360,9 +360,13 @@ package Parents
 			}
 			
 			//flinch
-			if(flinchTime > 0){
+			if(flinchTime > 1){
 				flinchTime--;
 			} 	
+			else if(flinchTime == 1){
+				flinchTime--;
+				Player.STATE = Player.IDLE;
+			}
 			
 			var mouseDirectionX:Number = mouseX - stage.stageWidth/2;
 			var mouseDirectionY:Number = mouseY - stage.stageHeight/2;
@@ -402,6 +406,7 @@ package Parents
 				keyPresses.push(e.keyCode);
 			}
 			
+			//pausing
 			if(e.keyCode == Keyboard.P){
 				if(paused == false){
 					pause();
@@ -463,6 +468,9 @@ package Parents
 		/**Stages can detect left clicks*/
 		public function leftClick(e:MouseEvent):void{
 			if(Weapon.weaponAmmo > 0 && !paused && Player.playerHealth > 0){
+				if(weaponRotation > -1.5 && weaponRotation < 1.5){
+					Weapon.STATE = Weapon.R_FIRE;
+				}
 				var bullet:Bullet = new Bullet(player.GetPosition().x, player.GetPosition().y,0.3,0.3);	
 				Weapon.weaponAmmo--;
 			}

@@ -53,11 +53,11 @@ package FlashGame
 			}
 			
 			//ENEMY
-			var testEnemy:FlyingEnemy = new FlyingEnemy(0, -20, 2, 3);
+//			var testEnemy:FlyingEnemy = new FlyingEnemy(0, -20, 2, 3);
 
-			var enemyAdd:Timer = new Timer(3000, 50);
-			enemyAdd.addEventListener(TimerEvent.TIMER, addEnemy);
-			enemyAdd.start();
+//			var enemyAdd:Timer = new Timer(3000, 50);
+//			enemyAdd.addEventListener(TimerEvent.TIMER, addEnemy);
+//			enemyAdd.start();
 		}
 		
 		private function addEnemy(e:TimerEvent):void{

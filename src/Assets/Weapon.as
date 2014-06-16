@@ -23,9 +23,16 @@ package Assets {
 		private var world_Sprite:b2World = Stage.world;
 		private var metricPixRatio:Number = Stage.metricPixRatio;
 		
+		//ANIMATION STATES
+		public static var   STATE   	:int;
+		public static const LEFT    	:int = 0;
+		public static const RIGHT	  	:int = 1;
+		public static const L_FIRE 		:int = 2;
+		public static const R_FIRE 		:int = 3;
+		
 		//PROPERTIES
 		private var position:Point;
-		private var weaponClip:Sprite;
+		private var weaponClip:MovieClip;
 		public static var weapon_Width:Number;
 		private var weapon_Height:Number;
 		public static var weaponType:String;
@@ -45,6 +52,8 @@ package Assets {
 			weapon_Width = width;
 			weapon_Height = height;
 			weaponAmmo = 50;
+			
+			STATE = RIGHT;
 			
 			weaponFixture = new b2FixtureDef();
 			
@@ -72,6 +81,7 @@ package Assets {
 			//Sprite
 			if(weaponType == "Pistol"){
 				weaponClip = new pistol();
+				weaponClip.gotoAndStop("pistol_right");
 				weaponClip.width = weapon_Width*metricPixRatio;
 				weaponClip.height = weapon_Height*metricPixRatio;
 				super.sprite = weaponClip;
@@ -83,6 +93,27 @@ package Assets {
 		public override function childUpdate():void{
 			collisionBody.SetPosition( Stage.player.GetPosition() );
 			weaponClip.rotation = Stage.weaponRotation*180/Math.PI;
+			
+			if(weaponClip.rotation > -90 && weaponClip.rotation  < 90 && STATE != R_FIRE){
+				STATE = RIGHT;
+			}
+			else if(STATE != L_FIRE && STATE != R_FIRE){
+				STATE = LEFT;
+			}
+
+			if(STATE == RIGHT){
+				weaponClip.gotoAndStop("pistol_right");
+			}
+			else if(STATE == LEFT){
+				weaponClip.gotoAndStop("pistol_left");
+			}
+			else if(STATE == R_FIRE){
+				weaponClip.gotoAndStop("pistol_right_fire");
+			}
+			else if(STATE == L_FIRE){
+				weaponClip.gotoAndStop("pistol_left_fire");
+			}
+			
 		}
 		
 		/**Setters*/
