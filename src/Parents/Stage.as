@@ -196,7 +196,7 @@ package Parents
 						case Keyboard.S:
 							//downward velocity in air
 							if(jumping){
-								direction.Set(0, 90);
+								direction.Set(0, 180);
 								player.SetAwake(true);
 								player.ApplyForce(direction, player.GetPosition() );
 							}
@@ -208,7 +208,9 @@ package Parents
 								direction.Set(0,-25);
 								player.SetAwake(true);
 								player.ApplyImpulse(direction, player.GetPosition() );
-								Player.STATE = Player.JUMPING;
+								if(Player.STATE != Player.DODGE){
+									Player.STATE = Player.JUMPING;
+								}
 							}
 								//continuing initial jump
 							else if(jumping == true && 
@@ -243,7 +245,9 @@ package Parents
 								direction.Set(0,-150);
 								player.SetAwake(true);
 								player.ApplyForce(direction, player.GetPosition() );
-								Player.STATE = Player.HOVER;
+								if(Player.STATE != Player.DODGE){
+									Player.STATE = Player.HOVER;
+								}
 							}
 								//initial jump off right wall
 							else if(rightWall){
@@ -252,7 +256,9 @@ package Parents
 								direction.Set(-90,-43);
 								player.SetAwake(true);
 								player.ApplyImpulse(direction, player.GetPosition() );
-								Player.STATE = Player.JUMPING;
+								if(Player.STATE != Player.DODGE){
+									Player.STATE = Player.JUMPING;
+								}
 							}
 								//initial jump off left wall
 							else if(leftWall){
@@ -261,7 +267,9 @@ package Parents
 								direction.Set(90,-43);
 								player.SetAwake(true);
 								player.ApplyImpulse(direction, player.GetPosition() );
-								Player.STATE = Player.JUMPING;
+								if(Player.STATE != Player.DODGE){
+									Player.STATE = Player.JUMPING;
+								}
 							}
 							break;	
 						case Keyboard.A:
@@ -278,14 +286,16 @@ package Parents
 								}
 							}
 							//animation
-							if(!jumping && !leftWall && !slowMotion || !jumping && !leftWall && slowMotion && slowAmount <= 0){
-								Player.STATE = Player.L_WALK;
-							}
-							else if(!jumping && !leftWall && slowMotion && slowAmount > 0){
-								Player.STATE = Player.L_WALK_SLOW;
-							}
-							else if(leftWall){
-								Player.STATE = Player.L_WALL;
+							if(Player.STATE != Player.DODGE){
+								if(!jumping && !leftWall && !slowMotion || !jumping && !leftWall && slowMotion && slowAmount <= 0){
+									Player.STATE = Player.L_WALK;
+								}
+								else if(!jumping && !leftWall && slowMotion && slowAmount > 0){
+									Player.STATE = Player.L_WALK_SLOW;
+								}
+								else if(leftWall){
+									Player.STATE = Player.L_WALL;
+								}
 							}
 							break;
 						case Keyboard.D:
@@ -302,14 +312,16 @@ package Parents
 								}
 							}
 							//animation
-							if(!jumping && !rightWall && !slowMotion || !jumping && !rightWall && slowMotion && slowAmount <= 0 ){
-								Player.STATE = Player.R_WALK;
-							}
-							else if(!jumping && !rightWall && slowMotion && slowAmount > 0){
-								Player.STATE = Player.R_WALK_SLOW;
-							}
-							else if(rightWall){
-								Player.STATE = Player.R_WALL;
+							if(Player.STATE != Player.DODGE){
+								if(!jumping && !rightWall && !slowMotion || !jumping && !rightWall && slowMotion && slowAmount <= 0 ){
+									Player.STATE = Player.R_WALK;
+								}
+								else if(!jumping && !rightWall && slowMotion && slowAmount > 0){
+									Player.STATE = Player.R_WALK_SLOW;
+								}
+								else if(rightWall){
+									Player.STATE = Player.R_WALL;
+								}
 							}
 							break;
 						case Keyboard.SPACE:

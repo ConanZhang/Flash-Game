@@ -46,29 +46,6 @@ package FlashGame
 				Stage.leftWall = true;
 				Player.STATE = Player.L_WALL;
 			}
-			else if(contact.GetFixtureA().GetUserData() == "ENEMY" && contact.GetFixtureB().GetUserData() != "FOOT"){
-				Stage.jumping = false;
-				Stage.airJumping = false;
-				Stage.jumpTime = 0;
-				Stage.jumpAmount = Stage.defaultJumpAmount;
-				Player.STATE = Player.IDLE;
-			}
-			else if(contact.GetFixtureA().GetUserData() == "ENEMY" && contact.GetFixtureB().GetUserData() != "RIGHT"&& contact.GetFixtureB().GetUserData() != "NO_JUMP"){
-				Stage.jumping = false;
-				Stage.airJumping = false;
-				Stage.jumpTime = 0;
-				Stage.jumpAmount = Stage.defaultJumpAmount;
-				Stage.rightWall = true;
-				Player.STATE = Player.R_WALL;
-			}
-			else if(contact.GetFixtureA().GetUserData() == "ENEMY" && contact.GetFixtureB().GetUserData() != "LEFT"&& contact.GetFixtureB().GetUserData() != "NO_JUMP"){
-				Stage.jumping = false;
-				Stage.airJumping = false;
-				Stage.jumpTime = 0;
-				Stage.jumpAmount = Stage.defaultJumpAmount;
-				Stage.leftWall = true;
-				Player.STATE = Player.L_WALL;
-			}
 			/**Enemy contact*/
 			else if(contact.GetFixtureA().GetUserData() == "PLAYER" && contact.GetFixtureB().GetUserData() == "ENEMY"){
 				//take away health
@@ -108,6 +85,7 @@ package FlashGame
 					}
 				}
 				else{
+					Player.STATE = Player.DODGE;
 					return;
 				}
 			}
@@ -149,6 +127,7 @@ package FlashGame
 					}
 				}
 				else{
+					Player.STATE = Player.DODGE;
 					return;
 				}
 			}

@@ -6,6 +6,7 @@ package  {
 	public class EndAnimation {
 		/**Class Member Variables*/
 		public static var endPlayerDeath:Boolean;
+		public static var endPlayerDodge:Boolean;
 		public static var endEnemyDeath:Boolean;
 		public static var endGunFire:Boolean;
 		
@@ -13,6 +14,7 @@ package  {
 		public function EndAnimation() {
 			//default values of animations
 			endPlayerDeath = false;
+			endPlayerDodge = false;
 			endEnemyDeath = false;
 			endGunFire = false;
 		}

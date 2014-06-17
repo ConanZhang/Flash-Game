@@ -47,14 +47,14 @@ package FlashGame
 				var middleWallPlatform:Platform = new Platform(40+(i*25), -15,3, 15, "tall");
 				var bottomPlatform:Platform = new Platform(49+(i*25), 5,10, 2, "wide");
 			}
-			for(var j:int = 0; j < 13; j++){
-				var topSquarePlatform:Platform = new Platform(44+(j*12), -65,3, 3, "square");
-				var middleSquarePlatform:Platform = new Platform(38+(j*12), -55,3, 3, "square");
-				var bottomSquarePlatform:Platform = new Platform(44+(j*12), -45,3, 3, "square");
+			for(var j:int = 0; j < 16; j++){
+				var topSquarePlatform:Platform = new Platform(44+(j*12), -72,3, 3, "square");
+				var middleSquarePlatform:Platform = new Platform(38+(j*12), -60,3, 3, "square");
+				var bottomSquarePlatform:Platform = new Platform(44+(j*12), -48,3, 3, "square");
 			}
 			
 			//ENEMY
-//			var testEnemy:FlyingEnemy = new FlyingEnemy(0, -20, 2, 3);
+			var testEnemy:FlyingEnemy = new FlyingEnemy(130, -20, 2, 3);
 
 //			var enemyAdd:Timer = new Timer(3000, 50);
 //			enemyAdd.addEventListener(TimerEvent.TIMER, addEnemy);
@@ -63,7 +63,7 @@ package FlashGame
 		
 		private function addEnemy(e:TimerEvent):void{
 			//test enemy
-			var testEnemy:FlyingEnemy = new FlyingEnemy(Math.random()*230, Math.random()*-55, 2, 3);
+			var testEnemy:FlyingEnemy = new FlyingEnemy(Math.random()*190 + 40, Math.random()*-90, 2, 3);
 		}
 	}
 }

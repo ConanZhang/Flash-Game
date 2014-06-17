@@ -4,9 +4,9 @@
 package Assets
 {
 	import Box2D.Collision.Shapes.b2PolygonShape;
+	import Box2D.Common.Math.b2Mat22;
 	import Box2D.Common.Math.b2Transform;
 	import Box2D.Common.Math.b2Vec2;
-	import Box2D.Common.Math.b2Mat22;
 	import Box2D.Dynamics.Joints.b2RevoluteJointDef;
 	import Box2D.Dynamics.b2Body;
 	import Box2D.Dynamics.b2BodyDef;
@@ -78,7 +78,7 @@ package Assets
 			player_Density = 0.4;
 			player_Restitution = 0;
 			player_LinearDamping = 2;
-			playerHealth = 300;
+			playerHealth = 3;
 			playerInvulnerable = 0;
 			
 			playerFixture = new b2FixtureDef();
@@ -199,7 +199,6 @@ package Assets
 			world_Sprite.CreateJoint(playerJoints);
 			
 			//Sprite
-//			playerClip = new MovieClip();
 			playerClip = new player();
 			playerClip.width = player_Width*metricPixRatio;
 			playerClip.height = player_Height*metricPixRatio;
@@ -252,6 +251,15 @@ package Assets
 			else if(STATE == DODGE && playerHealth != 0){
 				playerClip.gotoAndStop("dodge");
 				playerClip.rotation = 0;
+				if(EndAnimation.endPlayerDodge){
+					EndAnimation.endPlayerDodge = false;
+					if(Stage.jumping){
+						STATE = JUMPING;
+					}
+					else{
+						STATE = IDLE;
+					}
+				}
 			}
 			else if(playerHealth == 0){
 				playerClip.rotation = 0;
