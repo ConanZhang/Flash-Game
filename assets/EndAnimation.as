@@ -7,11 +7,14 @@ package  {
 		/**Class Member Variables*/
 		public static var endPlayerDeath:Boolean;
 		public static var endEnemyDeath:Boolean;
+		public static var endGunFire:Boolean;
 		
+		/**Constructor*/
 		public function EndAnimation() {
 			//default values of animations
 			endPlayerDeath = false;
 			endEnemyDeath = false;
+			endGunFire = false;
 		}
 
 	}

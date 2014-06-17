@@ -82,8 +82,10 @@ package Assets {
 			platformFixture.density = platform_Density;
 			platformFixture.filter.categoryBits = 2;
 			
+			//player can't wall jump off tall barriers and slide on them
 			if(platformType == "b_tall"){
 				platformFixture.userData = "NO_JUMP";
+				platformFixture.friction = 0
 			}
 			//Box2D collision shape
 			var platformCollision:b2BodyDef = new b2BodyDef();

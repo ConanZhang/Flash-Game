@@ -468,11 +468,19 @@ package Parents
 		/**Stages can detect left clicks*/
 		public function leftClick(e:MouseEvent):void{
 			if(Weapon.weaponAmmo > 0 && !paused && Player.playerHealth > 0){
-				if(weaponRotation > -1.5 && weaponRotation < 1.5){
-					Weapon.STATE = Weapon.R_FIRE;
+				if(weaponRotation > -1.5 && weaponRotation < 1.5 && !Weapon.rightFire){
+					 Weapon.rightFire = true;
+					 var bulletRight:Bullet = new Bullet(player.GetPosition().x, player.GetPosition().y,0.3,0.3);	
+					 Weapon.weaponAmmo--;
 				}
-				var bullet:Bullet = new Bullet(player.GetPosition().x, player.GetPosition().y,0.3,0.3);	
-				Weapon.weaponAmmo--;
+				else if(!Weapon.leftFire){
+					Weapon.leftFire = true;
+					var bulletLeft:Bullet = new Bullet(player.GetPosition().x, player.GetPosition().y,0.3,0.3);	
+					Weapon.weaponAmmo--;
+				}
+				else if(Weapon.rightFire && !EndAnimation.endGunFire || Weapon.leftFire && !EndAnimation.endGunFire){
+					EndAnimation.endGunFire = true;
+				}
 			}
 		}
 		

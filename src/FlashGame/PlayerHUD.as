@@ -22,7 +22,10 @@ package FlashGame
 		private var heart1:MovieClip;
 		private var heart2:MovieClip;
 		private var heart3:MovieClip;
-
+		
+		private var heartXPosition:int;
+		private var heartYPosition:int;
+		private var heartSize:int;
 		//slow motion bar
 		private var slowMotionBar:Shape;
 		private var slowBarClip:MovieClip;
@@ -36,6 +39,11 @@ package FlashGame
 		/**Constructor*/
 		public function PlayerHUD(screenP:Sprite)
 		{
+			//initialize class member variables
+			heartXPosition = 580;
+			heartYPosition = 70;
+			heartSize = 35;
+			
 			screen = screenP;
 			screen.addChild(this);
 			
@@ -56,19 +64,19 @@ package FlashGame
 			heart2 = new heart();
 			heart3 = new heart();
 			
-			heart1.height = 40;
-			heart1.width = 40;
-			heart2.height = 40;
-			heart2.width = 40;
-			heart3.height = 40;
-			heart3.width = 40;
+			heart1.height = heartSize;
+			heart1.width = heartSize;
+			heart2.height = heartSize;
+			heart2.width = heartSize;
+			heart3.height = heartSize;
+			heart3.width = heartSize;
 			
-			heart1.x = 560;
-			heart1.y = 80;
-			heart2.x = 610;
-			heart2.y = 80;
-			heart3.x = 660;
-			heart3.y = 80;
+			heart1.x = heartXPosition;
+			heart1.y = heartYPosition;
+			heart2.x = heartXPosition + 40;
+			heart2.y = heartYPosition;
+			heart3.x = heartXPosition + 80;
+			heart3.y = heartYPosition;
 			
 			this.addChild(heart1);
 			this.addChild(heart2);
@@ -92,8 +100,8 @@ package FlashGame
 			slowBarClip.width = 230;
 			slowBarClip.height = 45;
 			
-			slowBarClip.x = 565;
-			slowBarClip.y = 33;
+			slowBarClip.x = 563;
+			slowBarClip.y = 34;
 			
 			this.addChild(slowBarClip);
 			

@@ -27,29 +27,30 @@ package FlashGame
 			screen.addChild(this);
 			
 			//PLAYER
-			var testPlayer:Player = new Player(15, 7, 3.5);
+			var testPlayer:Player = new Player(130, 7, 3.5);
 			testPlayer.setPlayer();
 			
 			//WEAPON
 			var testWeapon:Weapon = new Weapon(15, 7,2,1, "Pistol");
 			
 			//GROUND
-			var testGround:Platform = new Platform(7, 15, 200, 15, "b_wide");
+			var testGround:Platform = new Platform(7, 15, 275, 15, "b_wide");
 
 			//WALLS
-			var leftWall:Platform = new Platform(7,-55, 2.5, 75, "b_tall");
-			var rightWall:Platform = new Platform(23,-65, 2.5, 75, "b_tall");
+			var leftWall:Platform = new Platform(7,-170, 20, 200, "b_tall");
+			var rightWall:Platform = new Platform(245,-170, 20, 200, "b_tall");
 			
 			//PLATFORMS
 			for(var i:int = 0; i < 8; i++){
-				var topWallPlatform:Platform = new Platform(53+(i*25), -25,3, 15, "tall");
-				var middleWallPlatform:Platform = new Platform(40+(i*25), -10,3, 15, "tall");
-				var bottomPlatform:Platform = new Platform(48+(i*25), 7,10, 2, "wide");
+				var topWallPlatform:Platform = new Platform(40+(i*25), -35,3, 15, "tall");
+				var middleTopWallPlatform:Platform = new Platform(53+(i*25), -25,3, 15, "tall");
+				var middleWallPlatform:Platform = new Platform(40+(i*25), -15,3, 15, "tall");
+				var bottomPlatform:Platform = new Platform(49+(i*25), 5,10, 2, "wide");
 			}
-			for(var j:int = 0; j < 20; j++){
-				var topSquarePlatform:Platform = new Platform(42+(j*12), -55,3, 3, "square");
-				var middleSquarePlatform:Platform = new Platform(36+(j*12), -45,3, 3, "square");
-				var bottomSquarePlatform:Platform = new Platform(42+(j*12), -35,3, 3, "square");
+			for(var j:int = 0; j < 13; j++){
+				var topSquarePlatform:Platform = new Platform(44+(j*12), -65,3, 3, "square");
+				var middleSquarePlatform:Platform = new Platform(38+(j*12), -55,3, 3, "square");
+				var bottomSquarePlatform:Platform = new Platform(44+(j*12), -45,3, 3, "square");
 			}
 			
 			//ENEMY

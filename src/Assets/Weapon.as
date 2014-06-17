@@ -27,8 +27,9 @@ package Assets {
 		public static var   STATE   	:int;
 		public static const LEFT    	:int = 0;
 		public static const RIGHT	  	:int = 1;
-		public static const L_FIRE 		:int = 2;
-		public static const R_FIRE 		:int = 3;
+		
+		public static var leftFire:Boolean;
+		public static var rightFire:Boolean;
 		
 		//PROPERTIES
 		private var position:Point;
@@ -54,6 +55,8 @@ package Assets {
 			weaponAmmo = 50;
 			
 			STATE = RIGHT;
+			leftFire = false;
+			rightFire = false;
 			
 			weaponFixture = new b2FixtureDef();
 			
@@ -94,26 +97,39 @@ package Assets {
 			collisionBody.SetPosition( Stage.player.GetPosition() );
 			weaponClip.rotation = Stage.weaponRotation*180/Math.PI;
 			
-			if(weaponClip.rotation > -90 && weaponClip.rotation  < 90 && STATE != R_FIRE){
+			//match rotation
+			if(weaponClip.rotation > -90 && weaponClip.rotation  < 90){
 				STATE = RIGHT;
 			}
-			else if(STATE != L_FIRE && STATE != R_FIRE){
+			else{
 				STATE = LEFT;
 			}
 
-			if(STATE == RIGHT){
+			//shooting
+			if(STATE == RIGHT && !rightFire){
 				weaponClip.gotoAndStop("pistol_right");
 			}
-			else if(STATE == LEFT){
+			else if(STATE == LEFT && !leftFire){
 				weaponClip.gotoAndStop("pistol_left");
 			}
-			else if(STATE == R_FIRE){
+			else if(rightFire){
 				weaponClip.gotoAndStop("pistol_right_fire");
+				
+				if(EndAnimation.endGunFire){
+					EndAnimation.endGunFire = false;
+					rightFire = false;
+				}
 			}
-			else if(STATE == L_FIRE){
+			else if(leftFire){
 				weaponClip.gotoAndStop("pistol_left_fire");
+				
+				if(EndAnimation.endGunFire){
+					EndAnimation.endGunFire = false;
+					leftFire = false;
+				}
 			}
 			
+			//kill yourself if player is dead
 			if(EndAnimation.endPlayerDeath){
 				destroyAll();
 			}
