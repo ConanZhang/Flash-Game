@@ -30,7 +30,7 @@ package
 			test.stage.addEventListener(MouseEvent.MOUSE_DOWN, test.leftClick);
 			
 			//display debug information
-//			debug = new DebugScreen(this);
+			debug = new DebugScreen(this);
 		}
 	}
 }

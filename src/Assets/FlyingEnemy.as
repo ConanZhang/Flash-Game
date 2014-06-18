@@ -135,7 +135,12 @@ package Assets {
 					
 					//create random drop
 					if(Math.random() > 0.9){
-						var itemDrop:ItemDrop = new ItemDrop(collisionBody.GetPosition().x, collisionBody.GetPosition().y, 1.5, 1.5, Math.floor(Math.random()*2));
+						if(Math.random() > 0.7){
+							var healthDrop:ItemDrop = new ItemDrop(collisionBody.GetPosition().x, collisionBody.GetPosition().y, 1.5, 1.5, 1);
+						}
+						else{
+							var ammoDrop:ItemDrop = new ItemDrop(collisionBody.GetPosition().x, collisionBody.GetPosition().y, 1, 1, 2);
+						}
 					}
 		
 					//destroy yourself

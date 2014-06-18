@@ -76,7 +76,7 @@ package FlashGame
 		
 		private function addAmmo(e:TimerEvent):void{
 			if(!Stage.paused){
-				var itemDrop:ItemDrop = new ItemDrop(Math.random()*190 + 40, Math.random()*-90, 2,2, 2);	
+				var itemDrop:ItemDrop = new ItemDrop(Math.random()*190 + 40, Math.random()*-90, 1,1, 2);	
 			}
 		}
 	}

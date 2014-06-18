@@ -208,7 +208,7 @@ package Parents
 								direction.Set(0,-25);
 								player.SetAwake(true);
 								player.ApplyImpulse(direction, player.GetPosition() );
-								if(Player.STATE != Player.DODGE){
+								if(Player.STATE != Player.DODGE ){
 									Player.STATE = Player.JUMPING;
 								}
 							}
@@ -377,7 +377,12 @@ package Parents
 			} 	
 			else if(flinchTime == 1){
 				flinchTime--;
-				Player.STATE = Player.IDLE;
+				if(jumping){
+					Player.STATE = Player.JUMPING;
+				}
+				else{
+					Player.STATE = Player.IDLE;
+				}
 			}
 			
 			var mouseDirectionX:Number = mouseX - stage.stageWidth/2;
