@@ -163,7 +163,7 @@ package FlashGame
 			this.addChild(ammoCount);
 			
 			//timer
-			minuteDisplay = 0;
+			minuteDisplay = 3;
 			secondDisplay = 0;
 			
 			timerText = new TextField();
