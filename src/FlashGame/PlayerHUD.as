@@ -163,19 +163,21 @@ package FlashGame
 			this.addChild(ammoCount);
 			
 			//timer
-			minuteDisplay = 3;
+			minuteDisplay = 0;
 			secondDisplay = 0;
 			
 			timerText = new TextField();
 			timerText.text = "3:00";
-			timerText.x = 350;
-			timerText.y = 35;
+			timerText.x = 300;
+			timerText.y = 50;
+			timerText.width = 180;
 			timerText.textColor = 0xff0000;
 			timerText.selectable = false;
 			this.addChild(timerText);
 			
 			timerFormat = new TextFormat();
 			timerFormat.size = 20;
+			timerFormat.align = "center";
 			timerText.setTextFormat(timerFormat);
 			
 			surviveTimer = new Timer(1000);
