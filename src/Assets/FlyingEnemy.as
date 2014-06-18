@@ -121,15 +121,16 @@ package Assets {
 			}
 			
 			/**Kill yourself*/
-			if(flyingEnemyHealth <= 0){
-				flyingEnemyClip.gotoAndStop("death");	
-				
+			if(flyingEnemyHealth <= 0){				
 				//don't collide with anything
 				var deadFilter:b2FilterData = new b2FilterData();
 				deadFilter.maskBits = 4;
 				
 				collisionBody.GetFixtureList().SetFilterData(deadFilter);
+				collisionBody.GetFixtureList().SetUserData("DEAD");
 				
+				flyingEnemyClip.gotoAndStop("death");	
+
 				if(EndAnimation.endEnemyDeath){
 					EndAnimation.endEnemyDeath = false;
 					

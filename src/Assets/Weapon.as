@@ -134,8 +134,12 @@ package Assets {
 			}
 			
 			//kill yourself if player is dead
-			if(Player.playerHealth == 0){
+			if(Player.playerHealth == 0 && holdingWeapon){
 				destroyAll();
+			}
+			//just remove body if there is no sprite
+			else if(Player.playerHealth == 0 && !holdingWeapon){
+				destroyBody();
 			}
 			
 			if(weaponAmmo == 0 && holdingWeapon){
