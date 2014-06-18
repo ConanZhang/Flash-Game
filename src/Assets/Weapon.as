@@ -38,6 +38,8 @@ package Assets {
 		private var weapon_Height:Number;
 		public static var weaponType:String;
 		public static var weaponAmmo:int;
+		public static var holdingWeapon:Boolean;
+		public static var needWeapon:Boolean;
 		
 		//BOX2D COLLISION & PHYSICS
 		private var collisionBody:b2Body;
@@ -53,6 +55,8 @@ package Assets {
 			weapon_Width = width;
 			weapon_Height = height;
 			weaponAmmo = 20;
+			holdingWeapon = true;
+			needWeapon = false;
 			
 			STATE = RIGHT;
 			leftFire = false;
@@ -132,6 +136,18 @@ package Assets {
 			//kill yourself if player is dead
 			if(Player.playerHealth == 0){
 				destroyAll();
+			}
+			
+			if(weaponAmmo == 0 && holdingWeapon){
+				destroySprite();
+				weaponType = "None";
+				holdingWeapon = false;
+			}
+			else if(needWeapon == true){
+				Stage.sprites.addChild(weaponClip);
+				holdingWeapon = true;
+				needWeapon = false;
+				weaponTipe = "Pistol";
 			}
 		}
 		

@@ -107,6 +107,9 @@ package Assets {
 				}
 				else{
 					Weapon.weaponAmmo +=10;
+					if(!Weapon.holdingWeapon){
+						Weapon.needWeapon = true;
+					}
 				}
 				destroyAll();
 			}
