@@ -147,7 +147,7 @@ package Assets {
 				Stage.sprites.addChild(weaponClip);
 				holdingWeapon = true;
 				needWeapon = false;
-				weaponTipe = "Pistol";
+				weaponType = "Pistol";
 			}
 		}
 		
