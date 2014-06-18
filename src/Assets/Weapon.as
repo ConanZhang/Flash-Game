@@ -133,15 +133,7 @@ package Assets {
 				}
 			}
 			
-			//kill yourself if player is dead
-			if(Player.playerHealth == 0 && holdingWeapon){
-				destroyAll();
-			}
-			//just remove body if there is no sprite
-			else if(Player.playerHealth == 0 && !holdingWeapon){
-				destroyBody();
-			}
-			
+			//check state of weapon BEFORE removing it if necessary
 			if(weaponAmmo == 0 && holdingWeapon){
 				destroySprite();
 				weaponType = "None";
@@ -152,6 +144,15 @@ package Assets {
 				holdingWeapon = true;
 				needWeapon = false;
 				weaponType = "Pistol";
+			}
+			
+			//kill yourself if player is dead
+			if(Player.playerHealth == 0 && holdingWeapon){
+				destroyAll();
+			}
+			//just remove body if there is no sprite
+			else if(Player.playerHealth == 0 && !holdingWeapon){
+				destroyBody();
 			}
 		}
 		

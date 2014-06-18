@@ -188,7 +188,7 @@ package FlashGame
 		/**Called in stage update*/
 		public function updateHUD():void{
 			//VISUAL fade effect
-			if(fadeClip.alpha < 0.2 && Stage.usingSlowMotion && Stage.slowMotionAmount > 0){
+			if(fadeClip.alpha < 0.3 && Stage.usingSlowMotion && Stage.slowMotionAmount > 0){
 				fadeClip.alpha+=0.02;
 			}
 			else if(fadeClip.alpha > 0 && !Stage.usingSlowMotion || Stage.slowMotionAmount <= 0 && fadeClip.alpha > 0){
