@@ -23,14 +23,23 @@ package FlashGame
 		
 		/**Collision begins*/
 		override public function BeginContact(contact:b2Contact):void{
-			if(contact.GetFixtureA().GetUserData() == "FOOT" && contact.GetFixtureB().GetUserData() != "ENEMY"){
+			if(contact.GetFixtureA().GetUserData() == "FOOT" && 
+			   contact.GetFixtureB().GetUserData() != "ENEMY" && 
+			   contact.GetFixtureB().GetUserData() != "HEART" &&
+			   contact.GetFixtureB().GetUserData() != "AMMO" &&
+			   contact.GetFixtureB().GetUserData() != "DEAD"){
 				Stage.jumping = false;
 				Stage.airJumping = false;
 				Stage.jumpTime = 0;
 				Stage.jumpAmount = Stage.defaultJumpAmount;
 				Player.STATE = Player.IDLE;
 			}
-			else if(contact.GetFixtureA().GetUserData() == "RIGHT" && contact.GetFixtureB().GetUserData() != "ENEMY" && contact.GetFixtureB().GetUserData() != "NO_JUMP"){
+			else if(contact.GetFixtureA().GetUserData() == "RIGHT" && 
+				    contact.GetFixtureB().GetUserData() != "ENEMY" && 
+					contact.GetFixtureB().GetUserData() != "NO_JUMP" && 
+					contact.GetFixtureB().GetUserData() != "HEART"&&
+					contact.GetFixtureB().GetUserData() != "AMMO" &&
+					contact.GetFixtureB().GetUserData() != "DEAD"){
 				Stage.jumping = false;
 				Stage.airJumping = false;
 				Stage.jumpTime = 0;
@@ -38,7 +47,12 @@ package FlashGame
 				Stage.rightWall = true;
 				Player.STATE = Player.R_WALL;
 			}
-			else if(contact.GetFixtureA().GetUserData() == "LEFT" && contact.GetFixtureB().GetUserData() != "ENEMY" && contact.GetFixtureB().GetUserData() != "NO_JUMP"){
+			else if(contact.GetFixtureA().GetUserData() == "LEFT" && 
+				    contact.GetFixtureB().GetUserData() != "ENEMY" && 
+					contact.GetFixtureB().GetUserData() != "NO_JUMP" && 
+					contact.GetFixtureB().GetUserData() != "HEART"&&
+					contact.GetFixtureB().GetUserData() != "AMMO" &&
+					contact.GetFixtureB().GetUserData() != "DEAD"){
 				Stage.jumping = false;
 				Stage.airJumping = false;
 				Stage.jumpTime = 0;
@@ -84,8 +98,10 @@ package FlashGame
 						}
 					}
 				}
-				else{
+				else if(Stage.usingSlowMotion && Stage.slowMotionAmount > 0){
 					Player.STATE = Player.DODGE;
+				}
+				else{
 					return;
 				}
 			}
@@ -126,8 +142,10 @@ package FlashGame
 						}
 					}
 				}
-				else{
+				else if(Stage.usingSlowMotion && Stage.slowMotionAmount > 0){
 					Player.STATE = Player.DODGE;
+				}
+				else{
 					return;
 				}
 			}
@@ -144,20 +162,38 @@ package FlashGame
 					contact.GetFixtureA().SetUserData("DAMAGE");
 				}
 			}
+			//item
+			else if(contact.GetFixtureA().GetUserData() == "HEART" && contact.GetFixtureB().GetUserData() == "PLAYER" ||
+					contact.GetFixtureA().GetUserData() == "AMMO" && contact.GetFixtureB().GetUserData() == "PLAYER"){
+				contact.GetFixtureA().SetUserData("DEAD");
+			}
+			else if(contact.GetFixtureA().GetUserData() == "PLAYER" && contact.GetFixtureB().GetUserData() == "HEART" ||
+					contact.GetFixtureA().GetUserData() == "PLAYER" && contact.GetFixtureB().GetUserData() == "AMMO"){
+				contact.GetFixtureB().SetUserData("DEAD");
+			}
 		}
 		
 		/**Collison ends*/
 		override public function EndContact(contact:b2Contact):void{
-			if(contact.GetFixtureA().GetUserData() == "FOOT" && contact.GetFixtureB().GetUserData() != "ENEMY" && contact.GetFixtureB().GetUserData() != "NO_JUMP"){
+			if(contact.GetFixtureA().GetUserData() == "FOOT" && 
+			   contact.GetFixtureB().GetUserData() != "ENEMY" && 
+			   contact.GetFixtureB().GetUserData() != "NO_JUMP" && 
+			   contact.GetFixtureB().GetUserData() != "DEAD"){
 				Stage.jumping = true;
 				Player.STATE = Player.JUMPING;
 			}
-			else if(contact.GetFixtureA().GetUserData() == "RIGHT" && contact.GetFixtureB().GetUserData() != "ENEMY" && contact.GetFixtureB().GetUserData() != "NO_JUMP" ){
+			else if(contact.GetFixtureA().GetUserData() == "RIGHT" && 
+				    contact.GetFixtureB().GetUserData() != "ENEMY" && 
+					contact.GetFixtureB().GetUserData() != "NO_JUMP" && 
+					contact.GetFixtureB().GetUserData() != "DEAD" ){
 				Stage.rightWall = false;
 				Stage.jumping = true;
 				Player.STATE = Player.JUMPING;
 			}
-			else if(contact.GetFixtureA().GetUserData() == "LEFT" && contact.GetFixtureB().GetUserData() != "ENEMY" && contact.GetFixtureB().GetUserData() != "NO_JUMP"){
+			else if(contact.GetFixtureA().GetUserData() == "LEFT" && 
+				    contact.GetFixtureB().GetUserData() != "ENEMY" && 
+					contact.GetFixtureB().GetUserData() != "NO_JUMP" && 
+					contact.GetFixtureB().GetUserData() != "DEAD"){
 				Stage.leftWall = false;
 				Stage.jumping = true;
 				Player.STATE = Player.JUMPING;

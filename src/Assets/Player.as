@@ -264,11 +264,10 @@ package Assets
 			else if(playerHealth == 0){
 				playerClip.rotation = 0;
 				playerClip.gotoAndStop("death");
-				//remove yourself logically
-				destroyBody();
-				//remove yourself visually
+
+				//remove yourself
 				if(EndAnimation.endPlayerDeath){
-					destroySprite();
+					destroyAll();
 				}
 				
 			}

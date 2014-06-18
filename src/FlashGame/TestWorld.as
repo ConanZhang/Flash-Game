@@ -54,16 +54,25 @@ package FlashGame
 			}
 			
 			//ENEMY
-			var testEnemy:FlyingEnemy = new FlyingEnemy(130, -20, 2, 3);
+			var testEnemy:FlyingEnemy = new FlyingEnemy(100, 5, 2, 3);
 
-//			var enemyAdd:Timer = new Timer(3000, 50);
-//			enemyAdd.addEventListener(TimerEvent.TIMER, addEnemy);
-//			enemyAdd.start();
+			var enemyAdd:Timer = new Timer(3000);
+			enemyAdd.addEventListener(TimerEvent.TIMER, addEnemy);
+			enemyAdd.start();
+			
+			//AMMO
+			var ammoAdd:Timer = new Timer(15000);
+			ammoAdd.addEventListener(TimerEvent.TIMER, addAmmo);
+			ammoAdd.start();
 		}
 		
 		private function addEnemy(e:TimerEvent):void{
 			//test enemy
 			var testEnemy:FlyingEnemy = new FlyingEnemy(Math.random()*190 + 40, Math.random()*-90, 2, 3);
+		}
+		
+		private function addAmmo(e:TimerEvent):void{
+			var itemDrop:ItemDrop = new ItemDrop(Math.random()*190 + 40, Math.random()*-90, 2,2, 2);
 		}
 	}
 }

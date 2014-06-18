@@ -8,9 +8,9 @@ package Assets {
 	import Box2D.Common.Math.b2Vec2;
 	import Box2D.Dynamics.b2Body;
 	import Box2D.Dynamics.b2BodyDef;
+	import Box2D.Dynamics.b2FilterData;
 	import Box2D.Dynamics.b2FixtureDef;
 	import Box2D.Dynamics.b2World;
-	import Box2D.Common.Math.b2Math;
 	
 	import Parents.*;
 	
@@ -62,7 +62,7 @@ package Assets {
 			//Box2D shape properties
 			flyingEnemyFixture.shape = flyingEnemyShape;
 			flyingEnemyFixture.userData = "ENEMY";
-			flyingEnemyFixture.filter.categoryBits = 2;
+			flyingEnemyFixture.filter.categoryBits = 6;
 			
 			//Box2D collision shape
 			var flyingEnemyCollision:b2BodyDef = new b2BodyDef();
@@ -122,12 +122,24 @@ package Assets {
 			
 			/**Kill yourself*/
 			if(flyingEnemyHealth <= 0){
-				flyingEnemyClip.gotoAndStop("death");
-				destroyBody();
+				flyingEnemyClip.gotoAndStop("death");	
+				
+				//don't collide with anything
+				var deadFilter:b2FilterData = new b2FilterData();
+				deadFilter.maskBits = 4;
+				
+				collisionBody.GetFixtureList().SetFilterData(deadFilter);
 				
 				if(EndAnimation.endEnemyDeath){
-					destroySprite();
 					EndAnimation.endEnemyDeath = false;
+					
+					//create random drop
+					if(Math.random() > 0.9){
+						var itemDrop:ItemDrop = new ItemDrop(collisionBody.GetPosition().x, collisionBody.GetPosition().y, 1.5, 1.5, Math.floor(Math.random()*2));
+					}
+		
+					//destroy yourself
+					destroyAll();
 				}
 			}
 		}

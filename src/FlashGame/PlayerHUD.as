@@ -11,7 +11,9 @@ package FlashGame
 	import flash.display.MovieClip;
 	import flash.display.Shape;
 	import flash.display.Sprite;
+	import flash.events.TimerEvent;
 	import flash.text.TextField;
+	import flash.utils.Timer;
 	
 	public class PlayerHUD extends Sprite
 	{
@@ -35,6 +37,13 @@ package FlashGame
 		
 		//ammo
 		private var ammoCount:TextField;
+		
+		//survive timer
+		private var timerText:TextField;
+		private var minuteDisplay:int;
+		private var secondDisplay:Number;
+		
+		private var surviveTimer:Timer;
 		
 		/**Constructor*/
 		public function PlayerHUD(screenP:Sprite)
@@ -112,6 +121,21 @@ package FlashGame
 			ammoCount.y = 450;
 			ammoCount.textColor = 0xff0000;
 			this.addChild(ammoCount);
+			
+			//timer
+			minuteDisplay = 3;
+			secondDisplay = 0;
+			
+			timerText = new TextField();
+			timerText.text = "3:00";
+			timerText.x = 350;
+			timerText.y = 35;
+			timerText.textColor = 0xff0000;
+			this.addChild(timerText);
+			
+			surviveTimer = new Timer(1000, 180);
+			surviveTimer.addEventListener(TimerEvent.TIMER, surviveCountDown);
+			surviveTimer.start();
 		}
 		
 		/**Called in stage update*/
@@ -144,6 +168,22 @@ package FlashGame
 			//ammo
 			ammoCount.text = Weapon.weaponType + "\n" +
 							 "Ammo: " + Weapon.weaponAmmo;
+		}
+		
+		/**Count down timer*/
+		private function surviveCountDown(e:TimerEvent):void{
+			//minus seconds
+			if(secondDisplay > 0){
+				secondDisplay--;
+			}
+			//minus minutes
+			else if(minuteDisplay > 0){
+				minuteDisplay--;
+				secondDisplay = 59;
+			}
+			
+			//display new text
+			timerText.text = minuteDisplay+":"+(secondDisplay >= 10 ? secondDisplay:"0" + secondDisplay);
 		}
 	}
 			

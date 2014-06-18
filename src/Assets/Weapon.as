@@ -63,7 +63,7 @@ package Assets {
 			make();
 		}
 		
-		/**Makes Ground*/
+		/**Makes Weapon*/
 		public function make():void{
 			//Box2D shape
 			var weaponShape:b2PolygonShape = new b2PolygonShape();
@@ -71,7 +71,7 @@ package Assets {
 			
 			//Box2D shape properties
 			weaponFixture.shape = weaponShape;
-			weaponFixture.filter.maskBits = 0x0000;
+			weaponFixture.filter.maskBits = 0;
 			
 			//Box2D collision shape
 			var weaponCollision:b2BodyDef = new b2BodyDef();
@@ -130,7 +130,7 @@ package Assets {
 			}
 			
 			//kill yourself if player is dead
-			if(EndAnimation.endPlayerDeath){
+			if(Player.playerHealth == 0){
 				destroyAll();
 			}
 		}

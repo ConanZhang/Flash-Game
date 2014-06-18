@@ -80,7 +80,7 @@ package Assets {
 			platformFixture.shape = platformShape;
 			platformFixture.friction = platform_Friction;
 			platformFixture.density = platform_Density;
-			platformFixture.filter.categoryBits = 2;
+			platformFixture.filter.categoryBits = 6;
 			
 			//player can't wall jump off tall barriers and slide on them
 			if(platformType == "b_tall"){
