@@ -26,6 +26,10 @@ package FlashGame
 			screen = screenP;
 			screen.addChild(this);
 			
+			var itemDrop:ItemDrop = new ItemDrop(120, 0, 2,2, 1);	
+			var itemDrop2:ItemDrop = new ItemDrop(125, 0, 2,2, 1);	
+			var itemDrop3:ItemDrop = new ItemDrop(130, 0, 2,2, 1);	
+
 			//PLAYER
 			var testPlayer:Player = new Player(130, 7, 3.5);
 			testPlayer.setPlayer();
@@ -37,8 +41,8 @@ package FlashGame
 			var testGround:Platform = new Platform(7, 15, 275, 15, "b_wide");
 
 			//WALLS
-			var leftWall:Platform = new Platform(7,-170, 20, 200, "b_tall");
-			var rightWall:Platform = new Platform(245,-170, 20, 200, "b_tall");
+			var leftWall:Platform = new Platform(-5,-170, 30, 200, "b_tall");
+			var rightWall:Platform = new Platform(250,-170, 30, 200, "b_tall");
 			
 			//PLATFORMS
 			for(var i:int = 0; i < 8; i++){
@@ -68,11 +72,15 @@ package FlashGame
 		
 		private function addEnemy(e:TimerEvent):void{
 			//test enemy
-			var testEnemy:FlyingEnemy = new FlyingEnemy(Math.random()*190 + 40, Math.random()*-90, 2, 3);
+			if(!Stage.paused && Stage.world.GetBodyCount() < 120){
+				var testEnemy:FlyingEnemy = new FlyingEnemy(Math.random()*190 + 40, Math.random()*-90, 2, 3);
+			}
 		}
 		
 		private function addAmmo(e:TimerEvent):void{
-			var itemDrop:ItemDrop = new ItemDrop(Math.random()*190 + 40, Math.random()*-90, 2,2, 2);
+			if(!Stage.paused){
+				var itemDrop:ItemDrop = new ItemDrop(Math.random()*190 + 40, Math.random()*-90, 2,2, 2);	
+			}
 		}
 	}
 }

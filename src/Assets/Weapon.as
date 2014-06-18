@@ -52,7 +52,7 @@ package Assets {
 			//initialize default private variables
 			weapon_Width = width;
 			weapon_Height = height;
-			weaponAmmo = 50;
+			weaponAmmo = 20;
 			
 			STATE = RIGHT;
 			leftFire = false;

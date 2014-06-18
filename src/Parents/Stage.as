@@ -52,7 +52,7 @@ package Parents
 		//HUD
 		private var gameHUD:PlayerHUD;
 		//paused or playing
-		private var paused:Boolean;
+		public static var paused:Boolean;
 		//rotate weapon
 		public static var weaponRotation:Number;
 		
@@ -145,7 +145,7 @@ package Parents
 			gameHUD = new PlayerHUD(this);
 			
 			/**DEBUGGING*/
-			debugDrawing();
+//			debugDrawing();
 		}
 		
 		/**Stages can update their properties*/

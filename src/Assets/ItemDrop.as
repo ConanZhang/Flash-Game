@@ -10,6 +10,7 @@ package Assets {
 	import Box2D.Dynamics.b2World;
 	
 	import Parents.*;
+	import FlashGame.PlayerHUD;
 	
 	import flash.display.MovieClip;
 	import flash.display.Sprite;
@@ -100,8 +101,9 @@ package Assets {
 		public override function childUpdate():void{
 			//destroy yourself with any contact
 			if(collisionBody.GetFixtureList().GetUserData() == "DEAD"){
-				if(itemType == 1){
+				if(itemType == 1 && Player.playerHealth < 6){
 					Player.playerHealth++;
+					PlayerHUD.heartRevive = true;
 				}
 				else{
 					Weapon.weaponAmmo +=10;

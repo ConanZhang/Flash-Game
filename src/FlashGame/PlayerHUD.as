@@ -24,6 +24,9 @@ package FlashGame
 		private var heart1:MovieClip;
 		private var heart2:MovieClip;
 		private var heart3:MovieClip;
+		private var heart4:MovieClip;
+		private var heart5:MovieClip;
+		private var heart6:MovieClip;
 		
 		private var heartXPosition:int;
 		private var heartYPosition:int;
@@ -45,11 +48,18 @@ package FlashGame
 		
 		private var surviveTimer:Timer;
 		
+		//item collected
+		public static var heartRevive:Boolean;
+		public static var heartDamaged:Boolean;
+		
 		/**Constructor*/
 		public function PlayerHUD(screenP:Sprite)
 		{
 			//initialize class member variables
-			heartXPosition = 580;
+			heartRevive = false;
+			heartDamaged = false;
+			
+			heartXPosition = 460;
 			heartYPosition = 70;
 			heartSize = 35;
 			
@@ -72,6 +82,9 @@ package FlashGame
 			heart1 = new heart();
 			heart2 = new heart();
 			heart3 = new heart();
+			heart4 = new heart();
+			heart5 = new heart();
+			heart6 = new heart();
 			
 			heart1.height = heartSize;
 			heart1.width = heartSize;
@@ -79,6 +92,12 @@ package FlashGame
 			heart2.width = heartSize;
 			heart3.height = heartSize;
 			heart3.width = heartSize;
+			heart4.height = heartSize;
+			heart4.width = heartSize;
+			heart5.height = heartSize;
+			heart5.width = heartSize;
+			heart6.height = heartSize;
+			heart6.width = heartSize;
 			
 			heart1.x = heartXPosition;
 			heart1.y = heartYPosition;
@@ -86,15 +105,26 @@ package FlashGame
 			heart2.y = heartYPosition;
 			heart3.x = heartXPosition + 80;
 			heart3.y = heartYPosition;
+			heart4.x = heartXPosition + 120;
+			heart4.y = heartYPosition;
+			heart5.x = heartXPosition + 160;
+			heart5.y = heartYPosition;
+			heart6.x = heartXPosition + 200;
+			heart6.y = heartYPosition;
 			
 			this.addChild(heart1);
 			this.addChild(heart2);
 			this.addChild(heart3);
+			this.addChild(heart4);
+			this.addChild(heart5);
+			this.addChild(heart6);
 			
-			heart1.gotoAndStop("idle");
-			heart2.gotoAndStop("idle");
-			heart3.gotoAndStop("idle");
-			
+			heart1.gotoAndStop("dying");
+			heart2.gotoAndStop("dying");
+			heart3.gotoAndStop("dying");
+			heart4.gotoAndStop("idle");
+			heart5.gotoAndStop("idle");
+			heart6.gotoAndStop("idle");
 			
 			//slow motion bar
 			slowMotionBar = new Shape();
@@ -133,7 +163,7 @@ package FlashGame
 			timerText.textColor = 0xff0000;
 			this.addChild(timerText);
 			
-			surviveTimer = new Timer(1000, 180);
+			surviveTimer = new Timer(1000);
 			surviveTimer.addEventListener(TimerEvent.TIMER, surviveCountDown);
 			surviveTimer.start();
 		}
@@ -149,14 +179,41 @@ package FlashGame
 			}
 			
 			//health
-			if(Player.playerHealth == 2){
-				heart1.gotoAndStop("dying");
+			if(heartRevive){
+				if(Player.playerHealth == 2){
+					heart5.gotoAndStop("revive");
+				}
+				else if(Player.playerHealth == 3){
+					heart4.gotoAndStop("revive");
+				}
+				else if(Player.playerHealth == 4){
+					heart3.gotoAndStop("revive");
+				}
+				else if(Player.playerHealth == 5){
+					heart2.gotoAndStop("revive");
+				}
+				else if(Player.playerHealth == 6){
+					heart1.gotoAndStop("revive");
+				}
+				heartRevive = false
 			}
-			else if(Player.playerHealth == 1){
-				heart2.gotoAndStop("dying");
-			}
-			else if(Player.playerHealth == 0){
-				heart3.gotoAndStop("dying");
+			else if(heartDamaged){
+				if(Player.playerHealth == 5){
+					heart1.gotoAndStop("dying");
+				}
+				else if(Player.playerHealth == 4){
+					heart2.gotoAndStop("dying");
+				}
+				else if(Player.playerHealth == 3){
+					heart3.gotoAndStop("dying");
+				}
+				else if(Player.playerHealth == 2){
+					heart4.gotoAndStop("dying");
+				}
+				else if(Player.playerHealth == 1){
+					heart5.gotoAndStop("dying");
+				}
+				heartDamaged = false;
 			}
 			
 			//slow motion bar
@@ -172,14 +229,16 @@ package FlashGame
 		
 		/**Count down timer*/
 		private function surviveCountDown(e:TimerEvent):void{
-			//minus seconds
-			if(secondDisplay > 0){
-				secondDisplay--;
-			}
-			//minus minutes
-			else if(minuteDisplay > 0){
-				minuteDisplay--;
-				secondDisplay = 59;
+			if(!Stage.paused){
+				//minus seconds
+				if(secondDisplay > 0){
+					secondDisplay--;
+				}
+					//minus minutes
+				else if(minuteDisplay > 0){
+					minuteDisplay--;
+					secondDisplay = 59;
+				}
 			}
 			
 			//display new text
