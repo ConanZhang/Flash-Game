@@ -25,10 +25,6 @@ package FlashGame
 		{
 			screen = screenP;
 			screen.addChild(this);
-			
-			var itemDrop:ItemDrop = new ItemDrop(120, 0, 2,2, 1);	
-			var itemDrop2:ItemDrop = new ItemDrop(125, 0, 2,2, 1);	
-			var itemDrop3:ItemDrop = new ItemDrop(130, 0, 2,2, 1);	
 
 			//PLAYER
 			var testPlayer:Player = new Player(130, 7, 3.5);
@@ -37,8 +33,9 @@ package FlashGame
 			//WEAPON
 			var testWeapon:Weapon = new Weapon(15, 7,2,1, "Pistol");
 			
-			//GROUND
+			//GROUND & SKY
 			var testGround:Platform = new Platform(7, 15, 275, 15, "b_wide");
+			var testSky:Platform = new Platform(7, -120, 275, 15, "b_wide");
 
 			//WALLS
 			var leftWall:Platform = new Platform(-5,-170, 30, 200, "b_tall");

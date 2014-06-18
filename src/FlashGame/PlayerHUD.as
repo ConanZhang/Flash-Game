@@ -13,6 +13,7 @@ package FlashGame
 	import flash.display.Sprite;
 	import flash.events.TimerEvent;
 	import flash.text.TextField;
+	import flash.text.TextFormat;
 	import flash.utils.Timer;
 	
 	public class PlayerHUD extends Sprite
@@ -40,9 +41,12 @@ package FlashGame
 		
 		//ammo
 		private var ammoCount:TextField;
+		private var ammoFormat:TextFormat;
 		
 		//survive timer
 		private var timerText:TextField;
+		private var timerFormat:TextFormat;
+		
 		private var minuteDisplay:int;
 		private var secondDisplay:Number;
 		
@@ -147,9 +151,14 @@ package FlashGame
 			//ammunition
 			ammoCount = new TextField();
 			ammoCount.height = 500;
-			ammoCount.x = 600;
-			ammoCount.y = 450;
+			ammoCount.x = 550;
+			ammoCount.y = 400;
 			ammoCount.textColor = 0xff0000;
+			
+			ammoFormat = new TextFormat();
+			ammoFormat.size = 20;
+			ammoCount.setTextFormat(ammoFormat);
+			
 			this.addChild(ammoCount);
 			
 			//timer
@@ -162,6 +171,10 @@ package FlashGame
 			timerText.y = 35;
 			timerText.textColor = 0xff0000;
 			this.addChild(timerText);
+			
+			timerFormat = new TextFormat();
+			timerFormat.size = 20;
+			timerText.setTextFormat(timerFormat);
 			
 			surviveTimer = new Timer(1000);
 			surviveTimer.addEventListener(TimerEvent.TIMER, surviveCountDown);
@@ -213,6 +226,9 @@ package FlashGame
 				else if(Player.playerHealth == 1){
 					heart5.gotoAndStop("dying");
 				}
+				else if(Player.playerHealth == 0){
+					heart6.gotoAndStop("dying");
+				}
 				heartDamaged = false;
 			}
 			
@@ -225,6 +241,8 @@ package FlashGame
 			//ammo
 			ammoCount.text = Weapon.weaponType + "\n" +
 							 "Ammo: " + Weapon.weaponAmmo;
+			ammoCount.setTextFormat(ammoFormat);
+		
 		}
 		
 		/**Count down timer*/
@@ -243,6 +261,7 @@ package FlashGame
 			
 			//display new text
 			timerText.text = minuteDisplay+":"+(secondDisplay >= 10 ? secondDisplay:"0" + secondDisplay);
+			timerText.setTextFormat(timerFormat);
 		}
 	}
 			
