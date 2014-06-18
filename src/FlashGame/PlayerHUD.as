@@ -270,6 +270,11 @@ package FlashGame
 			//display new text
 			timerText.text = minuteDisplay+":"+(secondDisplay >= 10 ? secondDisplay:"0" + secondDisplay);
 			timerText.setTextFormat(timerFormat);
+			
+			if(secondDisplay == 0 && minuteDisplay == 0){
+				timerText.text = "YOU'RE WINNER!!!";
+				timerText.setTextFormat(timerFormat);
+			}
 		}
 	}
 			
