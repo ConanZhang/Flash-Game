@@ -154,6 +154,7 @@ package FlashGame
 			ammoCount.x = 550;
 			ammoCount.y = 400;
 			ammoCount.textColor = 0xff0000;
+			ammoCount.selectable = false;
 			
 			ammoFormat = new TextFormat();
 			ammoFormat.size = 20;
@@ -170,6 +171,7 @@ package FlashGame
 			timerText.x = 350;
 			timerText.y = 35;
 			timerText.textColor = 0xff0000;
+			timerText.selectable = false;
 			this.addChild(timerText);
 			
 			timerFormat = new TextFormat();

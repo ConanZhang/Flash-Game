@@ -35,6 +35,7 @@ package FlashGame
 			start = getTimer();//MILLISECONDS
 			FPS = new TextField();
 			FPS.textColor = 0xff0000;
+			FPS.selectable = false;
 			this.addChild(FPS);
 			
 			debug = new TextField();
@@ -42,6 +43,7 @@ package FlashGame
 			debug.height = stage.stageHeight;
 			debug.y = FPS.y + 30;
 			debug.textColor = 0xff0000;
+			debug.selectable = false;
 			this.addChild(debug);
 			
 			this.addEventListener(Event.ENTER_FRAME, countFPS);
