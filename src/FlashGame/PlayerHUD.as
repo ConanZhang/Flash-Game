@@ -151,13 +151,15 @@ package FlashGame
 			//ammunition
 			ammoCount = new TextField();
 			ammoCount.height = 500;
-			ammoCount.x = 550;
-			ammoCount.y = 400;
+			ammoCount.x = 575;
+			ammoCount.y = 350;
 			ammoCount.textColor = 0xff0000;
 			ammoCount.selectable = false;
 			
 			ammoFormat = new TextFormat();
-			ammoFormat.size = 20;
+			ammoFormat.size = 30;
+			ammoFormat.align = "right";
+			ammoFormat.font = "Zenzai Itacha";
 			ammoCount.setTextFormat(ammoFormat);
 			
 			this.addChild(ammoCount);
@@ -168,16 +170,17 @@ package FlashGame
 			
 			timerText = new TextField();
 			timerText.text = "3:00";
-			timerText.x = 300;
+			timerText.x = 250;
 			timerText.y = 50;
-			timerText.width = 180;
+			timerText.width = 275;
 			timerText.textColor = 0xff0000;
 			timerText.selectable = false;
 			this.addChild(timerText);
 			
 			timerFormat = new TextFormat();
-			timerFormat.size = 20;
+			timerFormat.size = 30;
 			timerFormat.align = "center";
+			timerFormat.font = "Zenzai Itacha";
 			timerText.setTextFormat(timerFormat);
 			
 			surviveTimer = new Timer(1000);
