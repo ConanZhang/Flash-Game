@@ -151,6 +151,7 @@ package FlashGame
 			//ammunition
 			ammoCount = new TextField();
 			ammoCount.height = 500;
+			ammoCount.width = 100;
 			ammoCount.x = 575;
 			ammoCount.y = 350;
 			ammoCount.textColor = 0xff0000;

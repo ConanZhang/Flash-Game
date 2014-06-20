@@ -102,10 +102,10 @@ package Assets {
 			weaponClip.rotation = Stage.weaponRotation*180/Math.PI;
 			
 			//match rotation
-			if(weaponClip.rotation > -90 && weaponClip.rotation  < 90){
+			if(weaponClip.rotation > -90 && weaponClip.rotation  < 90 && !leftFire){
 				STATE = RIGHT;
 			}
-			else{
+			else if(!rightFire){
 				STATE = LEFT;
 			}
 
