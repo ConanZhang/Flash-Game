@@ -13,9 +13,10 @@ package
 	
 	/**SWF Options*/
 	[SWF(backgroundColor="#FFFFFF", width="700", height="525", frameRate="30")]
-	
+
 	public class FlashGame extends Sprite
 	{
+
 		/**Class Member Variables*/
 		private var test:TestWorld;  
 		private var debug:DebugScreen;

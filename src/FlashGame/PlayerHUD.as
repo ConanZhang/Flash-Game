@@ -12,12 +12,16 @@ package FlashGame
 	import flash.display.Shape;
 	import flash.display.Sprite;
 	import flash.events.TimerEvent;
+	import flash.text.Font;
 	import flash.text.TextField;
 	import flash.text.TextFormat;
 	import flash.utils.Timer;
 	
 	public class PlayerHUD extends Sprite
-	{
+	{		
+		//embed font
+		[Embed(source="assets/Zenzai_Itacha.ttf", fontName="Zenzai Itacha", embedAsCFF="false")]
+		private var Zenzai_Itacha:Class;
 		
 		private var screen:Sprite;
 		
@@ -59,6 +63,9 @@ package FlashGame
 		/**Constructor*/
 		public function PlayerHUD(screenP:Sprite)
 		{
+			//register font to global list
+			Font.registerFont(Zenzai_Itacha);
+			
 			//initialize class member variables
 			heartRevive = false;
 			heartDamaged = false;
@@ -123,9 +130,9 @@ package FlashGame
 			this.addChild(heart5);
 			this.addChild(heart6);
 			
-			heart1.gotoAndStop("dying");
-			heart2.gotoAndStop("dying");
-			heart3.gotoAndStop("dying");
+			heart1.gotoAndStop("empty");
+			heart2.gotoAndStop("empty");
+			heart3.gotoAndStop("empty");
 			heart4.gotoAndStop("idle");
 			heart5.gotoAndStop("idle");
 			heart6.gotoAndStop("idle");
@@ -141,48 +148,49 @@ package FlashGame
 			
 			slowBarClip = new slowbar();
 			slowBarClip.width = 230;
-			slowBarClip.height = 45;
+			slowBarClip.height = 25;
 			
 			slowBarClip.x = 563;
 			slowBarClip.y = 34;
 			
 			this.addChild(slowBarClip);
 			
-			//ammunition
-			ammoCount = new TextField();
-			ammoCount.height = 500;
-			ammoCount.width = 100;
-			ammoCount.x = 575;
-			ammoCount.y = 350;
-			ammoCount.textColor = 0xff0000;
-			ammoCount.selectable = false;
-			
 			ammoFormat = new TextFormat();
 			ammoFormat.size = 30;
 			ammoFormat.align = "right";
 			ammoFormat.font = "Zenzai Itacha";
-			ammoCount.setTextFormat(ammoFormat);
 			
+			//ammunition
+			ammoCount = new TextField();
+			ammoCount.embedFonts = true;
+			ammoCount.defaultTextFormat = ammoFormat;
+			ammoCount.height = 500;
+			ammoCount.width = 150;
+			ammoCount.x = 525;
+			ammoCount.y = 350;
+			ammoCount.textColor = 0xff0000;
+			ammoCount.selectable = false;			
 			this.addChild(ammoCount);
 			
 			//timer
 			minuteDisplay = 3;
 			secondDisplay = 0;
 			
+			timerFormat = new TextFormat();
+			timerFormat.size = 30;
+			timerFormat.align = "center";
+			timerFormat.font = "Zenzai Itacha";
+			
 			timerText = new TextField();
-			timerText.text = "3:00";
+			timerText.embedFonts = true;
+			timerText.defaultTextFormat = timerFormat;
+			timerText.text = "3 i 00";
 			timerText.x = 250;
 			timerText.y = 50;
 			timerText.width = 275;
 			timerText.textColor = 0xff0000;
 			timerText.selectable = false;
 			this.addChild(timerText);
-			
-			timerFormat = new TextFormat();
-			timerFormat.size = 30;
-			timerFormat.align = "center";
-			timerFormat.font = "Zenzai Itacha";
-			timerText.setTextFormat(timerFormat);
 			
 			surviveTimer = new Timer(1000);
 			surviveTimer.addEventListener(TimerEvent.TIMER, surviveCountDown);
@@ -248,9 +256,7 @@ package FlashGame
 			
 			//ammo
 			ammoCount.text = Weapon.weaponType + "\n" +
-							 "Ammo: " + Weapon.weaponAmmo;
-			ammoCount.setTextFormat(ammoFormat);
-		
+							 "Ammo i " + Weapon.weaponAmmo;		
 		}
 		
 		/**Count down timer*/
@@ -276,12 +282,10 @@ package FlashGame
 			}
 			
 			//display new text
-			timerText.text = minuteDisplay+":"+(secondDisplay >= 10 ? secondDisplay:"0" + secondDisplay);
-			timerText.setTextFormat(timerFormat);
+			timerText.text = minuteDisplay+" i "+(secondDisplay >= 10 ? secondDisplay:"0" + secondDisplay);
 			
 			if(secondDisplay == 0 && minuteDisplay == 0){
-				timerText.text = "YOU'RE WINNER!!!";
-				timerText.setTextFormat(timerFormat);
+				timerText.text = "YOU ARE WINNER!!!";
 			}
 		}
 	}
