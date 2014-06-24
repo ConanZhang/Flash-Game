@@ -1,3 +1,7 @@
+-------------GOAL-------------
+
+Survive.
+
 -------------KEYBOARD CONTROLS-------------
 
 W - Jump/Double Jump/Hover
@@ -10,7 +14,7 @@ D - Right
 
 Space - Slow motion/Invulnerability
 	
-P - Pause
+P or F - Pause
 
 -------------MOUSE CONTROLS-------------
 
