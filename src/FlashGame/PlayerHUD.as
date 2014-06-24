@@ -175,7 +175,7 @@ package FlashGame
 			this.addChild(ammoCount);
 			
 			//timer
-			minuteDisplay = 3;
+			minuteDisplay = 0;
 			secondDisplay = 0;
 			
 			timerFormat = new TextFormat();
@@ -186,7 +186,7 @@ package FlashGame
 			timerText = new TextField();
 			timerText.embedFonts = true;
 			timerText.defaultTextFormat = timerFormat;
-			timerText.text = "3 i 00";
+			timerText.text = "0 i 00";
 			timerText.x = 250;
 			timerText.y = 50;
 			timerText.width = 275;
@@ -270,29 +270,25 @@ package FlashGame
 			if(!Stage.paused){
 				//slow down real time
 				if(Stage.usingSlowMotion && Stage.slowMotionAmount > 0){
-					surviveTimer.delay = 2000;
+					surviveTimer.delay = 1500;
 				}
 				else{
 					surviveTimer.delay = 1000;
 				}
 				
-				//minus seconds
-				if(secondDisplay > 0){
-					secondDisplay--;
+				//plus seconds
+				if(secondDisplay < 59){
+					secondDisplay++;
 				}
-					//minus minutes
-				else if(minuteDisplay > 0){
-					minuteDisplay--;
-					secondDisplay = 59;
+				//minus minutes
+				else{
+					minuteDisplay++;
+					secondDisplay = 0;
 				}
 			}
 			
 			//display new text
 			timerText.text = minuteDisplay+" i "+(secondDisplay >= 10 ? secondDisplay:"0" + secondDisplay);
-			
-			if(secondDisplay == 0 && minuteDisplay == 0){
-				timerText.text = "YOU ARE WINNER!!!";
-			}
 		}
 	}
 			
