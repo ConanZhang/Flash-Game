@@ -14,7 +14,7 @@ package
 		import flash.ui.Mouse;
 	
 	/**SWF Options*/
-	[SWF(backgroundColor="#FFFFFF", width="700", height="525", frameRate="30")]
+	[SWF(backgroundColor="#C4A57C", width="700", height="525", frameRate="30")]
 
 	public class FlashGame extends Sprite
 	{

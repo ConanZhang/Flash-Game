@@ -261,7 +261,7 @@ package FlashGame
 			slowMotionBar.graphics.endFill();
 			
 			//ammo
-			ammoCount.text = Weapon.weaponType + "\n" +
+			ammoCount.text = "Weapon i " + Weapon.weaponType + "\n" +
 							 "Ammo i " + Weapon.weaponAmmo;					
 		}
 		

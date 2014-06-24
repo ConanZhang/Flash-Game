@@ -117,7 +117,12 @@ package Assets {
 				weaponClip.gotoAndStop("pistol_left");
 			}
 			else if(rightFire){
-				weaponClip.gotoAndStop("pistol_right_fire");
+				if(Stage.usingSlowMotion && Stage.slowMotionAmount > 0){
+					weaponClip.gotoAndStop("pistol_right_fire_slomo");
+				}
+				else{
+					weaponClip.gotoAndStop("pistol_right_fire");
+				}
 				
 				if(EndAnimation.endGunFire){
 					EndAnimation.endGunFire = false;
@@ -125,8 +130,12 @@ package Assets {
 				}
 			}
 			else if(leftFire){
-				weaponClip.gotoAndStop("pistol_left_fire");
-				
+				if(Stage.usingSlowMotion && Stage.slowMotionAmount > 0){
+					weaponClip.gotoAndStop("pistol_left_fire_slomo");
+				}
+				else{
+					weaponClip.gotoAndStop("pistol_left_fire");
+				}				
 				if(EndAnimation.endGunFire){
 					EndAnimation.endGunFire = false;
 					leftFire = false;

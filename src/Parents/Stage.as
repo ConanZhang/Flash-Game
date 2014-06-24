@@ -199,6 +199,9 @@ package Parents
 								direction.Set(0, 180);
 								player.SetAwake(true);
 								player.ApplyForce(direction, player.GetPosition() );
+								if(Player.STATE != Player.DODGE ){
+									Player.STATE = Player.FAST_FALL;
+								}
 							}
 							break;
 						case Keyboard.W:
@@ -457,6 +460,11 @@ package Parents
 					Player.STATE = Player.JUMPING;
 				}
 			}
+			else if(e.keyCode == Keyboard.S){
+				if(Player.STATE == Player.FAST_FALL){
+					Player.STATE = Player.JUMPING;
+				}
+			}
 			//movement
 			else if(e.keyCode == Keyboard.D && !jumping && !rightWall || e.keyCode == Keyboard.A && !jumping && !leftWall){
 				Player.STATE = Player.IDLE;
@@ -497,6 +505,8 @@ package Parents
 				}
 				else if(Weapon.rightFire && !EndAnimation.endGunFire || Weapon.leftFire && !EndAnimation.endGunFire){
 					EndAnimation.endGunFire = true;
+					Weapon.rightFire = false;
+					Weapon.leftFire = false;
 				}
 			}
 		}

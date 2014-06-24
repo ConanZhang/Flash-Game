@@ -50,7 +50,8 @@ package Assets
 		public static const HOVER		:int = 8;
 		public static const FLINCH		:int = 9;
 		public static const DODGE		:int = 10;
-
+		public static const FAST_FALL	:int = 11;
+		
 		//BOX2D COLLISION & PHYSICS
 		private var collisionBody:b2Body;
 		private var feet:b2Body;
@@ -246,6 +247,10 @@ package Assets
 			}
 			else if(STATE == FLINCH && playerHealth != 0){
 				playerClip.gotoAndStop("flinch");
+				playerClip.rotation = 0;
+			}
+			else if(STATE == FAST_FALL && playerHealth != 0){
+				playerClip.gotoAndStop("fall");
 				playerClip.rotation = 0;
 			}
 			else if(STATE == DODGE && playerHealth != 0){

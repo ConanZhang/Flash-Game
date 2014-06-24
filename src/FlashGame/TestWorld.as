@@ -25,7 +25,7 @@ package FlashGame
 		{
 			screen = screenP;
 			screen.addChild(this);
-
+			
 			//PLAYER
 			var testPlayer:Player = new Player(130, 7, 3.5);
 			testPlayer.setPlayer();
