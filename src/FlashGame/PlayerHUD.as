@@ -267,7 +267,7 @@ package FlashGame
 		
 		/**Count down timer*/
 		private function surviveCountDown(e:TimerEvent):void{
-			if(!Stage.paused){
+			if(!Stage.paused && Player.playerHealth > 0){
 				//slow down real time
 				if(Stage.usingSlowMotion && Stage.slowMotionAmount > 0){
 					surviveTimer.delay = 1500;

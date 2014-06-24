@@ -136,7 +136,7 @@ package Assets {
 					
 					//create random drop
 					if(Math.random() > 0.9){
-						if(Math.random() > 0.7){
+						if(Math.random() > 0.7 && Player.playerHealth < 6){
 							var healthDrop:ItemDrop = new ItemDrop(collisionBody.GetPosition().x, collisionBody.GetPosition().y, 1.5, 1.5, 1);
 						}
 						else{
