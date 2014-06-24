@@ -150,7 +150,7 @@ package FlashGame
 			
 			slowBarClip = new slowbar();
 			slowBarClip.width = 230;
-			slowBarClip.height = 25;
+			slowBarClip.height = 30;
 			
 			slowBarClip.x = 563;
 			slowBarClip.y = 34;
@@ -261,8 +261,9 @@ package FlashGame
 			slowMotionBar.graphics.endFill();
 			
 			//ammo
-			ammoCount.text = "Weapon i " + Weapon.weaponType + "\n" +
-							 "Ammo i " + Weapon.weaponAmmo;					
+			ammoCount.text = "Ammo i " + Weapon.weaponAmmo + "\n" +
+							 "Weapon i " + Weapon.weaponType;
+							 				
 		}
 		
 		/**Count down timer*/
