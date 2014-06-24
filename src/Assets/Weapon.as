@@ -156,11 +156,11 @@ package Assets {
 			}
 			
 			//kill yourself if player is dead
-			if(Player.playerHealth == 0 && holdingWeapon){
+			if(EndAnimation.endPlayerDeath && holdingWeapon){
 				destroyAll();
 			}
 			//just remove body if there is no sprite
-			else if(Player.playerHealth == 0 && !holdingWeapon){
+			else if(EndAnimation.endPlayerDeath && !holdingWeapon){
 				destroyBody();
 			}
 		}

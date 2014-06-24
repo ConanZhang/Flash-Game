@@ -26,6 +26,8 @@ package FlashGame
 			screen = screenP;
 			screen.addChild(this);
 			
+			var itemDrop:ItemDrop = new ItemDrop(140, 10, 1.5,1.5,1);
+			
 			//PLAYER
 			var testPlayer:Player = new Player(130, 7, 3.5);
 			testPlayer.setPlayer();

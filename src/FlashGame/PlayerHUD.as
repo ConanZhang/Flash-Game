@@ -211,7 +211,10 @@ package FlashGame
 			
 			//health
 			if(heartRevive){
-				if(Player.playerHealth == 2){
+				if(Player.playerHealth == 1){
+					heart6.gotoAndStop("revive");
+				}
+				else if(Player.playerHealth == 2){
 					heart5.gotoAndStop("revive");
 				}
 				else if(Player.playerHealth == 3){
