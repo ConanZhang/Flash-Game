@@ -89,7 +89,7 @@ package Assets {
 				Stage.sprites.addChild(itemDropClip);
 			}
 			else{
-				itemDropClip = new bullet();
+				itemDropClip = new ammobox();
 				itemDropClip.width = itemDrop_Width*metricPixRatio;
 				itemDropClip.height = itemDrop_Height*metricPixRatio;
 				super.sprite = itemDropClip;

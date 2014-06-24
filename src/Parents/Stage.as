@@ -23,7 +23,7 @@ package Parents
 	import flash.events.MouseEvent;
 	import flash.geom.Point;
 	import flash.ui.Keyboard;
-
+	
 	public class Stage extends MovieClip
 	{
 		/**Class Member Variables*/

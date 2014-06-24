@@ -12,17 +12,12 @@ package FlashGame
 	import flash.display.Shape;
 	import flash.display.Sprite;
 	import flash.events.TimerEvent;
-	import flash.text.Font;
 	import flash.text.TextField;
 	import flash.text.TextFormat;
 	import flash.utils.Timer;
 	
 	public class PlayerHUD extends Sprite
 	{		
-		//embed font
-		[Embed(source="assets/Zenzai_Itacha.ttf", fontName="Zenzai Itacha", embedAsCFF="false")]
-		private var Zenzai_Itacha:Class;
-		
 		private var screen:Sprite;
 		
 		//health
@@ -47,6 +42,9 @@ package FlashGame
 		private var ammoCount:TextField;
 		private var ammoFormat:TextFormat;
 		
+		//reticule
+		private var playerReticule:Sprite;
+		
 		//survive timer
 		private var timerText:TextField;
 		private var timerFormat:TextFormat;
@@ -63,9 +61,6 @@ package FlashGame
 		/**Constructor*/
 		public function PlayerHUD(screenP:Sprite)
 		{
-			//register font to global list
-			Font.registerFont(Zenzai_Itacha);
-			
 			//initialize class member variables
 			heartRevive = false;
 			heartDamaged = false;
@@ -136,6 +131,13 @@ package FlashGame
 			heart4.gotoAndStop("idle");
 			heart5.gotoAndStop("idle");
 			heart6.gotoAndStop("idle");
+			
+			//reticule
+			playerReticule = new reticule();
+			playerReticule.width = 25;
+			playerReticule.height = 25;
+			
+			this.addChild(playerReticule);
 			
 			//slow motion bar
 			slowMotionBar = new Shape();
@@ -248,6 +250,10 @@ package FlashGame
 				heartDamaged = false;
 			}
 			
+			//reticule
+			playerReticule.x = this.mouseX;
+			playerReticule.y = this.mouseY;
+			
 			//slow motion bar
 			slowMotionBar.graphics.clear();
 			slowMotionBar.graphics.beginFill(0xff0000);
@@ -256,7 +262,7 @@ package FlashGame
 			
 			//ammo
 			ammoCount.text = Weapon.weaponType + "\n" +
-							 "Ammo i " + Weapon.weaponAmmo;		
+							 "Ammo i " + Weapon.weaponAmmo;					
 		}
 		
 		/**Count down timer*/

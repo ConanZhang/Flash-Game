@@ -10,13 +10,18 @@ package
 		import flash.display.Sprite;
 		import flash.events.KeyboardEvent;
 		import flash.events.MouseEvent;
+		import flash.text.Font;
+		import flash.ui.Mouse;
 	
 	/**SWF Options*/
 	[SWF(backgroundColor="#FFFFFF", width="700", height="525", frameRate="30")]
 
 	public class FlashGame extends Sprite
 	{
-
+		//embed font
+		[Embed(source="assets/Zenzai_Itacha.ttf", fontName="Zenzai Itacha", embedAsCFF="false")]
+		private var Zenzai_Itacha:Class;
+		
 		/**Class Member Variables*/
 		private var test:TestWorld;  
 		private var debug:DebugScreen;
@@ -24,6 +29,12 @@ package
 		/**Constructor*/
 		public function FlashGame()
 		{
+			//register font to global list
+			Font.registerFont(Zenzai_Itacha);
+			
+			//hide cursor
+			Mouse.hide();
+			
 			//create new test world
 			test = new TestWorld(this);
 			test.stage.addEventListener(KeyboardEvent.KEY_DOWN, test.keyPressed, false, 0, true);
