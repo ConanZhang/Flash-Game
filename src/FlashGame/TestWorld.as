@@ -26,8 +26,6 @@ package FlashGame
 			screen = screenP;
 			screen.addChild(this);
 			
-			var itemDrop:ItemDrop = new ItemDrop(140, 10, 1.5,1.5,1);
-			
 			//PLAYER
 			var testPlayer:Player = new Player(130, 7, 3.5);
 			testPlayer.setPlayer();
@@ -54,15 +52,15 @@ package FlashGame
 			}
 			
 			//ENEMY
-			var testEnemy:FlyingEnemy = new FlyingEnemy(100, 5, 2, 3);
-
 			var enemyAdd:Timer = new Timer(3000);
 			enemyAdd.addEventListener(TimerEvent.TIMER, addEnemy);
+			enemyAdd.delay = 4000;
 			enemyAdd.start();
 			
 			//AMMO
 			var ammoAdd:Timer = new Timer(15000);
 			ammoAdd.addEventListener(TimerEvent.TIMER, addAmmo);
+			ammoAdd.delay = 4000;
 			ammoAdd.start();
 			
 			//WEAPON

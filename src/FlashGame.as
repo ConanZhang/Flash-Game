@@ -10,9 +10,11 @@ package
 		import flash.display.Sprite;
 		import flash.events.KeyboardEvent;
 		import flash.events.MouseEvent;
+		import flash.events.TimerEvent;
 		import flash.text.Font;
 		import flash.ui.Mouse;
-	
+		import flash.utils.Timer;
+		
 	/**SWF Options*/
 	[SWF(backgroundColor="#C4A57C", width="700", height="525", frameRate="30")]
 
@@ -25,6 +27,7 @@ package
 		/**Class Member Variables*/
 		private var test:TestWorld;  
 		private var debug:DebugScreen;
+		private var beginTimer:Timer;
 		
 		/**Constructor*/
 		public function FlashGame()
@@ -37,12 +40,19 @@ package
 			
 			//create new test world
 			test = new TestWorld(this);
-			test.stage.addEventListener(KeyboardEvent.KEY_DOWN, test.keyPressed, false, 0, true);
-			test.stage.addEventListener(KeyboardEvent.KEY_UP, test.keyReleased, false, 0, true);
-			test.stage.addEventListener(MouseEvent.MOUSE_DOWN, test.leftClick);
+			
+			beginTimer = new Timer(3000);
+			beginTimer.addEventListener(TimerEvent.TIMER, addControls);
+			beginTimer.start();
 			
 			//display debug information
 			debug = new DebugScreen(this);
+		}
+		
+		private function addControls(e:TimerEvent):void{
+			test.stage.addEventListener(KeyboardEvent.KEY_DOWN, test.keyPressed, false, 0, true);
+			test.stage.addEventListener(KeyboardEvent.KEY_UP, test.keyReleased, false, 0, true);
+			test.stage.addEventListener(MouseEvent.MOUSE_DOWN, test.leftClick);
 		}
 	}
 }

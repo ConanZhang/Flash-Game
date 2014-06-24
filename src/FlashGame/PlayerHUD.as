@@ -50,9 +50,17 @@ package FlashGame
 		private var timerFormat:TextFormat;
 		
 		private var minuteDisplay:int;
-		private var secondDisplay:Number;
+		private var secondDisplay:int;
 		
 		private var surviveTimer:Timer;
+		
+		//round start countdown
+		private var countDownText:TextField;
+		private var countDownFormat:TextFormat;
+		
+		private var countDownSeconds:int;
+		
+		private var countDownTimer:Timer;
 		
 		//item collected
 		public static var heartRevive:Boolean;
@@ -167,14 +175,14 @@ package FlashGame
 			ammoCount.embedFonts = true;
 			ammoCount.defaultTextFormat = ammoFormat;
 			ammoCount.height = 500;
-			ammoCount.width = 150;
-			ammoCount.x = 525;
+			ammoCount.width = 200;
+			ammoCount.x = 475;
 			ammoCount.y = 350;
 			ammoCount.textColor = 0xff0000;
 			ammoCount.selectable = false;			
 			this.addChild(ammoCount);
 			
-			//timer
+			//survive timer
 			minuteDisplay = 0;
 			secondDisplay = 0;
 			
@@ -196,7 +204,31 @@ package FlashGame
 			
 			surviveTimer = new Timer(1000);
 			surviveTimer.addEventListener(TimerEvent.TIMER, surviveCountDown);
+			surviveTimer.delay = 4000;
 			surviveTimer.start();
+			
+			//count down timer
+			countDownSeconds = 3;
+			
+			countDownFormat = new TextFormat();
+			countDownFormat.size = 60;
+			countDownFormat.align = "center";
+			countDownFormat.font = "Zenzai Itacha";
+			
+			countDownText = new TextField();
+			countDownText.embedFonts = true;
+			countDownText.defaultTextFormat = countDownFormat;
+			countDownText.text = "3!";
+			countDownText.x = 275;
+			countDownText.y = 150;
+			countDownText.width = 200;
+			countDownText.textColor = 0xff0000;
+			countDownText.selectable = false;
+			this.addChild(countDownText);
+			
+			countDownTimer = new Timer(1000,4);
+			countDownTimer.addEventListener(TimerEvent.TIMER, beginCountDown);
+			countDownTimer.start();
 		}
 		
 		/**Called in stage update*/
@@ -269,7 +301,7 @@ package FlashGame
 							 				
 		}
 		
-		/**Count down timer*/
+		/**Survive count down timer*/
 		private function surviveCountDown(e:TimerEvent):void{
 			if(!Stage.paused && Player.playerHealth > 0){
 				//slow down real time
@@ -293,6 +325,27 @@ package FlashGame
 			
 			//display new text
 			timerText.text = minuteDisplay+" i "+(secondDisplay >= 10 ? secondDisplay:"0" + secondDisplay);
+		}
+		
+		/**Begin count down timer*/
+		private function beginCountDown(e:TimerEvent):void{
+			if(!Stage.paused){
+				//minus seconds
+				countDownSeconds--;
+			}
+			
+			//display text
+			if(countDownSeconds > 0){
+				countDownText.text = countDownSeconds+"!";	
+			}
+			else if(countDownSeconds == 0){
+				countDownText.text = "Start!";	
+			}
+			else{
+				this.removeChild(countDownText);
+			}
+			
+			
 		}
 	}
 			
