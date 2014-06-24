@@ -54,13 +54,11 @@ package FlashGame
 			//ENEMY
 			var enemyAdd:Timer = new Timer(3000);
 			enemyAdd.addEventListener(TimerEvent.TIMER, addEnemy);
-			enemyAdd.delay = 4000;
 			enemyAdd.start();
 			
 			//AMMO
 			var ammoAdd:Timer = new Timer(15000);
 			ammoAdd.addEventListener(TimerEvent.TIMER, addAmmo);
-			ammoAdd.delay = 4000;
 			ammoAdd.start();
 			
 			//WEAPON

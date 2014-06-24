@@ -427,7 +427,7 @@ package Parents
 			}
 			
 			//pausing
-			if(e.keyCode == Keyboard.P){
+			if(e.keyCode == Keyboard.P || e.keyCode == Keyboard.F){
 				if(paused == false){
 					pause();
 				}
@@ -480,7 +480,7 @@ package Parents
 			}
 			
 			//pausing
-			if(e.keyCode == Keyboard.P){
+			if(e.keyCode == Keyboard.P || e.keyCode == Keyboard.F){
 				if(paused == false){
 					paused = true;;
 				}
