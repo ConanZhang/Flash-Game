@@ -4,17 +4,24 @@
 package Assets {
 	
 	import Box2D.Collision.Shapes.b2PolygonShape;
+	import Box2D.Collision.b2RayCastInput;
+	import Box2D.Collision.b2RayCastOutput;
 	import Box2D.Common.Math.b2Math;
 	import Box2D.Common.Math.b2Vec2;
+	import Box2D.Dynamics.Joints.b2RevoluteJoint;
+	import Box2D.Dynamics.Joints.b2RevoluteJointDef;
 	import Box2D.Dynamics.b2Body;
 	import Box2D.Dynamics.b2BodyDef;
 	import Box2D.Dynamics.b2FilterData;
+	import Box2D.Dynamics.b2Fixture;
 	import Box2D.Dynamics.b2FixtureDef;
 	import Box2D.Dynamics.b2World;
 	
 	import Parents.*;
 	
+	import flash.display.Graphics;
 	import flash.display.MovieClip;
+	import flash.display.Shape;
 	import flash.display.Sprite;
 	import flash.geom.Point;
 	
@@ -36,6 +43,12 @@ package Assets {
 		//BOX2D COLLISION & PHYSICS
 		private var collisionBody:b2Body;
 		private var flyingEnemyFixture:b2FixtureDef;
+
+		//AI
+		private var beginRayCast:b2Vec2;
+		private var endRayCast:b2Vec2;
+		private var rayCast:b2Fixture;
+		private var lambda:Number;
 		
 		/**Constructor*/
 		public function FlyingEnemy(xPos:Number, yPos:Number, width:Number, height:Number){
@@ -86,11 +99,11 @@ package Assets {
 		/**Child Update [called by Object's update]*/
 		public override function childUpdate():void{
 			var direction:b2Vec2 = new b2Vec2();
-			   
+			   						
 			/**Follow player*/
 			//get direction and magnitude to player
 			direction = b2Math.SubtractVV(Stage.player.GetPosition() , collisionBody.GetPosition());
-			
+
 			direction.Normalize();
 			
 			//limit speed
@@ -98,12 +111,57 @@ package Assets {
 					collisionBody.GetLinearVelocity().x > -20 &&
 						collisionBody.GetLinearVelocity().y < 20 &&
 							collisionBody.GetLinearVelocity().y > -20){
-				direction.Multiply(45);
+				direction.Multiply(65);
 			}
 
 			//follow
 			collisionBody.SetAwake(true);
 			collisionBody.ApplyForce(direction, collisionBody.GetPosition() );
+			
+			/**Follow player better*/
+			beginRayCast = collisionBody.GetPosition();
+			direction.Normalize();
+			direction.Multiply(2.75);
+			endRayCast = b2Math.AddVV(direction,collisionBody.GetPosition());
+			
+			rayCast = world_Sprite.RayCastOne(beginRayCast,endRayCast);
+//			lambda = 1;
+
+			if(rayCast){
+//				var input:b2RayCastInput = new b2RayCastInput(beginRayCast, endRayCast);
+//				var output:b2RayCastOutput = new b2RayCastOutput();
+//				rayCast.RayCast(output, input);
+//				lambda = output.fraction;
+				if(collisionBody.GetPosition().x < Stage.player.GetPosition().x){
+					direction.Set(60, 0);
+					collisionBody.SetAwake(true);
+					collisionBody.ApplyForce(direction, collisionBody.GetPosition() );
+				}
+				else{
+					direction.Set(-60, 0);
+					collisionBody.SetAwake(true);
+					collisionBody.ApplyForce(direction, collisionBody.GetPosition() );
+				}
+				
+				if(collisionBody.GetPosition().y < Stage.player.GetPosition().y){
+					direction.Set(0, -60);
+					collisionBody.SetAwake(true);
+					collisionBody.ApplyForce(direction, collisionBody.GetPosition() );
+				}
+				else{
+					direction.Set(0, 60);
+					collisionBody.SetAwake(true);
+					collisionBody.ApplyForce(direction, collisionBody.GetPosition() );
+				}
+			}
+			
+			//ray cast debug draw
+//			var line:Shape = new Shape();
+//			line.graphics.lineStyle(1, 0xffffff,1);
+//			line.graphics.moveTo(beginRayCast.x*metricPixRatio, beginRayCast.y*metricPixRatio);
+//			line.graphics.lineTo( (endRayCast.x*lambda +(1-lambda)*beginRayCast.x)*metricPixRatio,
+//				(endRayCast.y*lambda +(1-lambda)*beginRayCast.x)*metricPixRatio);
+//			stage_Sprite.addChild(line);
 			
 			/**Oppose gravity*/
 			direction.Set(0, -85);

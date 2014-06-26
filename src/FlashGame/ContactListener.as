@@ -27,7 +27,8 @@ package FlashGame
 			   contact.GetFixtureB().GetUserData() != "ENEMY" && 
 			   contact.GetFixtureB().GetUserData() != "HEART" &&
 			   contact.GetFixtureB().GetUserData() != "AMMO" &&
-			   contact.GetFixtureB().GetUserData() != "DEAD"){
+			   contact.GetFixtureB().GetUserData() != "DEAD" &&
+			   contact.GetFixtureB().GetUserData() != "FLYING_AI"){
 				Stage.jumping = false;
 				Stage.airJumping = false;
 				Stage.jumpTime = 0;
@@ -39,7 +40,8 @@ package FlashGame
 					contact.GetFixtureB().GetUserData() != "NO_JUMP" && 
 					contact.GetFixtureB().GetUserData() != "HEART"&&
 					contact.GetFixtureB().GetUserData() != "AMMO" &&
-					contact.GetFixtureB().GetUserData() != "DEAD"){
+					contact.GetFixtureB().GetUserData() != "DEAD"&&
+					contact.GetFixtureB().GetUserData() != "FLYING_AI"){
 				Stage.jumping = false;
 				Stage.airJumping = false;
 				Stage.jumpTime = 0;
@@ -52,7 +54,8 @@ package FlashGame
 					contact.GetFixtureB().GetUserData() != "NO_JUMP" && 
 					contact.GetFixtureB().GetUserData() != "HEART"&&
 					contact.GetFixtureB().GetUserData() != "AMMO" &&
-					contact.GetFixtureB().GetUserData() != "DEAD"){
+					contact.GetFixtureB().GetUserData() != "DEAD"&&
+					contact.GetFixtureB().GetUserData() != "FLYING_AI"){
 				Stage.jumping = false;
 				Stage.airJumping = false;
 				Stage.jumpTime = 0;
@@ -156,13 +159,13 @@ package FlashGame
 				}
 			}
 			//destroy bullet
-			else if(contact.GetFixtureA().GetUserData() == "BULLET"){
+			else if(contact.GetFixtureA().GetUserData() == "BULLET" && contact.GetFixtureB().GetUserData() != "FLYING_AI"){
 				contact.GetFixtureA().SetUserData("DEAD");
 				if(contact.GetFixtureB().GetUserData() == "ENEMY"){
 					contact.GetFixtureB().SetUserData("DAMAGE");
 				}
 			}
-			else if(contact.GetFixtureB().GetUserData() == "BULLET"){
+			else if(contact.GetFixtureB().GetUserData() == "BULLET" && contact.GetFixtureA().GetUserData() != "FLYING_AI"){
 				contact.GetFixtureB().SetUserData("DEAD");
 				if(contact.GetFixtureA().GetUserData() == "ENEMY"){
 					contact.GetFixtureA().SetUserData("DAMAGE");
@@ -184,14 +187,16 @@ package FlashGame
 			if(contact.GetFixtureA().GetUserData() == "FOOT" && 
 			   contact.GetFixtureB().GetUserData() != "ENEMY" && 
 			   contact.GetFixtureB().GetUserData() != "NO_JUMP" && 
-			   contact.GetFixtureB().GetUserData() != "DEAD"){
+			   contact.GetFixtureB().GetUserData() != "DEAD" &&
+			   contact.GetFixtureB().GetUserData() != "FLYING_AI"){
 				Stage.jumping = true;
 				Player.STATE = Player.JUMPING;
 			}
 			else if(contact.GetFixtureA().GetUserData() == "RIGHT" && 
 				    contact.GetFixtureB().GetUserData() != "ENEMY" && 
 					contact.GetFixtureB().GetUserData() != "NO_JUMP" && 
-					contact.GetFixtureB().GetUserData() != "DEAD" ){
+					contact.GetFixtureB().GetUserData() != "DEAD"&&
+					contact.GetFixtureB().GetUserData() != "FLYING_AI"){
 				Stage.rightWall = false;
 				Stage.jumping = true;
 				Player.STATE = Player.JUMPING;
@@ -199,7 +204,8 @@ package FlashGame
 			else if(contact.GetFixtureA().GetUserData() == "LEFT" && 
 				    contact.GetFixtureB().GetUserData() != "ENEMY" && 
 					contact.GetFixtureB().GetUserData() != "NO_JUMP" && 
-					contact.GetFixtureB().GetUserData() != "DEAD"){
+					contact.GetFixtureB().GetUserData() != "DEAD" &&
+					contact.GetFixtureB().GetUserData() != "FLYING_AI"){
 				Stage.leftWall = false;
 				Stage.jumping = true;
 				Player.STATE = Player.JUMPING;

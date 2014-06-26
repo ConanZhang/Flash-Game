@@ -41,12 +41,12 @@ package
 			//create new test world
 			test = new TestWorld(this);
 			
-			beginTimer = new Timer(3000, 1);
+			beginTimer = new Timer(0, 1);
 			beginTimer.addEventListener(TimerEvent.TIMER, addControls);
 			beginTimer.start();
 			
 			//display debug information
-//			debug = new DebugScreen(this);
+			debug = new DebugScreen(this);
 		}
 		
 		private function addControls(e:TimerEvent):void{
