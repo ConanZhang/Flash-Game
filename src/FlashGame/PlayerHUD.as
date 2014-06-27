@@ -166,7 +166,7 @@ package FlashGame
 			this.addChild(slowBarClip);
 			
 			ammoFormat = new TextFormat();
-			ammoFormat.size = 30;
+			ammoFormat.size = 35;
 			ammoFormat.align = "right";
 			ammoFormat.font = "Zenzai Itacha";
 			

@@ -39,7 +39,7 @@ package FlashGame
 			this.addChild(FPS);
 			
 			debug = new TextField();
-			debug.width = 200;
+			debug.width = 250;
 			debug.height = stage.stageHeight;
 			debug.y = FPS.y + 30;
 			debug.textColor = 0xff0000;

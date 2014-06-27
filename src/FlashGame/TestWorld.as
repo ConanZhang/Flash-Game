@@ -52,7 +52,7 @@ package FlashGame
 			}
 			
 			//ENEMY
-			var enemyAdd:Timer = new Timer(3000);
+			var enemyAdd:Timer = new Timer(4000);
 			enemyAdd.addEventListener(TimerEvent.TIMER, addEnemy);
 			enemyAdd.start();
 			
