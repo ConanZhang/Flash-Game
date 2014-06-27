@@ -47,9 +47,21 @@ package Assets {
 		//AI
 		private var beginRayCast:b2Vec2;
 		private var endRayCast:b2Vec2;
-		private var rayCast:b2Fixture;
 		private var lambda:Number;
 		
+		private var beginRayCast2:b2Vec2;
+		private var endRayCast2:b2Vec2;
+		private var lambda2:Number;
+		
+		private var rayFixture:b2Fixture;
+		private var	rayPoint:b2Vec2;
+		private var rayNormal:b2Vec2;
+		private var rayFraction:Number;
+		
+		private var rayFixture2:b2Fixture;
+		private var	rayPoint2:b2Vec2;
+		private var rayNormal2:b2Vec2;
+		private var rayFraction2:Number;
 		/**Constructor*/
 		public function FlyingEnemy(xPos:Number, yPos:Number, width:Number, height:Number){
 			//assign parameters to class member variables
@@ -58,7 +70,7 @@ package Assets {
 			//initialize default private variables
 			flyingEnemy_Width = width;
 			flyingEnemy_Height = height;
-			flyingEnemy_LinearDamping = 1;
+			flyingEnemy_LinearDamping = 0.75;
 			flyingEnemyHealth = 2;
 			
 			flyingEnemyFixture = new b2FixtureDef();
@@ -100,59 +112,135 @@ package Assets {
 		public override function childUpdate():void{
 			var direction:b2Vec2 = new b2Vec2();
 			   						
-			/**Follow player*/
+			/**Follow player*/ 
 			//get direction and magnitude to player
 			direction = b2Math.SubtractVV(Stage.player.GetPosition() , collisionBody.GetPosition());
-
-			direction.Normalize();
 			
-			//limit speed
-			if(collisionBody.GetLinearVelocity().x < 20 &&
-					collisionBody.GetLinearVelocity().x > -20 &&
-						collisionBody.GetLinearVelocity().y < 20 &&
-							collisionBody.GetLinearVelocity().y > -20){
-				direction.Multiply(65);
-			}
-
-			//follow
-			collisionBody.SetAwake(true);
-			collisionBody.ApplyForce(direction, collisionBody.GetPosition() );
-			
-			/**Follow player better*/
 			beginRayCast = collisionBody.GetPosition();
 			direction.Normalize();
-			direction.Multiply(2.75);
+			direction.Multiply(3);
 			endRayCast = b2Math.AddVV(direction,collisionBody.GetPosition());
+			endRayCast.x -= flyingEnemy_Width/3;
+			endRayCast.y -= flyingEnemy_Height/3;
 			
-			rayCast = world_Sprite.RayCastOne(beginRayCast,endRayCast);
-//			lambda = 1;
+			beginRayCast2 = collisionBody.GetPosition();
+			endRayCast2 = b2Math.AddVV(direction,collisionBody.GetPosition());
+			endRayCast2.x -= flyingEnemy_Width/3;
+			endRayCast2.y += flyingEnemy_Height/3;
+			
+			world_Sprite.RayCast(Callback ,beginRayCast,endRayCast);
+			world_Sprite.RayCast(Callback2 ,beginRayCast2,endRayCast2);
 
-			if(rayCast){
+//			lambda = 1;
+//			lambda2 = 1;
+
+			if(rayFixture != null){
 //				var input:b2RayCastInput = new b2RayCastInput(beginRayCast, endRayCast);
 //				var output:b2RayCastOutput = new b2RayCastOutput();
-//				rayCast.RayCast(output, input);
 //				lambda = output.fraction;
-				if(collisionBody.GetPosition().x < Stage.player.GetPosition().x){
-					direction.Set(60, 0);
-					collisionBody.SetAwake(true);
-					collisionBody.ApplyForce(direction, collisionBody.GetPosition() );
-				}
-				else{
-					direction.Set(-60, 0);
-					collisionBody.SetAwake(true);
-					collisionBody.ApplyForce(direction, collisionBody.GetPosition() );
+				
+				if(rayFixture.GetUserData() != "PLAYER" &&
+				   rayFixture.GetUserData() != "FOOT" &&
+				   rayFixture.GetUserData() != "RIGHT" &&
+				   rayFixture.GetUserData() != "LEFT" &&
+				   rayFixture.GetUserData() != "WEAPON"){
+					if(rayNormal.y == -1 || rayNormal.y == 1){
+						if(collisionBody.GetPosition().x < rayFixture.GetBody().GetPosition().x){
+							direction.Set(-110, 0);
+							collisionBody.SetAwake(true);
+							collisionBody.ApplyForce(direction, collisionBody.GetPosition() );
+						}
+						else{
+							direction.Set(110, 0);
+							collisionBody.SetAwake(true);
+							collisionBody.ApplyForce(direction, collisionBody.GetPosition() );
+						}
+					}
+					else if(rayNormal.x == -1 || rayNormal.x == 1){
+						if(collisionBody.GetPosition().y < rayFixture.GetBody().GetPosition().y){
+							direction.Set(0, -110);
+							collisionBody.SetAwake(true);
+							collisionBody.ApplyForce(direction, collisionBody.GetPosition() );
+						}
+						else{
+							direction.Set(0, 110);
+							collisionBody.SetAwake(true);
+							collisionBody.ApplyForce(direction, collisionBody.GetPosition() );
+						}
+					}
 				}
 				
-				if(collisionBody.GetPosition().y < Stage.player.GetPosition().y){
-					direction.Set(0, -60);
-					collisionBody.SetAwake(true);
-					collisionBody.ApplyForce(direction, collisionBody.GetPosition() );
+				//remove current fixture
+				rayFixture = null;
+			}
+			else if(rayFixture2 != null){
+//				var input2:b2RayCastInput = new b2RayCastInput(beginRayCast2, endRayCast2);
+//				var output2:b2RayCastOutput = new b2RayCastOutput();
+//				lambda2 = output2.fraction;
+				
+				if(rayFixture2.GetUserData() != "PLAYER" &&
+					rayFixture2.GetUserData() != "FOOT" &&
+					rayFixture2.GetUserData() != "RIGHT" &&
+					rayFixture2.GetUserData() != "LEFT" &&
+					rayFixture2.GetUserData() != "WEAPON"){
+					if(rayNormal2.y == -1 || rayNormal2.y == 1){
+						if(collisionBody.GetPosition().x < rayFixture2.GetBody().GetPosition().x){
+							direction.Set(-110, 0);
+							collisionBody.SetAwake(true);
+							collisionBody.ApplyForce(direction, collisionBody.GetPosition() );
+						}
+						else{
+							direction.Set(110, 0);
+							collisionBody.SetAwake(true);
+							collisionBody.ApplyForce(direction, collisionBody.GetPosition() );
+						}
+					}
+					else if(rayNormal2.x == -1 || rayNormal2.x == 1){
+						if(collisionBody.GetPosition().y < rayFixture2.GetBody().GetPosition().y){
+							direction.Set(0, -110);
+							collisionBody.SetAwake(true);
+							collisionBody.ApplyForce(direction, collisionBody.GetPosition() );
+						}
+						else{
+							direction.Set(0, 110);
+							collisionBody.SetAwake(true);
+							collisionBody.ApplyForce(direction, collisionBody.GetPosition() );
+						}
+					}
 				}
-				else{
-					direction.Set(0, 60);
-					collisionBody.SetAwake(true);
-					collisionBody.ApplyForce(direction, collisionBody.GetPosition() );
+				
+				//remove current fixture
+				rayFixture2 = null;
+			}
+			else{
+				//limit speed
+				if(collisionBody.GetLinearVelocity().x < 20 &&
+					collisionBody.GetLinearVelocity().x > -20 &&
+					collisionBody.GetLinearVelocity().y < 20 &&
+					collisionBody.GetLinearVelocity().y > -20){
+					direction.Multiply(45);
 				}
+				
+				//follow
+				collisionBody.SetAwake(true);
+				collisionBody.ApplyForce(direction, collisionBody.GetPosition() );
+			}
+			
+			//moving even when there is slow motion
+			if(Stage.usingSlowMotion && Stage.slowMotionAmount >= 0){
+				//limit speed
+				if(collisionBody.GetLinearVelocity().x < 20 &&
+					collisionBody.GetLinearVelocity().x > -20 &&
+					collisionBody.GetLinearVelocity().y < 20 &&
+					collisionBody.GetLinearVelocity().y > -20){
+					direction.Normalize();
+					
+					direction.Multiply(15);
+				}
+				
+				//follow
+				collisionBody.SetAwake(true);
+				collisionBody.ApplyForce(direction, collisionBody.GetPosition() );
 			}
 			
 			//ray cast debug draw
@@ -162,6 +250,13 @@ package Assets {
 //			line.graphics.lineTo( (endRayCast.x*lambda +(1-lambda)*beginRayCast.x)*metricPixRatio,
 //				(endRayCast.y*lambda +(1-lambda)*beginRayCast.x)*metricPixRatio);
 //			stage_Sprite.addChild(line);
+//			
+//			var line2:Shape = new Shape();
+//			line2.graphics.lineStyle(1, 0xffffff,1);
+//			line2.graphics.moveTo(beginRayCast2.x*metricPixRatio, beginRayCast2.y*metricPixRatio);
+//			line2.graphics.lineTo( (endRayCast2.x*lambda +(1-lambda)*beginRayCast2.x)*metricPixRatio,
+//				(endRayCast2.y*lambda +(1-lambda)*beginRayCast2.x)*metricPixRatio);
+//			stage_Sprite.addChild(line2);
 			
 			/**Oppose gravity*/
 			direction.Set(0, -85);
@@ -208,6 +303,23 @@ package Assets {
 			}
 		}
 		
+		/**Get information from raycast*/
+		private function Callback(fixture:b2Fixture, point:b2Vec2, normal:b2Vec2,fraction:Number):Number{
+			rayFixture = fixture;        
+			rayPoint = point;        
+			rayNormal = normal;        
+			rayFraction = fraction;        
+			return 0;     
+		}
+		
+		/**Get information from raycast2*/
+		private function Callback2(fixture:b2Fixture, point:b2Vec2, normal:b2Vec2,fraction:Number):Number{
+			rayFixture2 = fixture;        
+			rayPoint2 = point;        
+			rayNormal2 = normal;        
+			rayFraction2 = fraction;        
+			return 0;     
+		}
 		/**Setters*/
 		public function set width(width:Number):void{
 			flyingEnemy_Width = width;

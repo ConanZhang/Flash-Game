@@ -77,6 +77,7 @@ package Assets {
 			weaponFixture.shape = weaponShape;
 			weaponFixture.filter.maskBits = 0;
 			weaponFixture.isSensor = true;
+			weaponFixture.userData = "WEAPON";
 			
 			//Box2D collision shape
 			var weaponCollision:b2BodyDef = new b2BodyDef();

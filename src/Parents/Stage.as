@@ -18,6 +18,7 @@ package Parents
 	
 	import flash.display.MovieClip;
 	import flash.display.Sprite;
+	import flash.display.StageDisplayState;
 	import flash.events.Event;
 	import flash.events.KeyboardEvent;
 	import flash.events.MouseEvent;
@@ -427,12 +428,21 @@ package Parents
 			}
 			
 			//pausing
-			if(e.keyCode == Keyboard.P || e.keyCode == Keyboard.F){
+			if(e.keyCode == Keyboard.P || e.keyCode == Keyboard.R){
 				if(paused == false){
 					pause();
 				}
 				else if(paused == true){
 					start();
+				}
+			}
+			//full screen
+			else if(e.keyCode == Keyboard.F){
+				if(stage.displayState == StageDisplayState.NORMAL){
+					stage.displayState = StageDisplayState.FULL_SCREEN_INTERACTIVE;
+				}
+				else{
+					stage.displayState = StageDisplayState.NORMAL;				
 				}
 			}
 		}
@@ -480,7 +490,7 @@ package Parents
 			}
 			
 			//pausing
-			if(e.keyCode == Keyboard.P || e.keyCode == Keyboard.F){
+			if(e.keyCode == Keyboard.P || e.keyCode == Keyboard.R){
 				if(paused == false){
 					paused = true;;
 				}

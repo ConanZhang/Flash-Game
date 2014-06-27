@@ -52,10 +52,9 @@ package FlashGame
 			}
 			
 			//ENEMY
-			var enemy:FlyingEnemy = new FlyingEnemy(100, 7, 2,3);
-//			var enemyAdd:Timer = new Timer(3000);
-//			enemyAdd.addEventListener(TimerEvent.TIMER, addEnemy);
-//			enemyAdd.start();
+			var enemyAdd:Timer = new Timer(3000);
+			enemyAdd.addEventListener(TimerEvent.TIMER, addEnemy);
+			enemyAdd.start();
 			
 			//AMMO
 			var ammoAdd:Timer = new Timer(15000);
