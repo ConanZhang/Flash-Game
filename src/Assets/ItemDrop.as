@@ -106,7 +106,7 @@ package Assets {
 					PlayerHUD.heartRevive = true;
 				}
 				else{
-					Weapon.weaponAmmo +=10;
+					Weapon.weaponAmmo +=5;
 					if(!Weapon.holdingWeapon){
 						Weapon.needWeapon = true;
 					}

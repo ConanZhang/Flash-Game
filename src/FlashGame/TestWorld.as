@@ -52,11 +52,13 @@ package FlashGame
 			}
 			
 			//ENEMY
-			var enemyAdd:Timer = new Timer(4000);
+			var enemyAdd:Timer = new Timer(3500);
 			enemyAdd.addEventListener(TimerEvent.TIMER, addEnemy);
 			enemyAdd.start();
 			
 			//AMMO
+			var beginAmmoDrop:ItemDrop = new ItemDrop(Math.random()*190 + 40, Math.random()*-90, 1.5,1.5, 2);	
+			
 			var ammoAdd:Timer = new Timer(15000);
 			ammoAdd.addEventListener(TimerEvent.TIMER, addAmmo);
 			ammoAdd.start();

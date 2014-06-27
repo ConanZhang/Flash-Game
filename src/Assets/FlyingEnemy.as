@@ -70,7 +70,7 @@ package Assets {
 			//initialize default private variables
 			flyingEnemy_Width = width;
 			flyingEnemy_Height = height;
-			flyingEnemy_LinearDamping = 0.75;
+			flyingEnemy_LinearDamping = 1;
 			flyingEnemyHealth = 2;
 			
 			flyingEnemyFixture = new b2FixtureDef();
