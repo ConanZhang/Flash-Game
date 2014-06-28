@@ -15,6 +15,7 @@ package Parents
 	
 	import FlashGame.ContactListener;
 	import FlashGame.PlayerHUD;
+	import FlashGame.WeaponSystem;
 	
 	import flash.display.MovieClip;
 	import flash.display.Sprite;
@@ -56,6 +57,8 @@ package Parents
 		public static var paused:Boolean;
 		//rotate weapon
 		public static var weaponRotation:Number;
+		//weapon system
+		private var weaponSystem:WeaponSystem;
 		
 		/**WORLD*/
 		//world for all objects to exist in
@@ -103,11 +106,12 @@ package Parents
 			//initiate time
 			iterations = 10;
 			timeStep = 1/30;
-			
+						
 			/**LOGIC*/
 			initial = true;
 			keyPresses = new Array();
 			weaponRotation = 0;
+			weaponSystem = new WeaponSystem(0);
 			
 			/**VISUAL*/
 			//initiate images
@@ -524,6 +528,28 @@ package Parents
 						var bullet_Left:Bullet = new Bullet(player.GetPosition().x, player.GetPosition().y,0.3,0.3);	
 						Weapon.weaponAmmo--;
 					}
+				}
+			}
+		}
+		
+		/**Stage can detect mouse wheels*/
+		public function mouseWheeled(e:MouseEvent):void{
+			//up wheel
+			if(e.delta > 0){
+				if(weaponSystem.currentWeapon == 0){
+					weaponSystem.currentWeapon = 1;
+				}
+				else{
+					weaponSystem.currentWeapon = 0;
+				}
+			}
+			//down wheel
+			else{
+				if(weaponSystem.currentWeapon == 0){
+					weaponSystem.currentWeapon = 1;
+				}
+				else{
+					weaponSystem.currentWeapon = 0;
 				}
 			}
 		}

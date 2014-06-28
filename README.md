@@ -1,6 +1,6 @@
 -------------GOAL-------------
 
-Survive.
+Survive for 3 minutes.
 
 -------------KEYBOARD CONTROLS-------------
 
@@ -14,7 +14,9 @@ D - Right
 
 Space - Slow motion/Invulnerability
 	
-P or F - Pause
+P or R - Pause
+
+F - Full Screen
 
 -------------MOUSE CONTROLS-------------
 
