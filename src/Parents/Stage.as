@@ -15,7 +15,6 @@ package Parents
 	
 	import FlashGame.ContactListener;
 	import FlashGame.PlayerHUD;
-	import FlashGame.WeaponSystem;
 	
 	import flash.display.MovieClip;
 	import flash.display.Sprite;
@@ -57,8 +56,6 @@ package Parents
 		public static var paused:Boolean;
 		//rotate weapon
 		public static var weaponRotation:Number;
-		//weapon system
-		private var weaponSystem:WeaponSystem;
 		
 		/**WORLD*/
 		//world for all objects to exist in
@@ -111,7 +108,6 @@ package Parents
 			initial = true;
 			keyPresses = new Array();
 			weaponRotation = 0;
-			weaponSystem = new WeaponSystem(0);
 			
 			/**VISUAL*/
 			//initiate images
@@ -508,9 +504,9 @@ package Parents
 		public function leftClick(e:MouseEvent):void{
 			if(Weapon.weaponAmmo > 0 && !paused && Player.playerHealth > 0){
 				if(weaponRotation > -1.5 && weaponRotation < 1.5){
-					 Weapon.rightFire = true;
-					 var bulletRight:Bullet = new Bullet(player.GetPosition().x, player.GetPosition().y,0.3,0.3);	
-					 Weapon.weaponAmmo--;
+					Weapon.rightFire = true;
+					var bulletRight:Bullet = new Bullet(player.GetPosition().x + Math.cos(weaponRotation), player.GetPosition().y +Math.sin(weaponRotation),0.3,0.3);	
+					Weapon.weaponAmmo--;
 				}
 				else if(!Weapon.leftFire){
 					Weapon.leftFire = true;
@@ -534,22 +530,26 @@ package Parents
 		
 		/**Stage can detect mouse wheels*/
 		public function mouseWheeled(e:MouseEvent):void{
-			//up wheel
-			if(e.delta > 0){
-				if(weaponSystem.currentWeapon == 0){
-					weaponSystem.currentWeapon = 1;
+			if(Weapon.holdingWeapon){
+				Weapon.changeWeapon = true;
+
+				//up wheel
+				if(e.delta > 0){
+					if(Weapon.weaponType == 1){
+						Weapon.weaponType = 2;
+					}
+					else{
+						Weapon.weaponType = 1;
+					}
 				}
+					//down wheel
 				else{
-					weaponSystem.currentWeapon = 0;
-				}
-			}
-			//down wheel
-			else{
-				if(weaponSystem.currentWeapon == 0){
-					weaponSystem.currentWeapon = 1;
-				}
-				else{
-					weaponSystem.currentWeapon = 0;
+					if(Weapon.weaponType == 1){
+						Weapon.weaponType = 2;
+					}
+					else{
+						Weapon.weaponType = 1;
+					}
 				}
 			}
 		}

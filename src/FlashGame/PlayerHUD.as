@@ -297,7 +297,7 @@ package FlashGame
 			
 			//ammo
 			ammoCount.text = "Ammo i " + Weapon.weaponAmmo + "\n" +
-							 "Weapon i " + Weapon.weaponType;
+							 "Weapon i " + (Weapon.weaponType == 1 ? "Pistol": (Weapon.weaponType == 2) ? "Shotgun": "None");
 							 				
 		}
 		

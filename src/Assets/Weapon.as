@@ -34,29 +34,27 @@ package Assets {
 		//PROPERTIES
 		private var position:Point;
 		private var weaponClip:MovieClip;
-		public static var weapon_Width:Number;
-		private var weapon_Height:Number;
-		public static var weaponType:String;
+		public static var weaponType:int;
 		public static var weaponAmmo:int;
 		public static var holdingWeapon:Boolean;
 		public static var needWeapon:Boolean;
+		public static var changeWeapon:Boolean;
 		
 		//BOX2D COLLISION & PHYSICS
 		private var collisionBody:b2Body;
 		private var weaponFixture:b2FixtureDef;
 		
 		/**Constructor*/
-		public function Weapon(xPos:Number, yPos:Number, width:Number, height:Number, type:String){
+		public function Weapon(xPos:Number, yPos:Number, type:int){
 			//assign parameters to class member variables
 			position = new Point(xPos, yPos);
 			weaponType = type;
 			
 			//initialize default private variables
-			weapon_Width = width;
-			weapon_Height = height;
 			weaponAmmo = 10;
 			holdingWeapon = true;
 			needWeapon = false;
+			changeWeapon = false;
 			
 			STATE = RIGHT;
 			leftFire = false;
@@ -71,7 +69,7 @@ package Assets {
 		public function make():void{
 			//Box2D shape
 			var weaponShape:b2PolygonShape = new b2PolygonShape();
-			weaponShape.SetAsBox(weapon_Width/2, weapon_Height/2);
+			weaponShape.SetAsBox(0.1, 0.1);
 			
 			//Box2D shape properties
 			weaponFixture.shape = weaponShape;
@@ -81,18 +79,26 @@ package Assets {
 			
 			//Box2D collision shape
 			var weaponCollision:b2BodyDef = new b2BodyDef();
-			weaponCollision.position.Set(position.x + weapon_Width/2, position.y + weapon_Height/2);
+			weaponCollision.position.Set(position.x, position.y );
 			
 			collisionBody = world_Sprite.CreateBody(weaponCollision);
 			collisionBody.CreateFixture(weaponFixture);
 			super.body = collisionBody;
 			
 			//Sprite
-			if(weaponType == "Pistol"){
+			if(weaponType == 1){
 				weaponClip = new pistol();
 				weaponClip.gotoAndStop("pistol_right");
-				weaponClip.width = weapon_Width*metricPixRatio;
-				weaponClip.height = weapon_Height*metricPixRatio;
+				weaponClip.width = 2*metricPixRatio;
+				weaponClip.height = 1*metricPixRatio;
+				super.sprite = weaponClip;
+				Stage.sprites.addChild(weaponClip);
+			}
+			else if(weaponType == 2){
+				weaponClip = new shotgun();
+				weaponClip.gotoAndStop("shotgun_right");
+				weaponClip.width = 3*metricPixRatio;
+				weaponClip.height =2*metricPixRatio;
 				super.sprite = weaponClip;
 				Stage.sprites.addChild(weaponClip);
 			}
@@ -100,6 +106,31 @@ package Assets {
 		
 		/**Child Update [called by Object's update]*/
 		public override function childUpdate():void{
+			//update weapon sprite if necessary
+			if(changeWeapon){
+				destroySprite();
+				//switch to pistol
+				if(weaponType == 1){
+					weaponClip = new pistol();
+					weaponClip.gotoAndStop("pistol_right");
+					weaponClip.width = 2*metricPixRatio;
+					weaponClip.height = 1*metricPixRatio;
+					super.sprite = weaponClip;
+					Stage.sprites.addChild(weaponClip);
+				}
+				//switch to shotgun
+				else if(weaponType == 2){
+					weaponClip = new shotgun();
+					weaponClip.gotoAndStop("shotgun_right");
+					weaponClip.width = 3*metricPixRatio;
+					weaponClip.height =2*metricPixRatio;
+					super.sprite = weaponClip;
+					Stage.sprites.addChild(weaponClip);
+				}
+				
+				changeWeapon = false;
+			}
+			
 			collisionBody.SetPosition( Stage.player.GetPosition() );
 			weaponClip.rotation = Stage.weaponRotation*180/Math.PI;
 			
@@ -112,49 +143,97 @@ package Assets {
 			}
 
 			//shooting
-			if(STATE == RIGHT && !rightFire){
-				weaponClip.gotoAndStop("pistol_right");
-			}
-			else if(STATE == LEFT && !leftFire){
-				weaponClip.gotoAndStop("pistol_left");
-			}
-			else if(rightFire){
-				if(Stage.usingSlowMotion && Stage.slowMotionAmount > 0){
-					weaponClip.gotoAndStop("pistol_right_fire_slomo");
+			if(weaponType == 1){
+				if(STATE == RIGHT && !rightFire){
+					weaponClip.gotoAndStop("pistol_right");
 				}
-				else{
-					weaponClip.gotoAndStop("pistol_right_fire");
+				else if(STATE == LEFT && !leftFire){
+					weaponClip.gotoAndStop("pistol_left");
+				}
+				else if(rightFire){
+					if(Stage.usingSlowMotion && Stage.slowMotionAmount > 0){
+						weaponClip.gotoAndStop("pistol_right_fire_slomo");
+					}
+					else{
+						weaponClip.gotoAndStop("pistol_right_fire");
+					}
+					
+					if(EndAnimation.endGunFire){
+						EndAnimation.endGunFire = false;
+						rightFire = false;
+					}
+				}
+				else if(leftFire){
+					if(Stage.usingSlowMotion && Stage.slowMotionAmount > 0){
+						weaponClip.gotoAndStop("pistol_left_fire_slomo");
+					}
+					else{
+						weaponClip.gotoAndStop("pistol_left_fire");
+					}				
+					if(EndAnimation.endGunFire){
+						EndAnimation.endGunFire = false;
+						leftFire = false;
+					}
 				}
 				
-				if(EndAnimation.endGunFire){
-					EndAnimation.endGunFire = false;
-					rightFire = false;
+				//check state of weapon BEFORE removing it if necessary
+				if(weaponAmmo == 0 && holdingWeapon){
+					destroySprite();
+					weaponType = 0;
+					holdingWeapon = false;
+				}
+				else if(needWeapon == true){
+					Stage.sprites.addChild(weaponClip);
+					holdingWeapon = true;
+					needWeapon = false;
+					weaponType = 1;
 				}
 			}
-			else if(leftFire){
-				if(Stage.usingSlowMotion && Stage.slowMotionAmount > 0){
-					weaponClip.gotoAndStop("pistol_left_fire_slomo");
+			else if(weaponType == 2){
+				if(STATE == RIGHT && !rightFire){
+					weaponClip.gotoAndStop("shotgun_right");
 				}
-				else{
-					weaponClip.gotoAndStop("pistol_left_fire");
-				}				
-				if(EndAnimation.endGunFire){
-					EndAnimation.endGunFire = false;
-					leftFire = false;
+				else if(STATE == LEFT && !leftFire){
+					weaponClip.gotoAndStop("shotgun_left");
 				}
-			}
-			
-			//check state of weapon BEFORE removing it if necessary
-			if(weaponAmmo == 0 && holdingWeapon){
-				destroySprite();
-				weaponType = "None";
-				holdingWeapon = false;
-			}
-			else if(needWeapon == true){
-				Stage.sprites.addChild(weaponClip);
-				holdingWeapon = true;
-				needWeapon = false;
-				weaponType = "Pistol";
+				else if(rightFire){
+					if(Stage.usingSlowMotion && Stage.slowMotionAmount > 0){
+//						weaponClip.gotoAndStop("shotgun_right_fire_slomo");
+					}
+					else{
+//						weaponClip.gotoAndStop("shotgun_right_fire");
+					}
+					
+					if(EndAnimation.endGunFire){
+						EndAnimation.endGunFire = false;
+						rightFire = false;
+					}
+				}
+				else if(leftFire){
+					if(Stage.usingSlowMotion && Stage.slowMotionAmount > 0){
+//						weaponClip.gotoAndStop("shotgun_left_fire_slomo");
+					}
+					else{
+//						weaponClip.gotoAndStop("shotgun_left_fire");
+					}				
+					if(EndAnimation.endGunFire){
+						EndAnimation.endGunFire = false;
+						leftFire = false;
+					}
+				}
+				
+				//check state of weapon BEFORE removing it if necessary
+				if(weaponAmmo == 0 && holdingWeapon){
+					destroySprite();
+					weaponType = 0;
+					holdingWeapon = false;
+				}
+				else if(needWeapon == true){
+					Stage.sprites.addChild(weaponClip);
+					holdingWeapon = true;
+					needWeapon = false;
+					weaponType = 2;
+				}
 			}
 			
 			//kill yourself if player is dead
@@ -165,15 +244,6 @@ package Assets {
 			else if(EndAnimation.endPlayerDeath && !holdingWeapon){
 				destroyBody();
 			}
-		}
-		
-		/**Setters*/
-		public function set width(width:Number):void{
-			weapon_Width = width;
-		}
-		
-		public function set height(height:Number):void{
-			weapon_Height = height;
 		}
 	}
 }
