@@ -62,7 +62,19 @@ package Assets {
 			bulletFixture.shape = bulletShape;
 			bulletFixture.density = bullet_Density;
 			bulletFixture.filter.maskBits = 2;
-			bulletFixture.userData = "BULLET";
+			
+			//initial velocity
+			if(Weapon.weaponType == 1){
+				bulletXDirection = Math.cos(Stage.weaponRotation)*300;
+				bulletYDirection = Math.sin(Stage.weaponRotation)*300;
+				bulletFixture.userData = "PISTOL_BULLET";
+			}
+			else{
+				bulletXDirection = Math.cos(Stage.weaponRotation+Math.random()*0.4 - 0.2)*300;
+				bulletYDirection = Math.sin(Stage.weaponRotation+Math.random()*0.4 - 0.2)*300;
+				bulletFixture.userData = "SHOTGUN_BULLET";
+			}
+			
 			
 			//Box2D collision shape
 			var bulletCollision:b2BodyDef = new b2BodyDef();
@@ -81,18 +93,8 @@ package Assets {
 			bulletClip.height = bullet_Height*metricPixRatio;
 			super.sprite = bulletClip;
 			Stage.sprites.addChild(bulletClip);
-			
-			//initial velocity
-			if(Weapon.weaponType == 1){
-				bulletXDirection = Math.cos(Stage.weaponRotation)*300;
-				bulletYDirection = Math.sin(Stage.weaponRotation)*300;
-			}
-			else{
-				bulletXDirection = Math.cos(Stage.weaponRotation+Math.random()*0.4 - 0.2)*300;
-				bulletYDirection = Math.sin(Stage.weaponRotation+Math.random()*0.4 - 0.2)*300;
-			}
 
-
+			//apply initial velocity
 			collisionBody.ApplyImpulse(new b2Vec2( bulletXDirection, bulletYDirection), collisionBody.GetPosition());
 		}
 

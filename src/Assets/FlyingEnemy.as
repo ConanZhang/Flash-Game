@@ -263,11 +263,18 @@ package Assets {
 			
 			/**Hurt yourself*/
 			//destroy yourself with any contact
-			if(collisionBody.GetFixtureList().GetUserData() == "DAMAGE"){				
+			if(collisionBody.GetFixtureList().GetUserData() == "PISTOL_DAMAGE"){				
 				if(flyingEnemyHealth > 0){
 					flyingEnemyHealth--;
 				}
 
+				collisionBody.GetFixtureList().SetUserData("ENEMY");
+			}
+			else if(collisionBody.GetFixtureList().GetUserData() == "SHOTGUN_DAMAGE"){				
+				if(flyingEnemyHealth > 0){
+					flyingEnemyHealth-= 2;
+				}
+				
 				collisionBody.GetFixtureList().SetUserData("ENEMY");
 			}
 			

@@ -162,16 +162,28 @@ package FlashGame
 				}
 			}
 			//destroy bullet
-			else if(contact.GetFixtureA().GetUserData() == "BULLET" && contact.GetFixtureB().GetUserData() != "FLYING_AI"){
+			else if(contact.GetFixtureA().GetUserData() == "PISTOL_BULLET" && contact.GetFixtureB().GetUserData() != "FLYING_AI"){
 				contact.GetFixtureA().SetUserData("DEAD");
 				if(contact.GetFixtureB().GetUserData() == "ENEMY"){
-					contact.GetFixtureB().SetUserData("DAMAGE");
+					contact.GetFixtureB().SetUserData("PISTOL_DAMAGE");
 				}
 			}
-			else if(contact.GetFixtureB().GetUserData() == "BULLET" && contact.GetFixtureA().GetUserData() != "FLYING_AI"){
+			else if(contact.GetFixtureB().GetUserData() == "PISTOL_BULLET" && contact.GetFixtureA().GetUserData() != "FLYING_AI"){
 				contact.GetFixtureB().SetUserData("DEAD");
 				if(contact.GetFixtureA().GetUserData() == "ENEMY"){
-					contact.GetFixtureA().SetUserData("DAMAGE");
+					contact.GetFixtureA().SetUserData("PISTOL_DAMAGE");
+				}
+			}
+			else if(contact.GetFixtureA().GetUserData() == "SHOTGUN_BULLET" && contact.GetFixtureB().GetUserData() != "FLYING_AI"){
+				contact.GetFixtureA().SetUserData("DEAD");
+				if(contact.GetFixtureB().GetUserData() == "ENEMY"){
+					contact.GetFixtureB().SetUserData("SHOTGUN_DAMAGE");
+				}
+			}
+			else if(contact.GetFixtureB().GetUserData() == "SHOTGUN_BULLET" && contact.GetFixtureA().GetUserData() != "FLYING_AI"){
+				contact.GetFixtureB().SetUserData("DEAD");
+				if(contact.GetFixtureA().GetUserData() == "ENEMY"){
+					contact.GetFixtureA().SetUserData("SHOTGUN_DAMAGE");
 				}
 			}
 			//item
