@@ -287,11 +287,19 @@ package Assets {
 					
 					//create random drop
 					if(Math.random() > 0.9){
+						//health
 						if(Math.random() > 0.7 && Player.playerHealth < 6){
 							var healthDrop:ItemDrop = new ItemDrop(collisionBody.GetPosition().x, collisionBody.GetPosition().y, 1.5, 1.5, 1);
 						}
 						else{
-							var ammoDrop:ItemDrop = new ItemDrop(collisionBody.GetPosition().x, collisionBody.GetPosition().y, 1.5,1.5, 2);
+							//pistol ammo
+							if(Math.random() < 0.6){
+								var pistolDrop:ItemDrop = new ItemDrop(collisionBody.GetPosition().x, collisionBody.GetPosition().y, 1.5,1.5, 2);
+							}
+							//shotgun ammo
+							else{
+								var shotgunDrop:ItemDrop = new ItemDrop(collisionBody.GetPosition().x, collisionBody.GetPosition().y, 2.5,2.5, 3);
+							}
 						}
 					}
 		

@@ -502,28 +502,68 @@ package Parents
 		
 		/**Stages can detect left clicks*/
 		public function leftClick(e:MouseEvent):void{
-			if(Weapon.weaponAmmo > 0 && !paused && Player.playerHealth > 0){
-				if(weaponRotation > -1.5 && weaponRotation < 1.5){
-					Weapon.rightFire = true;
-					var bulletRight:Bullet = new Bullet(player.GetPosition().x + Math.cos(weaponRotation), player.GetPosition().y +Math.sin(weaponRotation),0.3,0.3);	
-					Weapon.weaponAmmo--;
-				}
-				else if(!Weapon.leftFire){
-					Weapon.leftFire = true;
-					var bulletLeft:Bullet = new Bullet(player.GetPosition().x, player.GetPosition().y,0.3,0.3);	
-					Weapon.weaponAmmo--;
-				}
-				else if(Weapon.rightFire && !EndAnimation.endGunFire || Weapon.leftFire && !EndAnimation.endGunFire){
-					EndAnimation.endGunFire = true;
-					
+			if(Weapon.holdingWeapon && !paused && Player.playerHealth > 0){
+				if(Weapon.weaponType == 1){
 					if(weaponRotation > -1.5 && weaponRotation < 1.5){
-						var bullet_Right:Bullet = new Bullet(player.GetPosition().x, player.GetPosition().y,0.3,0.3);	
-						Weapon.weaponAmmo--;
+						Weapon.rightFire = true;
+						var pistolRight:Bullet = new Bullet(player.GetPosition().x + Math.cos(weaponRotation), player.GetPosition().y +Math.sin(weaponRotation),0.3,0.3);	
+						Weapon.pistolAmmo--;
 					}
-					else{
-						var bullet_Left:Bullet = new Bullet(player.GetPosition().x, player.GetPosition().y,0.3,0.3);	
-						Weapon.weaponAmmo--;
+					else if(!Weapon.leftFire){
+						Weapon.leftFire = true;
+						var pistolLeft:Bullet = new Bullet(player.GetPosition().x + Math.cos(weaponRotation), player.GetPosition().y +Math.sin(weaponRotation),0.3,0.3);	
+						Weapon.pistolAmmo--;
 					}
+					else if(Weapon.rightFire && !EndAnimation.endGunFire || Weapon.leftFire && !EndAnimation.endGunFire){
+						EndAnimation.endGunFire = true;
+						
+						if(weaponRotation > -1.5 && weaponRotation < 1.5){
+							var pistol_Right:Bullet = new Bullet(player.GetPosition().x + Math.cos(weaponRotation), player.GetPosition().y +Math.sin(weaponRotation),0.3,0.3);	
+							Weapon.pistolAmmo--;
+						}
+						else{
+							var pistol_Left:Bullet = new Bullet(player.GetPosition().x + Math.cos(weaponRotation), player.GetPosition().y +Math.sin(weaponRotation),0.3,0.3);	
+							Weapon.pistolAmmo--;
+						}
+					}	
+				}
+				else if(Weapon.weaponType == 2){
+					if(weaponRotation > -1.5 && weaponRotation < 1.5){
+						Weapon.rightFire = true;
+						
+						var shotgunRight1:Bullet = new Bullet(player.GetPosition().x + Math.cos(weaponRotation), player.GetPosition().y +Math.sin(weaponRotation),0.3,0.3);
+						var shotgunRight2:Bullet = new Bullet(player.GetPosition().x + Math.cos(weaponRotation), player.GetPosition().y +Math.sin(weaponRotation),0.3,0.3);	
+						var shotgunRight3:Bullet = new Bullet(player.GetPosition().x + Math.cos(weaponRotation), player.GetPosition().y +Math.sin(weaponRotation),0.3,0.3);	
+
+						Weapon.shotgunAmmo--;
+					}
+					else if(!Weapon.leftFire){
+						Weapon.leftFire = true;
+						
+						var shotgunLeft1:Bullet = new Bullet(player.GetPosition().x + Math.cos(weaponRotation), player.GetPosition().y +Math.sin(weaponRotation),0.3,0.3);	
+						var shotgunLeft2:Bullet = new Bullet(player.GetPosition().x + Math.cos(weaponRotation), player.GetPosition().y +Math.sin(weaponRotation),0.3,0.3);	
+						var shotgunLeft3:Bullet = new Bullet(player.GetPosition().x + Math.cos(weaponRotation), player.GetPosition().y +Math.sin(weaponRotation),0.3,0.3);	
+
+						Weapon.shotgunAmmo--;
+					}
+					else if(Weapon.rightFire && !EndAnimation.endGunFire || Weapon.leftFire && !EndAnimation.endGunFire){
+						EndAnimation.endGunFire = true;
+						
+						if(weaponRotation > -1.5 && weaponRotation < 1.5){
+							var shotgun_Right1:Bullet = new Bullet(player.GetPosition().x + Math.cos(weaponRotation), player.GetPosition().y +Math.sin(weaponRotation),0.3,0.3);	
+							var shotgun_Right2:Bullet = new Bullet(player.GetPosition().x + Math.cos(weaponRotation), player.GetPosition().y +Math.sin(weaponRotation),0.3,0.3);	
+							var shotgun_Right3:Bullet = new Bullet(player.GetPosition().x + Math.cos(weaponRotation), player.GetPosition().y +Math.sin(weaponRotation),0.3,0.3);	
+							
+							Weapon.shotgunAmmo--;
+						}
+						else{
+							var shotgun_Left1:Bullet = new Bullet(player.GetPosition().x + Math.cos(weaponRotation), player.GetPosition().y +Math.sin(weaponRotation),0.3,0.3);	
+							var shotgun_Left2:Bullet = new Bullet(player.GetPosition().x + Math.cos(weaponRotation), player.GetPosition().y +Math.sin(weaponRotation),0.3,0.3);	
+							var shotgun_Left3:Bullet = new Bullet(player.GetPosition().x + Math.cos(weaponRotation), player.GetPosition().y +Math.sin(weaponRotation),0.3,0.3);	
+							
+							Weapon.shotgunAmmo--;
+						}
+					}	
 				}
 			}
 		}
@@ -535,19 +575,19 @@ package Parents
 
 				//up wheel
 				if(e.delta > 0){
-					if(Weapon.weaponType == 1){
+					if(Weapon.weaponType == 1 && Weapon.shotgunAmmo > 0){
 						Weapon.weaponType = 2;
 					}
-					else{
+					else if(Weapon.pistolAmmo > 0){
 						Weapon.weaponType = 1;
 					}
 				}
 					//down wheel
 				else{
-					if(Weapon.weaponType == 1){
+					if(Weapon.weaponType == 1 && Weapon.shotgunAmmo > 0){
 						Weapon.weaponType = 2;
 					}
-					else{
+					else if(Weapon.pistolAmmo > 0){
 						Weapon.weaponType = 1;
 					}
 				}

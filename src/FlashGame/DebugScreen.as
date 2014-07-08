@@ -83,7 +83,6 @@ package FlashGame
 								"Player Health: " + Player.playerHealth + "\n" + 
 								"Invulnerable Time: " + Player.playerInvulnerable + "\n" +
 								"Stun Time: " + Stage.flinchTime+ "\n" + "\n" +
-								"Weapon Ammo: " + Weapon.weaponAmmo + "\n" + "\n" +
 								"Collidable Body Count: " + (Stage.world.GetBodyCount()-5);
 		}
 	}

@@ -65,8 +65,11 @@ package Assets {
 			if(itemType == 1){
 				itemDropFixture.userData = "HEART";
 			}
-			else{
-				itemDropFixture.userData = "AMMO";
+			else if(itemType == 2){
+				itemDropFixture.userData = "PISTOL_AMMO";
+			}
+			else if(itemType == 3){
+				itemDropFixture.userData = "SHOTGUN_AMMO";
 			}
 
 			
@@ -79,7 +82,8 @@ package Assets {
 			collisionBody.CreateFixture(itemDropFixture);
 			super.body = collisionBody;
 			
-			//Sprite
+			/**Sprite*/
+			//heart
 			if(itemType == 1){
 				itemDropClip = new heart();
 				itemDropClip.gotoAndStop("idle");
@@ -88,7 +92,16 @@ package Assets {
 				super.sprite = itemDropClip;
 				Stage.sprites.addChild(itemDropClip);
 			}
-			else{
+			//pistol ammo
+			else if(itemType == 2){
+				itemDropClip = new ammobox();
+				itemDropClip.width = itemDrop_Width*metricPixRatio;
+				itemDropClip.height = itemDrop_Height*metricPixRatio;
+				super.sprite = itemDropClip;
+				Stage.sprites.addChild(itemDropClip);
+			}
+			//shotgun ammo
+			else if(itemType == 3){
 				itemDropClip = new ammobox();
 				itemDropClip.width = itemDrop_Width*metricPixRatio;
 				itemDropClip.height = itemDrop_Height*metricPixRatio;
@@ -105,10 +118,18 @@ package Assets {
 					Player.playerHealth++;
 					PlayerHUD.heartRevive = true;
 				}
-				else{
-					Weapon.weaponAmmo +=5;
+				else if(itemType == 2){
+					Weapon.pistolAmmo +=5;
 					if(!Weapon.holdingWeapon){
 						Weapon.needWeapon = true;
+						Weapon.weaponType = 1;
+					}
+				}
+				else if(itemType == 3){
+					Weapon.shotgunAmmo +=2;
+					if(!Weapon.holdingWeapon){
+						Weapon.needWeapon = true;
+						Weapon.weaponType = 2;
 					}
 				}
 				destroyAll();

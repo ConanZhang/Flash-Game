@@ -52,9 +52,9 @@ package FlashGame
 			}
 			
 			//ENEMY
-//			var enemyAdd:Timer = new Timer(3500);
-//			enemyAdd.addEventListener(TimerEvent.TIMER, addEnemy);
-//			enemyAdd.start();
+			var enemyAdd:Timer = new Timer(3500);
+			enemyAdd.addEventListener(TimerEvent.TIMER, addEnemy);
+			enemyAdd.start();
 			
 			//AMMO
 			var beginAmmoDrop:ItemDrop = new ItemDrop(Math.random()*190 + 40, Math.random()*-90, 1.5,1.5, 2);	
@@ -64,7 +64,7 @@ package FlashGame
 			ammoAdd.start();
 			
 			//WEAPON
-			var testWeapon:Weapon = new Weapon(15, 7,2);
+			var testWeapon:Weapon = new Weapon(15, 7,1);
 		}
 		
 		private function addEnemy(e:TimerEvent):void{
@@ -76,7 +76,14 @@ package FlashGame
 		
 		private function addAmmo(e:TimerEvent):void{
 			if(!Stage.paused){
-				var itemDrop:ItemDrop = new ItemDrop(Math.random()*190 + 40, Math.random()*-90, 1.5,1.5, 2);	
+				//pistol ammo
+				if(Math.random() < 0.6){
+					var pistolDrop:ItemDrop = new ItemDrop(Math.random()*190 + 40, Math.random()*-90, 1.5,1.5, 2);	
+				}
+				//shotgun ammo
+				else{
+					var shotgunDrop:ItemDrop = new ItemDrop(Math.random()*190 + 40, Math.random()*-90, 2.5,2.5, 3);	
+				}
 			}
 		}
 	}

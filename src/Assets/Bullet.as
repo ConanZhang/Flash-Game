@@ -83,8 +83,15 @@ package Assets {
 			Stage.sprites.addChild(bulletClip);
 			
 			//initial velocity
-			bulletXDirection = Math.cos(Stage.weaponRotation)*300;
-			bulletYDirection = Math.sin(Stage.weaponRotation)*300;
+			if(Weapon.weaponType == 1){
+				bulletXDirection = Math.cos(Stage.weaponRotation)*300;
+				bulletYDirection = Math.sin(Stage.weaponRotation)*300;
+			}
+			else{
+				bulletXDirection = Math.cos(Stage.weaponRotation+Math.random()*0.4 - 0.2)*300;
+				bulletYDirection = Math.sin(Stage.weaponRotation+Math.random()*0.4 - 0.2)*300;
+			}
+
 
 			collisionBody.ApplyImpulse(new b2Vec2( bulletXDirection, bulletYDirection), collisionBody.GetPosition());
 		}

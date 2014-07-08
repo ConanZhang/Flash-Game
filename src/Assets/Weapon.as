@@ -35,7 +35,8 @@ package Assets {
 		private var position:Point;
 		private var weaponClip:MovieClip;
 		public static var weaponType:int;
-		public static var weaponAmmo:int;
+		public static var pistolAmmo:int;
+		public static var shotgunAmmo:int;
 		public static var holdingWeapon:Boolean;
 		public static var needWeapon:Boolean;
 		public static var changeWeapon:Boolean;
@@ -51,7 +52,8 @@ package Assets {
 			weaponType = type;
 			
 			//initialize default private variables
-			weaponAmmo = 10;
+			pistolAmmo = 10;
+			shotgunAmmo = 2;
 			holdingWeapon = true;
 			needWeapon = false;
 			changeWeapon = false;
@@ -110,7 +112,7 @@ package Assets {
 			if(changeWeapon){
 				destroySprite();
 				//switch to pistol
-				if(weaponType == 1){
+				if(weaponType == 1 && pistolAmmo > 0){
 					weaponClip = new pistol();
 					weaponClip.gotoAndStop("pistol_right");
 					weaponClip.width = 2*metricPixRatio;
@@ -119,13 +121,16 @@ package Assets {
 					Stage.sprites.addChild(weaponClip);
 				}
 				//switch to shotgun
-				else if(weaponType == 2){
+				else if(weaponType == 2 && shotgunAmmo > 0){
 					weaponClip = new shotgun();
 					weaponClip.gotoAndStop("shotgun_right");
 					weaponClip.width = 3*metricPixRatio;
 					weaponClip.height =2*metricPixRatio;
 					super.sprite = weaponClip;
 					Stage.sprites.addChild(weaponClip);
+				}
+				else{
+					holdingWeapon == false;
 				}
 				
 				changeWeapon = false;
@@ -177,10 +182,16 @@ package Assets {
 				}
 				
 				//check state of weapon BEFORE removing it if necessary
-				if(weaponAmmo == 0 && holdingWeapon){
-					destroySprite();
-					weaponType = 0;
-					holdingWeapon = false;
+				if(pistolAmmo == 0 && holdingWeapon){
+					if(shotgunAmmo > 0){
+						weaponType = 2;
+						changeWeapon = true;
+					}
+					else if(holdingWeapon){
+						destroySprite();
+						holdingWeapon = false;
+						weaponType =0;
+					}
 				}
 				else if(needWeapon == true){
 					Stage.sprites.addChild(weaponClip);
@@ -223,10 +234,16 @@ package Assets {
 				}
 				
 				//check state of weapon BEFORE removing it if necessary
-				if(weaponAmmo == 0 && holdingWeapon){
-					destroySprite();
-					weaponType = 0;
-					holdingWeapon = false;
+				if(shotgunAmmo == 0 && holdingWeapon){
+					if(pistolAmmo > 0){
+						weaponType = 1;
+						changeWeapon = true;
+					}
+					else if(holdingWeapon){
+						destroySprite();
+						holdingWeapon = false;
+						weaponType = 0;
+					}
 				}
 				else if(needWeapon == true){
 					Stage.sprites.addChild(weaponClip);
