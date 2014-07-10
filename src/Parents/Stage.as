@@ -570,7 +570,7 @@ package Parents
 		
 		/**Stage can detect mouse wheels*/
 		public function mouseWheeled(e:MouseEvent):void{
-			if(Weapon.holdingWeapon){
+			if(Weapon.holdingWeapon && !paused && Player.playerHealth != 0){
 				Weapon.changeWeapon = true;
 
 				//up wheel
