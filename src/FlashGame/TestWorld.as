@@ -69,13 +69,13 @@ package FlashGame
 		
 		private function addEnemy(e:TimerEvent):void{
 			//test enemy
-			if(!Stage.paused && Stage.world.GetBodyCount() < 120){
+			if(!Stage.paused && Stage.world.GetBodyCount() < 120 && Player.playerHealth != 0){
 				var testEnemy:FlyingEnemy = new FlyingEnemy(Math.random()*190 + 40, Math.random()*-90, 2, 3);
 			}
 		}
 		
 		private function addAmmo(e:TimerEvent):void{
-			if(!Stage.paused){
+			if(!Stage.paused && Player.playerHealth != 0){
 				//pistol ammo
 				if(Math.random() < 0.6){
 					var pistolDrop:ItemDrop = new ItemDrop(Math.random()*190 + 40, Math.random()*-90, 1.5,1.5, 2);	

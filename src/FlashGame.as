@@ -47,6 +47,7 @@ package
 			
 			//display debug information
 			debug = new DebugScreen(this);
+			this.addChild(debug);
 		}
 		
 		private function addControls(e:TimerEvent):void{

@@ -233,7 +233,8 @@ package Assets {
 					collisionBody.GetLinearVelocity().x > -20 &&
 					collisionBody.GetLinearVelocity().y < 20 &&
 					collisionBody.GetLinearVelocity().y > -20){
-					direction.Normalize();					
+					direction.Normalize();		
+					direction.Multiply(15);
 				}
 				
 				//follow
