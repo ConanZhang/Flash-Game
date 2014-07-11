@@ -1,22 +1,31 @@
-GOAL
-==============
+##GOAL
 
-Survive for 3 minutes.
+Survive for 3 minutes. Scavenge for randomly dropped ammo and avoid randomly spawning enemies!
 
-KEYBOARD CONTROLS
-==============
+##KEYBOARD CONTROLS
 
-- W - Jump/Double Jump/Hover
-- A - Left
-- S - Fall faster
-- D - Right
-- Space - Slow motion/Invulnerability
-- P or R - Pause
-- F - Full Screen
-- C - Quality: High -> Low -> Medium -> High
-MOUSE CONTROLS
-==============
+####MOVEMENT
 
-- Cursor - Aim
-- Left Click - Shoot
-- Scroll - Change weapon
+* W - Jump/Double Jump/Hover
+* A - Left
+* S - Fall faster
+* D - Right
+
+####ABILITIES
+* Space - Slow motion/Invulnerability
+
+####WEAPON SWITCHING
+* Q or E - Change weapon
+* 1 - Pistol
+* 2 - Shotgun
+
+####OPTIONS
+* P or R - Pause
+* F - Full Screen (Flash 11.3 or higher!!!)
+* C - Quality: High -> Low -> Medium -> High
+
+##MOUSE CONTROLS
+
+* Cursor - Aim
+* Left Click - Shoot
+* Scroll - Change weapon

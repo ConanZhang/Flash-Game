@@ -114,6 +114,12 @@ package Assets {
 				needWeapon = false;
 			}
 			
+			if(pistolAmmo == 0 && shotgunAmmo == 0 && holdingWeapon == true){
+				holdingWeapon = false;
+				destroySprite();
+				weaponType = 0;
+			}
+			
 			//update weapon sprite if necessary
 			if(changeWeapon){
 				destroySprite();
@@ -193,11 +199,6 @@ package Assets {
 						weaponType = 2;
 						changeWeapon = true;
 					}
-					else if(holdingWeapon){
-						destroySprite();
-						holdingWeapon = false;
-						weaponType =0;
-					}
 				}
 			}
 			else if(weaponType == 2){
@@ -238,11 +239,6 @@ package Assets {
 					if(pistolAmmo > 0){
 						weaponType = 1;
 						changeWeapon = true;
-					}
-					else if(holdingWeapon){
-						destroySprite();
-						holdingWeapon = false;
-						weaponType = 0;
 					}
 				}
 			}

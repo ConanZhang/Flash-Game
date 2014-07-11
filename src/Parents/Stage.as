@@ -459,6 +459,39 @@ package Parents
 					stage.quality = StageQuality.LOW;
 				}
 			}
+			//change weapon
+			else if(e.keyCode == Keyboard.Q){
+				if(Weapon.weaponType == 1 && Weapon.shotgunAmmo > 0){
+					Weapon.weaponType = 2;
+					Weapon.changeWeapon = true;
+				}
+				else if(Weapon.pistolAmmo > 0){
+					Weapon.weaponType = 1;
+					Weapon.changeWeapon = true;
+				}
+			}
+			else if(e.keyCode == Keyboard.E){
+				if(Weapon.weaponType == 1 && Weapon.shotgunAmmo > 0){
+					Weapon.weaponType = 2;
+					Weapon.changeWeapon = true;
+				}
+				else if(Weapon.pistolAmmo > 0){
+					Weapon.weaponType = 1;
+					Weapon.changeWeapon = true;
+				}
+			}
+			else if(e.keyCode == Keyboard.NUMBER_1){
+				if(Weapon.pistolAmmo > 0){
+					Weapon.weaponType = 1;
+					Weapon.changeWeapon = true;
+				}
+			}
+			else if(e.keyCode == Keyboard.NUMBER_2){
+				if(Weapon.shotgunAmmo > 0){
+					Weapon.weaponType = 2;
+					Weapon.changeWeapon = true;
+				}
+			}
 		}
 		
 		/**Stages can detect key releases*/
