@@ -341,10 +341,10 @@ package FlashGame
 			else if(countDownSeconds == 0 && !Stage.paused){
 				countDownText.text = "Start!";	
 			}
-			else if(countDownSeconds == -1 && minuteDisplay != 1){
+			else if(countDownSeconds == -1 && minuteDisplay != 3){
 				countDownText.text = "";
 			}
-			else if(minuteDisplay == 1){
+			else if(minuteDisplay == 3){
 				countDownText.text = "Win!";
 			}
 		}

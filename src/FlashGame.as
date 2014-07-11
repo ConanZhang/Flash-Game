@@ -6,7 +6,6 @@ package
 		import FlashGame.DebugScreen;
 		import FlashGame.TestWorld;
 		
-		import flash.display.MovieClip;
 		import flash.display.Sprite;
 		import flash.events.KeyboardEvent;
 		import flash.events.MouseEvent;
@@ -28,7 +27,7 @@ package
 		private var test:TestWorld;  
 		private var debug:DebugScreen;
 		private var beginTimer:Timer;
-		
+		 
 		/**Constructor*/
 		public function FlashGame()
 		{
@@ -41,6 +40,7 @@ package
 			//create new test world
 			test = new TestWorld(this);
 			
+			//delay controls
 			beginTimer = new Timer(3000, 1);
 			beginTimer.addEventListener(TimerEvent.TIMER, addControls);
 			beginTimer.start();
