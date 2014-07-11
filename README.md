@@ -1,8 +1,8 @@
-##GOAL
+###GOAL
 
 Survive for 3 minutes. Scavenge for randomly dropped ammo and avoid randomly spawning enemies!
 
-##KEYBOARD CONTROLS
+###KEYBOARD CONTROLS
 
 ####MOVEMENT
 
@@ -21,10 +21,10 @@ Survive for 3 minutes. Scavenge for randomly dropped ammo and avoid randomly spa
 
 ####OPTIONS
 * P or R - Pause
-* F - Full Screen (Flash 11.3 or higher!!!)
+* F - Full Screen **(FLASH 11.3 OR HIGHER!!!)**
 * C - Quality: High -> Low -> Medium -> High
 
-##MOUSE CONTROLS
+###MOUSE CONTROLS
 
 * Cursor - Aim
 * Left Click - Shoot
