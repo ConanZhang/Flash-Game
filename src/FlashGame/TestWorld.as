@@ -37,7 +37,7 @@ package FlashGame
 			//WALLS
 			var leftWall:Platform = new Platform(-5,-170, 30, 200, "b_tall");
 			var rightWall:Platform = new Platform(250,-170, 30, 200, "b_tall");
-			
+
 			//PLATFORMS
 			for(var i:int = 0; i < 8; i++){
 				var topWallPlatform:Platform = new Platform(40+(i*25), -35,3, 15, "tall");
