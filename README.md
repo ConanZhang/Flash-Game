@@ -13,7 +13,7 @@ KEYBOARD CONTROLS
 - Space - Slow motion/Invulnerability
 - P or R - Pause
 - F - Full Screen
-
+- C - Quality: High -> Low -> Medium -> High
 MOUSE CONTROLS
 ==============
 
