@@ -426,6 +426,7 @@ package Parents
 					pause();
 				}
 				else if(paused == true){
+					PlayerHUD.countDownText.text = "";
 					start();
 				}
 			}
