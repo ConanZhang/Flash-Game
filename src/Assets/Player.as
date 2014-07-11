@@ -26,7 +26,6 @@ package Assets
 		//STAGE
 		private var stage_Sprite:Sprite = Stage.sprites;
 		private var world_Sprite:b2World = Stage.world;
-		private var metricPixRatio:Number = Stage.metricPixRatio;
 		
 		//PROPERTIES
 		private var position:Point;

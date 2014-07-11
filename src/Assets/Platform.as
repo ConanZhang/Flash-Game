@@ -20,7 +20,6 @@ package Assets {
 		//STAGE
 		private var stage_Sprite:Sprite = Stage.sprites;
 		private var world_Sprite:b2World = Stage.world;
-		private var metricPixRatio:Number = Stage.metricPixRatio;
 		
 		//PROPERTIES
 		private var position:Point;
@@ -81,6 +80,7 @@ package Assets {
 			platformFixture.friction = platform_Friction;
 			platformFixture.density = platform_Density;
 			platformFixture.filter.categoryBits = 6;
+			platformFixture.userData = "PLATFORM";
 			
 			//player can't wall jump off tall barriers and slide on them
 			if(platformType == "b_tall"){

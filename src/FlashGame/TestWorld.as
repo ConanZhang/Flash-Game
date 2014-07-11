@@ -28,7 +28,7 @@ package FlashGame
 			
 			//PLAYER
 			var testPlayer:Player = new Player(130, 7, 3.5);
-			testPlayer.setPlayer();
+			this.setPlayer(testPlayer.body);
 			
 			//GROUND & SKY
 			var testGround:Platform = new Platform(7, 15, 275, 15, "b_wide");

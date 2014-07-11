@@ -234,10 +234,10 @@ package FlashGame
 		/**Called in stage update*/
 		public function updateHUD():void{
 			//VISUAL fade effect
-			if(fadeClip.alpha < 0.3 && Stage.usingSlowMotion && Stage.slowMotionAmount > 0){
+			if(fadeClip.alpha < 0.3 && Stage.slowMotion && Stage.slowAmount > 0){
 				fadeClip.alpha+=0.02;
 			}
-			else if(fadeClip.alpha > 0 && !Stage.usingSlowMotion || Stage.slowMotionAmount <= 0 && fadeClip.alpha > 0){
+			else if(fadeClip.alpha > 0 && !Stage.slowMotion || Stage.slowAmount <= 0 && fadeClip.alpha > 0){
 				fadeClip.alpha-=0.02;
 			}
 			
@@ -305,7 +305,7 @@ package FlashGame
 		private function surviveCountDown(e:TimerEvent):void{
 			if(!Stage.paused && Player.playerHealth > 0){
 				//slow down real time
-				if(Stage.usingSlowMotion && Stage.slowMotionAmount > 0){
+				if(Stage.slowMotion && Stage.slowAmount > 0){
 					surviveTimer.delay = 1500;
 				}
 				else{

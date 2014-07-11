@@ -69,7 +69,7 @@ package FlashGame
 			/**Enemy contact*/
 			else if(contact.GetFixtureA().GetUserData() == "PLAYER" && contact.GetFixtureB().GetUserData() == "ENEMY"){
 				//take away health
-				if(Player.playerInvulnerable == 0 && !Stage.usingSlowMotion && Player.playerHealth != 0){
+				if(Player.playerInvulnerable == 0 && !Stage.slowMotion && Player.playerHealth != 0){
 					Player.playerInvulnerable = 50;
 					Player.playerHealth--;
 					PlayerHUD.heartDamaged = true;;
@@ -88,7 +88,7 @@ package FlashGame
 					
 				}
 				//if using slow motion, but don't have any
-				else if(Stage.usingSlowMotion && Stage.slowMotionAmount <=0){
+				else if(Stage.slowMotion && Stage.slowAmount <=0){
 					if(Player.playerInvulnerable == 0 && Player.playerHealth != 0){
 						Player.playerInvulnerable = 50;
 						Player.playerHealth--;
@@ -107,7 +107,7 @@ package FlashGame
 						}
 					}
 				}
-				else if(Stage.usingSlowMotion && Stage.slowMotionAmount > 0){
+				else if(Stage.slowMotion && Stage.slowAmount > 0){
 					Player.STATE = Player.DODGE;
 				}
 				else{
@@ -116,7 +116,7 @@ package FlashGame
 			}
 			else if(contact.GetFixtureA().GetUserData() == "ENEMY" && contact.GetFixtureB().GetUserData() == "PLAYER"){
 				//take away health
-				if(Player.playerInvulnerable == 0 && !Stage.usingSlowMotion && Player.playerHealth != 0){
+				if(Player.playerInvulnerable == 0 && !Stage.slowMotion && Player.playerHealth != 0){
 					Player.playerInvulnerable = 50;
 					Player.playerHealth--;
 					PlayerHUD.heartDamaged = true;;
@@ -135,7 +135,7 @@ package FlashGame
 					
 				}
 					//if using slow motion, but don't have any
-				else if(Stage.usingSlowMotion && Stage.slowMotionAmount <=0){
+				else if(Stage.slowMotion && Stage.slowAmount <=0){
 					if(Player.playerInvulnerable == 0 && Player.playerHealth != 0){
 						Player.playerInvulnerable = 50;
 						Player.playerHealth--;
@@ -154,7 +154,7 @@ package FlashGame
 						}
 					}
 				}
-				else if(Stage.usingSlowMotion && Stage.slowMotionAmount > 0){
+				else if(Stage.slowMotion && Stage.slowAmount > 0){
 					Player.STATE = Player.DODGE;
 				}
 				else{

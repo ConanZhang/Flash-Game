@@ -7,7 +7,6 @@ package Parents
 	import Assets.Player;
 	import Assets.Weapon;
 	
-	import Box2D.Collision.b2AABB;
 	import Box2D.Common.Math.b2Vec2;
 	import Box2D.Dynamics.b2Body;
 	import Box2D.Dynamics.b2DebugDraw;
@@ -30,7 +29,7 @@ package Parents
 	{
 		/**Class Member Variables*/
 		//constant to determine how much a pixel is in metric units
-		public static const metricPixRatio: Number = 20;
+		public const metricPixRatio: uint = 20;
 		
 		/**BOX2D*/
 		//number of checks over position and velocity
@@ -39,14 +38,12 @@ package Parents
 		private var timeStep:Number;
 		
 		/**LOGIC*/
-		//check if the stage has just been initiated; SEE update()
-		private var initial:Boolean;
 		//array to hold key presses
 		private var keyPresses:Array;
 		//world is in slow motion
-		private static var slowMotion:Boolean;
+		public static var slowMotion:Boolean;
 		//amount of slow motion
-		private static var slowAmount:Number;
+		public static var slowAmount:Number;
 		//speed world is; slow motion or normal
 		private var speed:Number;
 		//bar width
@@ -106,7 +103,6 @@ package Parents
 			timeStep = 1/30;
 						
 			/**LOGIC*/
-			initial = true;
 			keyPresses = new Array();
 			weaponRotation = 0;
 			
@@ -131,6 +127,7 @@ package Parents
 			
 			/**PLAYER*/
 			lastPos = new Point();
+
 			horizontal = 0;
 			vertical = 0;
 			acceleration = 0;
@@ -145,6 +142,7 @@ package Parents
 			flinchTime = 0;
 			
 			gameHUD = new PlayerHUD(this);
+			this.addChild(gameHUD);
 			
 			/**DEBUGGING*/
 			debugDrawing();
@@ -152,13 +150,6 @@ package Parents
 		
 		/**Stages can update their properties*/
 		public function update(e:Event):void{
-			//get last position player was in for initial speed calculation
-			if(initial){
-				lastPos = new Point(player.GetPosition().x, player.GetPosition().y);
-				//never need to do it again
-				initial = false;
-			}
-			
 			//clear sprites from last frame
 			sprites.graphics.clear();
 			
@@ -667,16 +658,10 @@ package Parents
 			}
 		}
 		
-		/**Get for Debug*/
-		static public function get horizontalSpeed():Number{return horizontal;}
-		static public function get verticalSpeed():Number{return vertical;}
-		static public function get jumpsRemaining():int{return jumpAmount;}
-		static public function get isJumping():Boolean{return jumping;}
-		static public function get timeJumping():int{return jumpTime;}
-		static public function get rightContact():Boolean{return rightWall;}
-		static public function get leftContact():Boolean{return leftWall;}
-		static public function get usingSlowMotion():Boolean{return slowMotion;}
-		static public function get slowMotionAmount():Number{return slowAmount;}
+		/**Set player*/
+		protected function setPlayer(playerP:b2Body):void{
+			player = playerP;
+		}
 		
 		/**Draws Box2D collision shapes*/
 		private function debugDrawing():void{

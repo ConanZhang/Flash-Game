@@ -30,7 +30,6 @@ package Assets {
 		//STAGE
 		private var stage_Sprite:Sprite = Stage.sprites;
 		private var world_Sprite:b2World = Stage.world;
-		private var metricPixRatio:Number = Stage.metricPixRatio;
 		
 		//PROPERTIES
 		private var position:Point;
@@ -227,7 +226,7 @@ package Assets {
 			}
 			
 			//moving even when there is slow motion
-			if(Stage.usingSlowMotion && Stage.slowMotionAmount >= 0){
+			if(Stage.slowMotion && Stage.slowAmount >= 0){
 				//limit speed
 				if(collisionBody.GetLinearVelocity().x < 20 &&
 					collisionBody.GetLinearVelocity().x > -20 &&

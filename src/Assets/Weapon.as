@@ -21,7 +21,6 @@ package Assets {
 		//STAGE
 		private var stage_Sprite:Sprite = Stage.sprites;
 		private var world_Sprite:b2World = Stage.world;
-		private var metricPixRatio:Number = Stage.metricPixRatio;
 		
 		//ANIMATION STATES
 		public static var   STATE   	:int;
@@ -109,7 +108,23 @@ package Assets {
 		/**Child Update [called by Object's update]*/
 		public override function childUpdate():void{
 			if(needWeapon){
-				Stage.sprites.addChild(weaponClip);
+				//add correct sprite
+				if(weaponType == 1 && pistolAmmo > 0){
+					weaponClip = new pistol();
+					weaponClip.gotoAndStop("pistol_right");
+					weaponClip.width = 2*metricPixRatio;
+					weaponClip.height = 1*metricPixRatio;
+					super.sprite = weaponClip;
+					Stage.sprites.addChild(weaponClip);
+				}
+				else if(weaponType == 2 && shotgunAmmo > 0){
+					weaponClip = new shotgun();
+					weaponClip.gotoAndStop("shotgun_right");
+					weaponClip.width = 3*metricPixRatio;
+					weaponClip.height =2*metricPixRatio;
+					super.sprite = weaponClip;
+					Stage.sprites.addChild(weaponClip);
+				}				
 				holdingWeapon = true;
 				needWeapon = false;
 			}
@@ -168,7 +183,7 @@ package Assets {
 					weaponClip.gotoAndStop("pistol_left");
 				}
 				else if(rightFire){
-					if(Stage.usingSlowMotion && Stage.slowMotionAmount > 0){
+					if(Stage.slowMotion && Stage.slowAmount > 0){
 						weaponClip.gotoAndStop("pistol_right_fire_slomo");
 					}
 					else{
@@ -181,7 +196,7 @@ package Assets {
 					}
 				}
 				else if(leftFire){
-					if(Stage.usingSlowMotion && Stage.slowMotionAmount > 0){
+					if(Stage.slowMotion && Stage.slowAmount > 0){
 						weaponClip.gotoAndStop("pistol_left_fire_slomo");
 					}
 					else{
@@ -209,7 +224,7 @@ package Assets {
 					weaponClip.gotoAndStop("shotgun_left");
 				}
 				else if(rightFire){
-					if(Stage.usingSlowMotion && Stage.slowMotionAmount > 0){
+					if(Stage.slowMotion && Stage.slowAmount > 0){
 //						weaponClip.gotoAndStop("shotgun_right_fire_slomo");
 					}
 					else{
@@ -222,7 +237,7 @@ package Assets {
 					}
 				}
 				else if(leftFire){
-					if(Stage.usingSlowMotion && Stage.slowMotionAmount > 0){
+					if(Stage.slowMotion && Stage.slowAmount > 0){
 //						weaponClip.gotoAndStop("shotgun_left_fire_slomo");
 					}
 					else{
