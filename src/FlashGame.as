@@ -46,7 +46,7 @@ package
 			beginTimer.start();
 			
 			//display debug information
-			debug = new DebugScreen(this);
+			debug = new DebugScreen();
 			this.addChild(debug);
 		}
 		

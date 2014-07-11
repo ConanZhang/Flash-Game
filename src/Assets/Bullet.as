@@ -70,8 +70,8 @@ package Assets {
 				bulletFixture.userData = "PISTOL_BULLET";
 			}
 			else{
-				bulletXDirection = Math.cos(Stage.weaponRotation+Math.random()*0.4 - 0.2)*300;
-				bulletYDirection = Math.sin(Stage.weaponRotation+Math.random()*0.4 - 0.2)*300;
+				bulletXDirection = Math.cos(Stage.weaponRotation+Math.random()*0.5 - 0.25)*300;
+				bulletYDirection = Math.sin(Stage.weaponRotation+Math.random()*0.5 - 0.25)*300;
 				bulletFixture.userData = "SHOTGUN_BULLET";
 			}
 			

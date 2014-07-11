@@ -55,7 +55,7 @@ package FlashGame
 		private var surviveTimer:Timer;
 		
 		//round start countdown
-		private var countDownText:TextField;
+		public static var countDownText:TextField;
 		private var countDownFormat:TextFormat;
 		
 		private var countDownSeconds:int;
@@ -226,7 +226,7 @@ package FlashGame
 			countDownText.selectable = false;
 			this.addChild(countDownText);
 			
-			countDownTimer = new Timer(1000,4);
+			countDownTimer = new Timer(1000);
 			countDownTimer.addEventListener(TimerEvent.TIMER, beginCountDown);
 			countDownTimer.start();
 		}
@@ -329,7 +329,7 @@ package FlashGame
 		
 		/**Begin count down timer*/
 		private function beginCountDown(e:TimerEvent):void{
-			if(!Stage.paused){
+			if(!Stage.paused && countDownSeconds > -1){
 				//minus seconds
 				countDownSeconds--;
 			}
@@ -338,14 +338,15 @@ package FlashGame
 			if(countDownSeconds > 0){
 				countDownText.text = countDownSeconds+"!";	
 			}
-			else if(countDownSeconds == 0){
+			else if(countDownSeconds == 0 && !Stage.paused){
 				countDownText.text = "Start!";	
 			}
-			else{
-				this.removeChild(countDownText);
+			else if(countDownSeconds == -1 && minuteDisplay != 1){
+				countDownText.text = "";
 			}
-			
-			
+			else if(minuteDisplay == 1){
+				countDownText.text = "Win!";
+			}
 		}
 	}
 			

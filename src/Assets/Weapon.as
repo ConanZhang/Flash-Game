@@ -108,6 +108,12 @@ package Assets {
 		
 		/**Child Update [called by Object's update]*/
 		public override function childUpdate():void{
+			if(needWeapon){
+				Stage.sprites.addChild(weaponClip);
+				holdingWeapon = true;
+				needWeapon = false;
+			}
+			
 			//update weapon sprite if necessary
 			if(changeWeapon){
 				destroySprite();
@@ -193,12 +199,6 @@ package Assets {
 						weaponType =0;
 					}
 				}
-				else if(needWeapon == true){
-					Stage.sprites.addChild(weaponClip);
-					holdingWeapon = true;
-					needWeapon = false;
-					weaponType = 1;
-				}
 			}
 			else if(weaponType == 2){
 				if(STATE == RIGHT && !rightFire){
@@ -244,12 +244,6 @@ package Assets {
 						holdingWeapon = false;
 						weaponType = 0;
 					}
-				}
-				else if(needWeapon == true){
-					Stage.sprites.addChild(weaponClip);
-					holdingWeapon = true;
-					needWeapon = false;
-					weaponType = 2;
 				}
 			}
 			

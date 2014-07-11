@@ -19,6 +19,7 @@ package Parents
 	import flash.display.MovieClip;
 	import flash.display.Sprite;
 	import flash.display.StageDisplayState;
+	import flash.display.StageQuality;
 	import flash.events.Event;
 	import flash.events.KeyboardEvent;
 	import flash.events.MouseEvent;
@@ -430,6 +431,7 @@ package Parents
 			//pausing
 			if(e.keyCode == Keyboard.P || e.keyCode == Keyboard.R){
 				if(paused == false){
+					PlayerHUD.countDownText.text = "Pause!";
 					pause();
 				}
 				else if(paused == true){
@@ -443,6 +445,18 @@ package Parents
 				}
 				else{
 					stage.displayState = StageDisplayState.NORMAL;				
+				}
+			}
+			//quality
+			else if(e.keyCode == Keyboard.C){
+				if(stage.quality == "LOW" ){
+					stage.quality = StageQuality.MEDIUM;
+				}
+				else if(stage.quality == "MEDIUM"){
+					stage.quality = StageQuality.HIGH;
+				}
+				else if(stage.quality == "HIGH" ){
+					stage.quality = StageQuality.LOW;
 				}
 			}
 		}
@@ -492,10 +506,10 @@ package Parents
 			//pausing
 			if(e.keyCode == Keyboard.P || e.keyCode == Keyboard.R){
 				if(paused == false){
-					paused = true;;
+					paused = true;
 				}
 				else if(paused == true){
-					paused = false;;
+					paused = false;
 				}
 			}
 		}
