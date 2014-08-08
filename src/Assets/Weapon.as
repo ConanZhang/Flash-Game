@@ -163,7 +163,7 @@ package Assets {
 				changeWeapon = false;
 			}
 			
-			collisionBody.SetPosition( Stage.player.GetPosition() );
+			collisionBody.SetPosition( Stage.playerBody.GetPosition() );
 			weaponClip.rotation = Stage.weaponRotation*180/Math.PI;
 			
 			//match rotation

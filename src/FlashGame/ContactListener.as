@@ -7,7 +7,7 @@ package FlashGame
 	import Assets.Player;
 	
 	import Box2D.Collision.b2ContactPoint;
-	import Box2D.Collision.b2Manifold;
+	import Box2D.Collision.b2Manifold;	
 	import Box2D.Common.Math.b2Mat22;
 	import Box2D.Common.Math.b2Transform;
 	import Box2D.Common.Math.b2Vec2;
@@ -76,12 +76,12 @@ package FlashGame
 					
 					//flinch
 					if(contact.GetFixtureA().GetBody().GetPosition().x < contact.GetFixtureB().GetBody().GetPosition().x){
-						Stage.player.SetLinearVelocity( new b2Vec2(-75, 0) );
+						Stage.playerBody.SetLinearVelocity( new b2Vec2(-75, 0) );
 						Stage.flinchTime = 12;
 						Player.STATE = Player.FLINCH;
 					}
 					else if(contact.GetFixtureA().GetBody().GetPosition().x > contact.GetFixtureB().GetBody().GetPosition().x){
-						Stage.player.SetLinearVelocity( new b2Vec2(75, 0) );
+						Stage.playerBody.SetLinearVelocity( new b2Vec2(75, 0) );
 						Stage.flinchTime = 12;
 						Player.STATE = Player.FLINCH;
 					}
@@ -96,12 +96,12 @@ package FlashGame
 
 						//flinch
 						if(contact.GetFixtureB().GetBody().GetPosition().x < contact.GetFixtureA().GetBody().GetPosition().x){
-							Stage.player.SetLinearVelocity( new b2Vec2(-75, 0) );
+							Stage.playerBody.SetLinearVelocity( new b2Vec2(-75, 0) );
 							Stage.flinchTime = 12;
 							Player.STATE = Player.FLINCH;
 						}
 						else if(contact.GetFixtureB().GetBody().GetPosition().x > contact.GetFixtureA().GetBody().GetPosition().x){
-							Stage.player.SetLinearVelocity( new b2Vec2(75, 0) );
+							Stage.playerBody.SetLinearVelocity( new b2Vec2(75, 0) );
 							Stage.flinchTime = 12;
 							Player.STATE = Player.FLINCH;
 						}
@@ -123,12 +123,12 @@ package FlashGame
 					
 					//flinch
 					if(contact.GetFixtureB().GetBody().GetPosition().x < contact.GetFixtureA().GetBody().GetPosition().x){
-						Stage.player.SetLinearVelocity( new b2Vec2(-75, 0) );
+						Stage.playerBody.SetLinearVelocity( new b2Vec2(-75, 0) );
 						Stage.flinchTime = 12;
 						Player.STATE = Player.FLINCH;
 					}
 					else if(contact.GetFixtureB().GetBody().GetPosition().x > contact.GetFixtureA().GetBody().GetPosition().x){
-						Stage.player.SetLinearVelocity( new b2Vec2(75, 0) );
+						Stage.playerBody.SetLinearVelocity( new b2Vec2(75, 0) );
 						Stage.flinchTime = 12;
 						Player.STATE = Player.FLINCH;
 					}
@@ -143,12 +143,12 @@ package FlashGame
 
 						//flinch
 						if(contact.GetFixtureB().GetBody().GetPosition().x < contact.GetFixtureA().GetBody().GetPosition().x){
-							Stage.player.SetLinearVelocity( new b2Vec2(-75, 0) );
+							Stage.playerBody.SetLinearVelocity( new b2Vec2(-75, 0) );
 							Stage.flinchTime = 12;
 							Player.STATE = Player.FLINCH;
 						}
 						else if(contact.GetFixtureB().GetBody().GetPosition().x > contact.GetFixtureA().GetBody().GetPosition().x){
-							Stage.player.SetLinearVelocity( new b2Vec2(75, 0) );
+							Stage.playerBody.SetLinearVelocity( new b2Vec2(75, 0) );
 							Stage.flinchTime = 12;
 							Player.STATE = Player.FLINCH;
 						}

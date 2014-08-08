@@ -46,8 +46,6 @@ package Parents
 		public static var slowAmount:Number;
 		//speed world is; slow motion or normal
 		private var speed:Number;
-		//bar width
-		public static var slowBarWidth:Number;
 		//HUD
 		private var gameHUD:PlayerHUD;
 		//paused or playing
@@ -63,7 +61,7 @@ package Parents
 		
 		/**PLAYER*/
 		//player body for collision detection
-		public static var player:b2Body;
+		public static var playerBody:b2Body;
 		//the last position the player was (for speed calculation)
 		private var lastPos:Point;
 		//horizontal speed
@@ -121,9 +119,8 @@ package Parents
 			worldStage = new b2World(gravity, doSleep);
 			worldStage.SetContactListener(new ContactListener() );
 			slowMotion = false;
-			slowAmount = 150;
+			slowAmount = 225;
 			speed = 1;
-			slowBarWidth = 225;
 			
 			/**PLAYER*/
 			lastPos = new Point();
@@ -144,6 +141,13 @@ package Parents
 			gameHUD = new PlayerHUD(this);
 			this.addChild(gameHUD);
 			
+			//PLAYER
+			var player:Player = new Player(130, 7, 3.5);
+			this.setPlayer(player.body);
+			
+			//WEAPON
+			var weapon:Weapon = new Weapon(15, 7,1);
+			
 			/**DEBUGGING*/
 			debugDrawing();
 		}
@@ -154,7 +158,7 @@ package Parents
 			sprites.graphics.clear();
 			
 			/**CAMERA*/
-			centerScreen(player.GetPosition().x, player.GetPosition().y);
+			centerScreen(playerBody.GetPosition().x, playerBody.GetPosition().y);
 			
 			/**BOX2D*/
 			world.Step(timeStep,iterations,iterations);
@@ -190,8 +194,8 @@ package Parents
 							//downward velocity in air
 							if(jumping){
 								direction.Set(0, 180);
-								player.SetAwake(true);
-								player.ApplyForce(direction, player.GetPosition() );
+								playerBody.SetAwake(true);
+								playerBody.ApplyForce(direction, playerBody.GetPosition() );
 								if(Player.STATE != Player.DODGE ){
 									Player.STATE = Player.FAST_FALL;
 								}
@@ -202,8 +206,8 @@ package Parents
 							if(jumping == false && !rightWall && !leftWall){
 								jumping = true;
 								direction.Set(0,-25);
-								player.SetAwake(true);
-								player.ApplyImpulse(direction, player.GetPosition() );
+								playerBody.SetAwake(true);
+								playerBody.ApplyImpulse(direction, playerBody.GetPosition() );
 								if(Player.STATE != Player.DODGE ){
 									Player.STATE = Player.JUMPING;
 								}
@@ -214,8 +218,8 @@ package Parents
 								jumpAmount == defaultJumpAmount){
 								jumpTime++;
 								direction.Set(0,-500);
-								player.SetAwake(true);
-								player.ApplyForce(direction, player.GetPosition() );
+								playerBody.SetAwake(true);
+								playerBody.ApplyForce(direction, playerBody.GetPosition() );
 							}
 								//air jump initial
 							else if(jumping == true &&
@@ -224,8 +228,8 @@ package Parents
 								!airJumping){
 								jumpTime = 0;
 								airJumping = true;
-								direction.Set(player.GetLinearVelocity().x,-25);
-								player.SetLinearVelocity(direction);
+								direction.Set(playerBody.GetLinearVelocity().x,-25);
+								playerBody.SetLinearVelocity(direction);
 							}
 								//continuing air jump
 							else if(airJumping == true && 
@@ -233,14 +237,14 @@ package Parents
 								jumpAmount > 0){
 								jumpTime++;
 								direction.Set(0,-500);
-								player.SetAwake(true);
-								player.ApplyForce(direction, player.GetPosition() );
+								playerBody.SetAwake(true);
+								playerBody.ApplyForce(direction, playerBody.GetPosition() );
 							}
 								//hover
-							else if(jumpTime == jumpLimit+1 && player.GetLinearVelocity().y > 0 || jumpAmount == 0){
+							else if(jumpTime == jumpLimit+1 && playerBody.GetLinearVelocity().y > 0 || jumpAmount == 0){
 								direction.Set(0,-150);
-								player.SetAwake(true);
-								player.ApplyForce(direction, player.GetPosition() );
+								playerBody.SetAwake(true);
+								playerBody.ApplyForce(direction, playerBody.GetPosition() );
 								if(Player.STATE != Player.DODGE){
 									Player.STATE = Player.HOVER;
 								}
@@ -250,8 +254,8 @@ package Parents
 								jumping = true;
 								rightWall = false;
 								direction.Set(-90,-43);
-								player.SetAwake(true);
-								player.ApplyImpulse(direction, player.GetPosition() );
+								playerBody.SetAwake(true);
+								playerBody.ApplyImpulse(direction, playerBody.GetPosition() );
 								if(Player.STATE != Player.DODGE){
 									Player.STATE = Player.JUMPING;
 								}
@@ -261,8 +265,8 @@ package Parents
 								jumping = true;
 								leftWall = false;
 								direction.Set(90,-43);
-								player.SetAwake(true);
-								player.ApplyImpulse(direction, player.GetPosition() );
+								playerBody.SetAwake(true);
+								playerBody.ApplyImpulse(direction, playerBody.GetPosition() );
 								if(Player.STATE != Player.DODGE){
 									Player.STATE = Player.JUMPING;
 								}
@@ -272,8 +276,8 @@ package Parents
 							//limit speed
 							if(horizontal>-2){
 								direction.Set(-250*speed,0);
-								player.SetAwake(true);
-								player.ApplyForce(direction,player.GetPosition());
+								playerBody.SetAwake(true);
+								playerBody.ApplyForce(direction,playerBody.GetPosition());
 								if(slowMotion && slowAmount > 0){
 									Player.playerRotation = -20;
 								}
@@ -298,8 +302,8 @@ package Parents
 							//limit speed
 							if(horizontal<2){
 								direction.Set(250*speed,0);
-								player.SetAwake(true);
-								player.ApplyForce(direction,player.GetPosition());
+								playerBody.SetAwake(true);
+								playerBody.ApplyForce(direction,playerBody.GetPosition());
 								if(slowMotion && slowAmount > 0){
 									Player.playerRotation = 20;
 								}
@@ -331,9 +335,8 @@ package Parents
 									jumpTime = 13;
 								}
 							}
-							else if(slowAmount > 0 && slowBarWidth > 0 && Player.playerHealth > 0){
-								slowAmount-=2.25;
-								slowBarWidth-=3.375;
+							else if(slowAmount > 0 && Player.playerHealth > 0){
+								slowAmount-=3.375;
 							}
 							break;
 					}
@@ -342,7 +345,7 @@ package Parents
 			}
 			
 			//get current physics
-			var currentPos:Point = new Point(player.GetPosition().x, player.GetPosition().y);
+			var currentPos:Point = new Point(playerBody.GetPosition().x, playerBody.GetPosition().y);
 			var currentVelocity:Number = currentPos.x - lastPos.x;
 			
 			//update forces and positions
@@ -352,9 +355,8 @@ package Parents
 			lastPos = currentPos;
 			
 			//slow meter
-			if(slowAmount < 150 && !slowMotion && slowBarWidth < 225){
-				slowAmount+= 1.5;
-				slowBarWidth += 2.25;
+			if(slowAmount < 225 && !slowMotion){
+				slowAmount+= 2.25;
 			}
 			else if(slowAmount <= 0 && slowMotion){
 				jumpLimit = 5;
@@ -545,23 +547,23 @@ package Parents
 				if(Weapon.weaponType == 1){
 					if(weaponRotation > -1.5 && weaponRotation < 1.5){
 						Weapon.rightFire = true;
-						var pistolRight:Bullet = new Bullet(player.GetPosition().x + Math.cos(weaponRotation), player.GetPosition().y +Math.sin(weaponRotation),0.3,0.3);	
+						var pistolRight:Bullet = new Bullet(playerBody.GetPosition().x + Math.cos(weaponRotation), playerBody.GetPosition().y +Math.sin(weaponRotation),0.3,0.3);	
 						Weapon.pistolAmmo--;
 					}
 					else if(!Weapon.leftFire){
 						Weapon.leftFire = true;
-						var pistolLeft:Bullet = new Bullet(player.GetPosition().x + Math.cos(weaponRotation), player.GetPosition().y +Math.sin(weaponRotation),0.3,0.3);	
+						var pistolLeft:Bullet = new Bullet(playerBody.GetPosition().x + Math.cos(weaponRotation), playerBody.GetPosition().y +Math.sin(weaponRotation),0.3,0.3);	
 						Weapon.pistolAmmo--;
 					}
 					else if(Weapon.rightFire && !EndAnimation.endGunFire || Weapon.leftFire && !EndAnimation.endGunFire){
 						EndAnimation.endGunFire = true;
 						
 						if(weaponRotation > -1.5 && weaponRotation < 1.5){
-							var pistol_Right:Bullet = new Bullet(player.GetPosition().x + Math.cos(weaponRotation), player.GetPosition().y +Math.sin(weaponRotation),0.3,0.3);	
+							var pistol_Right:Bullet = new Bullet(playerBody.GetPosition().x + Math.cos(weaponRotation), playerBody.GetPosition().y +Math.sin(weaponRotation),0.3,0.3);	
 							Weapon.pistolAmmo--;
 						}
 						else{
-							var pistol_Left:Bullet = new Bullet(player.GetPosition().x + Math.cos(weaponRotation), player.GetPosition().y +Math.sin(weaponRotation),0.3,0.3);	
+							var pistol_Left:Bullet = new Bullet(playerBody.GetPosition().x + Math.cos(weaponRotation), playerBody.GetPosition().y +Math.sin(weaponRotation),0.3,0.3);	
 							Weapon.pistolAmmo--;
 						}
 					}	
@@ -570,18 +572,18 @@ package Parents
 					if(weaponRotation > -1.5 && weaponRotation < 1.5){
 						Weapon.rightFire = true;
 						
-						var shotgunRight1:Bullet = new Bullet(player.GetPosition().x + Math.cos(weaponRotation), player.GetPosition().y +Math.sin(weaponRotation),0.3,0.3);
-						var shotgunRight2:Bullet = new Bullet(player.GetPosition().x + Math.cos(weaponRotation), player.GetPosition().y +Math.sin(weaponRotation),0.3,0.3);	
-						var shotgunRight3:Bullet = new Bullet(player.GetPosition().x + Math.cos(weaponRotation), player.GetPosition().y +Math.sin(weaponRotation),0.3,0.3);	
+						var shotgunRight1:Bullet = new Bullet(playerBody.GetPosition().x + Math.cos(weaponRotation), playerBody.GetPosition().y +Math.sin(weaponRotation),0.3,0.3);
+						var shotgunRight2:Bullet = new Bullet(playerBody.GetPosition().x + Math.cos(weaponRotation), playerBody.GetPosition().y +Math.sin(weaponRotation),0.3,0.3);	
+						var shotgunRight3:Bullet = new Bullet(playerBody.GetPosition().x + Math.cos(weaponRotation), playerBody.GetPosition().y +Math.sin(weaponRotation),0.3,0.3);	
 
 						Weapon.shotgunAmmo--;
 					}
 					else if(!Weapon.leftFire){
 						Weapon.leftFire = true;
 						
-						var shotgunLeft1:Bullet = new Bullet(player.GetPosition().x + Math.cos(weaponRotation), player.GetPosition().y +Math.sin(weaponRotation),0.3,0.3);	
-						var shotgunLeft2:Bullet = new Bullet(player.GetPosition().x + Math.cos(weaponRotation), player.GetPosition().y +Math.sin(weaponRotation),0.3,0.3);	
-						var shotgunLeft3:Bullet = new Bullet(player.GetPosition().x + Math.cos(weaponRotation), player.GetPosition().y +Math.sin(weaponRotation),0.3,0.3);	
+						var shotgunLeft1:Bullet = new Bullet(playerBody.GetPosition().x + Math.cos(weaponRotation), playerBody.GetPosition().y +Math.sin(weaponRotation),0.3,0.3);	
+						var shotgunLeft2:Bullet = new Bullet(playerBody.GetPosition().x + Math.cos(weaponRotation), playerBody.GetPosition().y +Math.sin(weaponRotation),0.3,0.3);	
+						var shotgunLeft3:Bullet = new Bullet(playerBody.GetPosition().x + Math.cos(weaponRotation), playerBody.GetPosition().y +Math.sin(weaponRotation),0.3,0.3);	
 
 						Weapon.shotgunAmmo--;
 					}
@@ -589,16 +591,16 @@ package Parents
 						EndAnimation.endGunFire = true;
 						
 						if(weaponRotation > -1.5 && weaponRotation < 1.5){
-							var shotgun_Right1:Bullet = new Bullet(player.GetPosition().x + Math.cos(weaponRotation), player.GetPosition().y +Math.sin(weaponRotation),0.3,0.3);	
-							var shotgun_Right2:Bullet = new Bullet(player.GetPosition().x + Math.cos(weaponRotation), player.GetPosition().y +Math.sin(weaponRotation),0.3,0.3);	
-							var shotgun_Right3:Bullet = new Bullet(player.GetPosition().x + Math.cos(weaponRotation), player.GetPosition().y +Math.sin(weaponRotation),0.3,0.3);	
+							var shotgun_Right1:Bullet = new Bullet(playerBody.GetPosition().x + Math.cos(weaponRotation), playerBody.GetPosition().y +Math.sin(weaponRotation),0.3,0.3);	
+							var shotgun_Right2:Bullet = new Bullet(playerBody.GetPosition().x + Math.cos(weaponRotation), playerBody.GetPosition().y +Math.sin(weaponRotation),0.3,0.3);	
+							var shotgun_Right3:Bullet = new Bullet(playerBody.GetPosition().x + Math.cos(weaponRotation), playerBody.GetPosition().y +Math.sin(weaponRotation),0.3,0.3);	
 							
 							Weapon.shotgunAmmo--;
 						}
 						else{
-							var shotgun_Left1:Bullet = new Bullet(player.GetPosition().x + Math.cos(weaponRotation), player.GetPosition().y +Math.sin(weaponRotation),0.3,0.3);	
-							var shotgun_Left2:Bullet = new Bullet(player.GetPosition().x + Math.cos(weaponRotation), player.GetPosition().y +Math.sin(weaponRotation),0.3,0.3);	
-							var shotgun_Left3:Bullet = new Bullet(player.GetPosition().x + Math.cos(weaponRotation), player.GetPosition().y +Math.sin(weaponRotation),0.3,0.3);	
+							var shotgun_Left1:Bullet = new Bullet(playerBody.GetPosition().x + Math.cos(weaponRotation), playerBody.GetPosition().y +Math.sin(weaponRotation),0.3,0.3);	
+							var shotgun_Left2:Bullet = new Bullet(playerBody.GetPosition().x + Math.cos(weaponRotation), playerBody.GetPosition().y +Math.sin(weaponRotation),0.3,0.3);	
+							var shotgun_Left3:Bullet = new Bullet(playerBody.GetPosition().x + Math.cos(weaponRotation), playerBody.GetPosition().y +Math.sin(weaponRotation),0.3,0.3);	
 							
 							Weapon.shotgunAmmo--;
 						}
@@ -661,7 +663,7 @@ package Parents
 		
 		/**Set player*/
 		protected function setPlayer(playerP:b2Body):void{
-			player = playerP;
+			playerBody = playerP;
 		}
 		
 		/**Draws Box2D collision shapes*/

@@ -26,10 +26,6 @@ package FlashGame
 			screen = screenP;
 			screen.addChild(this);
 			
-			//PLAYER
-			var testPlayer:Player = new Player(130, 7, 3.5);
-			this.setPlayer(testPlayer.body);
-			
 			//GROUND & SKY
 			var testGround:Platform = new Platform(7, 15, 275, 15, "b_wide");
 			var testSky:Platform = new Platform(7, -120, 275, 15, "b_wide");
@@ -62,9 +58,6 @@ package FlashGame
 			var ammoAdd:Timer = new Timer(15000);
 			ammoAdd.addEventListener(TimerEvent.TIMER, addAmmo);
 			ammoAdd.start();
-			
-			//WEAPON
-			var testWeapon:Weapon = new Weapon(15, 7,1);
 		}
 		
 		private function addEnemy(e:TimerEvent):void{

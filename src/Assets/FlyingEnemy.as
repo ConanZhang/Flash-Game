@@ -113,7 +113,7 @@ package Assets {
 			   						
 			/**Follow player*/ 
 			//get direction and magnitude to player
-			direction = b2Math.SubtractVV(Stage.player.GetPosition() , collisionBody.GetPosition());
+			direction = b2Math.SubtractVV(Stage.playerBody.GetPosition() , collisionBody.GetPosition());
 			
 			beginRayCast = collisionBody.GetPosition();
 			direction.Normalize();

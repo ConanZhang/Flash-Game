@@ -74,7 +74,7 @@ package FlashGame
 			heartDamaged = false;
 			
 			heartXPosition = 460;
-			heartYPosition = 70;
+			heartYPosition = 35;
 			heartSize = 35;
 			
 			screen = screenP;
@@ -151,7 +151,7 @@ package FlashGame
 			slowMotionBar = new Shape();
 			slowMotionBar.graphics.clear();
 			slowMotionBar.graphics.beginFill(0xff0000);
-			slowMotionBar.graphics.drawRect(450, 25, Stage.slowBarWidth, 20);
+			slowMotionBar.graphics.drawRect(38, 25, Stage.slowAmount, 20);
 			slowMotionBar.graphics.endFill();
 			
 			this.addChild(slowMotionBar);
@@ -160,7 +160,8 @@ package FlashGame
 			slowBarClip.width = 230;
 			slowBarClip.height = 30;
 			
-			slowBarClip.x = 563;
+//			slowBarClip.x = 563;
+			slowBarClip.x = 150;
 			slowBarClip.y = 34;
 			
 			this.addChild(slowBarClip);
@@ -292,7 +293,7 @@ package FlashGame
 			//slow motion bar
 			slowMotionBar.graphics.clear();
 			slowMotionBar.graphics.beginFill(0xff0000);
-			slowMotionBar.graphics.drawRect(450, 25, Stage.slowBarWidth, 20);
+			slowMotionBar.graphics.drawRect(38, 25, Stage.slowAmount, 20);
 			slowMotionBar.graphics.endFill();
 			
 			//ammo
