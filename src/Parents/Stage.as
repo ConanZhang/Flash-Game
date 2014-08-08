@@ -44,20 +44,20 @@ package Parents
 		public static var slowMotion:Boolean;
 		//amount of slow motion
 		public static var slowAmount:Number;
-		//speed world is; slow motion or normal
-		private var speed:Number;
-		//HUD
-		private var gameHUD:PlayerHUD;
 		//paused or playing
 		public static var paused:Boolean;
-		//rotate weapon
-		public static var weaponRotation:Number;
 		
 		/**WORLD*/
 		//world for all objects to exist in
 		private static var worldStage:b2World;
 		//variable for all images to be held in for camera movement
 		private static var images:Sprite;
+		//HUD
+		private var gameHUD:PlayerHUD;
+		//speed world is; slow motion or normal
+		private var speed:Number;
+		//rotate weapon
+		public static var weaponRotation:Number;
 		
 		/**PLAYER*/
 		//player body for collision detection

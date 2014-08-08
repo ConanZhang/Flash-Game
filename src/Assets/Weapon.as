@@ -52,7 +52,7 @@ package Assets {
 			
 			//initialize default private variables
 			pistolAmmo = 10;
-			shotgunAmmo = 2;
+			shotgunAmmo = 500;
 			holdingWeapon = true;
 			needWeapon = false;
 			changeWeapon = false;
@@ -225,10 +225,10 @@ package Assets {
 				}
 				else if(rightFire){
 					if(Stage.slowMotion && Stage.slowAmount > 0){
-//						weaponClip.gotoAndStop("shotgun_right_fire_slomo");
+						weaponClip.gotoAndStop("shotgun_right_fire_slomo");
 					}
 					else{
-//						weaponClip.gotoAndStop("shotgun_right_fire");
+						weaponClip.gotoAndStop("shotgun_right_fire");
 					}
 					
 					if(EndAnimation.endGunFire){
@@ -238,10 +238,10 @@ package Assets {
 				}
 				else if(leftFire){
 					if(Stage.slowMotion && Stage.slowAmount > 0){
-//						weaponClip.gotoAndStop("shotgun_left_fire_slomo");
+						weaponClip.gotoAndStop("shotgun_left_fire_slomo");
 					}
 					else{
-//						weaponClip.gotoAndStop("shotgun_left_fire");
+						weaponClip.gotoAndStop("shotgun_left_fire");
 					}				
 					if(EndAnimation.endGunFire){
 						EndAnimation.endGunFire = false;

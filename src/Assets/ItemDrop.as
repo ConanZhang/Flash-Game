@@ -93,7 +93,7 @@ package Assets {
 			}
 			//pistol ammo
 			else if(itemType == 2){
-				itemDropClip = new ammobox();
+				itemDropClip = new ammobox_pistol();
 				itemDropClip.width = itemDrop_Width*metricPixRatio;
 				itemDropClip.height = itemDrop_Height*metricPixRatio;
 				super.sprite = itemDropClip;
@@ -101,7 +101,7 @@ package Assets {
 			}
 			//shotgun ammo
 			else if(itemType == 3){
-				itemDropClip = new ammobox();
+				itemDropClip = new ammobox_shotgun();
 				itemDropClip.width = itemDrop_Width*metricPixRatio;
 				itemDropClip.height = itemDrop_Height*metricPixRatio;
 				super.sprite = itemDropClip;
