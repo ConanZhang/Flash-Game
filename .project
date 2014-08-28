@@ -3,6 +3,7 @@
 	<name>FlashGame</name>
 	<comment></comment>
 	<projects>
+		<project>Box2DLibrary</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>

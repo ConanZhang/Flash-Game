@@ -20,7 +20,7 @@ package
 	public class FlashGame extends Sprite
 	{
 		//embed font
-		[Embed(source="assets/Zenzai_Itacha.ttf", fontName="Zenzai Itacha", embedAsCFF="false")]
+		[Embed(source="/Zenzai_Itacha.ttf", fontName="Zenzai Itacha", embedAsCFF="false")]
 		private var Zenzai_Itacha:Class;
 		
 		/**Class Member Variables*/

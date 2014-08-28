@@ -395,14 +395,14 @@ package Parents
 		/**Stages always center the screen on the player*/
 		private function centerScreen(xPos:Number, yPos:Number):void{
 			//get player position and screen size
-			var xPos:Number = xPos*metricPixRatio;
-			var yPos:Number = yPos*metricPixRatio;
+			var x_Pos:Number = xPos*metricPixRatio;
+			var y_Pos:Number = yPos*metricPixRatio;
 			var stageHeight:Number = stage.stageHeight;
 			var stageWidth:Number = stage.stageWidth;
 			
 			//center screen
-			images.x = -1*xPos + stageWidth/2;
-			images.y = -1*yPos + stageHeight/2;
+			images.x = -1*x_Pos + stageWidth/2;
+			images.y = -1*y_Pos + stageHeight/2;
 		}
 		
 		/**Stages can detect key presses*/
