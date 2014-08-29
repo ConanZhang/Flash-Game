@@ -3,13 +3,9 @@
  */
 package FlashGame
 {
-	import Assets.FlyingEnemy;
 	import Assets.Player;
 	
-	import Box2D.Collision.b2ContactPoint;
 	import Box2D.Collision.b2Manifold;	
-	import Box2D.Common.Math.b2Mat22;
-	import Box2D.Common.Math.b2Transform;
 	import Box2D.Common.Math.b2Vec2;
 	import Box2D.Dynamics.Contacts.b2Contact;
 	import Box2D.Dynamics.b2ContactListener;

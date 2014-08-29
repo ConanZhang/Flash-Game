@@ -3,18 +3,6 @@
  */
 package Parents
 {
-	import Assets.Bullet;
-	import Assets.Player;
-	import Assets.Weapon;
-	
-	import Box2D.Common.Math.b2Vec2;
-	import Box2D.Dynamics.b2Body;
-	import Box2D.Dynamics.b2DebugDraw;
-	import Box2D.Dynamics.b2World;
-	
-	import FlashGame.ContactListener;
-	import FlashGame.PlayerHUD;
-	
 	import flash.display.MovieClip;
 	import flash.display.Sprite;
 	import flash.display.StageDisplayState;
@@ -24,6 +12,19 @@ package Parents
 	import flash.events.MouseEvent;
 	import flash.geom.Point;
 	import flash.ui.Keyboard;
+	
+	import Assets.Bullet;
+	import Assets.Player;
+	import Assets.Weapon;
+	
+	import Box2D.Common.Math.b2Vec2;
+	import Box2D.Dynamics.b2Body;
+	import Box2D.Dynamics.b2DebugDraw;
+	import Box2D.Dynamics.b2World;
+	
+	import FlashGame.Background;
+	import FlashGame.ContactListener;
+	import FlashGame.PlayerHUD;
 	
 	public class Stage extends MovieClip
 	{
@@ -52,6 +53,8 @@ package Parents
 		private static var worldStage:b2World;
 		//variable for all images to be held in for camera movement
 		private static var images:Sprite;
+		//Background
+		private var testBackground:Background;
 		//HUD
 		private var gameHUD:PlayerHUD;
 		//speed world is; slow motion or normal
@@ -138,6 +141,10 @@ package Parents
 			slowRotation = false;
 			flinchTime = 0;
 			
+			//BACKGROUND
+			testBackground = new Background("test");
+			
+			//HUD
 			gameHUD = new PlayerHUD(this);
 			this.addChild(gameHUD);
 			
