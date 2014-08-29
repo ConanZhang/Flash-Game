@@ -71,77 +71,36 @@ package Assets {
 			
 			if(backgroundObjectType == "mountain"){
 				backgroundObjectClip = new background_mountain();
-				backgroundObjectClip.stop();
-				backgroundObjectClip.width = backgroundObject_Width*metricPixRatio;
-				backgroundObjectClip.height = backgroundObject_Height*metricPixRatio;
-				super.sprite = backgroundObjectClip;
-				Stage.sprites.addChild(backgroundObjectClip);
 			}
 			else if(backgroundObjectType == "cloud1"){
 				backgroundObjectClip = new background_cloud1();
-				backgroundObjectClip.stop();
-				backgroundObjectClip.width = backgroundObject_Width*metricPixRatio;
-				backgroundObjectClip.height = backgroundObject_Height*metricPixRatio;
-				super.sprite = backgroundObjectClip;
-				Stage.sprites.addChild(backgroundObjectClip);
 			}
 			else if(backgroundObjectType =="cloud2"){
 				backgroundObjectClip = new background_cloud2();
-				backgroundObjectClip.stop();
-				backgroundObjectClip.width = backgroundObject_Width*metricPixRatio;
-				backgroundObjectClip.height = backgroundObject_Height*metricPixRatio;
-				super.sprite = backgroundObjectClip;
-				Stage.sprites.addChild(backgroundObjectClip);
 			}
 			else if(backgroundObjectType == "cloud3"){
 				backgroundObjectClip = new background_cloud3();
-				backgroundObjectClip.stop();
-				backgroundObjectClip.width = backgroundObject_Width*metricPixRatio;
-				backgroundObjectClip.height = backgroundObject_Height*metricPixRatio;
-				super.sprite = backgroundObjectClip;
-				Stage.sprites.addChild(backgroundObjectClip);
 			}
 			else if(backgroundObjectType == "cloud4"){
 				backgroundObjectClip = new background_cloud4();
-				backgroundObjectClip.stop();
-				backgroundObjectClip.width = backgroundObject_Width*metricPixRatio;
-				backgroundObjectClip.height = backgroundObject_Height*metricPixRatio;
-				super.sprite = backgroundObjectClip;
-				Stage.sprites.addChild(backgroundObjectClip);
 			}
 			else if(backgroundObjectType == "cloud5"){
 				backgroundObjectClip = new background_cloud5();
-				backgroundObjectClip.stop();
-				backgroundObjectClip.width = backgroundObject_Width*metricPixRatio;
-				backgroundObjectClip.height = backgroundObject_Height*metricPixRatio;
-				super.sprite = backgroundObjectClip;
-				Stage.sprites.addChild(backgroundObjectClip);
 			}
 			else if(backgroundObjectType == "bird1"){
 				backgroundObjectClip = new background_bird1();
-				backgroundObjectClip.stop();
-				backgroundObjectClip.width = backgroundObject_Width*metricPixRatio;
-				backgroundObjectClip.height = backgroundObject_Height*metricPixRatio;
-				super.sprite = backgroundObjectClip;
-				Stage.sprites.addChild(backgroundObjectClip);
 			}
 			else if(backgroundObjectType == "bird2"){
 				backgroundObjectClip = new background_bird2();
-				backgroundObjectClip.stop();
-				backgroundObjectClip.width = backgroundObject_Width*metricPixRatio;
-				backgroundObjectClip.height = backgroundObject_Height*metricPixRatio;
-				super.sprite = backgroundObjectClip;
-				Stage.sprites.addChild(backgroundObjectClip);
 			}
 			else if(backgroundObjectType == "bird3"){
 				backgroundObjectClip = new background_bird3();
-				backgroundObjectClip.stop();
-				backgroundObjectClip.width = backgroundObject_Width*metricPixRatio;
-				backgroundObjectClip.height = backgroundObject_Height*metricPixRatio;
-				super.sprite = backgroundObjectClip;
-				Stage.sprites.addChild(backgroundObjectClip);
 			}
-			
+			backgroundObjectClip.stop();
+			backgroundObjectClip.width = backgroundObject_Width*metricPixRatio;
+			backgroundObjectClip.height = backgroundObject_Height*metricPixRatio;
+			super.sprite = backgroundObjectClip;
+			Stage.sprites.addChildAt(backgroundObjectClip, 0);
 		}
 		
 		/**Setters*/

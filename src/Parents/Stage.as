@@ -53,8 +53,6 @@ package Parents
 		private static var worldStage:b2World;
 		//variable for all images to be held in for camera movement
 		private static var images:Sprite;
-		//Background
-		private var testBackground:Background;
 		//HUD
 		private var gameHUD:PlayerHUD;
 		//speed world is; slow motion or normal
@@ -140,9 +138,6 @@ package Parents
 			jumpAmount = defaultJumpAmount;
 			slowRotation = false;
 			flinchTime = 0;
-			
-			//BACKGROUND
-			testBackground = new Background("test");
 			
 			//HUD
 			gameHUD = new PlayerHUD(this);

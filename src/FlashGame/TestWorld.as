@@ -17,7 +17,7 @@ package FlashGame
 	public class TestWorld extends Stage
 	{
 		private var screen:Sprite;
-		
+		private var background:Background;
 		/**			Constructor
 		 * 
 		 * Takes in screen it will be added to
@@ -27,6 +27,8 @@ package FlashGame
 		{
 			screen = screenP;
 			screen.addChild(this);
+			
+			background = new Background("test");
 			
 			//GROUND & SKY
 			var testGround:Platform = new Platform(7, 15, 275, 15, "b_wide");
