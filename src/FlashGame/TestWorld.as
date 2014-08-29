@@ -3,14 +3,16 @@
  */
 package FlashGame
 {
-	import Assets.*;
-	
-	import Parents.Stage;
-	
-	import flash.display.MovieClip;
 	import flash.display.Sprite;
 	import flash.events.TimerEvent;
 	import flash.utils.Timer;
+	
+	import Assets.FlyingEnemy;
+	import Assets.ItemDrop;
+	import Assets.Platform;
+	import Assets.Player;
+	
+	import Parents.Stage;
 	
 	public class TestWorld extends Stage
 	{
