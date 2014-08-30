@@ -11,6 +11,7 @@ package FlashGame
 	import Assets.ItemDrop;
 	import Assets.Platform;
 	import Assets.Player;
+	import Assets.Rain;
 	
 	import Parents.Stage;
 	
@@ -18,6 +19,7 @@ package FlashGame
 	{
 		private var screen:Sprite;
 		private var background:Background;
+		private var rain:Rain;
 		/**			Constructor
 		 * 
 		 * Takes in screen it will be added to
@@ -28,7 +30,11 @@ package FlashGame
 			screen = screenP;
 			screen.addChild(this);
 			
+			//BACKGROUND
 			background = new Background("test");
+			
+			//RAIN
+			rain = new Rain(this, 100,900,525,300, 15, 5, "left");
 			
 			//GROUND & SKY
 			var testGround:Platform = new Platform(7, 15, 275, 15, "b_wide");

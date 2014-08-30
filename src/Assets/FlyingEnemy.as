@@ -100,6 +100,7 @@ package Assets {
 			
 			//Sprite
 			flyingEnemyClip = new enemy_flying;
+			flyingEnemyClip.dead = false;
 			flyingEnemyClip.stop();
 			flyingEnemyClip.width = flyingEnemy_Width*metricPixRatio;
 			flyingEnemyClip.height = flyingEnemy_Height*metricPixRatio;
@@ -288,7 +289,7 @@ package Assets {
 				collisionBody.GetFixtureList().SetUserData("DEAD");
 				
 				flyingEnemyClip.gotoAndStop("death");	
-
+				
 				if(EndAnimation.endEnemyDeath){
 					EndAnimation.endEnemyDeath = false;
 					

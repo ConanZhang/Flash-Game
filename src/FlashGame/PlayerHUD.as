@@ -339,14 +339,17 @@ package FlashGame
 			if(countDownSeconds > 0){
 				countDownText.text = countDownSeconds+"!";	
 			}
-			else if(countDownSeconds == 0 && !Stage.paused){
+			else if(countDownSeconds == 0 && !Stage.paused && Player.playerHealth != 0){
 				countDownText.text = "Start!";	
 			}
-			else if(countDownSeconds == -1 && minuteDisplay != 3){
+			else if(countDownSeconds == -1 && minuteDisplay != 3 && Player.playerHealth != 0){
 				countDownText.text = "";
 			}
 			else if(minuteDisplay == 3){
 				countDownText.text = "Win!";
+			}
+			else if(Player.playerHealth == 0){
+				countDownText.text = "Dead!";
 			}
 		}
 	}

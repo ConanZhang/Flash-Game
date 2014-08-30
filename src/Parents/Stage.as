@@ -22,7 +22,6 @@ package Parents
 	import Box2D.Dynamics.b2DebugDraw;
 	import Box2D.Dynamics.b2World;
 	
-	import FlashGame.Background;
 	import FlashGame.ContactListener;
 	import FlashGame.PlayerHUD;
 	
@@ -426,11 +425,9 @@ package Parents
 			//pausing
 			if(e.keyCode == Keyboard.P || e.keyCode == Keyboard.R){
 				if(paused == false){
-					PlayerHUD.countDownText.text = "Pause!";
 					pause();
 				}
 				else if(paused == true){
-					PlayerHUD.countDownText.text = "";
 					start();
 				}
 			}
