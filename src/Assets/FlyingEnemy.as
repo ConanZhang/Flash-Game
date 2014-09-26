@@ -110,6 +110,7 @@ package Assets {
 		
 		/**Child Update [called by Object's update]*/
 		public override function childUpdate():void{
+			
 			var direction:b2Vec2 = new b2Vec2();
 			   						
 			/**Follow player*/ 
