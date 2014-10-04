@@ -16,7 +16,7 @@ package
 	
 	/**SWF Options*/
 	[SWF(backgroundColor="#C4A57C", width="700", height="525", frameRate="30")]
-	
+
 	public class FlashGame extends Sprite
 	{
 		//embed font
@@ -27,7 +27,7 @@ package
 		private var test:TestWorld;  
 		private var debug:DebugScreen;
 		private var beginTimer:Timer;
-		
+
 		/**Constructor*/
 		public function FlashGame()
 		{

@@ -6,6 +6,7 @@
 	Specifies parameters for identifying, installing, and launching AIR applications.
 
 	xmlns - The Adobe AIR namespace: http://ns.adobe.com/air/application/3.4
+	
 			The last segment of the namespace specifies the version 
 			of the AIR runtime required for this application to run.
 			
@@ -149,6 +150,7 @@
 		<image144x144></image144x144>
 		<image512x512></image512x512>
 		<image1024x1024></image1024x1024>
+
 	</icon> -->
 
 	<!-- Whether the application handles the update when a user double-clicks an update version
@@ -242,6 +244,7 @@
 	    <!-- Color depth for the app (either "32bit" or "16bit"). Optional. Default 16bit before namespace 3.0, 32bit after -->
         <!-- <colorDepth></colorDepth> -->
     <!-- </android> -->
+
 	<!-- End of the schema for adding the android specific tags in AndroidManifest.xml file -->
 
 </application>
