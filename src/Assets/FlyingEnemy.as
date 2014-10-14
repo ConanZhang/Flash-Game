@@ -291,8 +291,7 @@ package Assets {
 				
 				flyingEnemyClip.gotoAndStop("death");	
 				
-				if(EndAnimation.endEnemyDeath){
-					EndAnimation.endEnemyDeath = false;
+				if(flyingEnemyClip.dead){
 					
 					//create random drop
 					if(Math.random() > 0.9){

@@ -13,7 +13,6 @@ package Assets {
 	
 	import flash.display.MovieClip;
 	import flash.display.Sprite;
-	import flash.events.Event;
 	import flash.geom.Point;
 	
 	public class Weapon extends Objects{
@@ -32,7 +31,7 @@ package Assets {
 		
 		//PROPERTIES
 		private var position:Point;
-		private var weaponClip:MovieClip;
+		public var weaponClip:MovieClip;
 		public static var weaponType:int;
 		public static var pistolAmmo:int;
 		public static var shotgunAmmo:int;
@@ -51,7 +50,7 @@ package Assets {
 			weaponType = type;
 			
 			//initialize default private variables
-			pistolAmmo = 10;
+			pistolAmmo = 500;
 			shotgunAmmo = 500;
 			holdingWeapon = true;
 			needWeapon = false;
@@ -191,8 +190,8 @@ package Assets {
 						weaponClip.gotoAndStop("pistol_right_fire");
 					}
 					
-					if(EndAnimation.endGunFire){
-						EndAnimation.endGunFire = false;
+					if(weaponClip.endFire){
+						weaponClip.endFire = false;
 						rightFire = false;
 					}
 				}
@@ -203,8 +202,8 @@ package Assets {
 					else{
 						weaponClip.gotoAndStop("pistol_left_fire");
 					}				
-					if(EndAnimation.endGunFire){
-						EndAnimation.endGunFire = false;
+					if(weaponClip.endFire){
+						weaponClip.endFire = false;
 						leftFire = false;
 					}
 				}
@@ -232,8 +231,8 @@ package Assets {
 						weaponClip.gotoAndStop("shotgun_right_fire");
 					}
 					
-					if(EndAnimation.endGunFire){
-						EndAnimation.endGunFire = false;
+					if(weaponClip.endFire){
+						weaponClip.endFire = false;
 						rightFire = false;
 					}
 				}
@@ -244,8 +243,8 @@ package Assets {
 					else{
 						weaponClip.gotoAndStop("shotgun_left_fire");
 					}				
-					if(EndAnimation.endGunFire){
-						EndAnimation.endGunFire = false;
+					if(weaponClip.endFire){
+						weaponClip.endFire = false;
 						leftFire = false;
 					}
 				}
@@ -260,11 +259,11 @@ package Assets {
 			}
 			
 			//kill yourself if player is dead
-			if(EndAnimation.endPlayerDeath && holdingWeapon){
+			if(Player.playerClip.dead && holdingWeapon){
 				destroyAll();
 			}
 			//just remove body if there is no sprite
-			else if(EndAnimation.endPlayerDeath && !holdingWeapon){
+			else if(Player.playerClip.dead && !holdingWeapon){
 				destroyBody();
 			}
 		}

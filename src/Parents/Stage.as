@@ -91,6 +91,8 @@ package Parents
 		//flinching
 		public static var flinchTime:int;
 		
+		/**WEAPON*/
+		public var weapon:Weapon;
 		
 		/**Constructor*/
 		public function Stage()
@@ -147,7 +149,7 @@ package Parents
 			this.setPlayer(player.body);
 			
 			//WEAPON
-			var weapon:Weapon = new Weapon(15, 7,1);
+			weapon = new Weapon(15, 7,1);
 			
 			/**DEBUGGING*/
 			debugDrawing();
@@ -554,8 +556,8 @@ package Parents
 						var pistolLeft:Bullet = new Bullet(playerBody.GetPosition().x + Math.cos(weaponRotation), playerBody.GetPosition().y +Math.sin(weaponRotation),0.3,0.3);	
 						Weapon.pistolAmmo--;
 					}
-					else if(Weapon.rightFire && !EndAnimation.endGunFire || Weapon.leftFire && !EndAnimation.endGunFire){
-						EndAnimation.endGunFire = true;
+					else if(Weapon.rightFire && !weapon.weaponClip.endFire || Weapon.leftFire && !weapon.weaponClip.endFire){
+						weapon.weaponClip.endFire = true;
 						
 						if(weaponRotation > -1.5 && weaponRotation < 1.5){
 							var pistol_Right:Bullet = new Bullet(playerBody.GetPosition().x + Math.cos(weaponRotation), playerBody.GetPosition().y +Math.sin(weaponRotation),0.3,0.3);	
@@ -586,8 +588,8 @@ package Parents
 
 						Weapon.shotgunAmmo--;
 					}
-					else if(Weapon.rightFire && !EndAnimation.endGunFire || Weapon.leftFire && !EndAnimation.endGunFire){
-						EndAnimation.endGunFire = true;
+					else if(Weapon.rightFire && !weapon.weaponClip.endFire || Weapon.leftFire && !weapon.weaponClip.endFire){
+						weapon.weaponClip.endFire = true;
 						
 						if(weaponRotation > -1.5 && weaponRotation < 1.5){
 							var shotgun_Right1:Bullet = new Bullet(playerBody.GetPosition().x + Math.cos(weaponRotation), playerBody.GetPosition().y +Math.sin(weaponRotation),0.3,0.3);	

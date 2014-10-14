@@ -29,7 +29,7 @@ package Assets
 		
 		//PROPERTIES
 		private var position:Point;
-		private var playerClip:MovieClip;
+		public static var playerClip:MovieClip;
 		private var player_Width:Number;
 		private var player_Height:Number;
 		public static var playerRotation: int;
@@ -255,8 +255,8 @@ package Assets
 			else if(STATE == DODGE && playerHealth != 0){
 				playerClip.gotoAndStop("dodge");
 				playerClip.rotation = 0;
-				if(EndAnimation.endPlayerDodge){
-					EndAnimation.endPlayerDodge = false;
+				if(playerClip.dodged){
+					playerClip.dodged = false;
 					if(Stage.jumping){
 						STATE = JUMPING;
 					}
@@ -270,7 +270,7 @@ package Assets
 				playerClip.gotoAndStop("death");
 
 				//remove yourself
-				if(EndAnimation.endPlayerDeath){
+				if(playerClip.dead){
 					destroyAll();
 				}
 				

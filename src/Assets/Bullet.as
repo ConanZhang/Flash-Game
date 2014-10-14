@@ -12,7 +12,6 @@ package Assets {
 	
 	import Parents.*;
 	
-	import flash.display.MovieClip;
 	import flash.display.Sprite;
 	import flash.geom.Point;
 	
