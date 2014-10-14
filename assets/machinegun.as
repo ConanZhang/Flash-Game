@@ -9,7 +9,7 @@
 		
 		public function machinegun() {
 			// constructor code
-			endFire = false;
+			endFire = true;
 		}
 	}
 	

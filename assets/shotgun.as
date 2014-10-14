@@ -9,7 +9,7 @@
 		
 		public function shotgun() {
 			// constructor code
-			endFire = false;
+			endFire = true;
 		}
 	}
 	

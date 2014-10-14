@@ -71,7 +71,7 @@ package Assets {
 			flyingEnemy_Width = width;
 			flyingEnemy_Height = height;
 			flyingEnemy_LinearDamping = 1;
-			flyingEnemyHealth = 6;
+			flyingEnemyHealth = 2;
 			
 			flyingEnemyFixture = new b2FixtureDef();
 			

@@ -9,7 +9,7 @@
 		
 		public function pistol() {
 			// constructor code
-			endFire = false;
+			endFire = true;
 		}
 	}
 	

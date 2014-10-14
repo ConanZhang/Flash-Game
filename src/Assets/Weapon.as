@@ -27,8 +27,8 @@ package Assets {
 		public static const LEFT    	:int = 0;
 		public static const RIGHT	  	:int = 1;
 		
-		public static var leftFire:Boolean;
-		public static var rightFire:Boolean;
+		public var leftFire:Boolean;
+		public var rightFire:Boolean;
 		
 		//PROPERTIES
 		private var position:Point;
@@ -192,7 +192,6 @@ package Assets {
 					}
 					
 					if(weaponClip.endFire){
-						weaponClip.endFire = false;
 						rightFire = false;
 					}
 				}
@@ -204,7 +203,6 @@ package Assets {
 						weaponClip.gotoAndStop("pistol_left_fire");
 					}				
 					if(weaponClip.endFire){
-						weaponClip.endFire = false;
 						leftFire = false;
 					}
 				}
@@ -233,7 +231,6 @@ package Assets {
 					}
 					
 					if(weaponClip.endFire){
-						weaponClip.endFire = false;
 						rightFire = false;
 					}
 				}
@@ -245,7 +242,6 @@ package Assets {
 						weaponClip.gotoAndStop("shotgun_left_fire");
 					}				
 					if(weaponClip.endFire){
-						weaponClip.endFire = false;
 						leftFire = false;
 					}
 				}
