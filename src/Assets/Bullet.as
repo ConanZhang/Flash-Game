@@ -3,6 +3,9 @@
  */
 package Assets {
 	
+	import flash.display.Sprite;
+	import flash.geom.Point;
+	
 	import Box2D.Collision.Shapes.b2PolygonShape;
 	import Box2D.Common.Math.b2Vec2;
 	import Box2D.Dynamics.b2Body;
@@ -10,10 +13,8 @@ package Assets {
 	import Box2D.Dynamics.b2FixtureDef;
 	import Box2D.Dynamics.b2World;
 	
-	import Parents.*;
-	
-	import flash.display.Sprite;
-	import flash.geom.Point;
+	import Parents.Objects;
+	import Parents.Stage;
 	
 	public class Bullet extends Objects{
 		/**Class Member Variables*/
@@ -65,12 +66,12 @@ package Assets {
 			if(Weapon.weaponType == 1){
 				bulletXDirection = Math.cos(Stage.weaponRotation)*300;
 				bulletYDirection = Math.sin(Stage.weaponRotation)*300;
-				bulletFixture.userData = "PISTOL_BULLET";
+				bulletFixture.userData = new Array("PISTOL_BULLET");
 			}
 			else{
 				bulletXDirection = Math.cos(Stage.weaponRotation+Math.random()*0.5 - 0.25)*300;
 				bulletYDirection = Math.sin(Stage.weaponRotation+Math.random()*0.5 - 0.25)*300;
-				bulletFixture.userData = "SHOTGUN_BULLET";
+				bulletFixture.userData = new Array("SHOTGUN_BULLET");
 			}
 			
 			
@@ -99,7 +100,7 @@ package Assets {
 		/**Child Update [called by Object's update]*/
 		public override function childUpdate():void{
 			//destroy yourself with any contact
-			if(collisionBody.GetFixtureList().GetUserData() == "DEAD"){
+			if(collisionBody.GetFixtureList().GetUserData()[0] == "DEAD"){
 				destroyAll();
 			}
 			//shoot

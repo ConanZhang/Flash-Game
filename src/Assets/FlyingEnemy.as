@@ -3,27 +3,28 @@
  */
 package Assets {
 	
-	import Box2D.Collision.Shapes.b2PolygonShape;
+	import flash.display.Graphics;
+	import flash.display.MovieClip;
+	import flash.display.Shape;
+	import flash.display.Sprite;
+	import flash.geom.Point;
+	
 	import Box2D.Collision.b2RayCastInput;
 	import Box2D.Collision.b2RayCastOutput;
+	import Box2D.Collision.Shapes.b2PolygonShape;
 	import Box2D.Common.Math.b2Math;
 	import Box2D.Common.Math.b2Vec2;
-	import Box2D.Dynamics.Joints.b2RevoluteJoint;
-	import Box2D.Dynamics.Joints.b2RevoluteJointDef;
 	import Box2D.Dynamics.b2Body;
 	import Box2D.Dynamics.b2BodyDef;
 	import Box2D.Dynamics.b2FilterData;
 	import Box2D.Dynamics.b2Fixture;
 	import Box2D.Dynamics.b2FixtureDef;
 	import Box2D.Dynamics.b2World;
+	import Box2D.Dynamics.Joints.b2RevoluteJoint;
+	import Box2D.Dynamics.Joints.b2RevoluteJointDef;
 	
-	import Parents.*;
-	
-	import flash.display.Graphics;
-	import flash.display.MovieClip;
-	import flash.display.Shape;
-	import flash.display.Sprite;
-	import flash.geom.Point;
+	import Parents.Objects;
+	import Parents.Stage;
 	
 	public class FlyingEnemy extends Objects{
 		/**Class Member Variables*/
@@ -70,7 +71,7 @@ package Assets {
 			flyingEnemy_Width = width;
 			flyingEnemy_Height = height;
 			flyingEnemy_LinearDamping = 1;
-			flyingEnemyHealth = 2;
+			flyingEnemyHealth = 6;
 			
 			flyingEnemyFixture = new b2FixtureDef();
 			
@@ -85,7 +86,7 @@ package Assets {
 			
 			//Box2D shape properties
 			flyingEnemyFixture.shape = flyingEnemyShape;
-			flyingEnemyFixture.userData = "ENEMY";
+			flyingEnemyFixture.userData = new Array("ENEMY");
 			flyingEnemyFixture.filter.categoryBits = 6;
 			
 			//Box2D collision shape
@@ -135,16 +136,16 @@ package Assets {
 //			lambda = 1;
 //			lambda2 = 1;
 
-			if(rayFixture != null){
+			if(rayFixture != null && rayFixture.GetUserData() != null){
 //				var input:b2RayCastInput = new b2RayCastInput(beginRayCast, endRayCast);
 //				var output:b2RayCastOutput = new b2RayCastOutput();
 //				lambda = output.fraction;
 				
-				if(rayFixture.GetUserData() != "PLAYER" &&
-				   rayFixture.GetUserData() != "FOOT" &&
-				   rayFixture.GetUserData() != "RIGHT" &&
-				   rayFixture.GetUserData() != "LEFT" &&
-				   rayFixture.GetUserData() != "WEAPON"){
+				if(rayFixture.GetUserData()[0] != "PLAYER" &&
+				   rayFixture.GetUserData()[0] != "FOOT" &&
+				   rayFixture.GetUserData()[0] != "RIGHT" &&
+				   rayFixture.GetUserData()[0] != "LEFT" &&
+				   rayFixture.GetUserData()[0] != "WEAPON"){
 					if(rayNormal.y == -1 || rayNormal.y == 1){
 						if(collisionBody.GetPosition().x < rayFixture.GetBody().GetPosition().x){
 							direction.Set(-110, 0);
@@ -174,16 +175,16 @@ package Assets {
 				//remove current fixture
 				rayFixture = null;
 			}
-			else if(rayFixture2 != null){
+			else if(rayFixture2 != null && rayFixture2.GetUserData() != null){
 //				var input2:b2RayCastInput = new b2RayCastInput(beginRayCast2, endRayCast2);
 //				var output2:b2RayCastOutput = new b2RayCastOutput();
 //				lambda2 = output2.fraction;
 				
-				if(rayFixture2.GetUserData() != "PLAYER" &&
-					rayFixture2.GetUserData() != "FOOT" &&
-					rayFixture2.GetUserData() != "RIGHT" &&
-					rayFixture2.GetUserData() != "LEFT" &&
-					rayFixture2.GetUserData() != "WEAPON"){
+				if(rayFixture2.GetUserData()[0] != "PLAYER" &&
+					rayFixture2.GetUserData()[0] != "FOOT" &&
+					rayFixture2.GetUserData()[0] != "RIGHT" &&
+					rayFixture2.GetUserData()[0] != "LEFT" &&
+					rayFixture2.GetUserData()[0] != "WEAPON"){
 					if(rayNormal2.y == -1 || rayNormal2.y == 1){
 						if(collisionBody.GetPosition().x < rayFixture2.GetBody().GetPosition().x){
 							direction.Set(-110, 0);
@@ -264,21 +265,34 @@ package Assets {
 			collisionBody.ApplyForce(direction, collisionBody.GetPosition() );
 			
 			/**Hurt yourself*/
-			//destroy yourself with any contact
-			if(collisionBody.GetFixtureList().GetUserData() == "PISTOL_DAMAGE"){				
-				if(flyingEnemyHealth > 0){
+			for (var i:uint = 1; i <= collisionBody.GetFixtureList().GetUserData().length; i++) {
+				//pistol damage
+				if(collisionBody.GetFixtureList().GetUserData()[i] == 1){
 					flyingEnemyHealth--;
 				}
-
-				collisionBody.GetFixtureList().SetUserData("ENEMY");
-			}
-			else if(collisionBody.GetFixtureList().GetUserData() == "SHOTGUN_DAMAGE"){				
-				if(flyingEnemyHealth > 0){
-					flyingEnemyHealth-= 2;
+				//shotgun damage
+				else if(collisionBody.GetFixtureList().GetUserData()[i] == 2){
+					flyingEnemyHealth-=2;	
 				}
-				
-				collisionBody.GetFixtureList().SetUserData("ENEMY");
 			}
+			//empty array of damage
+			collisionBody.GetFixtureList().GetUserData().splice(1);
+				
+			//destroy yourself with any contact
+//			if(collisionBody.GetFixtureList().GetUserData()[0] == "PISTOL_DAMAGE"){				
+//				if(flyingEnemyHealth > 0){
+//					flyingEnemyHealth--;
+//				}
+//
+//				collisionBody.GetFixtureList().GetUserData()[0] = "ENEMY";
+//			}
+//			else if(collisionBody.GetFixtureList().GetUserData()[0] == "SHOTGUN_DAMAGE"){				
+//				if(flyingEnemyHealth > 0){
+//					flyingEnemyHealth-= 2;
+//				}
+//				
+//				collisionBody.GetFixtureList().GetUserData()[0] = "ENEMY";
+//			}
 			
 			/**Kill yourself*/
 			if(flyingEnemyHealth <= 0){				
@@ -287,7 +301,7 @@ package Assets {
 				deadFilter.maskBits = 4;
 				
 				collisionBody.GetFixtureList().SetFilterData(deadFilter);
-				collisionBody.GetFixtureList().SetUserData("DEAD");
+				collisionBody.GetFixtureList().GetUserData()[0] = "DEAD";
 				
 				flyingEnemyClip.gotoAndStop("death");	
 				

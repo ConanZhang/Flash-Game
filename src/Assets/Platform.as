@@ -3,17 +3,18 @@
  */
 package Assets {
 	
+	import flash.display.MovieClip;
+	import flash.display.Sprite;
+	import flash.geom.Point;
+	
 	import Box2D.Collision.Shapes.b2PolygonShape;
 	import Box2D.Dynamics.b2Body;
 	import Box2D.Dynamics.b2BodyDef;
 	import Box2D.Dynamics.b2FixtureDef;
 	import Box2D.Dynamics.b2World;
 	
-	import Parents.*;
-	
-	import flash.display.MovieClip;
-	import flash.display.Sprite;
-	import flash.geom.Point;
+	import Parents.Objects;
+	import Parents.Stage;
 	
 	public class Platform extends Objects{
 		/**Class Member Variables*/
@@ -83,15 +84,15 @@ package Assets {
 			platformFixture.friction = platform_Friction;
 			platformFixture.density = platform_Density;
 			platformFixture.filter.categoryBits = 6;
-			platformFixture.userData = "PLATFORM";
+			platformFixture.userData = new Array("PLATFORM");
 			
 			//player can't wall jump off tall barriers and slide on them
 			if(platformType == "b_tall"){
-				platformFixture.userData = "NO_JUMP";
+				platformFixture.userData[0] = "NO_JUMP";
 				platformFixture.friction = 0
 			}
 			else if(platformType == "enemy"){
-				platformFixture.userData = "ENEMY";
+				platformFixture.userData[0] = "ENEMY";
 			}
 			//Box2D collision shape
 			var platformCollision:b2BodyDef = new b2BodyDef();

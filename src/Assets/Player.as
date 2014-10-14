@@ -3,19 +3,20 @@
  */
 package Assets
 {
+	import flash.display.MovieClip;
+	import flash.display.Sprite;
+	import flash.geom.Point;
+	
 	import Box2D.Collision.Shapes.b2PolygonShape;
 	import Box2D.Common.Math.b2Vec2;
-	import Box2D.Dynamics.Joints.b2RevoluteJointDef;
 	import Box2D.Dynamics.b2Body;
 	import Box2D.Dynamics.b2BodyDef;
 	import Box2D.Dynamics.b2FixtureDef;
 	import Box2D.Dynamics.b2World;
+	import Box2D.Dynamics.Joints.b2RevoluteJointDef;
 	
-	import Parents.*;
-	
-	import flash.display.MovieClip;
-	import flash.display.Sprite;
-	import flash.geom.Point;
+	import Parents.Objects;
+	import Parents.Stage;
 
 	public class Player extends Objects
 	{
@@ -99,7 +100,7 @@ package Assets
 			playerFixture.friction = player_Friction;
 			playerFixture.density = player_Density;
 			playerFixture.restitution = player_Restitution;
-			playerFixture.userData = "PLAYER";
+			playerFixture.userData = new Array("PLAYER");
 			
 			//Box2D collision shape
 			var playerCollision:b2BodyDef = new b2BodyDef();
@@ -130,7 +131,7 @@ package Assets
 			playerShape.SetAsBox(player_Width/3.8, player_Height/100);
 			
 			playerFixture.isSensor = true;
-			playerFixture.userData = "FOOT";
+			playerFixture.userData = new Array("FOOT");
 			
 			playerFixture.shape = playerShape;
 			playerFixture.friction = player_Friction;
@@ -146,7 +147,7 @@ package Assets
 			playerShape.SetAsBox(player_Width/100, player_Height/2.75);
 			
 			playerFixture.isSensor = true;
-			playerFixture.userData = "RIGHT";
+			playerFixture.userData = new Array("RIGHT");
 			
 			playerFixture.shape = playerShape;
 			playerFixture.friction = player_Friction;
@@ -162,7 +163,7 @@ package Assets
 			playerShape.SetAsBox(player_Width/100, player_Height/2.75);
 			
 			playerFixture.isSensor = true;
-			playerFixture.userData = "LEFT";
+			playerFixture.userData = new Array("LEFT");
 			
 			playerFixture.shape = playerShape;
 			playerFixture.friction = player_Friction;

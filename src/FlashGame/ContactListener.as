@@ -19,25 +19,25 @@ package FlashGame
 		
 		/**Collision begins*/
 		override public function BeginContact(contact:b2Contact):void{
-			if(contact.GetFixtureA().GetUserData() == "FOOT" && 
-			   contact.GetFixtureB().GetUserData() != "ENEMY" && 
-			   contact.GetFixtureB().GetUserData() != "HEART" &&
-			   contact.GetFixtureB().GetUserData() != "PISTOL_AMMO" &&
-			   contact.GetFixtureB().GetUserData() != "SHOTGUN_AMMO" &&
-			   contact.GetFixtureB().GetUserData() != "DEAD"){
+			if(contact.GetFixtureA().GetUserData()[0] == "FOOT" && 
+			   contact.GetFixtureB().GetUserData()[0] != "ENEMY" && 
+			   contact.GetFixtureB().GetUserData()[0] != "HEART" &&
+			   contact.GetFixtureB().GetUserData()[0] != "PISTOL_AMMO" &&
+			   contact.GetFixtureB().GetUserData()[0] != "SHOTGUN_AMMO" &&
+			   contact.GetFixtureB().GetUserData()[0] != "DEAD"){
 				Stage.jumping = false;
 				Stage.airJumping = false;
 				Stage.jumpTime = 0;
 				Stage.jumpAmount = Stage.defaultJumpAmount;
 				Player.STATE = Player.IDLE;
 			}
-			else if(contact.GetFixtureA().GetUserData() == "RIGHT" && 
-				    contact.GetFixtureB().GetUserData() != "ENEMY" && 
-					contact.GetFixtureB().GetUserData() != "NO_JUMP" && 
-					contact.GetFixtureB().GetUserData() != "HEART"&&
-					contact.GetFixtureB().GetUserData() != "PISTOL_AMMO" &&
-					contact.GetFixtureB().GetUserData() != "SHOTGUN_AMMO" &&
-					contact.GetFixtureB().GetUserData() != "DEAD"){
+			else if(contact.GetFixtureA().GetUserData()[0] == "RIGHT" && 
+				    contact.GetFixtureB().GetUserData()[0] != "ENEMY" && 
+					contact.GetFixtureB().GetUserData()[0] != "NO_JUMP" && 
+					contact.GetFixtureB().GetUserData()[0] != "HEART"&&
+					contact.GetFixtureB().GetUserData()[0] != "PISTOL_AMMO" &&
+					contact.GetFixtureB().GetUserData()[0] != "SHOTGUN_AMMO" &&
+					contact.GetFixtureB().GetUserData()[0] != "DEAD"){
 				Stage.jumping = false;
 				Stage.airJumping = false;
 				Stage.jumpTime = 0;
@@ -45,13 +45,13 @@ package FlashGame
 				Stage.rightWall = true;
 				Player.STATE = Player.R_WALL;
 			}
-			else if(contact.GetFixtureA().GetUserData() == "LEFT" && 
-				    contact.GetFixtureB().GetUserData() != "ENEMY" && 
-					contact.GetFixtureB().GetUserData() != "NO_JUMP" && 
-					contact.GetFixtureB().GetUserData() != "HEART"&&
-					contact.GetFixtureB().GetUserData() != "PISTOL_AMMO" &&
-					contact.GetFixtureB().GetUserData() != "SHOTGUN_AMMO" &&
-					contact.GetFixtureB().GetUserData() != "DEAD"){
+			else if(contact.GetFixtureA().GetUserData()[0] == "LEFT" && 
+				    contact.GetFixtureB().GetUserData()[0] != "ENEMY" && 
+					contact.GetFixtureB().GetUserData()[0] != "NO_JUMP" && 
+					contact.GetFixtureB().GetUserData()[0] != "HEART"&&
+					contact.GetFixtureB().GetUserData()[0] != "PISTOL_AMMO" &&
+					contact.GetFixtureB().GetUserData()[0] != "SHOTGUN_AMMO" &&
+					contact.GetFixtureB().GetUserData()[0] != "DEAD"){
 				Stage.jumping = false;
 				Stage.airJumping = false;
 				Stage.jumpTime = 0;
@@ -60,7 +60,7 @@ package FlashGame
 				Player.STATE = Player.L_WALL;
 			}
 			/**Enemy contact*/
-			else if(contact.GetFixtureA().GetUserData() == "PLAYER" && contact.GetFixtureB().GetUserData() == "ENEMY"){
+			else if(contact.GetFixtureA().GetUserData()[0] == "PLAYER" && contact.GetFixtureB().GetUserData()[0] == "ENEMY"){
 				//take away health
 				if(Player.playerInvulnerable == 0 && !Stage.slowMotion && Player.playerHealth != 0){
 					Player.playerInvulnerable = 50;
@@ -107,7 +107,7 @@ package FlashGame
 					return;
 				}
 			}
-			else if(contact.GetFixtureA().GetUserData() == "ENEMY" && contact.GetFixtureB().GetUserData() == "PLAYER"){
+			else if(contact.GetFixtureA().GetUserData()[0] == "ENEMY" && contact.GetFixtureB().GetUserData()[0] == "PLAYER"){
 				//take away health
 				if(Player.playerInvulnerable == 0 && !Stage.slowMotion && Player.playerHealth != 0){
 					Player.playerInvulnerable = 50;
@@ -155,64 +155,64 @@ package FlashGame
 				}
 			}
 			//destroy bullet
-			else if(contact.GetFixtureA().GetUserData() == "PISTOL_BULLET"){
-				contact.GetFixtureA().SetUserData("DEAD");
-				if(contact.GetFixtureB().GetUserData() == "ENEMY"){
-					contact.GetFixtureB().SetUserData("PISTOL_DAMAGE");
+			else if(contact.GetFixtureA().GetUserData()[0] == "PISTOL_BULLET"){
+				contact.GetFixtureA().GetUserData()[0] ="DEAD";
+				if(contact.GetFixtureB().GetUserData()[0] == "ENEMY"){
+					contact.GetFixtureB().GetUserData().push(1);
 				}
 			}
-			else if(contact.GetFixtureB().GetUserData() == "PISTOL_BULLET"){
-				contact.GetFixtureB().SetUserData("DEAD");
-				if(contact.GetFixtureA().GetUserData() == "ENEMY"){
-					contact.GetFixtureA().SetUserData("PISTOL_DAMAGE");
+			else if(contact.GetFixtureB().GetUserData()[0] == "PISTOL_BULLET"){
+				contact.GetFixtureB().GetUserData()[0] ="DEAD";
+				if(contact.GetFixtureA().GetUserData()[0] == "ENEMY"){
+					contact.GetFixtureA().GetUserData().push(1);
 				}
 			}
-			else if(contact.GetFixtureA().GetUserData() == "SHOTGUN_BULLET"){
-				contact.GetFixtureA().SetUserData("DEAD");
-				if(contact.GetFixtureB().GetUserData() == "ENEMY"){
-					contact.GetFixtureB().SetUserData("SHOTGUN_DAMAGE");
+			else if(contact.GetFixtureA().GetUserData()[0] == "SHOTGUN_BULLET"){
+				contact.GetFixtureA().GetUserData()[0] ="DEAD";
+				if(contact.GetFixtureB().GetUserData()[0] == "ENEMY"){
+					contact.GetFixtureB().GetUserData().push(2);
 				}
 			}
-			else if(contact.GetFixtureB().GetUserData() == "SHOTGUN_BULLET"){
-				contact.GetFixtureB().SetUserData("DEAD");
-				if(contact.GetFixtureA().GetUserData() == "ENEMY"){
-					contact.GetFixtureA().SetUserData("SHOTGUN_DAMAGE");
+			else if(contact.GetFixtureB().GetUserData()[0] == "SHOTGUN_BULLET"){
+				contact.GetFixtureB().GetUserData()[0] = "DEAD";
+				if(contact.GetFixtureA().GetUserData()[0] == "ENEMY"){
+					contact.GetFixtureA().GetUserData().push(2);
 				}
 			}
 			//item
-			else if(contact.GetFixtureA().GetUserData() == "HEART" && contact.GetFixtureB().GetUserData() == "PLAYER" ||
-					contact.GetFixtureA().GetUserData() == "PISTOL_AMMO" && contact.GetFixtureB().GetUserData() == "PLAYER" ||
-					contact.GetFixtureA().GetUserData() == "SHOTGUN_AMMO" && contact.GetFixtureB().GetUserData() == "PLAYER"){
-				contact.GetFixtureA().SetUserData("DEAD");
+			else if(contact.GetFixtureA().GetUserData()[0] == "HEART" && contact.GetFixtureB().GetUserData()[0] == "PLAYER" ||
+					contact.GetFixtureA().GetUserData()[0] == "PISTOL_AMMO" && contact.GetFixtureB().GetUserData()[0] == "PLAYER" ||
+					contact.GetFixtureA().GetUserData()[0] == "SHOTGUN_AMMO" && contact.GetFixtureB().GetUserData()[0] == "PLAYER"){
+				contact.GetFixtureA().GetUserData()[0] = "DEAD";
 			}
-			else if(contact.GetFixtureA().GetUserData() == "PLAYER" && contact.GetFixtureB().GetUserData() == "HEART" ||
-					contact.GetFixtureA().GetUserData() == "PLAYER" && contact.GetFixtureB().GetUserData() == "PISTOL_AMMO" ||
-					contact.GetFixtureA().GetUserData() == "PLAYER" && contact.GetFixtureB().GetUserData() == "SHOTGUN_AMMO"){
-				contact.GetFixtureB().SetUserData("DEAD");
+			else if(contact.GetFixtureA().GetUserData()[0] == "PLAYER" && contact.GetFixtureB().GetUserData()[0] == "HEART" ||
+					contact.GetFixtureA().GetUserData()[0] == "PLAYER" && contact.GetFixtureB().GetUserData()[0] == "PISTOL_AMMO" ||
+					contact.GetFixtureA().GetUserData()[0] == "PLAYER" && contact.GetFixtureB().GetUserData()[0] == "SHOTGUN_AMMO"){
+				contact.GetFixtureB().GetUserData()[0] ="DEAD";
 			}
 		}
 		
 		/**Collison ends*/
 		override public function EndContact(contact:b2Contact):void{
-			if(contact.GetFixtureA().GetUserData() == "FOOT" && 
-			   contact.GetFixtureB().GetUserData() != "ENEMY" && 
-			   contact.GetFixtureB().GetUserData() != "NO_JUMP" && 
-			   contact.GetFixtureB().GetUserData() != "DEAD"){
+			if(contact.GetFixtureA().GetUserData()[0] == "FOOT" && 
+			   contact.GetFixtureB().GetUserData()[0] != "ENEMY" && 
+			   contact.GetFixtureB().GetUserData()[0] != "NO_JUMP" && 
+			   contact.GetFixtureB().GetUserData()[0] != "DEAD"){
 				Stage.jumping = true;
 				Player.STATE = Player.JUMPING;
 			}
-			else if(contact.GetFixtureA().GetUserData() == "RIGHT" && 
-				    contact.GetFixtureB().GetUserData() != "ENEMY" && 
-					contact.GetFixtureB().GetUserData() != "NO_JUMP" && 
-					contact.GetFixtureB().GetUserData() != "DEAD"){
+			else if(contact.GetFixtureA().GetUserData()[0] == "RIGHT" && 
+				    contact.GetFixtureB().GetUserData()[0] != "ENEMY" && 
+					contact.GetFixtureB().GetUserData()[0] != "NO_JUMP" && 
+					contact.GetFixtureB().GetUserData()[0] != "DEAD"){
 				Stage.rightWall = false;
 				Stage.jumping = true;
 				Player.STATE = Player.JUMPING;
 			}
-			else if(contact.GetFixtureA().GetUserData() == "LEFT" && 
-				    contact.GetFixtureB().GetUserData() != "ENEMY" && 
-					contact.GetFixtureB().GetUserData() != "NO_JUMP" && 
-					contact.GetFixtureB().GetUserData() != "DEAD"){
+			else if(contact.GetFixtureA().GetUserData()[0] == "LEFT" && 
+				    contact.GetFixtureB().GetUserData()[0] != "ENEMY" && 
+					contact.GetFixtureB().GetUserData()[0] != "NO_JUMP" && 
+					contact.GetFixtureB().GetUserData()[0] != "DEAD"){
 				Stage.leftWall = false;
 				Stage.jumping = true;
 				Player.STATE = Player.JUMPING;
@@ -220,8 +220,8 @@ package FlashGame
 		}
 		
 		override public function PreSolve(contact:b2Contact, oldManifold:b2Manifold):void{
-			if(contact.GetFixtureA().GetUserData() == "PLAYER" && contact.GetFixtureB().GetUserData() == "ENEMY" ||
-			   contact.GetFixtureA().GetUserData() == "ENEMY" && contact.GetFixtureB().GetUserData() == "PLAYER"){
+			if(contact.GetFixtureA().GetUserData()[0] == "PLAYER" && contact.GetFixtureB().GetUserData()[0] == "ENEMY" ||
+			   contact.GetFixtureA().GetUserData()[0] == "ENEMY" && contact.GetFixtureB().GetUserData()[0] == "PLAYER"){
 				
 				contact.SetEnabled(false);
 			}

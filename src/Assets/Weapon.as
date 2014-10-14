@@ -3,17 +3,18 @@
  */
 package Assets {
 	
+	import flash.display.MovieClip;
+	import flash.display.Sprite;
+	import flash.geom.Point;
+	
 	import Box2D.Collision.Shapes.b2PolygonShape;
 	import Box2D.Dynamics.b2Body;
 	import Box2D.Dynamics.b2BodyDef;
 	import Box2D.Dynamics.b2FixtureDef;
 	import Box2D.Dynamics.b2World;
 	
-	import Parents.*;
-	
-	import flash.display.MovieClip;
-	import flash.display.Sprite;
-	import flash.geom.Point;
+	import Parents.Objects;
+	import Parents.Stage;
 	
 	public class Weapon extends Objects{
 		/**Class Member Variables*/
@@ -75,7 +76,7 @@ package Assets {
 			weaponFixture.shape = weaponShape;
 			weaponFixture.filter.maskBits = 0;
 			weaponFixture.isSensor = true;
-			weaponFixture.userData = "WEAPON";
+			weaponFixture.userData = new Array("WEAPON");
 			
 			//Box2D collision shape
 			var weaponCollision:b2BodyDef = new b2BodyDef();

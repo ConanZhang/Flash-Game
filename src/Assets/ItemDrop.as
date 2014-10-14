@@ -3,18 +3,20 @@
  */
 package Assets {
 	
+	import flash.display.MovieClip;
+	import flash.display.Sprite;
+	import flash.geom.Point;
+	
 	import Box2D.Collision.Shapes.b2PolygonShape;
 	import Box2D.Dynamics.b2Body;
 	import Box2D.Dynamics.b2BodyDef;
 	import Box2D.Dynamics.b2FixtureDef;
 	import Box2D.Dynamics.b2World;
 	
-	import Parents.*;
 	import FlashGame.PlayerHUD;
 	
-	import flash.display.MovieClip;
-	import flash.display.Sprite;
-	import flash.geom.Point;
+	import Parents.Objects;
+	import Parents.Stage;
 	
 	public class ItemDrop extends Objects{
 		/**Class Member Variables*/
@@ -62,13 +64,13 @@ package Assets {
 			itemDropFixture.isSensor = true;
 			
 			if(itemType == 1){
-				itemDropFixture.userData = "HEART";
+				itemDropFixture.userData = new Array("HEART");
 			}
 			else if(itemType == 2){
-				itemDropFixture.userData = "PISTOL_AMMO";
+				itemDropFixture.userData = new Array("PISTOL_AMMO");
 			}
 			else if(itemType == 3){
-				itemDropFixture.userData = "SHOTGUN_AMMO";
+				itemDropFixture.userData = new Array("SHOTGUN_AMMO");
 			}
 
 			
@@ -112,7 +114,7 @@ package Assets {
 		/**Child Update [called by Object's update]*/
 		public override function childUpdate():void{
 			//destroy yourself with any contact
-			if(collisionBody.GetFixtureList().GetUserData() == "DEAD"){
+			if(collisionBody.GetFixtureList().GetUserData()[0] == "DEAD"){
 				if(itemType == 1 && Player.playerHealth < 6){
 					Player.playerHealth++;
 					PlayerHUD.heartRevive = true;
