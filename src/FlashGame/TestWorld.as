@@ -14,6 +14,7 @@ package FlashGame
 	import Assets.Rain;
 	
 	import Parents.Stage;
+	import Assets.PlatformEnemy;
 	
 	public class TestWorld extends Stage
 	{
@@ -73,7 +74,8 @@ package FlashGame
 		private function addEnemy(e:TimerEvent):void{
 			//test enemy
 			if(!Stage.paused && Stage.world.GetBodyCount() < 120 && Player.playerHealth != 0){
-				var testEnemy:FlyingEnemy = new FlyingEnemy(Math.random()*190 + 40, Math.random()*-90, 2, 3);
+//				var testEnemy:FlyingEnemy = new FlyingEnemy(Math.random()*190 + 40, Math.random()*-90, 2, 3);
+				var testEnemy:PlatformEnemy = new PlatformEnemy(Math.random()*190 + 40, Math.random()*-90, 3, 3);
 			}
 		}
 		

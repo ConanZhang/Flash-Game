@@ -266,7 +266,7 @@ package Assets {
 			
 			/**Hurt yourself*/
 			for (var i:uint = 1; i <= collisionBody.GetFixtureList().GetUserData().length; i++) {
-				//pistol damage
+				//pistol/machine gun damage
 				if(collisionBody.GetFixtureList().GetUserData()[i] == 1){
 					flyingEnemyHealth--;
 				}
@@ -277,22 +277,6 @@ package Assets {
 			}
 			//empty array of damage
 			collisionBody.GetFixtureList().GetUserData().splice(1);
-				
-			//destroy yourself with any contact
-//			if(collisionBody.GetFixtureList().GetUserData()[0] == "PISTOL_DAMAGE"){				
-//				if(flyingEnemyHealth > 0){
-//					flyingEnemyHealth--;
-//				}
-//
-//				collisionBody.GetFixtureList().GetUserData()[0] = "ENEMY";
-//			}
-//			else if(collisionBody.GetFixtureList().GetUserData()[0] == "SHOTGUN_DAMAGE"){				
-//				if(flyingEnemyHealth > 0){
-//					flyingEnemyHealth-= 2;
-//				}
-//				
-//				collisionBody.GetFixtureList().GetUserData()[0] = "ENEMY";
-//			}
 			
 			/**Kill yourself*/
 			if(flyingEnemyHealth <= 0){				
@@ -314,13 +298,18 @@ package Assets {
 							var healthDrop:ItemDrop = new ItemDrop(collisionBody.GetPosition().x, collisionBody.GetPosition().y, 1.5, 1.5, 1);
 						}
 						else{
+							var randomDrop: Number = Math.random();
 							//pistol ammo
-							if(Math.random() < 0.6){
-								var pistolDrop:ItemDrop = new ItemDrop(collisionBody.GetPosition().x, collisionBody.GetPosition().y, 1.5,1.5, 2);
+							if(randomDrop < 0.6){
+								var pistolDrop:ItemDrop = new ItemDrop(Math.random()*190 + 40, Math.random()*-90, 1.5,1.5, 2);	
 							}
-							//shotgun ammo
-							else{
-								var shotgunDrop:ItemDrop = new ItemDrop(collisionBody.GetPosition().x, collisionBody.GetPosition().y, 2.5,2.5, 3);
+								//shotgun ammo
+							else if(randomDrop > 0.6 && randomDrop < 0.8){
+								var shotgunDrop:ItemDrop = new ItemDrop(Math.random()*190 + 40, Math.random()*-90, 2.5,2.5, 3);	
+							}
+								//machinegun ammo
+							else if(randomDrop > 0.8 && randomDrop < 1){
+								var machinegunDrop:ItemDrop = new ItemDrop(Math.random()*190 + 40, Math.random()*-90, 2,2, 4);	
 							}
 						}
 					}

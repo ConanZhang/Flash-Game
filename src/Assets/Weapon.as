@@ -52,9 +52,9 @@ package Assets {
 			weaponType = type;
 			
 			//initialize default private variables
-			pistolAmmo = 500;
-			shotgunAmmo = 500;
-			machinegunAmmo = 500;
+			pistolAmmo = 10;
+			shotgunAmmo = 2;
+			machinegunAmmo = 15;
 			holdingWeapon = true;
 			needWeapon = false;
 			changeWeapon = false;
@@ -145,12 +145,6 @@ package Assets {
 				}	
 				holdingWeapon = true;
 				needWeapon = false;
-			}
-			
-			if(pistolAmmo == 0 && shotgunAmmo == 0 && machinegunAmmo == 0 && holdingWeapon == true){
-				holdingWeapon = false;
-				destroySprite();
-				weaponType = 0;
 			}
 			
 			//update weapon sprite if necessary
@@ -245,6 +239,14 @@ package Assets {
 						weaponType = 3;
 						changeWeapon = true;
 					}
+					//no weapon
+					else{
+						weaponType = 0;
+						changeWeapon = true;
+						rightFire = false;
+						leftFire = false;
+						weaponClip.endFire = true;
+					}
 				}
 			}
 			else if(weaponType == 2){
@@ -288,6 +290,14 @@ package Assets {
 						weaponType = 1;
 						changeWeapon = true;
 					}
+					//no weapon
+					else{
+						weaponType = 0;
+						changeWeapon = true;
+						rightFire = false;
+						leftFire = false;
+						weaponClip.endFire = true;
+					}
 				}
 			}
 			else if(weaponType == 3){
@@ -315,14 +325,21 @@ package Assets {
 				}
 				
 				//check state of weapon BEFORE removing it if necessary
-				if(machinegunAmmo == 0 && holdingWeapon){
-					if(pistolAmmo > 0){
+				if(machinegunAmmo <= 0 && holdingWeapon){
+					if(shotgunAmmo > 0){
+						weaponType = 2;
+						changeWeapon = true;
+					}
+					else if(pistolAmmo > 0){
 						weaponType = 1;
 						changeWeapon = true;
 					}
-					else if(shotgunAmmo > 0){
-						weaponType = 2;
+					//no weapon
+					else{
+						weaponType = 0;
 						changeWeapon = true;
+						rightFire = false;
+						leftFire = false;
 					}
 				}
 			}

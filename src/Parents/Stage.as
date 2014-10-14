@@ -472,12 +472,24 @@ package Parents
 					Weapon.weaponType = 3;
 					Weapon.changeWeapon = true;
 				}
+				else if(Weapon.weaponType == 1 && Weapon.machinegunAmmo <= 0 && Weapon.shotgunAmmo > 0){
+					Weapon.weaponType = 2;
+					Weapon.changeWeapon = true;
+				}
 				else if(Weapon.weaponType == 2 && Weapon.pistolAmmo > 0){
 					Weapon.weaponType = 1;
 					Weapon.changeWeapon = true;
 				}
+				else if(Weapon.weaponType == 2 && Weapon.pistolAmmo <= 0 && Weapon.machinegunAmmo > 0){
+					Weapon.weaponType = 3;
+					Weapon.changeWeapon = true;
+				}
 				else if(Weapon.weaponType == 3 && Weapon.shotgunAmmo > 0){
 					Weapon.weaponType = 2;
+					Weapon.changeWeapon = true;
+				}
+				else if(Weapon.weaponType == 3 && Weapon.shotgunAmmo <= 0 && Weapon.pistolAmmo > 0){
+					Weapon.weaponType = 1;
 					Weapon.changeWeapon = true;
 				}
 			}
@@ -486,12 +498,24 @@ package Parents
 					Weapon.weaponType = 2;
 					Weapon.changeWeapon = true;
 				}
+				else if(Weapon.weaponType == 1 && Weapon.shotgunAmmo <= 0 && Weapon.machinegunAmmo > 0){
+					Weapon.weaponType = 3;
+					Weapon.changeWeapon = true;
+				}
 				else if(Weapon.weaponType == 2 && Weapon.machinegunAmmo > 0){
 					Weapon.weaponType = 3;
 					Weapon.changeWeapon = true;
 				}
+				else if(Weapon.weaponType == 2 && Weapon.machinegunAmmo <= 0 && Weapon.pistolAmmo > 0){
+					Weapon.weaponType = 1;
+					Weapon.changeWeapon = true;
+				}
 				else if(Weapon.weaponType == 3 && Weapon.pistolAmmo > 0){
 					Weapon.weaponType = 1;
+					Weapon.changeWeapon = true;
+				}
+				else if(Weapon.weaponType == 3 && Weapon.pistolAmmo <= 0 && Weapon.shotgunAmmo > 0){
+					Weapon.weaponType = 2;
 					Weapon.changeWeapon = true;
 				}
 			}
@@ -571,7 +595,7 @@ package Parents
 		/**Stages can detect left clicks*/
 		public function leftClick(e:MouseEvent):void{
 			if(Weapon.holdingWeapon && !paused && Player.playerHealth > 0){
-				if(Weapon.weaponType == 1){
+				if(Weapon.weaponType == 1 && Weapon.pistolAmmo > 0){
 					if(weaponRotation > -1.5 && weaponRotation < 1.5 && weapon.weaponClip.endFire){
 						weapon.rightFire = true;
 						weapon.weaponClip.endFire = false;
@@ -587,7 +611,7 @@ package Parents
 						Weapon.pistolAmmo--;
 					}
 				}
-				else if(Weapon.weaponType == 2){
+				else if(Weapon.weaponType == 2 && Weapon.shotgunAmmo > 0){
 					if(weaponRotation > -1.5 && weaponRotation < 1.5 && weapon.weaponClip.endFire){
 						weapon.rightFire = true;
 						weapon.weaponClip.endFire = false;
@@ -609,7 +633,7 @@ package Parents
 						Weapon.shotgunAmmo--;
 					}
 				}
-				else if(Weapon.weaponType == 3){
+				else if(Weapon.weaponType == 3 && Weapon.machinegunAmmo > 0){
 					if(weaponRotation > -1.5 && weaponRotation < 1.5){
 						machineFire = true;
 						weapon.rightFire = true;						
@@ -641,11 +665,20 @@ package Parents
 					if(Weapon.weaponType == 1 && Weapon.shotgunAmmo > 0){
 						Weapon.weaponType = 2;
 					}
+					else if(Weapon.weaponType == 1 && Weapon.shotgunAmmo <= 0 && Weapon.machinegunAmmo > 0){
+						Weapon.weaponType = 3;
+					}
 					else if(Weapon.weaponType == 2 && Weapon.machinegunAmmo > 0){
 						Weapon.weaponType = 3;
 					}
+					else if(Weapon.weaponType == 2 && Weapon.machinegunAmmo <= 0 && Weapon.pistolAmmo > 0){
+						Weapon.weaponType = 1;
+					}
 					else if(Weapon.weaponType == 3 && Weapon.pistolAmmo > 0){
 						Weapon.weaponType = 1;
+					}
+					else if(Weapon.weaponType == 3 && Weapon.pistolAmmo <= 0 && Weapon.shotgunAmmo > 0){
+						Weapon.weaponType = 2;
 					}
 				}
 				//down wheel
@@ -653,11 +686,20 @@ package Parents
 					if(Weapon.weaponType == 1 && Weapon.machinegunAmmo > 0){
 						Weapon.weaponType = 3;
 					}
+					else if(Weapon.weaponType == 1 && Weapon.machinegunAmmo <= 0 && Weapon.shotgunAmmo > 0){
+						Weapon.weaponType = 2;
+					}
 					else if(Weapon.weaponType == 2 && Weapon.pistolAmmo > 0){
 						Weapon.weaponType = 1;
 					}
+					else if(Weapon.weaponType == 2 && Weapon.pistolAmmo <= 0 && Weapon.machinegunAmmo > 0){
+						Weapon.weaponType = 3;
+					}
 					else if(Weapon.weaponType == 3 && Weapon.shotgunAmmo > 0){
 						Weapon.weaponType = 2;
+					}
+					else if(Weapon.weaponType == 3 && Weapon.shotgunAmmo <= 0 && Weapon.pistolAmmo > 0){
+						Weapon.weaponType = 1;
 					}
 				}
 			}
