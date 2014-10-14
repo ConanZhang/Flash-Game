@@ -54,6 +54,7 @@ package
 			test.stage.addEventListener(KeyboardEvent.KEY_DOWN, test.keyPressed, false, 0, true);
 			test.stage.addEventListener(KeyboardEvent.KEY_UP, test.keyReleased, false, 0, true);
 			test.stage.addEventListener(MouseEvent.MOUSE_DOWN, test.leftClick);
+			test.stage.addEventListener(MouseEvent.MOUSE_UP, test.leftUp);
 			test.stage.addEventListener(MouseEvent.MOUSE_WHEEL, test.mouseWheeled);
 		}
 	}

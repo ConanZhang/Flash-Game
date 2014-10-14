@@ -68,10 +68,15 @@ package Assets {
 				bulletYDirection = Math.sin(Stage.weaponRotation)*300;
 				bulletFixture.userData = new Array("PISTOL_BULLET");
 			}
-			else{
+			else if(Weapon.weaponType == 2){
 				bulletXDirection = Math.cos(Stage.weaponRotation+Math.random()*0.5 - 0.25)*300;
 				bulletYDirection = Math.sin(Stage.weaponRotation+Math.random()*0.5 - 0.25)*300;
 				bulletFixture.userData = new Array("SHOTGUN_BULLET");
+			}
+			else if(Weapon.weaponType == 3){
+				bulletXDirection = Math.cos(Stage.weaponRotation+Math.random()*0.25 - 0.12)*300;
+				bulletYDirection = Math.sin(Stage.weaponRotation+Math.random()*0.25 - 0.12)*300;
+				bulletFixture.userData = new Array("MACHINEGUN_BULLET");
 			}
 			
 			

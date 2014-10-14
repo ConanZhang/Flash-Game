@@ -72,6 +72,9 @@ package Assets {
 			else if(itemType == 3){
 				itemDropFixture.userData = new Array("SHOTGUN_AMMO");
 			}
+			else if(itemType == 4){
+				itemDropFixture.userData = new Array("MACHINEGUN_AMMO");
+			}
 
 			
 			//Box2D collision shape
@@ -109,6 +112,14 @@ package Assets {
 				super.sprite = itemDropClip;
 				Stage.sprites.addChild(itemDropClip);
 			}
+				//shotgun ammo
+			else if(itemType == 4){
+				itemDropClip = new ammobox_machinegun();
+				itemDropClip.width = itemDrop_Width*metricPixRatio;
+				itemDropClip.height = itemDrop_Height*metricPixRatio;
+				super.sprite = itemDropClip;
+				Stage.sprites.addChild(itemDropClip);
+			}
 		}
 		
 		/**Child Update [called by Object's update]*/
@@ -131,6 +142,13 @@ package Assets {
 					if(!Weapon.holdingWeapon){
 						Weapon.needWeapon = true;
 						Weapon.weaponType = 2;
+					}
+				}
+				else if(itemType == 4){
+					Weapon.machinegunAmmo +=10;
+					if(!Weapon.holdingWeapon){
+						Weapon.needWeapon = true;
+						Weapon.weaponType = 3;
 					}
 				}
 				destroyAll();

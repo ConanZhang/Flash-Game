@@ -18,6 +18,7 @@ Survive for 3 minutes. Scavenge for randomly dropped ammo and avoid randomly spa
 * Q or E - Change weapon
 * 1 - Pistol
 * 2 - Shotgun
+* 3 - Machine Gun
 
 ####OPTIONS
 * P or R - Pause

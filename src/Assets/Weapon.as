@@ -36,6 +36,7 @@ package Assets {
 		public static var weaponType:int;
 		public static var pistolAmmo:int;
 		public static var shotgunAmmo:int;
+		public static var machinegunAmmo:int;
 		public static var holdingWeapon:Boolean;
 		public static var needWeapon:Boolean;
 		public static var changeWeapon:Boolean;
@@ -53,6 +54,7 @@ package Assets {
 			//initialize default private variables
 			pistolAmmo = 500;
 			shotgunAmmo = 500;
+			machinegunAmmo = 500;
 			holdingWeapon = true;
 			needWeapon = false;
 			changeWeapon = false;
@@ -103,6 +105,14 @@ package Assets {
 				super.sprite = weaponClip;
 				Stage.sprites.addChild(weaponClip);
 			}
+			else if(weaponType == 3){
+				weaponClip = new machinegun();
+				weaponClip.gotoAndStop("machinegun_right");
+				weaponClip.width = 3*metricPixRatio;
+				weaponClip.height =2*metricPixRatio;
+				super.sprite = weaponClip;
+				Stage.sprites.addChild(weaponClip);
+			}
 		}
 		
 		/**Child Update [called by Object's update]*/
@@ -124,12 +134,20 @@ package Assets {
 					weaponClip.height =2*metricPixRatio;
 					super.sprite = weaponClip;
 					Stage.sprites.addChild(weaponClip);
-				}				
+				}	
+				else if(weaponType == 3 && machinegunAmmo > 0){
+					weaponClip = new machinegun();
+					weaponClip.gotoAndStop("machinegun_right");
+					weaponClip.width = 3*metricPixRatio;
+					weaponClip.height =2*metricPixRatio;
+					super.sprite = weaponClip;
+					Stage.sprites.addChild(weaponClip);
+				}	
 				holdingWeapon = true;
 				needWeapon = false;
 			}
 			
-			if(pistolAmmo == 0 && shotgunAmmo == 0 && holdingWeapon == true){
+			if(pistolAmmo == 0 && shotgunAmmo == 0 && machinegunAmmo == 0 && holdingWeapon == true){
 				holdingWeapon = false;
 				destroySprite();
 				weaponType = 0;
@@ -138,6 +156,7 @@ package Assets {
 			//update weapon sprite if necessary
 			if(changeWeapon){
 				destroySprite();
+				Stage.machineFire = false;
 				//switch to pistol
 				if(weaponType == 1 && pistolAmmo > 0){
 					weaponClip = new pistol();
@@ -151,6 +170,15 @@ package Assets {
 				else if(weaponType == 2 && shotgunAmmo > 0){
 					weaponClip = new shotgun();
 					weaponClip.gotoAndStop("shotgun_right");
+					weaponClip.width = 3*metricPixRatio;
+					weaponClip.height =2*metricPixRatio;
+					super.sprite = weaponClip;
+					Stage.sprites.addChild(weaponClip);
+				}
+				//switch to machinegun
+				else if(weaponType == 3 && machinegunAmmo > 0){
+					weaponClip = new machinegun();
+					weaponClip.gotoAndStop("machinegun_right");
 					weaponClip.width = 3*metricPixRatio;
 					weaponClip.height =2*metricPixRatio;
 					super.sprite = weaponClip;
@@ -213,6 +241,10 @@ package Assets {
 						weaponType = 2;
 						changeWeapon = true;
 					}
+					else if(machinegunAmmo > 0){
+						weaponType = 3;
+						changeWeapon = true;
+					}
 				}
 			}
 			else if(weaponType == 2){
@@ -248,8 +280,48 @@ package Assets {
 				
 				//check state of weapon BEFORE removing it if necessary
 				if(shotgunAmmo == 0 && holdingWeapon){
+					if(machinegunAmmo > 0){
+						weaponType = 3;
+						changeWeapon = true;
+					}
+					else if(pistolAmmo > 0){
+						weaponType = 1;
+						changeWeapon = true;
+					}
+				}
+			}
+			else if(weaponType == 3){
+				if(STATE == RIGHT && !rightFire){
+					weaponClip.gotoAndStop("machinegun_right");
+				}
+				else if(STATE == LEFT && !leftFire){
+					weaponClip.gotoAndStop("machinegun_left");
+				}
+				else if(rightFire){
+					if(Stage.slowMotion && Stage.slowAmount > 0){
+						weaponClip.gotoAndStop("machinegun_right_fire_slomo");
+					}
+					else{
+						weaponClip.gotoAndStop("machinegun_right_fire");
+					}
+				}
+				else if(leftFire){
+					if(Stage.slowMotion && Stage.slowAmount > 0){
+						weaponClip.gotoAndStop("machinegun_left_fire_slomo");
+					}
+					else{
+						weaponClip.gotoAndStop("machinegun_left_fire");
+					}				
+				}
+				
+				//check state of weapon BEFORE removing it if necessary
+				if(machinegunAmmo == 0 && holdingWeapon){
 					if(pistolAmmo > 0){
 						weaponType = 1;
+						changeWeapon = true;
+					}
+					else if(shotgunAmmo > 0){
+						weaponType = 2;
 						changeWeapon = true;
 					}
 				}

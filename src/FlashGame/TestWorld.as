@@ -79,13 +79,18 @@ package FlashGame
 		
 		private function addAmmo(e:TimerEvent):void{
 			if(!Stage.paused && Player.playerHealth != 0){
+				var randomDrop: Number = Math.random();
 				//pistol ammo
-				if(Math.random() < 0.6){
+				if(randomDrop < 0.6){
 					var pistolDrop:ItemDrop = new ItemDrop(Math.random()*190 + 40, Math.random()*-90, 1.5,1.5, 2);	
 				}
 				//shotgun ammo
-				else{
+				else if(randomDrop > 0.6 && randomDrop < 0.8){
 					var shotgunDrop:ItemDrop = new ItemDrop(Math.random()*190 + 40, Math.random()*-90, 2.5,2.5, 3);	
+				}
+				//machinegun ammo
+				else if(randomDrop > 0.8 && randomDrop < 1){
+					var machinegunDrop:ItemDrop = new ItemDrop(Math.random()*190 + 40, Math.random()*-90, 2,2, 4);	
 				}
 			}
 		}

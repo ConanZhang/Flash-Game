@@ -24,6 +24,7 @@ package FlashGame
 			   contact.GetFixtureB().GetUserData()[0] != "HEART" &&
 			   contact.GetFixtureB().GetUserData()[0] != "PISTOL_AMMO" &&
 			   contact.GetFixtureB().GetUserData()[0] != "SHOTGUN_AMMO" &&
+			   contact.GetFixtureB().GetUserData()[0] != "MACHINEGUN_AMMO" &&
 			   contact.GetFixtureB().GetUserData()[0] != "DEAD"){
 				Stage.jumping = false;
 				Stage.airJumping = false;
@@ -37,6 +38,7 @@ package FlashGame
 					contact.GetFixtureB().GetUserData()[0] != "HEART"&&
 					contact.GetFixtureB().GetUserData()[0] != "PISTOL_AMMO" &&
 					contact.GetFixtureB().GetUserData()[0] != "SHOTGUN_AMMO" &&
+					contact.GetFixtureB().GetUserData()[0] != "MACHINEGUN_AMMO" &&
 					contact.GetFixtureB().GetUserData()[0] != "DEAD"){
 				Stage.jumping = false;
 				Stage.airJumping = false;
@@ -51,6 +53,7 @@ package FlashGame
 					contact.GetFixtureB().GetUserData()[0] != "HEART"&&
 					contact.GetFixtureB().GetUserData()[0] != "PISTOL_AMMO" &&
 					contact.GetFixtureB().GetUserData()[0] != "SHOTGUN_AMMO" &&
+					contact.GetFixtureB().GetUserData()[0] != "MACHINEGUN_AMMO" &&
 					contact.GetFixtureB().GetUserData()[0] != "DEAD"){
 				Stage.jumping = false;
 				Stage.airJumping = false;
@@ -179,15 +182,29 @@ package FlashGame
 					contact.GetFixtureA().GetUserData().push(2);
 				}
 			}
+			else if(contact.GetFixtureA().GetUserData()[0] == "MACHINEGUN_BULLET"){
+				contact.GetFixtureA().GetUserData()[0] ="DEAD";
+				if(contact.GetFixtureB().GetUserData()[0] == "ENEMY"){
+					contact.GetFixtureB().GetUserData().push(1);
+				}
+			}
+			else if(contact.GetFixtureB().GetUserData()[0] == "MACHINEGUN_BULLET"){
+				contact.GetFixtureB().GetUserData()[0] = "DEAD";
+				if(contact.GetFixtureA().GetUserData()[0] == "ENEMY"){
+					contact.GetFixtureA().GetUserData().push(1);
+				}
+			}
 			//item
 			else if(contact.GetFixtureA().GetUserData()[0] == "HEART" && contact.GetFixtureB().GetUserData()[0] == "PLAYER" ||
 					contact.GetFixtureA().GetUserData()[0] == "PISTOL_AMMO" && contact.GetFixtureB().GetUserData()[0] == "PLAYER" ||
-					contact.GetFixtureA().GetUserData()[0] == "SHOTGUN_AMMO" && contact.GetFixtureB().GetUserData()[0] == "PLAYER"){
+					contact.GetFixtureA().GetUserData()[0] == "SHOTGUN_AMMO" && contact.GetFixtureB().GetUserData()[0] == "PLAYER"||
+					contact.GetFixtureA().GetUserData()[0] == "MACHINEGUN_AMMO" && contact.GetFixtureB().GetUserData()[0] == "PLAYER"){
 				contact.GetFixtureA().GetUserData()[0] = "DEAD";
 			}
 			else if(contact.GetFixtureA().GetUserData()[0] == "PLAYER" && contact.GetFixtureB().GetUserData()[0] == "HEART" ||
 					contact.GetFixtureA().GetUserData()[0] == "PLAYER" && contact.GetFixtureB().GetUserData()[0] == "PISTOL_AMMO" ||
-					contact.GetFixtureA().GetUserData()[0] == "PLAYER" && contact.GetFixtureB().GetUserData()[0] == "SHOTGUN_AMMO"){
+					contact.GetFixtureA().GetUserData()[0] == "PLAYER" && contact.GetFixtureB().GetUserData()[0] == "SHOTGUN_AMMO"||
+					contact.GetFixtureA().GetUserData()[0] == "PLAYER" && contact.GetFixtureB().GetUserData()[0] == "MACHINEGUN_AMMO"){
 				contact.GetFixtureB().GetUserData()[0] ="DEAD";
 			}
 		}

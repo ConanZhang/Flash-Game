@@ -93,6 +93,7 @@ package Parents
 		
 		/**WEAPON*/
 		public var weapon:Weapon;
+		public static var machineFire:Boolean;
 		
 		/**Constructor*/
 		public function Stage()
@@ -150,6 +151,7 @@ package Parents
 			
 			//WEAPON
 			weapon = new Weapon(15, 7,1);
+			machineFire = false;
 			
 			/**DEBUGGING*/
 			debugDrawing();
@@ -391,6 +393,16 @@ package Parents
 			
 			weaponRotation = Math.atan2(mouseDirectionY, mouseDirectionX);
 			
+			//fire machine gun
+			if(machineFire == true){
+				var machineBullet:Bullet = new Bullet(playerBody.GetPosition().x + 3.7 * Math.cos(weaponRotation), playerBody.GetPosition().y + 3.7 * Math.sin(weaponRotation),0.3,0.3);
+				Weapon.machinegunAmmo--;
+				
+				if(Weapon.machinegunAmmo <= 0){
+					machineFire == false;
+				}
+			}
+			
 			//HUD
 			gameHUD.updateHUD();
 		}
@@ -456,12 +468,16 @@ package Parents
 			}
 			//change weapon
 			else if(e.keyCode == Keyboard.Q){
-				if(Weapon.weaponType == 1 && Weapon.shotgunAmmo > 0){
-					Weapon.weaponType = 2;
+				if(Weapon.weaponType == 1 && Weapon.machinegunAmmo > 0){
+					Weapon.weaponType = 3;
 					Weapon.changeWeapon = true;
 				}
-				else if(Weapon.pistolAmmo > 0){
+				else if(Weapon.weaponType == 2 && Weapon.pistolAmmo > 0){
 					Weapon.weaponType = 1;
+					Weapon.changeWeapon = true;
+				}
+				else if(Weapon.weaponType == 3 && Weapon.shotgunAmmo > 0){
+					Weapon.weaponType = 2;
 					Weapon.changeWeapon = true;
 				}
 			}
@@ -470,7 +486,11 @@ package Parents
 					Weapon.weaponType = 2;
 					Weapon.changeWeapon = true;
 				}
-				else if(Weapon.pistolAmmo > 0){
+				else if(Weapon.weaponType == 2 && Weapon.machinegunAmmo > 0){
+					Weapon.weaponType = 3;
+					Weapon.changeWeapon = true;
+				}
+				else if(Weapon.weaponType == 3 && Weapon.pistolAmmo > 0){
 					Weapon.weaponType = 1;
 					Weapon.changeWeapon = true;
 				}
@@ -484,6 +504,12 @@ package Parents
 			else if(e.keyCode == Keyboard.NUMBER_2){
 				if(Weapon.shotgunAmmo > 0){
 					Weapon.weaponType = 2;
+					Weapon.changeWeapon = true;
+				}
+			}
+			else if(e.keyCode == Keyboard.NUMBER_3){
+				if(Weapon.machinegunAmmo > 0){
+					Weapon.weaponType = 3;
 					Weapon.changeWeapon = true;
 				}
 			}
@@ -583,6 +609,25 @@ package Parents
 						Weapon.shotgunAmmo--;
 					}
 				}
+				else if(Weapon.weaponType == 3){
+					if(weaponRotation > -1.5 && weaponRotation < 1.5){
+						machineFire = true;
+						weapon.rightFire = true;						
+					}
+					else{
+						machineFire = true;
+						weapon.leftFire = true;
+					}
+				}
+			}
+		}
+		
+		/**Stages can detect left mouse lifts*/
+		public function leftUp(e:MouseEvent):void{
+			if(Weapon.weaponType == 3){
+				machineFire = false;
+				weapon.rightFire = false;
+				weapon.leftFire = false;
 			}
 		}
 		
@@ -596,17 +641,23 @@ package Parents
 					if(Weapon.weaponType == 1 && Weapon.shotgunAmmo > 0){
 						Weapon.weaponType = 2;
 					}
-					else if(Weapon.pistolAmmo > 0){
+					else if(Weapon.weaponType == 2 && Weapon.machinegunAmmo > 0){
+						Weapon.weaponType = 3;
+					}
+					else if(Weapon.weaponType == 3 && Weapon.pistolAmmo > 0){
 						Weapon.weaponType = 1;
 					}
 				}
-					//down wheel
+				//down wheel
 				else{
-					if(Weapon.weaponType == 1 && Weapon.shotgunAmmo > 0){
-						Weapon.weaponType = 2;
+					if(Weapon.weaponType == 1 && Weapon.machinegunAmmo > 0){
+						Weapon.weaponType = 3;
 					}
-					else if(Weapon.pistolAmmo > 0){
+					else if(Weapon.weaponType == 2 && Weapon.pistolAmmo > 0){
 						Weapon.weaponType = 1;
+					}
+					else if(Weapon.weaponType == 3 && Weapon.shotgunAmmo > 0){
+						Weapon.weaponType = 2;
 					}
 				}
 			}

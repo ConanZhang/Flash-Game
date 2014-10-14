@@ -160,7 +160,6 @@ package FlashGame
 			slowBarClip.width = 230;
 			slowBarClip.height = 30;
 			
-//			slowBarClip.x = 563;
 			slowBarClip.x = 150;
 			slowBarClip.y = 34;
 			
@@ -176,8 +175,8 @@ package FlashGame
 			ammoCount.embedFonts = true;
 			ammoCount.defaultTextFormat = ammoFormat;
 			ammoCount.height = 500;
-			ammoCount.width = 200;
-			ammoCount.x = 475;
+			ammoCount.width = 400;
+			ammoCount.x = 275;
 			ammoCount.y = 350;
 			ammoCount.textColor = 0xff0000;
 			ammoCount.selectable = false;			
@@ -297,8 +296,8 @@ package FlashGame
 			slowMotionBar.graphics.endFill();
 			
 			//ammo
-			ammoCount.text = "Ammo i " + (Weapon.weaponType == 1 ? Weapon.pistolAmmo: (Weapon.weaponType == 2) ? Weapon.shotgunAmmo: 0) + "\n" +
-							 "Weapon i " + (Weapon.weaponType == 1 ? "Pistol": (Weapon.weaponType == 2) ? "Shotgun": "None");
+			ammoCount.text = "Ammo i " + (Weapon.weaponType == 1 ? Weapon.pistolAmmo: (Weapon.weaponType == 2) ? Weapon.shotgunAmmo: (Weapon.weaponType == 3) ? Weapon.machinegunAmmo: 0) + "\n" +
+							 "Weapon i " + (Weapon.weaponType == 1 ? "Pistol": (Weapon.weaponType == 2) ? "Shotgun": (Weapon.weaponType == 3) ? "Machine gun": "None");
 							 				
 		}
 		
