@@ -399,7 +399,7 @@ package Parents
 				Weapon.machinegunAmmo--;
 				
 				if(Weapon.machinegunAmmo <= 0){
-					machineFire == false;
+					machineFire = false;
 				}
 			}
 			

@@ -118,7 +118,7 @@ package Assets {
 		/**Child Update [called by Object's update]*/
 		public override function childUpdate():void{
 			if(needWeapon){
-				//add correct sprite
+				//add correct sprite when got ammo when holding nothing
 				if(weaponType == 1 && pistolAmmo > 0){
 					weaponClip = new pistol();
 					weaponClip.gotoAndStop("pistol_right");
@@ -197,7 +197,7 @@ package Assets {
 				STATE = LEFT;
 			}
 
-			//shooting
+			//shooting pistol
 			if(weaponType == 1){
 				if(STATE == RIGHT && !rightFire){
 					weaponClip.gotoAndStop("pistol_right");
@@ -249,6 +249,7 @@ package Assets {
 					}
 				}
 			}
+			//shooting shotgun
 			else if(weaponType == 2){
 				if(STATE == RIGHT && !rightFire){
 					weaponClip.gotoAndStop("shotgun_right");
@@ -300,6 +301,7 @@ package Assets {
 					}
 				}
 			}
+			//shooting machine gun
 			else if(weaponType == 3){
 				if(STATE == RIGHT && !rightFire){
 					weaponClip.gotoAndStop("machinegun_right");
