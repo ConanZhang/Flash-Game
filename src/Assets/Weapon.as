@@ -149,7 +149,9 @@ package Assets {
 			
 			//update weapon sprite if necessary
 			if(changeWeapon){
-				destroySprite();
+				if(weaponClip != null){
+					destroySprite();
+				}
 				Stage.machineFire = false;
 				//switch to pistol
 				if(weaponType == 1 && pistolAmmo > 0){
@@ -179,7 +181,7 @@ package Assets {
 					Stage.sprites.addChild(weaponClip);
 				}
 				else{
-					holdingWeapon == false;
+					holdingWeapon = false;
 				}
 				
 				changeWeapon = false;

@@ -54,7 +54,7 @@ package Assets
 				drop.y = Math.random()*areaHeight;
 				
 				//size
-				drop.scaleX = Math.round( ( (Math.random()*0.8) +0.3)*10 )/10;
+				drop.scaleX = Math.round( ( (Math.random()*0.7) +0.3)*10 )/10;
 				drop.scaleY = drop.scaleX;
 				
 				dropVector.push(drop);
