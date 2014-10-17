@@ -75,6 +75,8 @@ package Assets {
 			
 			flyingEnemyFixture = new b2FixtureDef();
 			
+			Stage.enemyCount++;
+
 			make();
 		}
 		
@@ -223,7 +225,7 @@ package Assets {
 					collisionBody.GetLinearVelocity().x > -12 &&
 					collisionBody.GetLinearVelocity().y < 12 &&
 					collisionBody.GetLinearVelocity().y > -12){
-					direction.Multiply(25);
+					direction.Multiply(20);
 				}
 				
 				//follow
@@ -239,7 +241,7 @@ package Assets {
 					collisionBody.GetLinearVelocity().y < 12 &&
 					collisionBody.GetLinearVelocity().y > -12){
 					direction.Normalize();		
-					direction.Multiply(25);
+					direction.Multiply(20);
 				}
 				
 				//follow
@@ -278,7 +280,7 @@ package Assets {
 			collisionBody.ApplyForce(direction, collisionBody.GetPosition() );
 			
 			/**Hurt yourself*/
-			for (var i:uint = 1; i <= collisionBody.GetFixtureList().GetUserData().length; i++) {
+			for (var i:uint = 2; i <= collisionBody.GetFixtureList().GetUserData().length; i++) {
 				//pistol/machine gun damage
 				if(collisionBody.GetFixtureList().GetUserData()[i] == 1){
 					flyingEnemyHealth--;
@@ -289,13 +291,13 @@ package Assets {
 				}
 			}
 			//empty array of damage
-			collisionBody.GetFixtureList().GetUserData().splice(1);
+			collisionBody.GetFixtureList().GetUserData().splice(2);
 			
 			/**Kill yourself*/
 			if(flyingEnemyHealth <= 0){				
 				//don't collide with anything
 				var deadFilter:b2FilterData = new b2FilterData();
-				deadFilter.maskBits = 0;
+				deadFilter.maskBits = 2;
 				
 				collisionBody.GetFixtureList().SetFilterData(deadFilter);
 				collisionBody.GetFixtureList().GetUserData()[0] = "DEAD";
@@ -326,7 +328,8 @@ package Assets {
 							}
 						}
 					}
-					
+					Stage.enemyCount--;
+
 					//destroy yourself
 					destroyAll();
 				}

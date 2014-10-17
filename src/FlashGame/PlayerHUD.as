@@ -42,6 +42,10 @@ package FlashGame
 		private var ammoCount:TextField;
 		private var ammoFormat:TextFormat;
 		
+		//enemy count
+		private var enemyCount:TextField;
+		private var enemyFormat:TextFormat;
+		
 		//reticule
 		private var playerReticule:Sprite;
 		
@@ -151,7 +155,7 @@ package FlashGame
 			slowMotionBar = new Shape();
 			slowMotionBar.graphics.clear();
 			slowMotionBar.graphics.beginFill(0xff0000);
-			slowMotionBar.graphics.drawRect(38, 25, Stage.slowAmount, 20);
+			slowMotionBar.graphics.drawRect(38, 24, Stage.slowAmount, 22);
 			slowMotionBar.graphics.endFill();
 			
 			this.addChild(slowMotionBar);
@@ -165,12 +169,12 @@ package FlashGame
 			
 			this.addChild(slowBarClip);
 			
+			//ammunition
 			ammoFormat = new TextFormat();
 			ammoFormat.size = 35;
 			ammoFormat.align = "right";
 			ammoFormat.font = "Zenzai Itacha";
 			
-			//ammunition
 			ammoCount = new TextField();
 			ammoCount.embedFonts = true;
 			ammoCount.defaultTextFormat = ammoFormat;
@@ -181,6 +185,23 @@ package FlashGame
 			ammoCount.textColor = 0xff0000;
 			ammoCount.selectable = false;			
 			this.addChild(ammoCount);
+			
+			//enemy count
+			enemyFormat = new TextFormat();
+			enemyFormat.size = 40;
+			enemyFormat.align = "left";
+			enemyFormat.font = "Zenzai Itacha";
+			
+			enemyCount = new TextField();
+			enemyCount.embedFonts = true;
+			enemyCount.defaultTextFormat = enemyFormat;
+			enemyCount.height = 200;
+			enemyCount.width = 200;
+			enemyCount.x = 50;
+			enemyCount.y = 420;
+			enemyCount.textColor = 0xff0000;
+			enemyCount.selectable = false;			
+			this.addChild(enemyCount);
 			
 			//survive timer
 			minuteDisplay = 0;
@@ -195,7 +216,7 @@ package FlashGame
 			timerText.embedFonts = true;
 			timerText.defaultTextFormat = timerFormat;
 			timerText.text = "0 i 00";
-			timerText.x = 250;
+			timerText.x = 225;
 			timerText.y = 50;
 			timerText.width = 275;
 			timerText.textColor = 0xff0000;
@@ -219,7 +240,7 @@ package FlashGame
 			countDownText.embedFonts = true;
 			countDownText.defaultTextFormat = countDownFormat;
 			countDownText.text = "3!";
-			countDownText.x = 275;
+			countDownText.x = 265;
 			countDownText.y = 150;
 			countDownText.width = 200;
 			countDownText.textColor = 0xff0000;
@@ -292,12 +313,15 @@ package FlashGame
 			//slow motion bar
 			slowMotionBar.graphics.clear();
 			slowMotionBar.graphics.beginFill(0xff0000);
-			slowMotionBar.graphics.drawRect(38, 25, Stage.slowAmount, 20);
+			slowMotionBar.graphics.drawRect(38, 24, Stage.slowAmount, 22);
 			slowMotionBar.graphics.endFill();
 			
 			//ammo
 			ammoCount.text = "Ammo i " + (Weapon.weaponType == 1 ? Weapon.pistolAmmo: (Weapon.weaponType == 2) ? Weapon.shotgunAmmo: (Weapon.weaponType == 3) ? Weapon.machinegunAmmo: 0) + "\n" +
 							 "Weapon i " + (Weapon.weaponType == 1 ? "Pistol": (Weapon.weaponType == 2) ? "Shotgun": (Weapon.weaponType == 3) ? "Machine gun": "None");
+			
+			//enemy count
+			enemyCount.text = "Enemy Count i " + Stage.enemyCount;
 							 				
 		}
 		

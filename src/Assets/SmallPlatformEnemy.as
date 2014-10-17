@@ -19,7 +19,7 @@ package Assets {
 	import Parents.Objects;
 	import Parents.Stage;
 	
-	public class BigPlatformEnemy extends Objects{
+	public class SmallPlatformEnemy extends Objects{
 		/**Class Member Variables*/
 		//STAGE
 		private var stage_Sprite:Sprite = Stage.sprites;
@@ -46,7 +46,7 @@ package Assets {
 		private var platformEnemyType:int;
 		
 		/**Constructor*/
-		public function BigPlatformEnemy(xPos:Number, yPos:Number, width:Number, height:Number, type:int){
+		public function SmallPlatformEnemy(xPos:Number, yPos:Number, width:Number, height:Number, type:int){
 			//assign parameters to class member variables
 			position = new Point(xPos, yPos);
 			
@@ -54,14 +54,14 @@ package Assets {
 			platformEnemy_Width = width;
 			platformEnemy_Height = height;
 			platformEnemy_LinearDamping = 1;
-			platformEnemyHealth = 4;
+			platformEnemyHealth = 1;
 			platformEnemyType = type;
 			
 			platformEnemyFixture = new b2FixtureDef();
 			platformEnemyJoints = new b2RevoluteJointDef();
 			
 			Stage.enemyCount++;
-
+			
 			make();
 		}
 		
@@ -69,7 +69,7 @@ package Assets {
 		public function make():void{
 			//Box2D shape
 			var platformEnemyShape:b2PolygonShape = new b2PolygonShape();
-			platformEnemyShape.SetAsBox(platformEnemy_Width/4.7, platformEnemy_Height/4.7);
+			platformEnemyShape.SetAsBox(platformEnemy_Width/3.5, platformEnemy_Height/3.5);
 			
 			//Box2D shape properties
 			platformEnemyFixture.shape = platformEnemyShape;
@@ -90,7 +90,7 @@ package Assets {
 			
 			/**Bottom Sensor*/
 			platformEnemyShape = new b2PolygonShape();
-			platformEnemyShape.SetAsBox(platformEnemy_Width/3, platformEnemy_Height/3.5);
+			platformEnemyShape.SetAsBox(platformEnemy_Width/2, platformEnemy_Height/2.5);
 			platformEnemyFixture.filter.categoryBits = 32;
 			platformEnemyFixture.filter.maskBits = 2;
 			
@@ -100,13 +100,13 @@ package Assets {
 			
 			platformEnemyFixture.shape = platformEnemyShape;
 			
-			platformEnemyCollision.position.Set(position.x + platformEnemy_Width/4, position.y + platformEnemy_Height/3);
+			platformEnemyCollision.position.Set(position.x + platformEnemy_Width/4, position.y + platformEnemy_Height/2.75);
 			bottomSensor = world_Sprite.CreateBody(platformEnemyCollision);
 			bottomSensor.CreateFixture(platformEnemyFixture);
 			
 			/**Right Sensor*/
 			platformEnemyShape = new b2PolygonShape();
-			platformEnemyShape.SetAsBox(platformEnemy_Width/3.5, platformEnemy_Height/3);
+			platformEnemyShape.SetAsBox(platformEnemy_Width/2.5, platformEnemy_Height/2);
 			platformEnemyFixture.filter.categoryBits = 32;
 			platformEnemyFixture.filter.maskBits = 2;
 			
@@ -116,13 +116,13 @@ package Assets {
 			
 			platformEnemyFixture.shape = platformEnemyShape;
 			
-			platformEnemyCollision.position.Set(position.x + platformEnemy_Width/3, position.y + platformEnemy_Height/4);
+			platformEnemyCollision.position.Set(position.x + platformEnemy_Width/2.5, position.y + platformEnemy_Height/4);
 			rightSensor = world_Sprite.CreateBody(platformEnemyCollision);
 			rightSensor.CreateFixture(platformEnemyFixture);
 			
 			/**Left Sensor*/
 			platformEnemyShape = new b2PolygonShape();
-			platformEnemyShape.SetAsBox(platformEnemy_Width/3.5, platformEnemy_Height/3);
+			platformEnemyShape.SetAsBox(platformEnemy_Width/2.5, platformEnemy_Height/2);
 			platformEnemyFixture.filter.categoryBits = 32;
 			platformEnemyFixture.filter.maskBits = 2;
 			
@@ -132,13 +132,13 @@ package Assets {
 			
 			platformEnemyFixture.shape = platformEnemyShape;
 			
-			platformEnemyCollision.position.Set(position.x + platformEnemy_Width/6, position.y + platformEnemy_Height/4);
+			platformEnemyCollision.position.Set(position.x + platformEnemy_Width/8, position.y + platformEnemy_Height/4);
 			leftSensor = world_Sprite.CreateBody(platformEnemyCollision);
 			leftSensor.CreateFixture(platformEnemyFixture);
 			
 			/**Top Sensor*/
 			platformEnemyShape = new b2PolygonShape();
-			platformEnemyShape.SetAsBox(platformEnemy_Width/3, platformEnemy_Height/3.5);
+			platformEnemyShape.SetAsBox(platformEnemy_Width/2, platformEnemy_Height/2.5);
 			platformEnemyFixture.filter.categoryBits = 32;
 			platformEnemyFixture.filter.maskBits = 2;
 			
@@ -148,7 +148,7 @@ package Assets {
 			
 			platformEnemyFixture.shape = platformEnemyShape;
 			
-			platformEnemyCollision.position.Set(position.x + platformEnemy_Width/4, position.y + platformEnemy_Height/6);
+			platformEnemyCollision.position.Set(position.x + platformEnemy_Width/4, position.y + platformEnemy_Height/8);
 			topSensor = world_Sprite.CreateBody(platformEnemyCollision);
 			topSensor.CreateFixture(platformEnemyFixture);
 			
@@ -176,7 +176,7 @@ package Assets {
 			world_Sprite.CreateJoint(platformEnemyJoints);
 			
 			//Sprite
-			platformEnemyClip = new enemy_platform_big;
+			platformEnemyClip = new enemy_platform_small;
 			platformEnemyClip.dead = false;
 			platformEnemyClip.stop();
 			platformEnemyClip.width = platformEnemy_Width*metricPixRatio;
@@ -200,31 +200,31 @@ package Assets {
 				if(leftData != "GROUND" && rightData != "GROUND" && bottomData != "GROUND" && topData != "GROUND"){
 					//on top
 					if(leftData == "LEFT_ON" && bottomData == "BOTTOM_ON" && topData == "TOP"){
-						direction.Set(-5, 1);
+						direction.Set(-5.5, 1);
 						collisionBody.SetLinearVelocity(direction);
 					}
 						//on left and top
 					else if(rightData == "RIGHT_ON" && bottomData == "BOTTOM_ON"){
-						direction.Set(3 , 4);
+						direction.Set(3 , 5);
 						collisionBody.SetLinearVelocity(direction);
 					}
 						//on left and bottom
 					else if(rightData == "RIGHT_ON" && topData == "TOP_ON"){
-						direction.Set(5, -1);
+						direction.Set(5.5, -1);
 						collisionBody.SetLinearVelocity(direction);
 					}
 						//on right and bottom
 					else if(leftData == "LEFT_ON" && topData == "TOP_ON"){
-						direction.Set(-3, -4);
+						direction.Set(-3, -5);
 						collisionBody.SetLinearVelocity(direction);
 					}
 						//fall
 					else{
-						direction.Set(0, 20);
+						direction.Set(0, 40);
 						collisionBody.ApplyForce(direction, collisionBody.GetPosition());
 					}
 				}
-					//simply move toward player
+				//simply move toward player
 				else{
 					//push away if too close
 					if(collisionBody.GetPosition().x - Stage.playerBody.GetPosition().x < 1 && 
@@ -242,11 +242,11 @@ package Assets {
 						//move toward
 					else{
 						if(collisionBody.GetPosition().x < Stage.playerBody.GetPosition().x ){
-							direction.Set(10, 0);
+							direction.Set(25, 0);
 							collisionBody.SetLinearVelocity(direction);
 						}
 						else{
-							direction.Set(-10, 0);
+							direction.Set(-25, 0);
 							collisionBody.SetLinearVelocity(direction);
 						}
 					}
@@ -257,27 +257,27 @@ package Assets {
 				if(leftData != "GROUND" && rightData != "GROUND" && bottomData != "GROUND" && topData != "GROUND"){
 					//on top
 					if(rightData == "RIGHT_ON" && bottomData == "BOTTOM_ON" && topData == "TOP"){
-						direction.Set(5, 1);
+						direction.Set(5.5, 1);
 						collisionBody.SetLinearVelocity(direction);
 					}
 						//on right and top
 					else if(leftData == "LEFT_ON" && bottomData == "BOTTOM_ON"){
-						direction.Set(-3, 4);
+						direction.Set(-3, 5);
 						collisionBody.SetLinearVelocity(direction);
 					}
 						//on right and bottom
 					else if(leftData == "LEFT_ON" && topData == "TOP_ON"){
-						direction.Set(-5, -1);
+						direction.Set(-5.5, -1);
 						collisionBody.SetLinearVelocity(direction);
 					}
 						//on left and bottom
 					else if(rightData == "RIGHT_ON" && topData == "TOP_ON"){
-						direction.Set(3, -4);
+						direction.Set(3, -5);
 						collisionBody.SetLinearVelocity(direction);
 					}
 						//fall
 					else{
-						direction.Set(0, 20);
+						direction.Set(0, 40);
 						collisionBody.ApplyForce(direction, collisionBody.GetPosition());
 					}
 				}
@@ -299,11 +299,11 @@ package Assets {
 						//move toward
 					else{
 						if(collisionBody.GetPosition().x < Stage.playerBody.GetPosition().x ){
-							direction.Set(10, 0);
+							direction.Set(25, 0);
 							collisionBody.SetLinearVelocity(direction);
 						}
 						else{
-							direction.Set(-10, 0);
+							direction.Set(-25, 0);
 							collisionBody.SetLinearVelocity(direction);
 						}
 					}
@@ -372,11 +372,11 @@ package Assets {
 						}
 					}
 					Stage.enemyCount--;
-
+					
 					//destroy yourself
 					destroyAll();
 				}
-			}	
+			}
 		}
 		
 		/**Child remove [called by destroy()]*/

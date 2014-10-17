@@ -46,6 +46,8 @@ package Parents
 		public static var slowAmount:Number;
 		//paused or playing
 		public static var paused:Boolean;
+		//enemy count
+		public static var enemyCount:int;
 		
 		/**WORLD*/
 		//world for all objects to exist in
@@ -106,6 +108,7 @@ package Parents
 			/**LOGIC*/
 			keyPresses = new Array();
 			weaponRotation = 0;
+			enemyCount = 0;
 			
 			/**VISUAL*/
 			//initiate images
@@ -154,7 +157,7 @@ package Parents
 			machineFire = false;
 			
 			/**DEBUGGING*/
-			debugDrawing();
+//			debugDrawing();
 		}
 		
 		/**Stages can update their properties*/

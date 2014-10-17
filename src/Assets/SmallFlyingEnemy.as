@@ -26,7 +26,7 @@ package Assets {
 	import Parents.Objects;
 	import Parents.Stage;
 	
-	public class FlyingEnemy extends Objects{
+	public class SmallFlyingEnemy extends Objects{
 		/**Class Member Variables*/
 		//STAGE
 		private var stage_Sprite:Sprite = Stage.sprites;
@@ -43,7 +43,7 @@ package Assets {
 		//BOX2D COLLISION & PHYSICS
 		private var collisionBody:b2Body;
 		private var flyingEnemyFixture:b2FixtureDef;
-
+		
 		//AI
 		private var beginRayCast:b2Vec2;
 		private var endRayCast:b2Vec2;
@@ -63,7 +63,7 @@ package Assets {
 		private var rayNormal2:b2Vec2;
 		private var rayFraction2:Number;
 		/**Constructor*/
-		public function FlyingEnemy(xPos:Number, yPos:Number, width:Number, height:Number){
+		public function SmallFlyingEnemy(xPos:Number, yPos:Number, width:Number, height:Number){
 			//assign parameters to class member variables
 			position = new Point(xPos, yPos);
 			
@@ -71,12 +71,12 @@ package Assets {
 			flyingEnemy_Width = width;
 			flyingEnemy_Height = height;
 			flyingEnemy_LinearDamping = 1;
-			flyingEnemyHealth = 2;
+			flyingEnemyHealth = 1;
 			
 			flyingEnemyFixture = new b2FixtureDef();
 			
 			Stage.enemyCount++;
-
+			
 			make();
 		}
 		
@@ -92,7 +92,7 @@ package Assets {
 			flyingEnemyFixture.userData.push("FLYING");
 			flyingEnemyFixture.filter.categoryBits = 8;
 			flyingEnemyFixture.filter.maskBits = 15;
-
+			
 			//Box2D collision shape
 			var flyingEnemyCollision:b2BodyDef = new b2BodyDef();
 			flyingEnemyCollision.position.Set(position.x + flyingEnemy_Width/2, position.y + flyingEnemy_Height/2);
@@ -104,7 +104,7 @@ package Assets {
 			super.body = collisionBody;
 			
 			//Sprite
-			flyingEnemyClip = new enemy_flying;
+			flyingEnemyClip = new enemy_flying_small;
 			flyingEnemyClip.dead = false;
 			flyingEnemyClip.stop();
 			flyingEnemyClip.width = flyingEnemy_Width*metricPixRatio;
@@ -116,14 +116,14 @@ package Assets {
 		/**Child Update [called by Object's update]*/
 		public override function childUpdate():void{
 			var direction:b2Vec2 = new b2Vec2();
-			   						
+			
 			/**Follow player*/ 
 			//get direction and magnitude to player
 			direction = b2Math.SubtractVV(Stage.playerBody.GetPosition() , collisionBody.GetPosition());
 			
 			beginRayCast = collisionBody.GetPosition();
 			direction.Normalize();
-			direction.Multiply(3);
+			direction.Multiply(2);
 			endRayCast = b2Math.AddVV(direction,collisionBody.GetPosition());
 			endRayCast.x -= flyingEnemy_Width/3;
 			endRayCast.y -= flyingEnemy_Height/3;
@@ -135,10 +135,10 @@ package Assets {
 			
 			world_Sprite.RayCast(Callback ,beginRayCast,endRayCast);
 			world_Sprite.RayCast(Callback2 ,beginRayCast2,endRayCast2);
-
+			
 //			lambda = 1;
 //			lambda2 = 1;
-
+			
 			if(rayFixture != null && rayFixture.GetUserData() != null){
 //				var input:b2RayCastInput = new b2RayCastInput(beginRayCast, endRayCast);
 //				var output:b2RayCastOutput = new b2RayCastOutput();
@@ -184,7 +184,7 @@ package Assets {
 //				lambda2 = output2.fraction;
 				
 				var rayUserData2:* = rayFixture2.GetUserData()[0];
-
+				
 				if(rayUserData2 != "PLAYER" &&
 					rayUserData2 != "WEAPON"&&
 					rayUserData2 != "ITEM" &&
@@ -220,10 +220,10 @@ package Assets {
 			}
 			else{
 				//limit speed
-				if(collisionBody.GetLinearVelocity().x < 20 &&
-					collisionBody.GetLinearVelocity().x > -20 &&
-					collisionBody.GetLinearVelocity().y < 20 &&
-					collisionBody.GetLinearVelocity().y > -20){
+				if(collisionBody.GetLinearVelocity().x < 30 &&
+					collisionBody.GetLinearVelocity().x > -30 &&
+					collisionBody.GetLinearVelocity().y < 30 &&
+					collisionBody.GetLinearVelocity().y > -30){
 					direction.Multiply(45);
 				}
 				
@@ -235,10 +235,10 @@ package Assets {
 			//moving even when there is slow motion
 			if(Stage.slowMotion && Stage.slowAmount >= 0){
 				//limit speed
-				if(collisionBody.GetLinearVelocity().x < 20 &&
-					collisionBody.GetLinearVelocity().x > -20 &&
-					collisionBody.GetLinearVelocity().y < 20 &&
-					collisionBody.GetLinearVelocity().y > -20){
+				if(collisionBody.GetLinearVelocity().x < 30 &&
+					collisionBody.GetLinearVelocity().x > -30 &&
+					collisionBody.GetLinearVelocity().y < 30 &&
+					collisionBody.GetLinearVelocity().y > -30){
 					direction.Normalize();		
 					direction.Multiply(45);
 				}
@@ -284,7 +284,7 @@ package Assets {
 				if(collisionBody.GetFixtureList().GetUserData()[i] == 1){
 					flyingEnemyHealth--;
 				}
-				//shotgun damage
+					//shotgun damage
 				else if(collisionBody.GetFixtureList().GetUserData()[i] == 2){
 					flyingEnemyHealth-=2;	
 				}
@@ -328,7 +328,7 @@ package Assets {
 						}
 					}
 					Stage.enemyCount--;
-
+					
 					//destroy yourself
 					destroyAll();
 				}		

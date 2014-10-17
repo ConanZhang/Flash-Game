@@ -60,6 +60,8 @@ package Assets {
 			platformEnemyFixture = new b2FixtureDef();
 			platformEnemyJoints = new b2RevoluteJointDef();
 			
+			Stage.enemyCount++;
+			
 			make();
 		}
 		
@@ -218,7 +220,7 @@ package Assets {
 					}
 						//fall
 					else{
-						direction.Set(0, 20);
+						direction.Set(0, 30);
 						collisionBody.ApplyForce(direction, collisionBody.GetPosition());
 					}
 				}
@@ -275,7 +277,7 @@ package Assets {
 					}
 						//fall
 					else{
-						direction.Set(0, 20);
+						direction.Set(0, 30);
 						collisionBody.ApplyForce(direction, collisionBody.GetPosition());
 					}
 				}
@@ -316,7 +318,7 @@ package Assets {
 			collisionBody.ApplyForce(direction, collisionBody.GetPosition() );
 			
 			/**Hurt yourself*/
-			for (var i:uint = 1; i <= collisionBody.GetFixtureList().GetUserData().length; i++) {
+			for (var i:uint = 2; i <= collisionBody.GetFixtureList().GetUserData().length; i++) {
 				//pistol/machine gun damage
 				if(collisionBody.GetFixtureList().GetUserData()[i] == 1){
 					platformEnemyHealth--;
@@ -327,13 +329,13 @@ package Assets {
 				}
 			}
 			//empty array of damage
-			collisionBody.GetFixtureList().GetUserData().splice(1);
-			
+			collisionBody.GetFixtureList().GetUserData().splice(2);
+
 			/**Kill yourself*/
 			if(platformEnemyHealth <= 0){				
 				//don't collide with anything
 				var deadFilter:b2FilterData = new b2FilterData();
-				deadFilter.maskBits = 0;
+				deadFilter.maskBits = 2;
 				
 				collisionBody.GetFixtureList().SetFilterData(deadFilter);
 				bottomSensor.GetFixtureList().SetFilterData(deadFilter);
@@ -369,7 +371,8 @@ package Assets {
 							}
 						}
 					}
-					
+					Stage.enemyCount--;
+
 					//destroy yourself
 					destroyAll();
 				}
