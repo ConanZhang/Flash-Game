@@ -208,24 +208,15 @@ package Assets {
 					weaponClip.gotoAndStop("pistol_left");
 				}
 				else if(rightFire){
-					if(Stage.slowMotion && Stage.slowAmount > 0){
-						weaponClip.gotoAndStop("pistol_right_fire_slomo");
-					}
-					else{
-						weaponClip.gotoAndStop("pistol_right_fire");
-					}
+					weaponClip.gotoAndStop("pistol_right_fire");
 					
 					if(weaponClip.endFire){
 						rightFire = false;
 					}
 				}
 				else if(leftFire){
-					if(Stage.slowMotion && Stage.slowAmount > 0){
-						weaponClip.gotoAndStop("pistol_left_fire_slomo");
-					}
-					else{
-						weaponClip.gotoAndStop("pistol_left_fire");
-					}				
+					weaponClip.gotoAndStop("pistol_left_fire");
+									
 					if(weaponClip.endFire){
 						leftFire = false;
 					}
@@ -260,24 +251,15 @@ package Assets {
 					weaponClip.gotoAndStop("shotgun_left");
 				}
 				else if(rightFire){
-					if(Stage.slowMotion && Stage.slowAmount > 0){
-						weaponClip.gotoAndStop("shotgun_right_fire_slomo");
-					}
-					else{
-						weaponClip.gotoAndStop("shotgun_right_fire");
-					}
-					
+					weaponClip.gotoAndStop("shotgun_right_fire");
+
 					if(weaponClip.endFire){
 						rightFire = false;
 					}
 				}
 				else if(leftFire){
-					if(Stage.slowMotion && Stage.slowAmount > 0){
-						weaponClip.gotoAndStop("shotgun_left_fire_slomo");
-					}
-					else{
-						weaponClip.gotoAndStop("shotgun_left_fire");
-					}				
+					weaponClip.gotoAndStop("shotgun_left_fire");	
+					
 					if(weaponClip.endFire){
 						leftFire = false;
 					}
@@ -312,20 +294,11 @@ package Assets {
 					weaponClip.gotoAndStop("machinegun_left");
 				}
 				else if(rightFire){
-					if(Stage.slowMotion && Stage.slowAmount > 0){
-						weaponClip.gotoAndStop("machinegun_right_fire_slomo");
-					}
-					else{
-						weaponClip.gotoAndStop("machinegun_right_fire");
-					}
+					weaponClip.gotoAndStop("machinegun_right_fire");
 				}
 				else if(leftFire){
-					if(Stage.slowMotion && Stage.slowAmount > 0){
-						weaponClip.gotoAndStop("machinegun_left_fire_slomo");
-					}
-					else{
-						weaponClip.gotoAndStop("machinegun_left_fire");
-					}				
+					weaponClip.gotoAndStop("machinegun_left_fire");
+								
 				}
 				
 				//check state of weapon BEFORE removing it if necessary
