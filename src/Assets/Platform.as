@@ -96,6 +96,7 @@ package Assets {
 			}
 			else if(platformType == "enemy"){
 				platformFixture.userData[0] = "ENEMY";
+				platformFixture.filter.maskBits = 1;
 			}
 			//Box2D collision shape
 			var platformCollision:b2BodyDef = new b2BodyDef();

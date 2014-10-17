@@ -96,6 +96,7 @@ package Parents
 		/**WEAPON*/
 		public var weapon:Weapon;
 		public static var machineFire:Boolean;
+		private var machineDelay:int;
 		
 		/**Constructor*/
 		public function Stage()
@@ -155,9 +156,10 @@ package Parents
 			//WEAPON
 			weapon = new Weapon(15, 7,1);
 			machineFire = false;
+			machineDelay = 2;
 			
 			/**DEBUGGING*/
-//			debugDrawing();
+			debugDrawing();
 		}
 		
 		/**Stages can update their properties*/
@@ -398,11 +400,18 @@ package Parents
 			
 			//fire machine gun
 			if(machineFire == true){
-				var machineBullet:Bullet = new Bullet(playerBody.GetPosition().x + 3.7 * Math.cos(weaponRotation), playerBody.GetPosition().y + 3.7 * Math.sin(weaponRotation),0.3,0.3);
-				Weapon.machinegunAmmo--;
+				if(machineDelay == 2){
+					var machineBullet:Bullet = new Bullet(playerBody.GetPosition().x + 3.7 * Math.cos(weaponRotation), playerBody.GetPosition().y + 3.7 * Math.sin(weaponRotation),0.3,0.3);
+					Weapon.machinegunAmmo--;
+					machineDelay = 0;
+				}
+				else{
+					machineDelay++;
+				}
 				
 				if(Weapon.machinegunAmmo <= 0){
 					machineFire = false;
+					machineDelay = 2;
 				}
 			}
 			
@@ -655,6 +664,7 @@ package Parents
 				machineFire = false;
 				weapon.rightFire = false;
 				weapon.leftFire = false;
+				machineDelay = 2;
 			}
 		}
 		

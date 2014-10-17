@@ -46,8 +46,8 @@ package
 			beginTimer.start();
 			
 			//display debug information
-//			debug = new DebugScreen();
-//			this.addChild(debug);
+			debug = new DebugScreen();
+			this.addChild(debug);
 		}
 		
 		private function addControls(e:TimerEvent):void{

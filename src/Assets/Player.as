@@ -273,6 +273,7 @@ package Assets
 
 				//remove yourself
 				if(playerClip.dead){
+					Stage.machineFire = false;
 					destroyAll();
 				}
 				

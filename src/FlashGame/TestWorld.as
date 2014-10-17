@@ -39,7 +39,7 @@ package FlashGame
 			background = new Background("test");
 			
 			//RAIN
-			rain = new Rain(this, 100,900,525,60, 15, 5, "left");
+			rain = new Rain(this, 100,900,525,50, 15, 5, "left");
 			
 			//GROUND & SKY
 			var testGround:Platform = new Platform(7, 15, 275, 15, "b_wide");
