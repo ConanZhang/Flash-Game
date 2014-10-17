@@ -63,6 +63,7 @@ package Assets {
 			itemDropFixture.shape = itemDropShape;
 			itemDropFixture.isSensor = true;
 			itemDropFixture.userData = new Array("ITEM");
+			itemDropFixture.filter.maskBits = 1;
 			
 			//Box2D collision shape
 			var itemDropCollision:b2BodyDef = new b2BodyDef();

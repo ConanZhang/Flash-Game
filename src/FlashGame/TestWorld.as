@@ -59,10 +59,9 @@ package FlashGame
 			}
 			
 			//ENEMY
-			var testEnemy:PlatformEnemy = new PlatformEnemy(133, -3, 4, 4, 1);
-//			var enemyAdd:Timer = new Timer(3500);
-//			enemyAdd.addEventListener(TimerEvent.TIMER, addEnemy);
-//			enemyAdd.start();
+			var enemyAdd:Timer = new Timer(3500);
+			enemyAdd.addEventListener(TimerEvent.TIMER, addEnemy);
+			enemyAdd.start();
 			
 			//AMMO
 			var beginAmmoDrop:ItemDrop = new ItemDrop(Math.random()*190 + 40, Math.random()*-90, 1.5,1.5, 2);	
@@ -73,10 +72,18 @@ package FlashGame
 		}
 		
 		private function addEnemy(e:TimerEvent):void{
-			//test enemy
+			//test enemies
 			if(!Stage.paused && Stage.world.GetBodyCount() < 120 && Player.playerHealth != 0){
-				var testEnemy:FlyingEnemy = new FlyingEnemy(Math.random()*190 + 40, Math.random()*-90, 2, 3);
-//				var testEnemy:PlatformEnemy = new PlatformEnemy(Math.random()*190 + 40, Math.random()*-90, 3, 3, 1);
+				var testEnemy1:FlyingEnemy = new FlyingEnemy(Math.random()*190 + 40, Math.random()*-90, 2, 3);
+
+				//circles left
+				if(Math.random() > 0.5){
+					var testEnemy2:PlatformEnemy = new PlatformEnemy(Math.random()*190 + 40, Math.random()*-90, 3, 3, 1);
+				}
+				//circles right
+				else{
+					var testEnemy3:PlatformEnemy = new PlatformEnemy(Math.random()*190 + 40, Math.random()*-90, 3, 3, 2);
+				}
 			}
 		}
 		

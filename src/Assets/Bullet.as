@@ -60,7 +60,8 @@ package Assets {
 			//Box2D shape properties
 			bulletFixture.shape = bulletShape;
 			bulletFixture.density = bullet_Density;
-			bulletFixture.filter.maskBits = 2;
+			bulletFixture.filter.categoryBits = 4;
+			bulletFixture.filter.maskBits = 26;
 			bulletFixture.userData = new Array("BULLET");
 			
 			//initial velocity

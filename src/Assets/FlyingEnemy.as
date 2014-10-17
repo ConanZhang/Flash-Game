@@ -88,8 +88,9 @@ package Assets {
 			flyingEnemyFixture.shape = flyingEnemyShape;
 			flyingEnemyFixture.userData = new Array("ENEMY");
 			flyingEnemyFixture.userData.push("FLYING");
-			flyingEnemyFixture.filter.categoryBits = 6;
-			
+			flyingEnemyFixture.filter.categoryBits = 8;
+			flyingEnemyFixture.filter.maskBits = 15;
+
 			//Box2D collision shape
 			var flyingEnemyCollision:b2BodyDef = new b2BodyDef();
 			flyingEnemyCollision.position.Set(position.x + flyingEnemy_Width/2, position.y + flyingEnemy_Height/2);
@@ -144,7 +145,8 @@ package Assets {
 				
 				if(rayUserData1 != "PLAYER" &&
 					rayUserData1 != "WEAPON" &&
-					rayUserData1 != "ITEM"){
+					rayUserData1 != "ITEM" &&
+					rayUserData1 != "ENEMY" ){
 					if(rayNormal.y == -1 || rayNormal.y == 1){
 						if(collisionBody.GetPosition().x < rayFixture.GetBody().GetPosition().x){
 							direction.Set(-110, 0);
@@ -183,7 +185,8 @@ package Assets {
 
 				if(rayUserData2 != "PLAYER" &&
 					rayUserData2 != "WEAPON"&&
-					rayUserData2 != "ITEM"){
+					rayUserData2 != "ITEM" &&
+					rayUserData2 != "ENEMY" ){
 					if(rayNormal2.y == -1 || rayNormal2.y == 1){
 						if(collisionBody.GetPosition().x < rayFixture2.GetBody().GetPosition().x){
 							direction.Set(-110, 0);
@@ -291,7 +294,7 @@ package Assets {
 			if(flyingEnemyHealth <= 0){				
 				//don't collide with anything
 				var deadFilter:b2FilterData = new b2FilterData();
-				deadFilter.maskBits = 4;
+				deadFilter.maskBits = 0;
 				
 				collisionBody.GetFixtureList().SetFilterData(deadFilter);
 				collisionBody.GetFixtureList().GetUserData()[0] = "DEAD";

@@ -67,13 +67,14 @@ package Assets {
 		public function make():void{
 			//Box2D shape
 			var platformEnemyShape:b2PolygonShape = new b2PolygonShape();
-			platformEnemyShape.SetAsBox(platformEnemy_Width/4, platformEnemy_Height/4);
+			platformEnemyShape.SetAsBox(platformEnemy_Width/4.5, platformEnemy_Height/4.5);
 			
 			//Box2D shape properties
 			platformEnemyFixture.shape = platformEnemyShape;
 			platformEnemyFixture.userData = new Array("ENEMY");
 			platformEnemyFixture.userData.push("PLATFORM");
-			platformEnemyFixture.filter.categoryBits = 6;
+			platformEnemyFixture.filter.categoryBits = 16;
+			platformEnemyFixture.filter.maskBits = 7;
 			
 			//Box2D collision shape
 			var platformEnemyCollision:b2BodyDef = new b2BodyDef();
@@ -87,21 +88,23 @@ package Assets {
 			
 			/**Bottom Sensor*/
 			platformEnemyShape = new b2PolygonShape();
-			platformEnemyShape.SetAsBox(platformEnemy_Width/3, platformEnemy_Height/15);
-			
+			platformEnemyShape.SetAsBox(platformEnemy_Width/3, platformEnemy_Height/3.5);
+			platformEnemyFixture.filter.maskBits = 2;
+
 			platformEnemyFixture.isSensor = true;
 			platformEnemyFixture.userData = new Array("ENEMY");
 			platformEnemyFixture.userData.push("BOTTOM");
 			
 			platformEnemyFixture.shape = platformEnemyShape;
 			
-			platformEnemyCollision.position.Set(position.x + platformEnemy_Width/4, position.y + platformEnemy_Height/1.75);
+			platformEnemyCollision.position.Set(position.x + platformEnemy_Width/4, position.y + platformEnemy_Height/3);
 			bottomSensor = world_Sprite.CreateBody(platformEnemyCollision);
 			bottomSensor.CreateFixture(platformEnemyFixture);
 			
 			/**Right Sensor*/
 			platformEnemyShape = new b2PolygonShape();
-			platformEnemyShape.SetAsBox(platformEnemy_Width/15, platformEnemy_Height/3);
+			platformEnemyShape.SetAsBox(platformEnemy_Width/3.5, platformEnemy_Height/3);
+			platformEnemyFixture.filter.maskBits = 2;
 			
 			platformEnemyFixture.isSensor = true;
 			platformEnemyFixture.userData = new Array("ENEMY");
@@ -109,35 +112,37 @@ package Assets {
 			
 			platformEnemyFixture.shape = platformEnemyShape;
 			
-			platformEnemyCollision.position.Set(position.x + platformEnemy_Width/2, position.y + platformEnemy_Height/4);
+			platformEnemyCollision.position.Set(position.x + platformEnemy_Width/3, position.y + platformEnemy_Height/4);
 			rightSensor = world_Sprite.CreateBody(platformEnemyCollision);
 			rightSensor.CreateFixture(platformEnemyFixture);
 			
 			/**Left Sensor*/
 			platformEnemyShape = new b2PolygonShape();
-			platformEnemyShape.SetAsBox(platformEnemy_Width/15, platformEnemy_Height/3);
-			
+			platformEnemyShape.SetAsBox(platformEnemy_Width/3.5, platformEnemy_Height/3);
+			platformEnemyFixture.filter.maskBits = 2;
+
 			platformEnemyFixture.isSensor = true;
 			platformEnemyFixture.userData = new Array("ENEMY");
 			platformEnemyFixture.userData.push("LEFT");
 			
 			platformEnemyFixture.shape = platformEnemyShape;
 			
-			platformEnemyCollision.position.Set(position.x + platformEnemy_Width/3, position.y + platformEnemy_Height/4);
+			platformEnemyCollision.position.Set(position.x + platformEnemy_Width/6, position.y + platformEnemy_Height/4);
 			leftSensor = world_Sprite.CreateBody(platformEnemyCollision);
 			leftSensor.CreateFixture(platformEnemyFixture);
 			
 			/**Top Sensor*/
 			platformEnemyShape = new b2PolygonShape();
-			platformEnemyShape.SetAsBox(platformEnemy_Width/3, platformEnemy_Height/15);
-			
+			platformEnemyShape.SetAsBox(platformEnemy_Width/3, platformEnemy_Height/3.5);
+			platformEnemyFixture.filter.maskBits = 2;
+
 			platformEnemyFixture.isSensor = true;
 			platformEnemyFixture.userData = new Array("ENEMY");
 			platformEnemyFixture.userData.push("TOP");
 			
 			platformEnemyFixture.shape = platformEnemyShape;
 			
-			platformEnemyCollision.position.Set(position.x + platformEnemy_Width/4, position.y);
+			platformEnemyCollision.position.Set(position.x + platformEnemy_Width/4, position.y + platformEnemy_Height/6);
 			topSensor = world_Sprite.CreateBody(platformEnemyCollision);
 			topSensor.CreateFixture(platformEnemyFixture);
 			
@@ -184,39 +189,127 @@ package Assets {
 			var topData:* = topSensor.GetFixtureList().GetUserData()[1];
 			
 			/**Circle objects*/
-			//on top
-			if(bottomData == "BOTTOM_ON" && leftData == "LEFT_ON" && rightData == "RIGHT_ON"){
-				if(platformEnemyType == 1){
-					direction.Set(-200, 0);
+			//circle left
+			if(platformEnemyType == 1){
+				if(leftData != "GROUND" && rightData != "GROUND" && bottomData != "GROUND" && topData != "GROUND"){
+					//on top
+					if(leftData == "LEFT_ON" && bottomData == "BOTTOM_ON" && topData == "TOP"){
+						direction.Set(-5, 1);
+						collisionBody.SetLinearVelocity(direction);
+					}
+						//on left and top
+					else if(rightData == "RIGHT_ON" && bottomData == "BOTTOM_ON"){
+						direction.Set(3 , 4);
+						collisionBody.SetLinearVelocity(direction);
+					}
+						//on left and bottom
+					else if(rightData == "RIGHT_ON" && topData == "TOP_ON"){
+						direction.Set(5, -1);
+						collisionBody.SetLinearVelocity(direction);
+					}
+						//on right and bottom
+					else if(leftData == "LEFT_ON" && topData == "TOP_ON"){
+						direction.Set(-3, -4);
+						collisionBody.SetLinearVelocity(direction);
+					}
+						//fall
+					else{
+						direction.Set(0, 20);
+						collisionBody.ApplyForce(direction, collisionBody.GetPosition());
+					}
 				}
+				//simply move toward player
 				else{
-					direction.Set(200, 0);
+					//push away if too close
+					if(collisionBody.GetPosition().x - Stage.playerBody.GetPosition().x < 1 && 
+					   collisionBody.GetPosition().x - Stage.playerBody.GetPosition().x > -1){
+						
+						if(Math.random() > 0.5){
+							direction.Set(30, 0);
+							collisionBody.ApplyImpulse(direction, collisionBody.GetPosition());	
+						}
+						else{
+							direction.Set(-30, 0);
+							collisionBody.ApplyImpulse(direction, collisionBody.GetPosition());
+						}
+					}
+					//move toward
+					else{
+						if(collisionBody.GetPosition().x < Stage.playerBody.GetPosition().x ){
+							direction.Set(10, 0);
+							collisionBody.SetLinearVelocity(direction);
+						}
+						else{
+							direction.Set(-10, 0);
+							collisionBody.SetLinearVelocity(direction);
+						}
+					}
 				}
-				collisionBody.SetAwake(true);
-				collisionBody.ApplyForce(direction, collisionBody.GetPosition() );
 			}
-			//on left and top
-			else if(rightData == "RIGHT_ON" && topData == "TOP"){
-				if(platformEnemyType == 1){
-					direction.Set(300, -300);
+			//circle right
+			else{
+				if(leftData != "GROUND" && rightData != "GROUND" && bottomData != "GROUND" && topData != "GROUND"){
+					//on top
+					if(rightData == "RIGHT_ON" && bottomData == "BOTTOM_ON" && topData == "TOP"){
+						direction.Set(5, 1);
+						collisionBody.SetLinearVelocity(direction);
+					}
+						//on right and top
+					else if(leftData == "LEFT_ON" && bottomData == "BOTTOM_ON"){
+						direction.Set(-3, 4);
+						collisionBody.SetLinearVelocity(direction);
+					}
+						//on right and bottom
+					else if(leftData == "LEFT_ON" && topData == "TOP_ON"){
+						direction.Set(-5, -1);
+						collisionBody.SetLinearVelocity(direction);
+					}
+						//on left and bottom
+					else if(rightData == "RIGHT_ON" && topData == "TOP_ON"){
+						direction.Set(3, -4);
+						collisionBody.SetLinearVelocity(direction);
+					}
+						//fall
+					else{
+						direction.Set(0, 20);
+						collisionBody.ApplyForce(direction, collisionBody.GetPosition());
+					}
 				}
+				//simply move toward player
 				else{
-					direction.Set(-300, -300);
+					//push away if too close
+					if(collisionBody.GetPosition().x - Stage.playerBody.GetPosition().x < 1 && 
+						collisionBody.GetPosition().x - Stage.playerBody.GetPosition().x > -1){
+						
+						if(Math.random() > 0.5){
+							direction.Set(30, 0);
+							collisionBody.ApplyImpulse(direction, collisionBody.GetPosition());	
+						}
+						else{
+							direction.Set(-30, 0);
+							collisionBody.ApplyImpulse(direction, collisionBody.GetPosition());
+						}
+					}
+						//move toward
+					else{
+						if(collisionBody.GetPosition().x < Stage.playerBody.GetPosition().x ){
+							direction.Set(10, 0);
+							collisionBody.SetLinearVelocity(direction);
+						}
+						else{
+							direction.Set(-10, 0);
+							collisionBody.SetLinearVelocity(direction);
+						}
+					}
 				}
-				collisionBody.SetAwake(true);
-				collisionBody.ApplyForce(direction, collisionBody.GetPosition() );
+				
 			}
-			//on left and bottom
-			else if(rightData == "RIGHT_ON" && topData == "TOP_ON"){
-				if(platformEnemyType == 1){
-					direction.Set(-300, -300);
-				}
-				else{
-					direction.Set(300, -300);
-				}
-				collisionBody.SetAwake(true);
-				collisionBody.ApplyForce(direction, collisionBody.GetPosition() );
-			}
+			
+			
+			/**Oppose gravity*/
+			direction.Set(0, -425);
+			collisionBody.SetAwake(true);
+			collisionBody.ApplyForce(direction, collisionBody.GetPosition() );
 			
 			/**Hurt yourself*/
 			for (var i:uint = 1; i <= collisionBody.GetFixtureList().GetUserData().length; i++) {
@@ -236,7 +329,7 @@ package Assets {
 			if(platformEnemyHealth <= 0){				
 				//don't collide with anything
 				var deadFilter:b2FilterData = new b2FilterData();
-				deadFilter.maskBits = 4;
+				deadFilter.maskBits = 0;
 				
 				collisionBody.GetFixtureList().SetFilterData(deadFilter);
 				bottomSensor.GetFixtureList().SetFilterData(deadFilter);

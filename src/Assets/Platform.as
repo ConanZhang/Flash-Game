@@ -83,13 +83,16 @@ package Assets {
 			platformFixture.shape = platformShape;
 			platformFixture.friction = platform_Friction;
 			platformFixture.density = platform_Density;
-			platformFixture.filter.categoryBits = 6;
 			platformFixture.userData = new Array("PLATFORM");
+			platformFixture.filter.categoryBits = 2;
 			
 			//player can't wall jump off tall barriers and slide on them
 			if(platformType == "b_tall"){
 				platformFixture.userData[0] = "NO_JUMP";
 				platformFixture.friction = 0
+			}
+			else if(platformType == "b_wide"){
+				platformFixture.userData[0] = "GROUND";
 			}
 			else if(platformType == "enemy"){
 				platformFixture.userData[0] = "ENEMY";
