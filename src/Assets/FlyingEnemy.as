@@ -111,7 +111,6 @@ package Assets {
 		
 		/**Child Update [called by Object's update]*/
 		public override function childUpdate():void{
-			
 			var direction:b2Vec2 = new b2Vec2();
 			   						
 			/**Follow player*/ 
@@ -235,10 +234,20 @@ package Assets {
 					collisionBody.GetLinearVelocity().y < 20 &&
 					collisionBody.GetLinearVelocity().y > -20){
 					direction.Normalize();		
-					direction.Multiply(15);
+					direction.Multiply(45);
 				}
 				
 				//follow
+				collisionBody.SetAwake(true);
+				collisionBody.ApplyForce(direction, collisionBody.GetPosition() );
+			}
+			
+			//push away if too close
+			if(Stage.playerBody.GetPosition().x - collisionBody.GetPosition().x < 1 &&
+				Stage.playerBody.GetPosition().x - collisionBody.GetPosition().x > -1 && 
+				Stage.playerBody.GetPosition().y - collisionBody.GetPosition().y < 1 && 
+				Stage.playerBody.GetPosition().y - collisionBody.GetPosition().y > -1){
+				direction.Set(0, -600);
 				collisionBody.SetAwake(true);
 				collisionBody.ApplyForce(direction, collisionBody.GetPosition() );
 			}

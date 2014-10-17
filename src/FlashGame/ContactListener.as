@@ -25,7 +25,8 @@ package FlashGame
 			if(userDataA == "PLAYER" &&
 			   userDataB != "ENEMY" && 
 			   userDataB != "ITEM" &&
-			   userDataB != "DEAD"){
+			   userDataB != "DEAD" &&
+			   userDataB != "NO_JUMP"){
 				var playerDataA:* = contact.GetFixtureA().GetUserData()[1];
 				
 				if(playerDataA == "FOOT"){
@@ -55,7 +56,8 @@ package FlashGame
 			else if(userDataB == "PLAYER" &&
 				    userDataA != "ENEMY" && 
 					userDataA != "ITEM" &&
-					userDataA != "DEAD"){
+					userDataA != "DEAD" &&
+					userDataA != "NO_JUMP"){
 				
 				var playerDataB:* = contact.GetFixtureB().GetUserData()[1];
 				
