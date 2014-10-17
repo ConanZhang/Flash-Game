@@ -67,7 +67,7 @@ package Assets {
 		public function make():void{
 			//Box2D shape
 			var platformEnemyShape:b2PolygonShape = new b2PolygonShape();
-			platformEnemyShape.SetAsBox(platformEnemy_Width/4.5, platformEnemy_Height/4.5);
+			platformEnemyShape.SetAsBox(platformEnemy_Width/4.7, platformEnemy_Height/4.7);
 			
 			//Box2D shape properties
 			platformEnemyFixture.shape = platformEnemyShape;
@@ -198,22 +198,22 @@ package Assets {
 				if(leftData != "GROUND" && rightData != "GROUND" && bottomData != "GROUND" && topData != "GROUND"){
 					//on top
 					if(leftData == "LEFT_ON" && bottomData == "BOTTOM_ON" && topData == "TOP"){
-						direction.Set(-3, 1);
+						direction.Set(-5, 1);
 						collisionBody.SetLinearVelocity(direction);
 					}
 						//on left and top
 					else if(rightData == "RIGHT_ON" && bottomData == "BOTTOM_ON"){
-						direction.Set(3 , 3);
+						direction.Set(3 , 4);
 						collisionBody.SetLinearVelocity(direction);
 					}
 						//on left and bottom
 					else if(rightData == "RIGHT_ON" && topData == "TOP_ON"){
-						direction.Set(3, -1);
+						direction.Set(5, -1);
 						collisionBody.SetLinearVelocity(direction);
 					}
 						//on right and bottom
 					else if(leftData == "LEFT_ON" && topData == "TOP_ON"){
-						direction.Set(-3, -3);
+						direction.Set(-3, -4);
 						collisionBody.SetLinearVelocity(direction);
 					}
 						//fall
@@ -255,22 +255,22 @@ package Assets {
 				if(leftData != "GROUND" && rightData != "GROUND" && bottomData != "GROUND" && topData != "GROUND"){
 					//on top
 					if(rightData == "RIGHT_ON" && bottomData == "BOTTOM_ON" && topData == "TOP"){
-						direction.Set(3, 1);
+						direction.Set(5, 1);
 						collisionBody.SetLinearVelocity(direction);
 					}
 						//on right and top
 					else if(leftData == "LEFT_ON" && bottomData == "BOTTOM_ON"){
-						direction.Set(-3, 3);
+						direction.Set(-3, 4);
 						collisionBody.SetLinearVelocity(direction);
 					}
 						//on right and bottom
 					else if(leftData == "LEFT_ON" && topData == "TOP_ON"){
-						direction.Set(-3, -1);
+						direction.Set(-5, -1);
 						collisionBody.SetLinearVelocity(direction);
 					}
 						//on left and bottom
 					else if(rightData == "RIGHT_ON" && topData == "TOP_ON"){
-						direction.Set(3, -3);
+						direction.Set(3, -4);
 						collisionBody.SetLinearVelocity(direction);
 					}
 						//fall
