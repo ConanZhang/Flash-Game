@@ -10,11 +10,13 @@ package FlashGame
 	import Assets.FlyingEnemy;
 	import Assets.ItemDrop;
 	import Assets.Platform;
+	import Assets.PlatformEnemy;
 	import Assets.Player;
 	import Assets.Rain;
 	
 	import Parents.Stage;
-	import Assets.PlatformEnemy;
+	import Assets.BigFlyingEnemy;
+	import Assets.BigPlatformEnemy;
 	
 	public class TestWorld extends Stage
 	{
@@ -58,8 +60,12 @@ package FlashGame
 				var bottomSquarePlatform:Platform = new Platform(44+(j*12), -48,3, 3, "square");
 			}
 			
+			//SPIKES
+			var spike1:Platform = new Platform(25, 12.5,10, 3, "enemy");
+			var spike2:Platform = new Platform(240, 12.5,10, 3, "enemy");
+			
 			//ENEMY
-			var enemyAdd:Timer = new Timer(3500);
+			var enemyAdd:Timer = new Timer(2000);
 			enemyAdd.addEventListener(TimerEvent.TIMER, addEnemy);
 			enemyAdd.start();
 			
@@ -74,16 +80,34 @@ package FlashGame
 		private function addEnemy(e:TimerEvent):void{
 			//test enemies
 			if(!Stage.paused && Stage.world.GetBodyCount() < 120 && Player.playerHealth != 0){
-				var testEnemy1:FlyingEnemy = new FlyingEnemy(Math.random()*190 + 40, Math.random()*-90, 2, 3);
-
-				//circles left
 				if(Math.random() > 0.5){
-					var testEnemy2:PlatformEnemy = new PlatformEnemy(Math.random()*190 + 40, Math.random()*-90, 3, 3, 1);
+					var testEnemy1:FlyingEnemy = new FlyingEnemy(Math.random()*190 + 40, Math.random()*-90, 2, 3);
 				}
-				//circles right
 				else{
-					var testEnemy3:PlatformEnemy = new PlatformEnemy(Math.random()*190 + 40, Math.random()*-90, 3, 3, 2);
+					var testEnemy2:BigFlyingEnemy = new BigFlyingEnemy(Math.random()*190 + 40, Math.random()*-90, 4, 5);
 				}
+
+				if(Math.random() > 0.5){
+					//circles left
+					if(Math.random() > 0.5){
+						var testEnemy3:PlatformEnemy = new PlatformEnemy(Math.random()*190 + 40, Math.random()*-90, 3, 3, 1);
+					}
+						//circles right
+					else{
+						var testEnemy4:PlatformEnemy = new PlatformEnemy(Math.random()*190 + 40, Math.random()*-90, 3, 3, 2);
+					}
+				}
+				else{
+					//circles left
+					if(Math.random() > 0.5){
+						var testEnemy5:BigPlatformEnemy = new BigPlatformEnemy(Math.random()*190 + 40, Math.random()*-90, 5, 5, 1);
+					}
+						//circles right
+					else{
+						var testEnemy6:BigPlatformEnemy = new BigPlatformEnemy(Math.random()*190 + 40, Math.random()*-90, 5, 5, 2);
+					}
+				}
+				
 			}
 		}
 		

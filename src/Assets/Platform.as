@@ -76,7 +76,7 @@ package Assets {
 				platformShape.SetAsBox(platform_Width/2, platform_Height/2);
 			}
 			else if(platformType == "enemy"){
-				platformShape.SetAsBox(platform_Width/2, platform_Height/2.75);
+				platformShape.SetAsBox(platform_Width/2, platform_Height/3);
 			}
 			
 			//Box2D shape properties
@@ -156,9 +156,7 @@ package Assets {
 				Stage.sprites.addChild(platformClip);
 			}
 			else if(platformType == "enemy"){
-				platformClip = new platform_wide();
-				platformClip.alpha = 0.5;
-				platformClip.stop();
+				platformClip = new spikes();
 				platformClip.width = platform_Width*metricPixRatio;
 				platformClip.height = platform_Height*metricPixRatio;
 				super.sprite = platformClip;

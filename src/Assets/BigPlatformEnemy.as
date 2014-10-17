@@ -2,7 +2,7 @@
  * Code to make platformEnemy
  */
 package Assets {
-
+	
 	import flash.display.MovieClip;
 	import flash.display.Sprite;
 	import flash.geom.Point;
@@ -19,7 +19,7 @@ package Assets {
 	import Parents.Objects;
 	import Parents.Stage;
 	
-	public class PlatformEnemy extends Objects{
+	public class BigPlatformEnemy extends Objects{
 		/**Class Member Variables*/
 		//STAGE
 		private var stage_Sprite:Sprite = Stage.sprites;
@@ -37,7 +37,7 @@ package Assets {
 		private var collisionBody:b2Body;
 		private var platformEnemyFixture:b2FixtureDef;
 		private var platformEnemyJoints:b2RevoluteJointDef;
-
+		
 		//AI
 		private var bottomSensor:b2Body;
 		private var rightSensor:b2Body;
@@ -46,7 +46,7 @@ package Assets {
 		private var platformEnemyType:int;
 		
 		/**Constructor*/
-		public function PlatformEnemy(xPos:Number, yPos:Number, width:Number, height:Number, type:int){
+		public function BigPlatformEnemy(xPos:Number, yPos:Number, width:Number, height:Number, type:int){
 			//assign parameters to class member variables
 			position = new Point(xPos, yPos);
 			
@@ -54,7 +54,7 @@ package Assets {
 			platformEnemy_Width = width;
 			platformEnemy_Height = height;
 			platformEnemy_LinearDamping = 1;
-			platformEnemyHealth = 2;
+			platformEnemyHealth = 4;
 			platformEnemyType = type;
 			
 			platformEnemyFixture = new b2FixtureDef();
@@ -91,7 +91,7 @@ package Assets {
 			platformEnemyShape.SetAsBox(platformEnemy_Width/3, platformEnemy_Height/3.5);
 			platformEnemyFixture.filter.categoryBits = 32;
 			platformEnemyFixture.filter.maskBits = 2;
-
+			
 			platformEnemyFixture.isSensor = true;
 			platformEnemyFixture.userData = new Array("ENEMY");
 			platformEnemyFixture.userData.push("BOTTOM");
@@ -123,7 +123,7 @@ package Assets {
 			platformEnemyShape.SetAsBox(platformEnemy_Width/3.5, platformEnemy_Height/3);
 			platformEnemyFixture.filter.categoryBits = 32;
 			platformEnemyFixture.filter.maskBits = 2;
-
+			
 			platformEnemyFixture.isSensor = true;
 			platformEnemyFixture.userData = new Array("ENEMY");
 			platformEnemyFixture.userData.push("LEFT");
@@ -139,7 +139,7 @@ package Assets {
 			platformEnemyShape.SetAsBox(platformEnemy_Width/3, platformEnemy_Height/3.5);
 			platformEnemyFixture.filter.categoryBits = 32;
 			platformEnemyFixture.filter.maskBits = 2;
-
+			
 			platformEnemyFixture.isSensor = true;
 			platformEnemyFixture.userData = new Array("ENEMY");
 			platformEnemyFixture.userData.push("TOP");
@@ -174,7 +174,7 @@ package Assets {
 			world_Sprite.CreateJoint(platformEnemyJoints);
 			
 			//Sprite
-			platformEnemyClip = new enemy_platform;
+			platformEnemyClip = new enemy_platform_big;
 			platformEnemyClip.dead = false;
 			platformEnemyClip.stop();
 			platformEnemyClip.width = platformEnemy_Width*metricPixRatio;
@@ -198,22 +198,22 @@ package Assets {
 				if(leftData != "GROUND" && rightData != "GROUND" && bottomData != "GROUND" && topData != "GROUND"){
 					//on top
 					if(leftData == "LEFT_ON" && bottomData == "BOTTOM_ON" && topData == "TOP"){
-						direction.Set(-5, 1);
+						direction.Set(-3, 1);
 						collisionBody.SetLinearVelocity(direction);
 					}
 						//on left and top
 					else if(rightData == "RIGHT_ON" && bottomData == "BOTTOM_ON"){
-						direction.Set(3 , 4);
+						direction.Set(3 , 3);
 						collisionBody.SetLinearVelocity(direction);
 					}
 						//on left and bottom
 					else if(rightData == "RIGHT_ON" && topData == "TOP_ON"){
-						direction.Set(5, -1);
+						direction.Set(3, -1);
 						collisionBody.SetLinearVelocity(direction);
 					}
 						//on right and bottom
 					else if(leftData == "LEFT_ON" && topData == "TOP_ON"){
-						direction.Set(-3, -4);
+						direction.Set(-3, -3);
 						collisionBody.SetLinearVelocity(direction);
 					}
 						//fall
@@ -222,11 +222,11 @@ package Assets {
 						collisionBody.ApplyForce(direction, collisionBody.GetPosition());
 					}
 				}
-				//simply move toward player
+					//simply move toward player
 				else{
 					//push away if too close
 					if(collisionBody.GetPosition().x - Stage.playerBody.GetPosition().x < 1 && 
-					   collisionBody.GetPosition().x - Stage.playerBody.GetPosition().x > -1){
+						collisionBody.GetPosition().x - Stage.playerBody.GetPosition().x > -1){
 						
 						if(Math.random() > 0.5){
 							direction.Set(30, 0);
@@ -237,7 +237,7 @@ package Assets {
 							collisionBody.ApplyImpulse(direction, collisionBody.GetPosition());
 						}
 					}
-					//move toward
+						//move toward
 					else{
 						if(collisionBody.GetPosition().x < Stage.playerBody.GetPosition().x ){
 							direction.Set(10, 0);
@@ -250,27 +250,27 @@ package Assets {
 					}
 				}
 			}
-			//circle right
+				//circle right
 			else{
 				if(leftData != "GROUND" && rightData != "GROUND" && bottomData != "GROUND" && topData != "GROUND"){
 					//on top
 					if(rightData == "RIGHT_ON" && bottomData == "BOTTOM_ON" && topData == "TOP"){
-						direction.Set(5, 1);
+						direction.Set(3, 1);
 						collisionBody.SetLinearVelocity(direction);
 					}
 						//on right and top
 					else if(leftData == "LEFT_ON" && bottomData == "BOTTOM_ON"){
-						direction.Set(-3, 4);
+						direction.Set(-3, 3);
 						collisionBody.SetLinearVelocity(direction);
 					}
 						//on right and bottom
 					else if(leftData == "LEFT_ON" && topData == "TOP_ON"){
-						direction.Set(-5, -1);
+						direction.Set(-3, -1);
 						collisionBody.SetLinearVelocity(direction);
 					}
 						//on left and bottom
 					else if(rightData == "RIGHT_ON" && topData == "TOP_ON"){
-						direction.Set(3, -4);
+						direction.Set(3, -3);
 						collisionBody.SetLinearVelocity(direction);
 					}
 						//fall
@@ -279,7 +279,7 @@ package Assets {
 						collisionBody.ApplyForce(direction, collisionBody.GetPosition());
 					}
 				}
-				//simply move toward player
+					//simply move toward player
 				else{
 					//push away if too close
 					if(collisionBody.GetPosition().x - Stage.playerBody.GetPosition().x < 1 && 
@@ -340,7 +340,7 @@ package Assets {
 				rightSensor.GetFixtureList().SetFilterData(deadFilter);
 				leftSensor.GetFixtureList().SetFilterData(deadFilter);
 				topSensor.GetFixtureList().SetFilterData(deadFilter);
-
+				
 				collisionBody.GetFixtureList().GetUserData()[0] = "DEAD";
 				
 				platformEnemyClip.gotoAndStop("death");	

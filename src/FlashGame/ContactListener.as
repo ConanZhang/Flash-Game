@@ -93,7 +93,7 @@ package FlashGame
 					if(Player.playerInvulnerable == 0 && !Stage.slowMotion && Player.playerHealth != 0){
 						Player.playerInvulnerable = 50;
 						Player.playerHealth--;
-						PlayerHUD.heartDamaged = true;;
+						PlayerHUD.heartDamaged = true;
 						
 						//flinch
 						if(contact.GetFixtureA().GetBody().GetPosition().x < contact.GetFixtureB().GetBody().GetPosition().x){
@@ -113,7 +113,7 @@ package FlashGame
 						if(Player.playerInvulnerable == 0 && Player.playerHealth != 0){
 							Player.playerInvulnerable = 50;
 							Player.playerHealth--;
-							PlayerHUD.heartDamaged = true;;
+							PlayerHUD.heartDamaged = true;
 							
 							//flinch
 							if(contact.GetFixtureB().GetBody().GetPosition().x < contact.GetFixtureA().GetBody().GetPosition().x){
@@ -140,7 +140,7 @@ package FlashGame
 					if(Player.playerInvulnerable == 0 && !Stage.slowMotion && Player.playerHealth != 0){
 						Player.playerInvulnerable = 50;
 						Player.playerHealth--;
-						PlayerHUD.heartDamaged = true;;
+						PlayerHUD.heartDamaged = true;
 						
 						//flinch
 						if(contact.GetFixtureB().GetBody().GetPosition().x < contact.GetFixtureA().GetBody().GetPosition().x){
@@ -160,7 +160,7 @@ package FlashGame
 						if(Player.playerInvulnerable == 0 && Player.playerHealth != 0){
 							Player.playerInvulnerable = 50;
 							Player.playerHealth--;
-							PlayerHUD.heartDamaged = true;;
+							PlayerHUD.heartDamaged = true;
 							
 							//flinch
 							if(contact.GetFixtureB().GetBody().GetPosition().x < contact.GetFixtureA().GetBody().GetPosition().x){
