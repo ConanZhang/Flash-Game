@@ -7,6 +7,7 @@ package FlashGame
 	
 	import Box2D.Collision.b2Manifold;
 	import Box2D.Common.Math.b2Vec2;
+	import Box2D.Dynamics.b2Body;
 	import Box2D.Dynamics.b2ContactListener;
 	import Box2D.Dynamics.Contacts.b2Contact;
 	
@@ -181,6 +182,46 @@ package FlashGame
 				}
 			}
 			
+			/**Platform Enemy AI*/
+			if(userDataA == "ENEMY" &&
+				userDataB != "ITEM" &&
+				userDataB != "DEAD"){
+				
+				var enemyDataA:* = contact.GetFixtureA().GetUserData()[1];
+				
+				if(enemyDataA == "BOTTOM"){
+					contact.GetFixtureA().GetUserData()[1] ="BOTTOM_ON";
+				}
+				else if(enemyDataA == "RIGHT"){
+					contact.GetFixtureA().GetUserData()[1] ="RIGHT_ON";
+				}
+				else if(enemyDataA == "LEFT"){
+					contact.GetFixtureA().GetUserData()[1] ="LEFT_ON";
+				}
+				else if(enemyDataA == "TOP"){
+					contact.GetFixtureA().GetUserData()[1] ="TOP_ON";
+				}
+			}
+			else if(userDataB == "ENEMY" &&
+				userDataA != "ITEM" &&
+				userDataA != "DEAD"){
+				
+				var enemyDataB:* = contact.GetFixtureA().GetUserData()[1];
+								
+				if(enemyDataB == "BOTTOM"){
+					contact.GetFixtureB().GetUserData()[1] ="BOTTOM_ON";
+				}
+				else if(enemyDataB == "RIGHT"){
+					contact.GetFixtureB().GetUserData()[1] ="RIGHT_ON";
+				}
+				else if(enemyDataB == "LEFT"){
+					contact.GetFixtureB().GetUserData()[1] ="LEFT_ON";
+				}
+				else if(enemyDataB == "TOP"){
+					contact.GetFixtureB().GetUserData()[1] ="TOP_ON";
+				}
+			}
+			
 			/**Bullet Damage*/
 			if(userDataA == "BULLET"){
 				var bulletDataA:* = contact.GetFixtureA().GetUserData()[1];
@@ -233,6 +274,7 @@ package FlashGame
 			var userDataA:* = contact.GetFixtureA().GetUserData()[0];
 			var userDataB:* = contact.GetFixtureB().GetUserData()[0];
 			
+			/**Jumping*/
 			if(userDataA == "PLAYER" &&
 			   userDataB != "ENEMY" && 
 			   userDataB != "NO_JUMP" && 
@@ -278,7 +320,45 @@ package FlashGame
 				}
 			}
 			
-			
+			/**Platform Enemy AI*/
+			if(userDataA == "ENEMY" &&
+				userDataB != "ITEM" &&
+				userDataB != "DEAD"){
+				
+				var enemyDataA:* = contact.GetFixtureA().GetUserData()[1];
+				
+				if(enemyDataA == "BOTTOM_ON"){
+					contact.GetFixtureA().GetUserData()[1] ="BOTTOM";
+				}
+				else if(enemyDataA == "RIGHT_ON"){
+					contact.GetFixtureA().GetUserData()[1] ="RIGHT";
+				}
+				else if(enemyDataA == "LEFT_ON"){
+					contact.GetFixtureA().GetUserData()[1] ="LEFT";
+				}
+				else if(enemyDataA == "TOP_ON"){
+					contact.GetFixtureA().GetUserData()[1] ="TOP";
+				}
+			}
+			else if(userDataB == "ENEMY" &&
+				userDataA != "ITEM" &&
+				userDataA != "DEAD"){
+				
+				var enemyDataB:* = contact.GetFixtureA().GetUserData()[1];
+				
+				if(enemyDataB == "BOTTOM_ON"){
+					contact.GetFixtureB().GetUserData()[1] ="BOTTOM";
+				}
+				else if(enemyDataB == "RIGHT_ON"){
+					contact.GetFixtureB().GetUserData()[1] ="RIGHT";
+				}
+				else if(enemyDataB == "LEFT_ON"){
+					contact.GetFixtureB().GetUserData()[1] ="LEFT";
+				}
+				else if(enemyDataB == "TOP_ON"){
+					contact.GetFixtureB().GetUserData()[1] ="TOP";
+				}
+			}
 		}
 		
 		override public function PreSolve(contact:b2Contact, oldManifold:b2Manifold):void{

@@ -87,6 +87,7 @@ package Assets {
 			//Box2D shape properties
 			flyingEnemyFixture.shape = flyingEnemyShape;
 			flyingEnemyFixture.userData = new Array("ENEMY");
+			flyingEnemyFixture.userData.push("FLYING");
 			flyingEnemyFixture.filter.categoryBits = 6;
 			
 			//Box2D collision shape
