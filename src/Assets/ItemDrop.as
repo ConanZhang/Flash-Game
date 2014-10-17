@@ -62,20 +62,7 @@ package Assets {
 			//Box2D shape properties
 			itemDropFixture.shape = itemDropShape;
 			itemDropFixture.isSensor = true;
-			
-			if(itemType == 1){
-				itemDropFixture.userData = new Array("HEART");
-			}
-			else if(itemType == 2){
-				itemDropFixture.userData = new Array("PISTOL_AMMO");
-			}
-			else if(itemType == 3){
-				itemDropFixture.userData = new Array("SHOTGUN_AMMO");
-			}
-			else if(itemType == 4){
-				itemDropFixture.userData = new Array("MACHINEGUN_AMMO");
-			}
-
+			itemDropFixture.userData = new Array("ITEM");
 			
 			//Box2D collision shape
 			var itemDropCollision:b2BodyDef = new b2BodyDef();

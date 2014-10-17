@@ -59,7 +59,6 @@ package FlashGame
 			}
 			
 			//ENEMY
-//			var testEnemy:PlatformEnemy = new PlatformEnemy(135, 7, 3, 3);
 			var enemyAdd:Timer = new Timer(3500);
 			enemyAdd.addEventListener(TimerEvent.TIMER, addEnemy);
 			enemyAdd.start();

@@ -61,22 +61,23 @@ package Assets {
 			bulletFixture.shape = bulletShape;
 			bulletFixture.density = bullet_Density;
 			bulletFixture.filter.maskBits = 2;
+			bulletFixture.userData = new Array("BULLET");
 			
 			//initial velocity
 			if(Weapon.weaponType == 1){
 				bulletXDirection = Math.cos(Stage.weaponRotation)*300;
 				bulletYDirection = Math.sin(Stage.weaponRotation)*300;
-				bulletFixture.userData = new Array("PISTOL_BULLET");
+				bulletFixture.userData.push("PISTOL");
 			}
 			else if(Weapon.weaponType == 2){
 				bulletXDirection = Math.cos(Stage.weaponRotation+Math.random()*0.5 - 0.25)*300;
 				bulletYDirection = Math.sin(Stage.weaponRotation+Math.random()*0.5 - 0.25)*300;
-				bulletFixture.userData = new Array("SHOTGUN_BULLET");
+				bulletFixture.userData.push("SHOTGUN");
 			}
 			else if(Weapon.weaponType == 3){
 				bulletXDirection = Math.cos(Stage.weaponRotation+Math.random()*0.25 - 0.12)*300;
 				bulletYDirection = Math.sin(Stage.weaponRotation+Math.random()*0.25 - 0.12)*300;
-				bulletFixture.userData = new Array("MACHINEGUN_BULLET");
+				bulletFixture.userData.push("MACHINEGUN");
 			}
 			
 			

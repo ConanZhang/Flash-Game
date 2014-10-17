@@ -22,21 +22,20 @@ package FlashGame
 			var userDataA:* = contact.GetFixtureA().GetUserData()[0];
 			var userDataB:* = contact.GetFixtureB().GetUserData()[0];
 			/**Jumping*/
-			if(userDataB != "ENEMY" && 
-			   userDataB != "HEART" &&
-			   userDataB != "PISTOL_AMMO" &&
-			   userDataB != "SHOTGUN_AMMO" &&
-			   userDataB != "MACHINEGUN_AMMO" &&
+			if(userDataA == "PLAYER" &&
+			   userDataB != "ENEMY" && 
+			   userDataB != "ITEM" &&
 			   userDataB != "DEAD"){
+				var playerDataA:* = contact.GetFixtureA().GetUserData()[1];
 				
-				if(userDataA == "FOOT"){
+				if(playerDataA == "FOOT"){
 					Stage.jumping = false;
 					Stage.airJumping = false;
 					Stage.jumpTime = 0;
 					Stage.jumpAmount = Stage.defaultJumpAmount;
 					Player.STATE = Player.IDLE;
 				}
-				else if(userDataA == "RIGHT"){
+				else if(playerDataA == "RIGHT"){
 					Stage.jumping = false;
 					Stage.airJumping = false;
 					Stage.jumpTime = 0;
@@ -44,7 +43,7 @@ package FlashGame
 					Stage.rightWall = true;
 					Player.STATE = Player.R_WALL;
 				}
-				else if(userDataA == "LEFT"){
+				else if(playerDataA == "LEFT"){
 					Stage.jumping = false;
 					Stage.airJumping = false;
 					Stage.jumpTime = 0;
@@ -53,21 +52,21 @@ package FlashGame
 					Player.STATE = Player.L_WALL;
 				}
 			}
-			else if(userDataA != "ENEMY" && 
-					userDataA != "HEART" &&
-					userDataA != "PISTOL_AMMO" &&
-					userDataA != "SHOTGUN_AMMO" &&
-					userDataA != "MACHINEGUN_AMMO" &&
+			else if(userDataB == "PLAYER" &&
+				    userDataA != "ENEMY" && 
+					userDataA != "ITEM" &&
 					userDataA != "DEAD"){
 				
-				if(userDataB == "FOOT"){
+				var playerDataB:* = contact.GetFixtureB().GetUserData()[1];
+				
+				if(playerDataB == "FOOT"){
 					Stage.jumping = false;
 					Stage.airJumping = false;
 					Stage.jumpTime = 0;
 					Stage.jumpAmount = Stage.defaultJumpAmount;
 					Player.STATE = Player.IDLE;
 				}
-				else if(userDataB == "RIGHT"){
+				else if(playerDataB == "RIGHT"){
 					Stage.jumping = false;
 					Stage.airJumping = false;
 					Stage.jumpTime = 0;
@@ -75,7 +74,7 @@ package FlashGame
 					Stage.rightWall = true;
 					Player.STATE = Player.R_WALL;
 				}
-				else if(userDataB == "LEFT"){
+				else if(playerDataB == "LEFT"){
 					Stage.jumping = false;
 					Stage.airJumping = false;
 					Stage.jumpTime = 0;
@@ -87,79 +86,60 @@ package FlashGame
 			
 			/**Enemy contact*/
 			if(userDataA == "PLAYER" && userDataB == "ENEMY"){
-				//take away health
-				if(Player.playerInvulnerable == 0 && !Stage.slowMotion && Player.playerHealth != 0){
-					Player.playerInvulnerable = 50;
-					Player.playerHealth--;
-					PlayerHUD.heartDamaged = true;;
-					
-					//flinch
-					if(contact.GetFixtureA().GetBody().GetPosition().x < contact.GetFixtureB().GetBody().GetPosition().x){
-						Stage.playerBody.SetLinearVelocity( new b2Vec2(-75, 0) );
-						Stage.flinchTime = 12;
-						Player.STATE = Player.FLINCH;
-					}
-					else if(contact.GetFixtureA().GetBody().GetPosition().x > contact.GetFixtureB().GetBody().GetPosition().x){
-						Stage.playerBody.SetLinearVelocity( new b2Vec2(75, 0) );
-						Stage.flinchTime = 12;
-						Player.STATE = Player.FLINCH;
-					}
-					
-				}
-				//if using slow motion, but don't have any
-				else if(Stage.slowMotion && Stage.slowAmount <=0){
-					if(Player.playerInvulnerable == 0 && Player.playerHealth != 0){
+				if(contact.GetFixtureA().GetUserData()[1] == "BODY"){
+					//take away health
+					if(Player.playerInvulnerable == 0 && !Stage.slowMotion && Player.playerHealth != 0){
 						Player.playerInvulnerable = 50;
 						Player.playerHealth--;
 						PlayerHUD.heartDamaged = true;;
-
+						
 						//flinch
-						if(contact.GetFixtureB().GetBody().GetPosition().x < contact.GetFixtureA().GetBody().GetPosition().x){
+						if(contact.GetFixtureA().GetBody().GetPosition().x < contact.GetFixtureB().GetBody().GetPosition().x){
 							Stage.playerBody.SetLinearVelocity( new b2Vec2(-75, 0) );
 							Stage.flinchTime = 12;
 							Player.STATE = Player.FLINCH;
 						}
-						else if(contact.GetFixtureB().GetBody().GetPosition().x > contact.GetFixtureA().GetBody().GetPosition().x){
+						else if(contact.GetFixtureA().GetBody().GetPosition().x > contact.GetFixtureB().GetBody().GetPosition().x){
 							Stage.playerBody.SetLinearVelocity( new b2Vec2(75, 0) );
 							Stage.flinchTime = 12;
 							Player.STATE = Player.FLINCH;
 						}
+						
+					}
+						//if using slow motion, but don't have any
+					else if(Stage.slowMotion && Stage.slowAmount <=0){
+						if(Player.playerInvulnerable == 0 && Player.playerHealth != 0){
+							Player.playerInvulnerable = 50;
+							Player.playerHealth--;
+							PlayerHUD.heartDamaged = true;;
+							
+							//flinch
+							if(contact.GetFixtureB().GetBody().GetPosition().x < contact.GetFixtureA().GetBody().GetPosition().x){
+								Stage.playerBody.SetLinearVelocity( new b2Vec2(-75, 0) );
+								Stage.flinchTime = 12;
+								Player.STATE = Player.FLINCH;
+							}
+							else if(contact.GetFixtureB().GetBody().GetPosition().x > contact.GetFixtureA().GetBody().GetPosition().x){
+								Stage.playerBody.SetLinearVelocity( new b2Vec2(75, 0) );
+								Stage.flinchTime = 12;
+								Player.STATE = Player.FLINCH;
+							}
+						}
+					}
+					else if(Stage.slowMotion && Stage.slowAmount > 0){
+						Player.STATE = Player.DODGE;
 					}
 				}
-				else if(Stage.slowMotion && Stage.slowAmount > 0){
-					Player.STATE = Player.DODGE;
-				}
-				else{
-					return;
-				}
+				
 			}
 			else if(userDataA == "ENEMY" && userDataB == "PLAYER"){
-				//take away health
-				if(Player.playerInvulnerable == 0 && !Stage.slowMotion && Player.playerHealth != 0){
-					Player.playerInvulnerable = 50;
-					Player.playerHealth--;
-					PlayerHUD.heartDamaged = true;;
-					
-					//flinch
-					if(contact.GetFixtureB().GetBody().GetPosition().x < contact.GetFixtureA().GetBody().GetPosition().x){
-						Stage.playerBody.SetLinearVelocity( new b2Vec2(-75, 0) );
-						Stage.flinchTime = 12;
-						Player.STATE = Player.FLINCH;
-					}
-					else if(contact.GetFixtureB().GetBody().GetPosition().x > contact.GetFixtureA().GetBody().GetPosition().x){
-						Stage.playerBody.SetLinearVelocity( new b2Vec2(75, 0) );
-						Stage.flinchTime = 12;
-						Player.STATE = Player.FLINCH;
-					}
-					
-				}
-					//if using slow motion, but don't have any
-				else if(Stage.slowMotion && Stage.slowAmount <=0){
-					if(Player.playerInvulnerable == 0 && Player.playerHealth != 0){
+				if(contact.GetFixtureB().GetUserData()[1] == "BODY"){
+					//take away health
+					if(Player.playerInvulnerable == 0 && !Stage.slowMotion && Player.playerHealth != 0){
 						Player.playerInvulnerable = 50;
 						Player.playerHealth--;
 						PlayerHUD.heartDamaged = true;;
-
+						
 						//flinch
 						if(contact.GetFixtureB().GetBody().GetPosition().x < contact.GetFixtureA().GetBody().GetPosition().x){
 							Stage.playerBody.SetLinearVelocity( new b2Vec2(-75, 0) );
@@ -171,65 +151,77 @@ package FlashGame
 							Stage.flinchTime = 12;
 							Player.STATE = Player.FLINCH;
 						}
+						
 					}
-				}
-				else if(Stage.slowMotion && Stage.slowAmount > 0){
-					Player.STATE = Player.DODGE;
-				}
-				else{
-					return;
+						//if using slow motion, but don't have any
+					else if(Stage.slowMotion && Stage.slowAmount <=0){
+						if(Player.playerInvulnerable == 0 && Player.playerHealth != 0){
+							Player.playerInvulnerable = 50;
+							Player.playerHealth--;
+							PlayerHUD.heartDamaged = true;;
+							
+							//flinch
+							if(contact.GetFixtureB().GetBody().GetPosition().x < contact.GetFixtureA().GetBody().GetPosition().x){
+								Stage.playerBody.SetLinearVelocity( new b2Vec2(-75, 0) );
+								Stage.flinchTime = 12;
+								Player.STATE = Player.FLINCH;
+							}
+							else if(contact.GetFixtureB().GetBody().GetPosition().x > contact.GetFixtureA().GetBody().GetPosition().x){
+								Stage.playerBody.SetLinearVelocity( new b2Vec2(75, 0) );
+								Stage.flinchTime = 12;
+								Player.STATE = Player.FLINCH;
+							}
+						}
+					}
+					else if(Stage.slowMotion && Stage.slowAmount > 0){
+						Player.STATE = Player.DODGE;
+					}
 				}
 			}
 			
 			/**Bullet Damage*/
-			if(contact.GetFixtureA().GetUserData()[0] == "PISTOL_BULLET"){
-				contact.GetFixtureA().GetUserData()[0] ="DEAD";
-				if(contact.GetFixtureB().GetUserData()[0] == "ENEMY"){
-					contact.GetFixtureB().GetUserData().push(1);
+			if(userDataA == "BULLET"){
+				var bulletDataA:* = contact.GetFixtureA().GetUserData()[1];
+				
+				//1 damage
+				if(bulletDataA == "PISTOL" || bulletDataA == "MACHINEGUN"){
+					contact.GetFixtureA().GetUserData()[0] ="DEAD";
+					if(userDataB == "ENEMY"){
+						contact.GetFixtureB().GetUserData().push(1);
+					}
+				}
+				//2 damage
+				else if(bulletDataA == "SHOTGUN"){
+					contact.GetFixtureA().GetUserData()[0] ="DEAD";
+					if(userDataB == "ENEMY"){
+						contact.GetFixtureB().GetUserData().push(2);
+					}
 				}
 			}
-			else if(contact.GetFixtureB().GetUserData()[0] == "PISTOL_BULLET"){
-				contact.GetFixtureB().GetUserData()[0] ="DEAD";
-				if(contact.GetFixtureA().GetUserData()[0] == "ENEMY"){
-					contact.GetFixtureA().GetUserData().push(1);
+			else if(userDataB == "BULLET"){
+				var bulletDataB:* = contact.GetFixtureB().GetUserData()[1];
+				
+				//1 damage
+				if(bulletDataB == "PISTOL" || bulletDataB == "MACHINEGUN"){
+					contact.GetFixtureB().GetUserData()[0] ="DEAD";
+					if(userDataA == "ENEMY"){
+						contact.GetFixtureA().GetUserData().push(1);
+					}
 				}
-			}
-			else if(contact.GetFixtureA().GetUserData()[0] == "SHOTGUN_BULLET"){
-				contact.GetFixtureA().GetUserData()[0] ="DEAD";
-				if(contact.GetFixtureB().GetUserData()[0] == "ENEMY"){
-					contact.GetFixtureB().GetUserData().push(2);
-				}
-			}
-			else if(contact.GetFixtureB().GetUserData()[0] == "SHOTGUN_BULLET"){
-				contact.GetFixtureB().GetUserData()[0] = "DEAD";
-				if(contact.GetFixtureA().GetUserData()[0] == "ENEMY"){
-					contact.GetFixtureA().GetUserData().push(2);
-				}
-			}
-			else if(contact.GetFixtureA().GetUserData()[0] == "MACHINEGUN_BULLET"){
-				contact.GetFixtureA().GetUserData()[0] ="DEAD";
-				if(contact.GetFixtureB().GetUserData()[0] == "ENEMY"){
-					contact.GetFixtureB().GetUserData().push(1);
-				}
-			}
-			else if(contact.GetFixtureB().GetUserData()[0] == "MACHINEGUN_BULLET"){
-				contact.GetFixtureB().GetUserData()[0] = "DEAD";
-				if(contact.GetFixtureA().GetUserData()[0] == "ENEMY"){
-					contact.GetFixtureA().GetUserData().push(1);
+				//2 damage
+				else if(bulletDataB == "SHOTGUN"){
+					contact.GetFixtureB().GetUserData()[0] ="DEAD";
+					if(userDataA == "ENEMY"){
+						contact.GetFixtureA().GetUserData().push(2);
+					}
 				}
 			}
 			
 			/**Item Drop Collected*/
-			if(contact.GetFixtureA().GetUserData()[0] == "HEART" && contact.GetFixtureB().GetUserData()[0] == "PLAYER" ||
-					contact.GetFixtureA().GetUserData()[0] == "PISTOL_AMMO" && contact.GetFixtureB().GetUserData()[0] == "PLAYER" ||
-					contact.GetFixtureA().GetUserData()[0] == "SHOTGUN_AMMO" && contact.GetFixtureB().GetUserData()[0] == "PLAYER"||
-					contact.GetFixtureA().GetUserData()[0] == "MACHINEGUN_AMMO" && contact.GetFixtureB().GetUserData()[0] == "PLAYER"){
+			if(userDataA == "ITEM" && userDataB == "PLAYER"){
 				contact.GetFixtureA().GetUserData()[0] = "DEAD";
 			}
-			else if(contact.GetFixtureA().GetUserData()[0] == "PLAYER" && contact.GetFixtureB().GetUserData()[0] == "HEART" ||
-					contact.GetFixtureA().GetUserData()[0] == "PLAYER" && contact.GetFixtureB().GetUserData()[0] == "PISTOL_AMMO" ||
-					contact.GetFixtureA().GetUserData()[0] == "PLAYER" && contact.GetFixtureB().GetUserData()[0] == "SHOTGUN_AMMO"||
-					contact.GetFixtureA().GetUserData()[0] == "PLAYER" && contact.GetFixtureB().GetUserData()[0] == "MACHINEGUN_AMMO"){
+			else if(userDataA == "PLAYER" && userDataB == "ITEM"){
 				contact.GetFixtureB().GetUserData()[0] ="DEAD";
 			}
 		}
@@ -239,39 +231,45 @@ package FlashGame
 			var userDataA:* = contact.GetFixtureA().GetUserData()[0];
 			var userDataB:* = contact.GetFixtureB().GetUserData()[0];
 			
-			if(userDataB != "ENEMY" && 
+			if(userDataA == "PLAYER" &&
+			   userDataB != "ENEMY" && 
 			   userDataB != "NO_JUMP" && 
 			   userDataB != "DEAD"){
 				
-				if(userDataA == "FOOT"){
+				var playerDataA:* = contact.GetFixtureA().GetUserData()[1];
+				
+				if(playerDataA == "FOOT"){
 					Stage.jumping = true;
 					Player.STATE = Player.JUMPING;
 				}
-				else if(userDataA == "RIGHT"){
+				else if(playerDataA == "RIGHT"){
 					Stage.rightWall = false;
 					Stage.jumping = true;
 					Player.STATE = Player.JUMPING;
 				}
-				else if(userDataA == "LEFT"){
+				else if(playerDataA == "LEFT"){
 					Stage.leftWall = false;
 					Stage.jumping = true;
 					Player.STATE = Player.JUMPING;
 				}
 			}
-			else if(userDataA != "ENEMY" && 
-				userDataA != "NO_JUMP" && 
-				userDataA != "DEAD"){
+			else if(userDataB == "PLAYER" &&
+					userDataA != "ENEMY" && 
+					userDataA != "NO_JUMP" && 
+					userDataA != "DEAD"){
 				
-				if(userDataB == "FOOT"){
+				var playerDataB:* = contact.GetFixtureB().GetUserData()[1];
+				
+				if(playerDataB == "FOOT"){
 					Stage.jumping = true;
 					Player.STATE = Player.JUMPING;
 				}
-				else if(userDataB == "RIGHT"){
+				else if(playerDataB == "RIGHT"){
 					Stage.rightWall = false;
 					Stage.jumping = true;
 					Player.STATE = Player.JUMPING;
 				}
-				else if(userDataB == "LEFT"){
+				else if(playerDataB == "LEFT"){
 					Stage.leftWall = false;
 					Stage.jumping = true;
 					Player.STATE = Player.JUMPING;

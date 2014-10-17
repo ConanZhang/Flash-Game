@@ -101,6 +101,7 @@ package Assets
 			playerFixture.density = player_Density;
 			playerFixture.restitution = player_Restitution;
 			playerFixture.userData = new Array("PLAYER");
+			playerFixture.userData.push("BODY");
 			
 			//Box2D collision shape
 			var playerCollision:b2BodyDef = new b2BodyDef();
@@ -131,7 +132,8 @@ package Assets
 			playerShape.SetAsBox(player_Width/3.8, player_Height/100);
 			
 			playerFixture.isSensor = true;
-			playerFixture.userData = new Array("FOOT");
+			playerFixture.userData = new Array("PLAYER");
+			playerFixture.userData.push("FOOT");
 			
 			playerFixture.shape = playerShape;
 			playerFixture.friction = player_Friction;
@@ -147,7 +149,8 @@ package Assets
 			playerShape.SetAsBox(player_Width/100, player_Height/2.75);
 			
 			playerFixture.isSensor = true;
-			playerFixture.userData = new Array("RIGHT");
+			playerFixture.userData = new Array("PLAYER");
+			playerFixture.userData.push("RIGHT");
 			
 			playerFixture.shape = playerShape;
 			playerFixture.friction = player_Friction;
@@ -163,7 +166,8 @@ package Assets
 			playerShape.SetAsBox(player_Width/100, player_Height/2.75);
 			
 			playerFixture.isSensor = true;
-			playerFixture.userData = new Array("LEFT");
+			playerFixture.userData = new Array("PLAYER");
+			playerFixture.userData.push("LEFT");
 			
 			playerFixture.shape = playerShape;
 			playerFixture.friction = player_Friction;

@@ -140,12 +140,11 @@ package Assets {
 //				var input:b2RayCastInput = new b2RayCastInput(beginRayCast, endRayCast);
 //				var output:b2RayCastOutput = new b2RayCastOutput();
 //				lambda = output.fraction;
+				var rayUserData1:* = rayFixture.GetUserData()[0];
 				
-				if(rayFixture.GetUserData()[0] != "PLAYER" &&
-				   rayFixture.GetUserData()[0] != "FOOT" &&
-				   rayFixture.GetUserData()[0] != "RIGHT" &&
-				   rayFixture.GetUserData()[0] != "LEFT" &&
-				   rayFixture.GetUserData()[0] != "WEAPON"){
+				if(rayUserData1 != "PLAYER" &&
+					rayUserData1 != "WEAPON" &&
+					rayUserData1 != "ITEM"){
 					if(rayNormal.y == -1 || rayNormal.y == 1){
 						if(collisionBody.GetPosition().x < rayFixture.GetBody().GetPosition().x){
 							direction.Set(-110, 0);
@@ -180,11 +179,11 @@ package Assets {
 //				var output2:b2RayCastOutput = new b2RayCastOutput();
 //				lambda2 = output2.fraction;
 				
-				if(rayFixture2.GetUserData()[0] != "PLAYER" &&
-					rayFixture2.GetUserData()[0] != "FOOT" &&
-					rayFixture2.GetUserData()[0] != "RIGHT" &&
-					rayFixture2.GetUserData()[0] != "LEFT" &&
-					rayFixture2.GetUserData()[0] != "WEAPON"){
+				var rayUserData2:* = rayFixture2.GetUserData()[0];
+
+				if(rayUserData2 != "PLAYER" &&
+					rayUserData2 != "WEAPON"&&
+					rayUserData2 != "ITEM"){
 					if(rayNormal2.y == -1 || rayNormal2.y == 1){
 						if(collisionBody.GetPosition().x < rayFixture2.GetBody().GetPosition().x){
 							direction.Set(-110, 0);
