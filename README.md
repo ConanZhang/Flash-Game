@@ -36,20 +36,20 @@ Survive for 3 minutes. Scavenge for randomly dropped ammo and avoid randomly spa
 ####COLLISION FILTERING
 
 1. Enemies
-  * FlyingEnemy: Collides with other flying enemies, bullets, and player. NOT platform enemies. 
+  * FlyingEnemy: Collides with other flying enemies, bullets, platforms, and player. NOT platform enemies. 
     * CategoryBit: 8 
-    * MaskBit: 15
-  * PlatformEnemy: Collides bullets, platforms and player. NOT flying enemies OR platform enemies. 
+    * MaskBit: 15 (8(Self)+4(Bullet)+2(Platforms)+1(Player))
+  * PlatformEnemy: Collides with bullets, platforms and player. NOT flying enemies OR platform enemies. 
     * CategoryBit: 16 
-    * MaskBit: 7
+    * MaskBit: 7 (4(Bullet)+2(Platforms)+1(Player))
   * PlatformEnemySensors: Only collides with platforms. 
     * CategoryBit: 32 
-    * MaskBit: 2
+    * MaskBit: 2 (2(Platforms))
   * DeadEnemy: Only collides with platforms. 
-    * MaskBit: 2
+    * MaskBit: 2 (2(Platforms))
   * Spikes: Only collides with player. 
     * Category Bit: 2 
-    * MaskBit: 1
+    * MaskBit: 1 (1(Player))
 
 2. Player
   * Player: Collides with everything. 
@@ -57,10 +57,10 @@ Survive for 3 minutes. Scavenge for randomly dropped ammo and avoid randomly spa
     * MaskBit: 0xFFFF
   * ItemDrop: Is sensor, but only collides with player. 
     * CategoryBit: 1 
-    * MaskBit: 1
+    * MaskBit: 1 (1(Player))
   * Bullet: Collides with platforms and enemies. 
     * Category Bit: 4 
-    * MaskBit: 26
+    * MaskBit: 26 (8(FlyingEnemy)+16(PlatformEnemy)+2(Platforms))
   * Platform: Collides with everything. 
     * CategoryBit: 2 
     * MaskBit: 0xFFFF

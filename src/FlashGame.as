@@ -3,9 +3,6 @@
  */
 package
 {
-	import FlashGame.DebugScreen;
-	import FlashGame.TestWorld;
-	
 	import flash.display.Sprite;
 	import flash.events.KeyboardEvent;
 	import flash.events.MouseEvent;
@@ -13,7 +10,10 @@ package
 	import flash.text.Font;
 	import flash.ui.Mouse;
 	import flash.utils.Timer;
-	
+		
+	import FlashGame.DebugScreen;
+	import FlashGame.TestWorld;
+
 	/**SWF Options*/
 	[SWF(backgroundColor="#C4A57C", width="700", height="525", frameRate="30")]
 

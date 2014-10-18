@@ -59,9 +59,9 @@ package Assets {
 			
 			platformEnemyFixture = new b2FixtureDef();
 			platformEnemyJoints = new b2RevoluteJointDef();
-			
-			Stage.enemyCount++;
-			
+						
+			Stage.platformCount++;
+
 			make();
 		}
 		
@@ -371,8 +371,8 @@ package Assets {
 							}
 						}
 					}
-					Stage.enemyCount--;
-					
+					Stage.platformCount--;
+
 					//destroy yourself
 					destroyAll();
 				}

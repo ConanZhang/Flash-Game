@@ -81,50 +81,53 @@ package FlashGame
 		
 		private function addEnemy(e:TimerEvent):void{
 			//test enemies
-			if(!Stage.paused && Stage.enemyCount < 20 && Player.playerHealth > 0){
-				var randomAdd:Number = Math.random();
-				
-				if(randomAdd > 0.66){
-					var testEnemy1:FlyingEnemy = new FlyingEnemy(Math.random()*190 + 40, Math.random()*-90, 2, 3);
-				}
-				else if(randomAdd > 0.33){
-					var testEnemy2:BigFlyingEnemy = new BigFlyingEnemy(Math.random()*190 + 40, Math.random()*-90, 4, 5);
-				}
-				else{
-					var testEnemy3:SmallFlyingEnemy = new SmallFlyingEnemy(Math.random()*190 + 40, Math.random()*-90, 1.5, 1.5);
-				}
-				
-				randomAdd = Math.random();
-				
-				if(randomAdd > 0.66){
-					//circles left
-					if(Math.random() > 0.5){
-						var testEnemy4:PlatformEnemy = new PlatformEnemy(Math.random()*190 + 40, Math.random()*-90, 4, 4, 1);
+			if(!Stage.paused && Player.playerHealth > 0){
+				if(Stage.flyCount < 20){
+					var randomAdd:Number = Math.random();
+					
+					if(randomAdd > 0.66){
+						var testEnemy1:FlyingEnemy = new FlyingEnemy(Math.random()*190 + 40, Math.random()*-90, 2, 3);
 					}
-						//circles right
-					else{
-						var testEnemy5:PlatformEnemy = new PlatformEnemy(Math.random()*190 + 40, Math.random()*-90, 4, 4, 2);
-					}
-				}
-				else if(randomAdd > 0.33){
-					//circles left
-					if(Math.random() > 0.5){
-						var testEnemy6:BigPlatformEnemy = new BigPlatformEnemy(Math.random()*190 + 40, Math.random()*-90, 5, 5, 1);
-					}
-						//circles right
-					else{
-						var testEnemy7:BigPlatformEnemy = new BigPlatformEnemy(Math.random()*190 + 40, Math.random()*-90, 5, 5, 2);
-					}
-				}
-				else{
-					if(Math.random() > 0.5){
-						var testEnemy8:SmallPlatformEnemy = new SmallPlatformEnemy(Math.random()*190 + 40, Math.random()*-90, 2.25,2.5, 1);
+					else if(randomAdd > 0.33){
+						var testEnemy2:BigFlyingEnemy = new BigFlyingEnemy(Math.random()*190 + 40, Math.random()*-90, 4, 5);
 					}
 					else{
-						var testEnemy9:SmallPlatformEnemy = new SmallPlatformEnemy(Math.random()*190 + 40, Math.random()*-90, 2.25,2.5, 2);
+						var testEnemy3:SmallFlyingEnemy = new SmallFlyingEnemy(Math.random()*190 + 40, Math.random()*-90, 1.5, 1.5);
 					}
 				}
 				
+				if(Stage.platformCount < 15){
+					randomAdd = Math.random();
+					
+					if(randomAdd > 0.66){
+						//circles left
+						if(Math.random() > 0.5){
+							var testEnemy4:PlatformEnemy = new PlatformEnemy(Math.random()*190 + 40, Math.random()*-90, 4, 4, 1);
+						}
+							//circles right
+						else{
+							var testEnemy5:PlatformEnemy = new PlatformEnemy(Math.random()*190 + 40, Math.random()*-90, 4, 4, 2);
+						}
+					}
+					else if(randomAdd > 0.33){
+						//circles left
+						if(Math.random() > 0.5){
+							var testEnemy6:BigPlatformEnemy = new BigPlatformEnemy(Math.random()*190 + 40, Math.random()*-90, 5, 5, 1);
+						}
+							//circles right
+						else{
+							var testEnemy7:BigPlatformEnemy = new BigPlatformEnemy(Math.random()*190 + 40, Math.random()*-90, 5, 5, 2);
+						}
+					}
+					else{
+						if(Math.random() > 0.5){
+							var testEnemy8:SmallPlatformEnemy = new SmallPlatformEnemy(Math.random()*190 + 40, Math.random()*-90, 2.25,2.5, 1);
+						}
+						else{
+							var testEnemy9:SmallPlatformEnemy = new SmallPlatformEnemy(Math.random()*190 + 40, Math.random()*-90, 2.25,2.5, 2);
+						}
+					}
+				}
 			}
 		}
 		

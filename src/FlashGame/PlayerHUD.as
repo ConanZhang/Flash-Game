@@ -188,17 +188,17 @@ package FlashGame
 			
 			//enemy count
 			enemyFormat = new TextFormat();
-			enemyFormat.size = 40;
+			enemyFormat.size = 35;
 			enemyFormat.align = "left";
 			enemyFormat.font = "Zenzai Itacha";
 			
 			enemyCount = new TextField();
 			enemyCount.embedFonts = true;
 			enemyCount.defaultTextFormat = enemyFormat;
-			enemyCount.height = 200;
-			enemyCount.width = 200;
+			enemyCount.height = 500;
+			enemyCount.width = 400;
 			enemyCount.x = 50;
-			enemyCount.y = 420;
+			enemyCount.y = 350;
 			enemyCount.textColor = 0xff0000;
 			enemyCount.selectable = false;			
 			this.addChild(enemyCount);
@@ -321,7 +321,8 @@ package FlashGame
 							 "Weapon i " + (Weapon.weaponType == 1 ? "Pistol": (Weapon.weaponType == 2) ? "Shotgun": (Weapon.weaponType == 3) ? "Machine gun": "None");
 			
 			//enemy count
-			enemyCount.text = "Enemy Count i " + Stage.enemyCount;
+			enemyCount.text = "Flying i " + Stage.flyCount + "\n" +
+							  "Platform i " + Stage.platformCount;
 							 				
 		}
 		

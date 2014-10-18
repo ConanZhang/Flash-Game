@@ -46,8 +46,10 @@ package Parents
 		public static var slowAmount:Number;
 		//paused or playing
 		public static var paused:Boolean;
-		//enemy count
-		public static var enemyCount:int;
+		//flying enemy count
+		public static var flyCount:int;
+		//platform enemy count
+		public static var platformCount:int;
 		
 		/**WORLD*/
 		//world for all objects to exist in
@@ -109,7 +111,8 @@ package Parents
 			/**LOGIC*/
 			keyPresses = new Array();
 			weaponRotation = 0;
-			enemyCount = 0;
+			flyCount = 0;
+			platformCount = 0;
 			
 			/**VISUAL*/
 			//initiate images
@@ -401,7 +404,7 @@ package Parents
 			//fire machine gun
 			if(machineFire == true){
 				if(machineDelay == 2){
-					var machineBullet:Bullet = new Bullet(playerBody.GetPosition().x + 3.7 * Math.cos(weaponRotation), playerBody.GetPosition().y + 3.7 * Math.sin(weaponRotation),0.3,0.3);
+					var machineBullet:Bullet = new Bullet(weapon.body.GetPosition().x + 4.75 * Math.cos(weaponRotation), weapon.body.GetPosition().y + 4.75 * Math.sin(weaponRotation),0.3,0.3);
 					Weapon.machinegunAmmo--;
 					machineDelay = 0;
 				}
