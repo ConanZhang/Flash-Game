@@ -54,7 +54,7 @@ package Assets {
 			//initialize default private variables
 			pistolAmmo = 10;
 			shotgunAmmo = 2;
-			machinegunAmmo = 1500;
+			machinegunAmmo = 15;
 			holdingWeapon = true;
 			needWeapon = false;
 			changeWeapon = false;

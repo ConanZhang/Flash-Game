@@ -82,7 +82,7 @@ package FlashGame
 		private function addEnemy(e:TimerEvent):void{
 			//test enemies
 			if(!Stage.paused && Player.playerHealth > 0){
-				if(Stage.flyCount < 20){
+				if(Stage.flyCount < 10){
 					var randomAdd:Number = Math.random();
 					
 					if(randomAdd > 0.66){
@@ -96,7 +96,7 @@ package FlashGame
 					}
 				}
 				
-				if(Stage.platformCount < 15){
+				if(Stage.platformCount < 10){
 					randomAdd = Math.random();
 					
 					if(randomAdd > 0.66){
