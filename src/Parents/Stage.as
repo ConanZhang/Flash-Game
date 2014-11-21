@@ -64,6 +64,8 @@ package Parents
 		public static var weaponRotation:Number;
 		
 		/**PLAYER*/
+		//player
+		public var player:Player;
 		//player body for collision detection
 		public static var playerBody:b2Body;
 		//the last position the player was (for speed calculation)
@@ -153,7 +155,7 @@ package Parents
 			this.addChild(gameHUD);
 			
 			//PLAYER
-			var player:Player = new Player(130, 7, 3.5);
+			player = new Player(130, 7, 3.5);
 			this.setPlayer(player.body);
 			
 			//WEAPON
@@ -394,6 +396,13 @@ package Parents
 				else{
 					Player.STATE = Player.IDLE;
 				}
+			}
+			
+			//reset player if too far from world
+			if(player.body.GetPosition().x < -30 || player.body.GetPosition().y > 50 || player.body.GetPosition().x > 330){
+				player.body.SetPosition(new b2Vec2(100, -10) );
+				PlayerHUD.heartDamaged = true;
+				Player.playerHealth--;
 			}
 			
 			var mouseDirectionX:Number = mouseX - stage.stageWidth/2;
