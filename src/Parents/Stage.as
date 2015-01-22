@@ -730,6 +730,18 @@ package Parents
 			}
 		}
 		
+		/**Destroy Stage*/
+		public function destroy():void{
+			this.removeEventListener(Event.ENTER_FRAME, update);
+			this.removeEventListener(KeyboardEvent.KEY_DOWN, keyPressed);
+			this.removeEventListener(KeyboardEvent.KEY_UP, keyReleased);
+			this.removeEventListener(MouseEvent.MOUSE_DOWN, leftClick);
+			this.removeEventListener(MouseEvent.MOUSE_UP, leftUp);
+			this.removeEventListener(MouseEvent.MOUSE_WHEEL, mouseWheeled);
+			
+			this.parent.removeChild(this);
+		}
+		
 		/**Play*/
 		public function start():void{
 			stage.frameRate = 30;
