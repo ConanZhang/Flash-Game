@@ -4,14 +4,10 @@
 package
 {
 	import flash.display.Sprite;
-	import flash.events.KeyboardEvent;
-	import flash.events.MouseEvent;
-	import flash.events.TimerEvent;
 	import flash.text.Font;
 	import flash.ui.Mouse;
-	import flash.utils.Timer;
-		
-	import FlashGame.DebugScreen;
+	
+	import FlashGame.Elevator;
 	import FlashGame.TestWorld;
 
 	/**SWF Options*/
@@ -25,9 +21,8 @@ package
 		
 		/**Class Member Variables*/
 		private var test:TestWorld;  
-		private var debug:DebugScreen;
-		private var beginTimer:Timer;
-
+		private var elevator:Elevator;
+		
 		/**Constructor*/
 		public function FlashGame()
 		{
@@ -38,24 +33,8 @@ package
 			Mouse.hide();
 			
 			//create new test world
-			test = new TestWorld(this);
-			
-			//delay controls
-			beginTimer = new Timer(3000, 1);
-			beginTimer.addEventListener(TimerEvent.TIMER, addControls);
-			beginTimer.start();
-			
-			//display debug information
-			debug = new DebugScreen();
-			this.addChild(debug);
-		}
-		
-		private function addControls(e:TimerEvent):void{
-			test.stage.addEventListener(KeyboardEvent.KEY_DOWN, test.keyPressed, false, 0, true);
-			test.stage.addEventListener(KeyboardEvent.KEY_UP, test.keyReleased, false, 0, true);
-			test.stage.addEventListener(MouseEvent.MOUSE_DOWN, test.leftClick);
-			test.stage.addEventListener(MouseEvent.MOUSE_UP, test.leftUp);
-			test.stage.addEventListener(MouseEvent.MOUSE_WHEEL, test.mouseWheeled);
+			//test = new TestWorld(this, true);
+			elevator = new Elevator(this, true);
 		}
 	}
 }

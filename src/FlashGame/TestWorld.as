@@ -4,6 +4,7 @@
 package FlashGame
 {
 	import flash.display.Sprite;
+	import flash.events.Event;
 	import flash.events.TimerEvent;
 	import flash.utils.Timer;
 	
@@ -16,9 +17,11 @@ package FlashGame
 	import Assets.Player;
 	import Assets.Rain;
 	import Assets.SmallFlyingEnemy;
+	import Assets.SmallPlatformEnemy;
+	
+	import Box2D.Common.Math.b2Vec2;
 	
 	import Parents.Stage;
-	import Assets.SmallPlatformEnemy;
 	
 	public class TestWorld extends Stage
 	{
@@ -30,10 +33,14 @@ package FlashGame
 		 * Takes in screen it will be added to
 		 * 
 		 */
-		public function TestWorld(screenP:Sprite)
+		public function TestWorld(screenP:Sprite, debugging:Boolean)
 		{
+			super(debugging, 150, 7);
+			
 			screen = screenP;
 			screen.addChild(this);
+			
+			this.addEventListener(Event.ENTER_FRAME, playerReset, false, 0, true);
 			
 			//BACKGROUND
 			background = new Background("test");
@@ -77,6 +84,15 @@ package FlashGame
 			var ammoAdd:Timer = new Timer(15000);
 			ammoAdd.addEventListener(TimerEvent.TIMER, addAmmo);
 			ammoAdd.start();
+		}
+		
+		private function playerReset(e:Event):void{
+			//reset player if too far from world
+			if(player.body.GetPosition().x < -30 || player.body.GetPosition().y > 50 || player.body.GetPosition().x > 330){
+				player.body.SetPosition(new b2Vec2(100, -10) );
+				PlayerHUD.heartDamaged = true;
+				Player.playerHealth--;
+			}
 		}
 		
 		private function addEnemy(e:TimerEvent):void{

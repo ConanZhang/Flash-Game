@@ -10,8 +10,10 @@ package Parents
 	import flash.events.Event;
 	import flash.events.KeyboardEvent;
 	import flash.events.MouseEvent;
+	import flash.events.TimerEvent;
 	import flash.geom.Point;
 	import flash.ui.Keyboard;
+	import flash.utils.Timer;
 	
 	import Assets.Bullet;
 	import Assets.Player;
@@ -23,6 +25,7 @@ package Parents
 	import Box2D.Dynamics.b2World;
 	
 	import FlashGame.ContactListener;
+	import FlashGame.DebugScreen;
 	import FlashGame.PlayerHUD;
 	
 	public class Stage extends MovieClip
@@ -63,6 +66,12 @@ package Parents
 		//rotate weapon
 		public static var weaponRotation:Number;
 		
+		/**GAME*/
+		//delay controls
+		private var beginTimer:Timer;
+		//debug
+		private var debug:DebugScreen;
+
 		/**PLAYER*/
 		//player
 		public var player:Player;
@@ -103,7 +112,7 @@ package Parents
 		private var machineDelay:int;
 		
 		/**Constructor*/
-		public function Stage()
+		public function Stage(debugging:Boolean, playerX:Number, playerY:Number)
 		{
 			/**BOX2D*/
 			//initiate time
@@ -155,7 +164,7 @@ package Parents
 			this.addChild(gameHUD);
 			
 			//PLAYER
-			player = new Player(130, 7, 3.5);
+			player = new Player(playerX, playerY, 3.5);
 			this.setPlayer(player.body);
 			
 			//WEAPON
@@ -163,8 +172,21 @@ package Parents
 			machineFire = false;
 			machineDelay = 2;
 			
+			//delay controls
+			beginTimer = new Timer(3000, 1);
+			beginTimer.addEventListener(TimerEvent.TIMER, addControls);
+			beginTimer.start();
+			
 			/**DEBUGGING*/
-			debugDrawing();
+			if(debugging){
+				debugDrawing();
+				
+				
+				//display debug information
+				debug = new DebugScreen();
+				this.addChild(debug);
+			}
+			
 		}
 		
 		/**Stages can update their properties*/
@@ -396,13 +418,6 @@ package Parents
 				else{
 					Player.STATE = Player.IDLE;
 				}
-			}
-			
-			//reset player if too far from world
-			if(player.body.GetPosition().x < -30 || player.body.GetPosition().y > 50 || player.body.GetPosition().x > 330){
-				player.body.SetPosition(new b2Vec2(100, -10) );
-				PlayerHUD.heartDamaged = true;
-				Player.playerHealth--;
 			}
 			
 			var mouseDirectionX:Number = mouseX - stage.stageWidth/2;
@@ -730,14 +745,23 @@ package Parents
 			}
 		}
 		
+		/**Add Controls to Stage*/
+		private function addControls(e:TimerEvent):void{
+			stage.addEventListener(KeyboardEvent.KEY_DOWN, keyPressed, false, 0, true);
+			stage.addEventListener(KeyboardEvent.KEY_UP, keyReleased, false, 0, true);
+			stage.addEventListener(MouseEvent.MOUSE_DOWN, leftClick);
+			stage.addEventListener(MouseEvent.MOUSE_UP, leftUp);
+			stage.addEventListener(MouseEvent.MOUSE_WHEEL, mouseWheeled);
+		}
+		
 		/**Destroy Stage*/
 		public function destroy():void{
-			this.removeEventListener(Event.ENTER_FRAME, update);
-			this.removeEventListener(KeyboardEvent.KEY_DOWN, keyPressed);
-			this.removeEventListener(KeyboardEvent.KEY_UP, keyReleased);
-			this.removeEventListener(MouseEvent.MOUSE_DOWN, leftClick);
-			this.removeEventListener(MouseEvent.MOUSE_UP, leftUp);
-			this.removeEventListener(MouseEvent.MOUSE_WHEEL, mouseWheeled);
+			stage.removeEventListener(Event.ENTER_FRAME, update);
+			stage.removeEventListener(KeyboardEvent.KEY_DOWN, keyPressed);
+			stage.removeEventListener(KeyboardEvent.KEY_UP, keyReleased);
+			stage.removeEventListener(MouseEvent.MOUSE_DOWN, leftClick);
+			stage.removeEventListener(MouseEvent.MOUSE_UP, leftUp);
+			stage.removeEventListener(MouseEvent.MOUSE_WHEEL, mouseWheeled);
 			
 			this.parent.removeChild(this);
 		}

@@ -102,6 +102,10 @@ package Assets {
 			var platformCollision:b2BodyDef = new b2BodyDef();
 			platformCollision.position.Set(position.x + platform_Width/2, position.y + platform_Height/2);
 			
+			if(platformType == "b_wide"){
+				platformCollision.type = b2Body.b2_kinematicBody;
+			}
+			
 			collisionBody = world_Sprite.CreateBody(platformCollision);
 			collisionBody.CreateFixture(platformFixture);
 			super.body = collisionBody;
