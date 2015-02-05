@@ -39,9 +39,7 @@ package FlashGame
 			
 			screen = screenP;
 			screen.addChild(this);
-			
-			this.addEventListener(Event.ENTER_FRAME, playerReset, false, 0, true);
-			
+						
 			//BACKGROUND
 			background = new Background("test");
 			
@@ -84,15 +82,6 @@ package FlashGame
 			var ammoAdd:Timer = new Timer(15000);
 			ammoAdd.addEventListener(TimerEvent.TIMER, addAmmo);
 			ammoAdd.start();
-		}
-		
-		private function playerReset(e:Event):void{
-			//reset player if too far from world
-			if(player.body.GetPosition().x < -30 || player.body.GetPosition().y > 50 || player.body.GetPosition().x > 330){
-				player.body.SetPosition(new b2Vec2(100, -10) );
-				PlayerHUD.heartDamaged = true;
-				Player.playerHealth--;
-			}
 		}
 		
 		private function addEnemy(e:TimerEvent):void{

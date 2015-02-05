@@ -7,7 +7,6 @@ package
 	import flash.text.Font;
 	import flash.ui.Mouse;
 	
-	import FlashGame.FreefallWorld;
 	import FlashGame.TestWorld;
 
 	/**SWF Options*/
@@ -21,7 +20,6 @@ package
 		
 		/**Class Member Variables*/
 		private var test:TestWorld;  
-		private var elevator:FreefallWorld;
 		
 		/**Constructor*/
 		public function FlashGame()
@@ -33,8 +31,7 @@ package
 			Mouse.hide();
 			
 			//create new test world
-			//test = new TestWorld(this, true);
-			elevator = new FreefallWorld(this, true);
+			test = new TestWorld(this, true);
 		}
 	}
 }
