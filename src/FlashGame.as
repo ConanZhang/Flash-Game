@@ -8,7 +8,8 @@ package
 	import flash.ui.Mouse;
 	
 	import FlashGame.TestWorld;
-
+	import FlashGame.WallJumpingWorld;
+	
 	/**SWF Options*/
 	[SWF(backgroundColor="#C4A57C", width="700", height="525", frameRate="30")]
 
@@ -20,6 +21,7 @@ package
 		
 		/**Class Member Variables*/
 		private var test:TestWorld;  
+		private var walls:WallJumpingWorld;
 		
 		/**Constructor*/
 		public function FlashGame()
@@ -31,7 +33,8 @@ package
 			Mouse.hide();
 			
 			//create new test world
-			test = new TestWorld(this, true);
+			//test = new TestWorld(this, true);
+			walls = new WallJumpingWorld(this, false);
 		}
 	}
 }

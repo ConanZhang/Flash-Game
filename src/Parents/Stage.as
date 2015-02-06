@@ -428,7 +428,7 @@ package Parents
 			//fire machine gun
 			if(machineFire == true){
 				if(machineDelay == 2){
-					var machineBullet:Bullet = new Bullet(playerBody.GetPosition().x + 4.75 * Math.cos(weaponRotation), playerBody.GetPosition().y + 4.75 * Math.sin(weaponRotation),0.3,0.3);
+					var machineBullet:Bullet = new Bullet(playerBody.GetPosition().x + 3 * Math.cos(weaponRotation), playerBody.GetPosition().y + 3 * Math.sin(weaponRotation),0.3,0.3);
 					Weapon.machinegunAmmo--;
 					machineDelay = 0;
 				}

@@ -20,7 +20,7 @@ package FlashGame
 		
 	import Parents.Stage;
 	
-	public class TestWorld extends Stage
+	public class WallJumpingWorld extends Stage
 	{
 		private var screen:Sprite;
 		private var background:Background;
@@ -30,7 +30,7 @@ package FlashGame
 		 * Takes in screen it will be added to
 		 * 
 		 */
-		public function TestWorld(screenP:Sprite, debugging:Boolean)
+		public function WallJumpingWorld(screenP:Sprite, debugging:Boolean)
 		{
 			super(debugging, 150, 7);
 			

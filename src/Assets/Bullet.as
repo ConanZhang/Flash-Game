@@ -98,7 +98,7 @@ package Assets {
 			bulletClip.width = bullet_Width*metricPixRatio;
 			bulletClip.height = bullet_Height*metricPixRatio;
 			super.sprite = bulletClip;
-			Stage.sprites.addChild(bulletClip);
+			Stage.sprites.addChildAt(bulletClip, 0);
 
 			//apply initial velocity
 			collisionBody.ApplyImpulse(new b2Vec2( bulletXDirection, bulletYDirection), collisionBody.GetPosition());
