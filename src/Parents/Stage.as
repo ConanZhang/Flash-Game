@@ -65,6 +65,8 @@ package Parents
 		private var speed:Number;
 		//rotate weapon
 		public static var weaponRotation:Number;
+		//screen
+		private var screen:Sprite;
 		
 		/**GAME*/
 		//delay controls
@@ -112,8 +114,10 @@ package Parents
 		private var machineDelay:int;
 		
 		/**Constructor*/
-		public function Stage(debugging:Boolean, playerX:Number, playerY:Number)
+		public function Stage(screenP:Sprite, debugging:Boolean, playerX:Number, playerY:Number)
 		{
+			screen = screenP;
+			
 			/**BOX2D*/
 			//initiate time
 			iterations = 10;
@@ -622,12 +626,13 @@ package Parents
 			
 			//pausing
 			if(e.keyCode == Keyboard.P || e.keyCode == Keyboard.R){
-				if(paused == false){
-					paused = true;
-				}
-				else if(paused == true){
-					paused = false;
-				}
+//				if(paused == false){
+//					paused = true;
+//				}
+//				else if(paused == true){
+//					paused = false;
+//				}
+				screen.removeChild(this);
 			}
 		}
 		

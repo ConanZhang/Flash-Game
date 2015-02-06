@@ -31,11 +31,11 @@ package FlashGame
 		 * 
 		 */
 		public function WallJumpingWorld(screenP:Sprite, debugging:Boolean)
-		{
-			super(debugging, 150, 7);
-			
+		{			
 			screen = screenP;
 			screen.addChild(this);
+			
+			super(screen,debugging, 150, 7);
 						
 			//BACKGROUND
 			background = new Background("test");
