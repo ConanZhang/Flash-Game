@@ -22,6 +22,9 @@ package
 		private var Zenzai_Itacha:Class;
 		
 		/**Class Member Variables*/
+		//Reticule
+		private var gameReticule:Sprite;
+		
 		//Levels
 		private var test:TestWorld;  
 		private var walls:WallJumpingWorld;
@@ -38,6 +41,15 @@ package
 			//hide cursor
 			Mouse.hide();
 			
+			//display reticule
+			gameReticule = new reticule();
+			gameReticule.width = 25;
+			gameReticule.height = 25;
+			
+			this.addChild(gameReticule);
+			
+			this.addEventListener(Event.ENTER_FRAME, moveReticule);
+			
 			menu = new Menu(this);
 			this.addEventListener(Event.REMOVED, testingRemove);
 
@@ -46,8 +58,7 @@ package
 			//
 		}
 		
-		protected function testingRemove(event:Event):void
-		{
+		protected function testingRemove(event:Event):void{
 			if(event.target is Menu){
 				
 				walls = new WallJumpingWorld(this, false);
@@ -56,6 +67,12 @@ package
 				
 				menu = new Menu(this);
 			} 
+		}
+
+		protected function moveReticule(event:Event):void{
+			//reticule
+			gameReticule.x = this.mouseX;
+			gameReticule.y = this.mouseY;
 		}
 	}
 }

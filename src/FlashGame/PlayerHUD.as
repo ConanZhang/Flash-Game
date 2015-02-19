@@ -46,9 +46,6 @@ package FlashGame
 		private var enemyCount:TextField;
 		private var enemyFormat:TextFormat;
 		
-		//reticule
-		private var playerReticule:Sprite;
-		
 		//survive timer
 		private var timerText:TextField;
 		private var timerFormat:TextFormat;
@@ -143,13 +140,6 @@ package FlashGame
 			heart4.gotoAndStop("idle");
 			heart5.gotoAndStop("idle");
 			heart6.gotoAndStop("idle");
-			
-			//reticule
-			playerReticule = new reticule();
-			playerReticule.width = 25;
-			playerReticule.height = 25;
-			
-			this.addChild(playerReticule);
 			
 			//slow motion bar
 			slowMotionBar = new Shape();
@@ -305,10 +295,6 @@ package FlashGame
 				}
 				heartDamaged = false;
 			}
-			
-			//reticule
-			playerReticule.x = this.mouseX;
-			playerReticule.y = this.mouseY;
 			
 			//slow motion bar
 			slowMotionBar.graphics.clear();
