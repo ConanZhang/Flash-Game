@@ -1,9 +1,9 @@
 package FlashGame
 {
 	import flash.display.MovieClip;
+	import flash.display.Sprite;
 	import flash.events.Event;
 	import flash.events.MouseEvent;
-	import flash.display.Sprite;
 	
 	public class Menu extends MovieClip
 	{
@@ -24,7 +24,7 @@ package FlashGame
 		public function Menu(screenP:Sprite)
 		{
 			screen = screenP;
-			screen.addChild(this);
+			screen.addChildAt(this, 0);
 			
 			//initialization
 			speed = 20;
@@ -99,7 +99,7 @@ package FlashGame
 		private function update(event:Event):void
 		{			
 			//adjust size of button
-			for each (var button in buttons) {
+			for each (var button:MovieClip in buttons) {
 				if(button == activeButton){
 					if(button.scaleX <= 1.5){
 						button.scaleX +=0.1;
