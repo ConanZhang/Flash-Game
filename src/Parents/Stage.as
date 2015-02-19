@@ -626,13 +626,16 @@ package Parents
 			
 			//pausing
 			if(e.keyCode == Keyboard.P || e.keyCode == Keyboard.R){
-//				if(paused == false){
-//					paused = true;
-//				}
-//				else if(paused == true){
-//					paused = false;
-//				}
-				screen.removeChild(this);
+				if(paused == false){
+					paused = true;
+				}
+				else if(paused == true){
+					paused = false;
+				}
+			}
+			
+			if(e.keyCode == Keyboard.J){
+				destroy();
 			}
 		}
 		
@@ -761,14 +764,14 @@ package Parents
 		
 		/**Destroy Stage*/
 		public function destroy():void{
-			stage.removeEventListener(Event.ENTER_FRAME, update);
+			this.removeEventListener(Event.ENTER_FRAME, update);
 			stage.removeEventListener(KeyboardEvent.KEY_DOWN, keyPressed);
 			stage.removeEventListener(KeyboardEvent.KEY_UP, keyReleased);
 			stage.removeEventListener(MouseEvent.MOUSE_DOWN, leftClick);
 			stage.removeEventListener(MouseEvent.MOUSE_UP, leftUp);
 			stage.removeEventListener(MouseEvent.MOUSE_WHEEL, mouseWheeled);
 			
-			this.parent.removeChild(this);
+			screen.removeChild(this);
 		}
 		
 		/**Play*/

@@ -38,6 +38,15 @@ package
 			//register font to global list
 			Font.registerFont(Zenzai_Itacha);
 			
+			this.addEventListener(Event.ENTER_FRAME, moveReticule);
+			
+			menu = new Menu(this);
+			this.addEventListener(Event.REMOVED, testingRemove);
+
+			//create new test world
+			//test = new TestWorld(this, true);
+			//
+			
 			//hide cursor
 			Mouse.hide();
 			
@@ -47,15 +56,6 @@ package
 			gameReticule.height = 25;
 			
 			this.addChild(gameReticule);
-			
-			this.addEventListener(Event.ENTER_FRAME, moveReticule);
-			
-			menu = new Menu(this);
-			this.addEventListener(Event.REMOVED, testingRemove);
-
-			//create new test world
-			//test = new TestWorld(this, true);
-			//
 		}
 		
 		protected function testingRemove(event:Event):void{

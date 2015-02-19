@@ -33,7 +33,7 @@ package FlashGame
 		public function TestWorld(screenP:Sprite, debugging:Boolean)
 		{			
 			screen = screenP;
-			screen.addChild(this);
+			screen.addChildAt(this,0);
 			
 			super(screen,debugging, 150, 7);
 			
