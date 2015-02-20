@@ -187,51 +187,51 @@ package FlashGame
 				userDataB != "DEAD" &&
 				userDataB != "ENEMY"){
 				
-				if(userDataB != "GROUND"){
-					var enemyDataA:* = contact.GetFixtureA().GetUserData()[1];
-					
-					if(enemyDataA == "BOTTOM"){
-						contact.GetFixtureA().GetUserData()[1] ="BOTTOM_ON";
-					}
-					else if(enemyDataA == "RIGHT"){
-						contact.GetFixtureA().GetUserData()[1] ="RIGHT_ON";
-					}
-					else if(enemyDataA == "LEFT"){
-						contact.GetFixtureA().GetUserData()[1] ="LEFT_ON";
-					}
-					else if(enemyDataA == "TOP"){
-						contact.GetFixtureA().GetUserData()[1] ="TOP_ON";
-					}
-				}
-				else{
-					contact.GetFixtureA().GetUserData()[1] = "GROUND";
-				}
-				
-			}
-			else if(userDataB == "ENEMY" &&
-				userDataA != "ITEM" &&
-				userDataA != "DEAD" &&
-				userDataA != "ENEMY"){
-				
-				if(userDataA != "GROUND"){
-					var enemyDataB:* = contact.GetFixtureA().GetUserData()[1];
-					
-					if(enemyDataB == "BOTTOM"){
-						contact.GetFixtureB().GetUserData()[1] ="BOTTOM_ON";
-					}
-					else if(enemyDataB == "RIGHT"){
-						contact.GetFixtureB().GetUserData()[1] ="RIGHT_ON";
-					}
-					else if(enemyDataB == "LEFT"){
-						contact.GetFixtureB().GetUserData()[1] ="LEFT_ON";
-					}
-					else if(enemyDataB == "TOP"){
-						contact.GetFixtureB().GetUserData()[1] ="TOP_ON";
-					}
-				}
-				else{
-					contact.GetFixtureB().GetUserData()[1] ="GROUND";
-				}
+//				if(userDataB != "GROUND"){
+//					var enemyDataA:* = contact.GetFixtureA().GetUserData()[1];
+//					
+//					if(enemyDataA == "BOTTOM"){
+//						contact.GetFixtureA().GetUserData()[1] ="BOTTOM_ON";
+//					}
+//					else if(enemyDataA == "RIGHT"){
+//						contact.GetFixtureA().GetUserData()[1] ="RIGHT_ON";
+//					}
+//					else if(enemyDataA == "LEFT"){
+//						contact.GetFixtureA().GetUserData()[1] ="LEFT_ON";
+//					}
+//					else if(enemyDataA == "TOP"){
+//						contact.GetFixtureA().GetUserData()[1] ="TOP_ON";
+//					}
+//				}
+//				else{
+//					contact.GetFixtureA().GetUserData()[1] = "GROUND";
+//				}
+//				
+//			}
+//			else if(userDataB == "ENEMY" &&
+//				userDataA != "ITEM" &&
+//				userDataA != "DEAD" &&
+//				userDataA != "ENEMY"){
+//				
+//				if(userDataA != "GROUND"){
+//					var enemyDataB:* = contact.GetFixtureA().GetUserData()[1];
+//					
+//					if(enemyDataB == "BOTTOM"){
+//						contact.GetFixtureB().GetUserData()[1] ="BOTTOM_ON";
+//					}
+//					else if(enemyDataB == "RIGHT"){
+//						contact.GetFixtureB().GetUserData()[1] ="RIGHT_ON";
+//					}
+//					else if(enemyDataB == "LEFT"){
+//						contact.GetFixtureB().GetUserData()[1] ="LEFT_ON";
+//					}
+//					else if(enemyDataB == "TOP"){
+//						contact.GetFixtureB().GetUserData()[1] ="TOP_ON";
+//					}
+//				}
+//				else{
+//					contact.GetFixtureB().GetUserData()[1] ="GROUND";
+//				}
 				
 			}
 			

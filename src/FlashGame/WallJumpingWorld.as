@@ -52,7 +52,7 @@ package FlashGame
 			rain = new Rain(this, 100,900,525,50, 15, 5, "left");
 			
 			//Platform player starts on
-			startPlatform = new Platform(125, 15, 10, 3, "ground");
+			startPlatform = new Platform(125, 15, 20, 3, "ground");
 
 			//PLATFORMS
 			for(var i:int = 0; i < 12; i++){
@@ -84,8 +84,9 @@ package FlashGame
 		private function addEnemy(e:TimerEvent):void{
 			//test enemies
 			if(!Stage.paused && Player.playerHealth > 0){
+				var randomAdd:Number = Math.random();
+
 				if(Stage.flyCount < 10){
-					var randomAdd:Number = Math.random();
 					
 					if(randomAdd > 0.66){
 						var testEnemy1:FlyingEnemy = new FlyingEnemy(Math.random()*190 + 40, Math.random()*-90, 2, 3);
@@ -98,38 +99,38 @@ package FlashGame
 					}
 				}
 				
-				if(Stage.platformCount < 10){
-					randomAdd = Math.random();
-					
-					if(randomAdd > 0.66){
-						//circles left
-						if(Math.random() > 0.5){
-							var testEnemy4:PlatformEnemy = new PlatformEnemy(Math.random()*190 + 40, Math.random()*-90, 4, 4, 1);
-						}
-							//circles right
-						else{
-							var testEnemy5:PlatformEnemy = new PlatformEnemy(Math.random()*190 + 40, Math.random()*-90, 4, 4, 2);
-						}
-					}
-					else if(randomAdd > 0.33){
-						//circles left
-						if(Math.random() > 0.5){
-							var testEnemy6:BigPlatformEnemy = new BigPlatformEnemy(Math.random()*190 + 40, Math.random()*-90, 5, 5, 1);
-						}
-							//circles right
-						else{
-							var testEnemy7:BigPlatformEnemy = new BigPlatformEnemy(Math.random()*190 + 40, Math.random()*-90, 5, 5, 2);
-						}
-					}
-					else{
-						if(Math.random() > 0.5){
-							var testEnemy8:SmallPlatformEnemy = new SmallPlatformEnemy(Math.random()*190 + 40, Math.random()*-90, 2.25,2.5, 1);
-						}
-						else{
-							var testEnemy9:SmallPlatformEnemy = new SmallPlatformEnemy(Math.random()*190 + 40, Math.random()*-90, 2.25,2.5, 2);
-						}
-					}
-				}
+//				if(Stage.platformCount < 10){
+//					randomAdd = Math.random();
+//					
+//					if(randomAdd > 0.66){
+//						//circles left
+//						if(Math.random() > 0.5){
+//							var testEnemy4:PlatformEnemy = new PlatformEnemy(Math.random()*190 + 40, Math.random()*-90, 4, 4, 1);
+//						}
+//							//circles right
+//						else{
+//							var testEnemy5:PlatformEnemy = new PlatformEnemy(Math.random()*190 + 40, Math.random()*-90, 4, 4, 2);
+//						}
+//					}
+//					else if(randomAdd > 0.33){
+//						//circles left
+//						if(Math.random() > 0.5){
+//							var testEnemy6:BigPlatformEnemy = new BigPlatformEnemy(Math.random()*190 + 40, Math.random()*-90, 5, 5, 1);
+//						}
+//							//circles right
+//						else{
+//							var testEnemy7:BigPlatformEnemy = new BigPlatformEnemy(Math.random()*190 + 40, Math.random()*-90, 5, 5, 2);
+//						}
+//					}
+//					else{
+//						if(Math.random() > 0.5){
+//							var testEnemy8:SmallPlatformEnemy = new SmallPlatformEnemy(Math.random()*190 + 40, Math.random()*-90, 2.25,2.5, 1);
+//						}
+//						else{
+//							var testEnemy9:SmallPlatformEnemy = new SmallPlatformEnemy(Math.random()*190 + 40, Math.random()*-90, 2.25,2.5, 2);
+//						}
+//					}
+//				}
 			}
 		}
 		
@@ -165,15 +166,16 @@ package FlashGame
 			
 			//create new starting platform for player
 			if(reset){
-				startPlatform = new Platform(player.body.GetPosition().x - 5, 15, 10, 3, "ground");
+				startPlatform = new Platform(player.body.GetPosition().x - 5, 15, 20, 3, "ground");
 				reset = false;
 			}
 
 			//reset player if too far from world
-			if(player.body.GetPosition().y > 100){
+			if(player.body.GetPosition().y > 75){
 				player.body.SetPosition(new b2Vec2(130, -75));
 				PlayerHUD.heartDamaged = true;
 				Player.playerHealth--;
+				Player.playerInvulnerable = 50;
 				reset = true;
 			}
 		}

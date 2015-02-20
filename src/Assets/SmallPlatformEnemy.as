@@ -377,6 +377,11 @@ package Assets {
 					destroyAll();
 				}
 			}
+			
+			//fallen to far so reset body
+			if(collisionBody.GetPosition().y > 50){
+				collisionBody.SetPosition(new b2Vec2(Math.random()*190 + 40, -500));
+			}
 		}
 		
 		/**Child remove [called by destroy()]*/

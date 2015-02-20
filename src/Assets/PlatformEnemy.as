@@ -16,6 +16,8 @@ package Assets {
 	import Box2D.Dynamics.b2World;
 	import Box2D.Dynamics.Joints.b2RevoluteJointDef;
 	
+	import FlashGame.PlayerHUD;
+	
 	import Parents.Objects;
 	import Parents.Stage;
 	
@@ -376,6 +378,11 @@ package Assets {
 					//destroy yourself
 					destroyAll();
 				}
+			}
+			
+			//fallen to far so reset body
+			if(collisionBody.GetPosition().y > 50){
+				collisionBody.SetPosition(new b2Vec2(Math.random()*190 + 40, -500));
 			}
 		}
 		
