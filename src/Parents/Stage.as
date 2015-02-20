@@ -185,7 +185,6 @@ package Parents
 			if(debugging){
 				debugDrawing();
 				
-				
 				//display debug information
 				debug = new DebugScreen();
 				this.addChild(debug);
@@ -634,7 +633,7 @@ package Parents
 				}
 			}
 			
-			if(e.keyCode == Keyboard.J){
+			if(e.keyCode == Keyboard.X){
 				destroy();
 			}
 		}
@@ -764,6 +763,10 @@ package Parents
 		
 		/**Destroy Stage*/
 		public function destroy():void{
+			if(this.contains(debug)){
+				debug.destroy();
+			}
+			
 			this.removeEventListener(Event.ENTER_FRAME, update);
 			stage.removeEventListener(KeyboardEvent.KEY_DOWN, keyPressed);
 			stage.removeEventListener(KeyboardEvent.KEY_UP, keyReleased);

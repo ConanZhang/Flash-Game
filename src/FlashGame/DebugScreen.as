@@ -96,7 +96,7 @@ package FlashGame{
 			text.mouseEnabled=false;
 			
 			addChild(text);
-			addEventListener(Event.ENTER_FRAME, updateDebug);
+			this.addEventListener(Event.ENTER_FRAME, updateDebug);
 		}
 		
 		private function updateDebug(e:Event):void{
@@ -160,6 +160,11 @@ package FlashGame{
 					countObjects( (DisplayObjectContainer)(stageP.getChildAt(i) ) );
 				}
 			}
+		}
+		
+		public function destroy():void{
+			this.removeEventListener(Event.ENTER_FRAME, updateDebug);
+			this.parent.removeChild(this);
 		}
 	}
 }

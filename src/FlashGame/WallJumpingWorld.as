@@ -1,9 +1,10 @@
 /**
- * World for testing Box2D
+ * Wall jumping stage for game.
  */
 package FlashGame
 {
 	import flash.display.Sprite;
+	import flash.events.Event;
 	import flash.events.TimerEvent;
 	import flash.utils.Timer;
 	
@@ -17,7 +18,9 @@ package FlashGame
 	import Assets.Rain;
 	import Assets.SmallFlyingEnemy;
 	import Assets.SmallPlatformEnemy;
-		
+	
+	import Box2D.Common.Math.b2Vec2;
+	
 	import Parents.Stage;
 	
 	public class WallJumpingWorld extends Stage
@@ -25,6 +28,9 @@ package FlashGame
 		private var screen:Sprite;
 		private var background:Background;
 		private var rain:Rain;
+		
+		private var startPlatform:Platform;
+		private var reset:Boolean;
 		/**			Constructor
 		 * 
 		 * Takes in screen it will be added to
@@ -35,38 +41,32 @@ package FlashGame
 			screen = screenP;
 			screen.addChildAt(this,0);
 			
-			super(screen,debugging, 150, 7);
+			super(screen,debugging, 130, 7);
 						
+			this.addEventListener(Event.ENTER_FRAME, stageBoundary, false, 0, true);
+			
 			//BACKGROUND
 			background = new Background("test");
 			
 			//RAIN
 			rain = new Rain(this, 100,900,525,50, 15, 5, "left");
 			
-			//GROUND & SKY
-			var testGround:Platform = new Platform(7, 15, 275, 15, "b_wide");
-			var testSky:Platform = new Platform(7, -120, 275, 15, "b_wide");
-
-			//WALLS
-			var leftWall:Platform = new Platform(-5,-170, 30, 200, "b_tall");
-			var rightWall:Platform = new Platform(250,-170, 30, 200, "b_tall");
+			//Platform player starts on
+			startPlatform = new Platform(125, 15, 10, 3, "ground");
 
 			//PLATFORMS
-			for(var i:int = 0; i < 8; i++){
-				var topWallPlatform:Platform = new Platform(40+(i*25), -35,3, 15, "tall");
-				var middleTopWallPlatform:Platform = new Platform(53+(i*25), -25,3, 15, "tall");
-				var middleWallPlatform:Platform = new Platform(40+(i*25), -15,3, 15, "tall");
-				var bottomPlatform:Platform = new Platform(49+(i*25), 5,10, 2, "wide");
+			for(var i:int = 0; i < 12; i++){
+				var row10:Platform = new Platform(53+(i*25), -95,1, 10, "tall");
+				var row9:Platform = new Platform(41+(i*25), -85,1, 10, "tall");
+				var row8:Platform = new Platform(53+(i*25), -75,1, 10, "tall");
+				var row7:Platform = new Platform(41+(i*25), -65,1, 10, "tall");
+				var row6:Platform = new Platform(53+(i*25), -55,1, 10, "tall");
+				var row5:Platform = new Platform(41+(i*25), -45,1, 10, "tall");
+				var row4:Platform = new Platform(53+(i*25), -35,1, 10, "tall");
+				var row3:Platform = new Platform(41+(i*25), -25,1, 10, "tall");
+				var row2:Platform = new Platform(53+(i*25), -15,1, 10, "tall");
+				var row1:Platform = new Platform(41+(i*25), 0,1, 10, "tall");
 			}
-			for(var j:int = 0; j < 16; j++){
-				var topSquarePlatform:Platform = new Platform(44+(j*12), -72,3, 3, "square");
-				var middleSquarePlatform:Platform = new Platform(38+(j*12), -60,3, 3, "square");
-				var bottomSquarePlatform:Platform = new Platform(44+(j*12), -48,3, 3, "square");
-			}
-			
-			//SPIKES
-			var spike1:Platform = new Platform(25, 12.5,10, 3, "enemy");
-			var spike2:Platform = new Platform(240, 12.5,10, 3, "enemy");
 			
 			//ENEMY
 			var enemyAdd:Timer = new Timer(3500);
@@ -148,6 +148,33 @@ package FlashGame
 				else if(randomDrop > 0.8 && randomDrop < 1){
 					var machinegunDrop:ItemDrop = new ItemDrop(Math.random()*190 + 40, Math.random()*-90, 2,2, 4);	
 				}
+			}
+		}
+		
+		/**Computes the bottom boundary of the stage and resets player if necessary*/
+		private function stageBoundary(e:Event):void{
+			//Fade out starting platform
+			if(startPlatform.sprite.alpha > 0)
+			{
+				startPlatform.sprite.alpha -= 0.005;
+			}
+			//Delete it once it complete fades away
+			else{
+				startPlatform.destroyBody();
+			}
+			
+			//create new starting platform for player
+			if(reset){
+				startPlatform = new Platform(player.body.GetPosition().x - 5, 15, 10, 3, "ground");
+				reset = false;
+			}
+
+			//reset player if too far from world
+			if(player.body.GetPosition().y > 100){
+				player.body.SetPosition(new b2Vec2(130, -75));
+				PlayerHUD.heartDamaged = true;
+				Player.playerHealth--;
+				reset = true;
 			}
 		}
 	}

@@ -81,6 +81,11 @@ package Parents
 			updateSprite();
 		}
 		
+		/**Get sprite*/
+		public function get sprite():DisplayObject{
+			return _sprite;
+		}
+		
 		/**Set and get body*/
 		public function set body(bodyP:b2Body):void{
 			_body = bodyP;
