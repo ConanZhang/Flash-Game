@@ -36,12 +36,12 @@ package FlashGame
 		 * Takes in screen it will be added to
 		 * 
 		 */
-		public function WallJumpingWorld(screenP:Sprite, debugging:Boolean)
+		public function WallJumpingWorld(screenP:Sprite, debugging:Boolean, pacifist:Boolean, nonStop:Boolean)
 		{			
 			screen = screenP;
 			screen.addChildAt(this,0);
 			
-			super(screen,debugging, 130, 7);
+			super(screen,debugging, 128, 7, pacifist, nonStop);
 						
 			this.addEventListener(Event.ENTER_FRAME, stageBoundary, false, 0, true);
 			
@@ -52,7 +52,7 @@ package FlashGame
 			rain = new Rain(this, 100,900,525,50, 15, 5, "left");
 			
 			//Platform player starts on
-			startPlatform = new Platform(125, 15, 20, 3, "ground");
+			startPlatform = new Platform(120, 15, 20, 3, "ground");
 
 			//PLATFORMS
 			for(var i:int = 0; i < 12; i++){
@@ -73,12 +73,14 @@ package FlashGame
 			enemyAdd.addEventListener(TimerEvent.TIMER, addEnemy);
 			enemyAdd.start();
 			
-			//AMMO
-			var beginAmmoDrop:ItemDrop = new ItemDrop(Math.random()*190 + 40, Math.random()*-90, 1.5,1.5, 2);	
-			
-			var ammoAdd:Timer = new Timer(15000);
-			ammoAdd.addEventListener(TimerEvent.TIMER, addAmmo);
-			ammoAdd.start();
+			if(!pacifist){
+				//AMMO
+				var beginAmmoDrop:ItemDrop = new ItemDrop(Math.random()*190 + 40, Math.random()*-90, 1.5,1.5, 2);	
+				
+				var ammoAdd:Timer = new Timer(15000);
+				ammoAdd.addEventListener(TimerEvent.TIMER, addAmmo);
+				ammoAdd.start();	
+			}
 		}
 		
 		private function addEnemy(e:TimerEvent):void{
@@ -160,23 +162,24 @@ package FlashGame
 				startPlatform.sprite.alpha -= 0.005;
 			}
 			//Delete it once it complete fades away
-			else{
+			else if(startPlatform.sprite.alpha == 0){
 				startPlatform.destroyBody();
 			}
 			
 			//create new starting platform for player
 			if(reset){
-				startPlatform = new Platform(player.body.GetPosition().x - 5, 15, 20, 3, "ground");
+				startPlatform.destroyAll();
+				startPlatform = new Platform(player.body.GetPosition().x - 10, 15, 20, 3, "ground");
 				reset = false;
 			}
 
 			//reset player if too far from world
 			if(player.body.GetPosition().y > 75){
 				player.body.SetPosition(new b2Vec2(130, -75));
+				reset = true;
 				PlayerHUD.heartDamaged = true;
 				Player.playerHealth--;
 				Player.playerInvulnerable = 50;
-				reset = true;
 			}
 		}
 	}

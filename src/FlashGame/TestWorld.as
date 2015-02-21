@@ -30,12 +30,12 @@ package FlashGame
 		 * Takes in screen it will be added to
 		 * 
 		 */
-		public function TestWorld(screenP:Sprite, debugging:Boolean)
+		public function TestWorld(screenP:Sprite, debugging:Boolean, pacifist:Boolean, nonStop:Boolean)
 		{			
 			screen = screenP;
 			screen.addChildAt(this,0);
 			
-			super(screen,debugging, 150, 7);
+			super(screen,debugging, 150, 7, pacifist, nonStop);
 			
 			//BACKGROUND
 			background = new Background("test");
@@ -73,12 +73,14 @@ package FlashGame
 			enemyAdd.addEventListener(TimerEvent.TIMER, addEnemy);
 			enemyAdd.start();
 			
-			//AMMO
-			var beginAmmoDrop:ItemDrop = new ItemDrop(Math.random()*190 + 40, Math.random()*-90, 1.5,1.5, 2);	
-			
-			var ammoAdd:Timer = new Timer(15000);
-			ammoAdd.addEventListener(TimerEvent.TIMER, addAmmo);
-			ammoAdd.start();
+			if(!pacifist){
+				//AMMO
+				var beginAmmoDrop:ItemDrop = new ItemDrop(Math.random()*190 + 40, Math.random()*-90, 1.5,1.5, 2);	
+				
+				var ammoAdd:Timer = new Timer(15000);
+				ammoAdd.addEventListener(TimerEvent.TIMER, addAmmo);
+				ammoAdd.start();
+			}
 		}
 		
 		private function addEnemy(e:TimerEvent):void{

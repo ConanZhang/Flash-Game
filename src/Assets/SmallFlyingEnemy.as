@@ -328,7 +328,6 @@ package Assets {
 						}
 					}
 					Stage.flyCount--;
-					
 					//destroy yourself
 					destroyAll();
 				}		

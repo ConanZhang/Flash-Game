@@ -276,7 +276,6 @@ package Assets
 					Stage.machineFire = false;
 					destroyAll();
 				}
-				
 			}
 			
 			//player hit

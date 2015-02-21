@@ -3,18 +3,19 @@
  */ 
 package FlashGame
 {
-	import Assets.Player;
-	import Assets.Weapon;
-	
-	import Parents.Stage;
-	
 	import flash.display.MovieClip;
 	import flash.display.Shape;
 	import flash.display.Sprite;
 	import flash.events.TimerEvent;
+	import flash.net.SharedObject;
 	import flash.text.TextField;
 	import flash.text.TextFormat;
 	import flash.utils.Timer;
+	
+	import Assets.Player;
+	import Assets.Weapon;
+	
+	import Parents.Stage;
 	
 	public class PlayerHUD extends Sprite
 	{		
@@ -50,13 +51,19 @@ package FlashGame
 		private var timerText:TextField;
 		private var timerFormat:TextFormat;
 		
+		private var highScoreText:TextField;
+		private var scoreFormat:TextFormat;
+		
 		private var minuteDisplay:int;
 		private var secondDisplay:int;
+		
+		private var highMinute:int;
+		private var highSecond:int;
 		
 		private var surviveTimer:Timer;
 		
 		//round start countdown
-		public static var countDownText:TextField;
+		private var countDownText:TextField;
 		private var countDownFormat:TextFormat;
 		
 		private var countDownSeconds:int;
@@ -67,8 +74,13 @@ package FlashGame
 		public static var heartRevive:Boolean;
 		public static var heartDamaged:Boolean;
 		
+		private var nonStop: Boolean;
+		
+		//high score
+		private var highScore:SharedObject;
+		
 		/**Constructor*/
-		public function PlayerHUD(screenP:Sprite)
+		public function PlayerHUD(screenP:Sprite, _nonStop:Boolean)
 		{
 			//initialize class member variables
 			heartRevive = false;
@@ -80,6 +92,8 @@ package FlashGame
 			
 			screen = screenP;
 			screen.addChild(this);
+			
+			nonStop = _nonStop;
 			
 			fadeClip = new slowscreen();
 			
@@ -193,31 +207,6 @@ package FlashGame
 			enemyCount.selectable = false;			
 			this.addChild(enemyCount);
 			
-			//survive timer
-			minuteDisplay = 0;
-			secondDisplay = 0;
-			
-			timerFormat = new TextFormat();
-			timerFormat.size = 30;
-			timerFormat.align = "center";
-			timerFormat.font = "Zenzai Itacha";
-			
-			timerText = new TextField();
-			timerText.embedFonts = true;
-			timerText.defaultTextFormat = timerFormat;
-			timerText.text = "0 i 00";
-			timerText.x = 225;
-			timerText.y = 50;
-			timerText.width = 275;
-			timerText.textColor = 0xff0000;
-			timerText.selectable = false;
-			this.addChild(timerText);
-			
-			surviveTimer = new Timer(1000);
-			surviveTimer.addEventListener(TimerEvent.TIMER, surviveCountDown);
-			surviveTimer.delay = 4000;
-			surviveTimer.start();
-			
 			//count down timer
 			countDownSeconds = 3;
 			
@@ -240,6 +229,87 @@ package FlashGame
 			countDownTimer = new Timer(1000);
 			countDownTimer.addEventListener(TimerEvent.TIMER, beginCountDown);
 			countDownTimer.start();
+			
+			//survive timer
+			if(nonStop){
+				highScore = SharedObject.getLocal("HighScore");
+
+				if(highScore.data.nonStopHighScore != null){
+					highMinute = highScore.data.highMinute;
+					highSecond = highScore.data.highSecond;
+				}
+				else{
+					highMinute = 0;
+					highSecond = 0;
+				}
+
+				minuteDisplay = 0;
+				secondDisplay = 0;
+				
+				timerFormat = new TextFormat();
+				timerFormat.size = 30;
+				timerFormat.align = "center";
+				timerFormat.font = "Zenzai Itacha";
+				
+				timerText = new TextField();
+				timerText.embedFonts = true;
+				timerText.defaultTextFormat = timerFormat;
+				timerText.text = "0 i 00";
+				timerText.x = 225;
+				timerText.y = 50;
+				timerText.width = 275;
+				timerText.textColor = 0xff0000;
+				timerText.selectable = false;
+				this.addChild(timerText);
+				
+				scoreFormat = new TextFormat();
+				scoreFormat.size = 30;
+				scoreFormat.align = "center";
+				scoreFormat.font = "Zenzai Itacha";
+				
+				highScoreText = new TextField();
+				highScoreText.embedFonts = true;
+				highScoreText.defaultTextFormat = timerFormat;
+				
+				if(highSecond < 10){
+					highScoreText.text = highMinute.toString() + " i 0" + highSecond.toString();
+				}
+				else{
+					highScoreText.text = highMinute.toString() + " i " + highSecond.toString();
+				}
+				highScoreText.x = 500;
+				highScoreText.y = 50;
+				highScoreText.width = 275;
+				highScoreText.textColor = 0xff0000;
+				highScoreText.selectable = false;
+				this.addChild(highScoreText);
+			}
+			else{
+				minuteDisplay = 3;
+				secondDisplay = 0;
+				
+				timerFormat = new TextFormat();
+				timerFormat.size = 30;
+				timerFormat.align = "center";
+				timerFormat.font = "Zenzai Itacha";
+				
+				timerText = new TextField();
+				timerText.embedFonts = true;
+				timerText.defaultTextFormat = timerFormat;
+				timerText.text = "3 i 00";
+				timerText.x = 225;
+				timerText.y = 50;
+				timerText.width = 275;
+				timerText.textColor = 0xff0000;
+				timerText.selectable = false;
+				this.addChild(timerText);
+			}
+
+			
+			surviveTimer = new Timer(1000);
+			surviveTimer.addEventListener(TimerEvent.TIMER, surviveCountDown);
+			surviveTimer.delay = 4000;
+			surviveTimer.start();
 		}
 		
 		/**Called in stage update*/
@@ -251,7 +321,7 @@ package FlashGame
 			else if(fadeClip.alpha > 0 && !Stage.slowMotion || Stage.slowAmount <= 0 && fadeClip.alpha > 0){
 				fadeClip.alpha-=0.02;
 			}
-			
+
 			//health
 			if(heartRevive){
 				if(Player.playerHealth == 1){
@@ -295,7 +365,6 @@ package FlashGame
 				}
 				heartDamaged = false;
 			}
-			
 			//slow motion bar
 			slowMotionBar.graphics.clear();
 			slowMotionBar.graphics.beginFill(0xff0000);
@@ -323,19 +392,47 @@ package FlashGame
 					surviveTimer.delay = 1000;
 				}
 				
-				//plus seconds
-				if(secondDisplay < 59){
-					secondDisplay++;
+				if(nonStop){
+					//plus seconds
+					if(secondDisplay < 59){
+						secondDisplay++;
+						if(highMinute <= minuteDisplay){
+							if(highSecond < secondDisplay){
+								highSecond = secondDisplay;
+							}
+						}
+					}
+						//plus minutes
+					else{
+						minuteDisplay++;
+						secondDisplay = 0;
+						if(highMinute <= minuteDisplay){
+							highMinute = minuteDisplay;
+							highSecond = 0;
+						}
+					}
 				}
-				//minus minutes
 				else{
-					minuteDisplay++;
-					secondDisplay = 0;
+					//minus minutes
+					if(secondDisplay == 0 && minuteDisplay > 0){
+						secondDisplay = 59;
+						minuteDisplay--;
+					}
+						//minus seconds
+					else if(minuteDisplay > 0){
+						secondDisplay--;
+					}
+					else if(minuteDisplay == 0){
+						if(secondDisplay > 0){
+							secondDisplay--;
+						}
+					}
 				}
 			}
 			
-			//display new text
+			//display time text
 			timerText.text = minuteDisplay+" i "+(secondDisplay >= 10 ? secondDisplay:"0" + secondDisplay);
+			highScoreText.text = highMinute+" i "+(highSecond >= 10 ? highSecond:"0" + highSecond);
 		}
 		
 		/**Begin count down timer*/
@@ -355,12 +452,21 @@ package FlashGame
 			else if(countDownSeconds == -1 && minuteDisplay != 3 && Player.playerHealth != 0){
 				countDownText.text = "";
 			}
-			else if(minuteDisplay == 3){
+			else if(minuteDisplay == 0 && secondDisplay == 0){
 				countDownText.text = "Win!";
 			}
 			else if(Player.playerHealth == 0){
 				countDownText.text = "Dead!";
+				highScore.data.highMinute = highMinute;
+				highScore.data.highSecond = highSecond;
+				highScore.flush();
 			}
+		}
+		
+		public function eraseScore():void{
+			highScore.data.highMinute = 0;
+			highScore.data.highSecond = 0;
+			highScore.flush();
 		}
 	}
 			

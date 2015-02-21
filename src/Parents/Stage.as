@@ -114,7 +114,7 @@ package Parents
 		private var machineDelay:int;
 		
 		/**Constructor*/
-		public function Stage(screenP:Sprite, debugging:Boolean, playerX:Number, playerY:Number)
+		public function Stage(screenP:Sprite, debugging:Boolean, playerX:Number, playerY:Number, pacifist:Boolean, nonStop:Boolean)
 		{
 			screen = screenP;
 			
@@ -163,18 +163,21 @@ package Parents
 			slowRotation = false;
 			flinchTime = 0;
 			
-			//HUD
-			gameHUD = new PlayerHUD(this);
-			this.addChild(gameHUD);
-			
 			//PLAYER
 			player = new Player(playerX, playerY, 3.5);
 			this.setPlayer(player.body);
+			Player.playerInvulnerable = 100;
 			
-			//WEAPON
-			weapon = new Weapon(15, 7,1);
-			machineFire = false;
-			machineDelay = 2;
+			if(!pacifist){
+				//WEAPON
+				weapon = new Weapon(15, 7,1);
+				machineFire = false;
+				machineDelay = 2;
+			}
+			
+			//HUD
+			gameHUD = new PlayerHUD(this, nonStop);
+			this.addChild(gameHUD);
 			
 			//delay controls
 			beginTimer = new Timer(3000, 1);
@@ -487,27 +490,6 @@ package Parents
 					start();
 				}
 			}
-			//full screen
-			else if(e.keyCode == Keyboard.F){
-				if(stage.displayState == StageDisplayState.NORMAL){
-					stage.displayState = StageDisplayState.FULL_SCREEN_INTERACTIVE;
-				}
-				else{
-					stage.displayState = StageDisplayState.NORMAL;				
-				}
-			}
-			//quality
-			else if(e.keyCode == Keyboard.C){
-				if(stage.quality == "LOW" ){
-					stage.quality = StageQuality.MEDIUM;
-				}
-				else if(stage.quality == "MEDIUM"){
-					stage.quality = StageQuality.HIGH;
-				}
-				else if(stage.quality == "HIGH" ){
-					stage.quality = StageQuality.LOW;
-				}
-			}
 			//change weapon
 			else if(e.keyCode == Keyboard.Q){
 				if(Weapon.weaponType == 1 && Weapon.machinegunAmmo > 0){
@@ -633,8 +615,13 @@ package Parents
 				}
 			}
 			
+			//test remove stage
 			if(e.keyCode == Keyboard.X){
 				destroy();
+			}
+			//test remove score
+			if(e.keyCode == Keyboard.Z){
+				gameHUD.eraseScore();
 			}
 		}
 		
@@ -763,10 +750,9 @@ package Parents
 		
 		/**Destroy Stage*/
 		public function destroy():void{
-			if(this.contains(debug)){
+			if(debug != null){
 				debug.destroy();
-			}
-			
+			}						
 			this.removeEventListener(Event.ENTER_FRAME, update);
 			stage.removeEventListener(KeyboardEvent.KEY_DOWN, keyPressed);
 			stage.removeEventListener(KeyboardEvent.KEY_UP, keyReleased);

@@ -4,12 +4,17 @@
 package
 {
 	import flash.display.Sprite;
+	import flash.display.StageDisplayState;
+	import flash.display.StageQuality;
 	import flash.events.Event;
+	import flash.events.KeyboardEvent;
 	import flash.text.Font;
+	import flash.ui.Keyboard;
 	import flash.ui.Mouse;
 	
 	import FlashGame.Menu;
 	import FlashGame.TestWorld;
+	import FlashGame.TutorialWorld;
 	import FlashGame.WallJumpingWorld;
 	
 	/**SWF Options*/
@@ -28,6 +33,7 @@ package
 		//Levels
 		private var test:TestWorld;  
 		private var walls:WallJumpingWorld;
+		private var tutorial:TutorialWorld;
 		
 		//Menu
 		private var menu:Menu;
@@ -39,13 +45,10 @@ package
 			Font.registerFont(Zenzai_Itacha);
 			
 			this.addEventListener(Event.ENTER_FRAME, moveReticule);
-			
-			menu = new Menu(this);
+			stage.addEventListener(KeyboardEvent.KEY_DOWN, options);
 			this.addEventListener(Event.REMOVED, testingRemove);
 
-			//create new test world
-			//test = new TestWorld(this, true);
-			//
+			menu = new Menu(this);
 			
 			//hide cursor
 			Mouse.hide();
@@ -58,21 +61,45 @@ package
 			this.addChild(gameReticule);
 		}
 		
-		protected function testingRemove(event:Event):void{
+		private function testingRemove(event:Event):void{
 			if(event.target is Menu){
 				
-				walls = new WallJumpingWorld(this, true);
+				tutorial = new TutorialWorld(this, true, true, true);
 			}
-			else if(event.target is WallJumpingWorld){
+			else if(event.target is TutorialWorld){
 				
 				menu = new Menu(this);
 			} 
 		}
 
-		protected function moveReticule(event:Event):void{
+		private function moveReticule(event:Event):void{
 			//reticule
 			gameReticule.x = this.mouseX;
 			gameReticule.y = this.mouseY;
+		}
+		
+		private function options(e:KeyboardEvent):void{
+			//full screen
+			if(e.keyCode == Keyboard.F){
+				if(stage.displayState == StageDisplayState.NORMAL){
+					stage.displayState = StageDisplayState.FULL_SCREEN_INTERACTIVE;
+				}
+				else{
+					stage.displayState = StageDisplayState.NORMAL;				
+				}
+			}
+				//quality
+			else if(e.keyCode == Keyboard.C){
+				if(stage.quality == "LOW" ){
+					stage.quality = StageQuality.MEDIUM;
+				}
+				else if(stage.quality == "MEDIUM"){
+					stage.quality = StageQuality.HIGH;
+				}
+				else if(stage.quality == "HIGH" ){
+					stage.quality = StageQuality.LOW;
+				}
+			}
 		}
 	}
 }
