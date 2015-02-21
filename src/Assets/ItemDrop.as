@@ -91,6 +91,7 @@ package Assets {
 				itemDropClip.height = itemDrop_Height*metricPixRatio;
 				super.sprite = itemDropClip;
 				Stage.sprites.addChild(itemDropClip);
+				Stage.ammunitionCount++;
 			}
 			//shotgun ammo
 			else if(itemType == 3){
@@ -99,6 +100,7 @@ package Assets {
 				itemDropClip.height = itemDrop_Height*metricPixRatio;
 				super.sprite = itemDropClip;
 				Stage.sprites.addChild(itemDropClip);
+				Stage.ammunitionCount++;
 			}
 				//shotgun ammo
 			else if(itemType == 4){
@@ -107,6 +109,7 @@ package Assets {
 				itemDropClip.height = itemDrop_Height*metricPixRatio;
 				super.sprite = itemDropClip;
 				Stage.sprites.addChild(itemDropClip);
+				Stage.ammunitionCount++;
 			}
 		}
 		
@@ -120,6 +123,7 @@ package Assets {
 				}
 				else if(itemType == 2){
 					Weapon.pistolAmmo +=5;
+					Stage.ammunitionCount--;
 					if(!Weapon.holdingWeapon){
 						Weapon.needWeapon = true;
 						Weapon.weaponType = 1;
@@ -127,6 +131,7 @@ package Assets {
 				}
 				else if(itemType == 3){
 					Weapon.shotgunAmmo +=2;
+					Stage.ammunitionCount--;
 					if(!Weapon.holdingWeapon){
 						Weapon.needWeapon = true;
 						Weapon.weaponType = 2;
@@ -134,6 +139,7 @@ package Assets {
 				}
 				else if(itemType == 4){
 					Weapon.machinegunAmmo +=10;
+					Stage.ammunitionCount--;
 					if(!Weapon.holdingWeapon){
 						Weapon.needWeapon = true;
 						Weapon.weaponType = 3;

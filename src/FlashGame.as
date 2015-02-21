@@ -18,6 +18,7 @@ package
 	import FlashGame.WallJumpingWorld;
 	
 	/**SWF Options*/
+	//default color #C4A57C
 	[SWF(backgroundColor="#C4A57C", width="700", height="525", frameRate="30")]
 
 	public class FlashGame extends Sprite
@@ -64,9 +65,9 @@ package
 		private function testingRemove(event:Event):void{
 			if(event.target is Menu){
 				
-				tutorial = new TutorialWorld(this, true, true, true);
+				walls = new WallJumpingWorld(this, false, false, true, 1);
 			}
-			else if(event.target is TutorialWorld){
+			else if(event.target is WallJumpingWorld){
 				
 				menu = new Menu(this);
 			} 

@@ -47,6 +47,10 @@ package FlashGame
 		private var enemyCount:TextField;
 		private var enemyFormat:TextFormat;
 		
+		//ammunition
+		private var ammunitionCount:TextField;
+		private var ammunitionFormat:TextFormat;
+		
 		//survive timer
 		private var timerText:TextField;
 		private var timerFormat:TextFormat;
@@ -75,12 +79,13 @@ package FlashGame
 		public static var heartDamaged:Boolean;
 		
 		private var nonStop: Boolean;
+		private var world:int;
 		
 		//high score
 		private var highScore:SharedObject;
 		
 		/**Constructor*/
-		public function PlayerHUD(screenP:Sprite, _nonStop:Boolean)
+		public function PlayerHUD(screenP:Sprite, _nonStop:Boolean, _world:int)
 		{
 			//initialize class member variables
 			heartRevive = false;
@@ -94,6 +99,7 @@ package FlashGame
 			screen.addChild(this);
 			
 			nonStop = _nonStop;
+			world = _world;
 			
 			fadeClip = new slowscreen();
 			
@@ -173,7 +179,7 @@ package FlashGame
 			
 			this.addChild(slowBarClip);
 			
-			//ammunition
+			//ammo
 			ammoFormat = new TextFormat();
 			ammoFormat.size = 35;
 			ammoFormat.align = "right";
@@ -189,6 +195,23 @@ package FlashGame
 			ammoCount.textColor = 0xff0000;
 			ammoCount.selectable = false;			
 			this.addChild(ammoCount);
+			
+			//ammunition
+			ammunitionFormat = new TextFormat();
+			ammunitionFormat.size = 35;
+			ammunitionFormat.align = "center";
+			ammunitionFormat.font = "Zenzai Itacha";
+			
+			ammunitionCount = new TextField();
+			ammunitionCount.embedFonts = true;
+			ammunitionCount.defaultTextFormat = ammoFormat;
+			ammunitionCount.height = 50;
+			ammunitionCount.width = 200;
+			ammunitionCount.x = 225;
+			ammunitionCount.y = 435;
+			ammunitionCount.textColor = 0xff0000;
+			ammunitionCount.selectable = false;			
+			this.addChild(ammunitionCount);
 			
 			//enemy count
 			enemyFormat = new TextFormat();
@@ -234,9 +257,15 @@ package FlashGame
 			if(nonStop){
 				highScore = SharedObject.getLocal("HighScore");
 
-				if(highScore.data.nonStopHighScore != null){
-					highMinute = highScore.data.highMinute;
-					highSecond = highScore.data.highSecond;
+				if(highScore.data != null){
+					if(world == 0){
+						highMinute = highScore.data.tutorialMinute;
+						highSecond = highScore.data.tutorialSecond;
+					}
+					else if(world == 1){
+						highMinute = highScore.data.wallMinute;
+						highSecond = highScore.data.wallSecond;
+					}
 				}
 				else{
 					highMinute = 0;
@@ -272,13 +301,13 @@ package FlashGame
 				highScoreText.defaultTextFormat = timerFormat;
 				
 				if(highSecond < 10){
-					highScoreText.text = highMinute.toString() + " i 0" + highSecond.toString();
+					highScoreText.text = "High Score " + highMinute.toString() + " i 0" + highSecond.toString();
 				}
 				else{
-					highScoreText.text = highMinute.toString() + " i " + highSecond.toString();
+					highScoreText.text = "High Score " + highMinute.toString() + " i " + highSecond.toString();
 				}
-				highScoreText.x = 500;
-				highScoreText.y = 50;
+				highScoreText.x = 250;
+				highScoreText.y = 0;
 				highScoreText.width = 275;
 				highScoreText.textColor = 0xff0000;
 				highScoreText.selectable = false;
@@ -378,7 +407,9 @@ package FlashGame
 			//enemy count
 			enemyCount.text = "Flying i " + Stage.flyCount + "\n" +
 							  "Platform i " + Stage.platformCount;
-							 				
+			
+			//ammunition
+			ammunitionCount.text = "Ammunition i " + Stage.ammunitionCount;				 				
 		}
 		
 		/**Survive count down timer*/
@@ -432,7 +463,7 @@ package FlashGame
 			
 			//display time text
 			timerText.text = minuteDisplay+" i "+(secondDisplay >= 10 ? secondDisplay:"0" + secondDisplay);
-			highScoreText.text = highMinute+" i "+(highSecond >= 10 ? highSecond:"0" + highSecond);
+			highScoreText.text = "High Score " + highMinute+" i "+(highSecond >= 10 ? highSecond:"0" + highSecond);
 		}
 		
 		/**Begin count down timer*/
@@ -457,16 +488,48 @@ package FlashGame
 			}
 			else if(Player.playerHealth == 0){
 				countDownText.text = "Dead!";
-				highScore.data.highMinute = highMinute;
-				highScore.data.highSecond = highSecond;
+				if(world == 0){
+					highScore.data.tutorialMinute = highMinute;
+					highScore.data.tutorialSecond = highSecond;
+				}
+				else if(world == 1){
+					highScore.data.wallMinute = highMinute;
+					highScore.data.wallSecond = highSecond;
+				}
+
 				highScore.flush();
 			}
 		}
 		
-		public function eraseScore():void{
-			highScore.data.highMinute = 0;
-			highScore.data.highSecond = 0;
+		public function saveScore():void{
+			if(world == 0){
+				highScore.data.tutorialMinute = highMinute;
+				highScore.data.tutorialSecond = highSecond;
+			}
+			else if(world == 1){
+				highScore.data.wallMinute = highMinute;
+				highScore.data.wallSecond = highSecond;
+			}
 			highScore.flush();
+		}
+		
+		public function eraseScore():void{
+			if(world == 0){
+				highScore.data.tutorialMinute = 0;
+				highScore.data.tutorialSecond = 0;
+			}
+			else if(world == 1){
+				highScore.data.wallMinute = 0;
+				highScore.data.wallSecond = 0;
+			}
+			highScore.flush();
+		}
+		
+		public function destroy():void{
+			countDownTimer.removeEventListener(TimerEvent.TIMER, beginCountDown);
+			countDownTimer.stop();
+			surviveTimer.removeEventListener(TimerEvent.TIMER, surviveCountDown);
+			surviveTimer.stop();
 		}
 	}
 			

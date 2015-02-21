@@ -31,17 +31,20 @@ package FlashGame
 		
 		private var startPlatform:Platform;
 		private var reset:Boolean;
+		
+		private var enemyAdd:Timer;
+		private var ammoAdd:Timer;
 		/**			Constructor
 		 * 
 		 * Takes in screen it will be added to
 		 * 
 		 */
-		public function WallJumpingWorld(screenP:Sprite, debugging:Boolean, pacifist:Boolean, nonStop:Boolean)
+		public function WallJumpingWorld(screenP:Sprite, debugging:Boolean, pacifist:Boolean, nonStop:Boolean, world:int)
 		{			
 			screen = screenP;
 			screen.addChildAt(this,0);
 			
-			super(screen,debugging, 128, 7, pacifist, nonStop);
+			super(screen,debugging, 128, 7, pacifist, nonStop, world);
 						
 			this.addEventListener(Event.ENTER_FRAME, stageBoundary, false, 0, true);
 			
@@ -69,7 +72,7 @@ package FlashGame
 			}
 			
 			//ENEMY
-			var enemyAdd:Timer = new Timer(3500);
+			enemyAdd = new Timer(3500);
 			enemyAdd.addEventListener(TimerEvent.TIMER, addEnemy);
 			enemyAdd.start();
 			
@@ -77,7 +80,7 @@ package FlashGame
 				//AMMO
 				var beginAmmoDrop:ItemDrop = new ItemDrop(Math.random()*190 + 40, Math.random()*-90, 1.5,1.5, 2);	
 				
-				var ammoAdd:Timer = new Timer(15000);
+				ammoAdd = new Timer(15000);
 				ammoAdd.addEventListener(TimerEvent.TIMER, addAmmo);
 				ammoAdd.start();	
 			}
@@ -88,8 +91,7 @@ package FlashGame
 			if(!Stage.paused && Player.playerHealth > 0){
 				var randomAdd:Number = Math.random();
 
-				if(Stage.flyCount < 10){
-					
+				if(Stage.flyCount < 20){
 					if(randomAdd > 0.66){
 						var testEnemy1:FlyingEnemy = new FlyingEnemy(Math.random()*190 + 40, Math.random()*-90, 2, 3);
 					}
@@ -139,17 +141,20 @@ package FlashGame
 		private function addAmmo(e:TimerEvent):void{
 			if(!Stage.paused && Player.playerHealth != 0){
 				var randomDrop: Number = Math.random();
-				//pistol ammo
-				if(randomDrop < 0.6){
-					var pistolDrop:ItemDrop = new ItemDrop(Math.random()*190 + 40, Math.random()*-90, 1.5,1.5, 2);	
-				}
-				//shotgun ammo
-				else if(randomDrop > 0.6 && randomDrop < 0.8){
-					var shotgunDrop:ItemDrop = new ItemDrop(Math.random()*190 + 40, Math.random()*-90, 2.5,2.5, 3);	
-				}
-				//machinegun ammo
-				else if(randomDrop > 0.8 && randomDrop < 1){
-					var machinegunDrop:ItemDrop = new ItemDrop(Math.random()*190 + 40, Math.random()*-90, 2,2, 4);	
+				
+				if(Stage.ammunitionCount < 20){
+					//pistol ammo
+					if(randomDrop < 0.6){
+						var pistolDrop:ItemDrop = new ItemDrop(Math.random()*190 + 40, Math.random()*-90, 1.5,1.5, 2);	
+					}
+						//shotgun ammo
+					else if(randomDrop > 0.6 && randomDrop < 0.8){
+						var shotgunDrop:ItemDrop = new ItemDrop(Math.random()*190 + 40, Math.random()*-90, 2.5,2.5, 3);	
+					}
+						//machinegun ammo
+					else if(randomDrop > 0.8 && randomDrop < 1){
+						var machinegunDrop:ItemDrop = new ItemDrop(Math.random()*190 + 40, Math.random()*-90, 2,2, 4);	
+					}
 				}
 			}
 		}
@@ -181,6 +186,16 @@ package FlashGame
 				Player.playerHealth--;
 				Player.playerInvulnerable = 50;
 			}
+		}
+		
+		public override function childDestroy():void{
+			this.removeEventListener(Event.ENTER_FRAME, stageBoundary);
+			if(ammoAdd != null){
+				ammoAdd.removeEventListener(TimerEvent.TIMER, addAmmo);
+				ammoAdd.stop();	
+			}
+			enemyAdd.removeEventListener(TimerEvent.TIMER, addEnemy);
+			enemyAdd.stop();
 		}
 	}
 }

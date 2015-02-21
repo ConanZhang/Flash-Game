@@ -5,8 +5,6 @@ package Parents
 {
 	import flash.display.MovieClip;
 	import flash.display.Sprite;
-	import flash.display.StageDisplayState;
-	import flash.display.StageQuality;
 	import flash.events.Event;
 	import flash.events.KeyboardEvent;
 	import flash.events.MouseEvent;
@@ -53,6 +51,8 @@ package Parents
 		public static var flyCount:int;
 		//platform enemy count
 		public static var platformCount:int;
+		//ammunition count
+		public static var ammunitionCount:int;
 		
 		/**WORLD*/
 		//world for all objects to exist in
@@ -114,7 +114,7 @@ package Parents
 		private var machineDelay:int;
 		
 		/**Constructor*/
-		public function Stage(screenP:Sprite, debugging:Boolean, playerX:Number, playerY:Number, pacifist:Boolean, nonStop:Boolean)
+		public function Stage(screenP:Sprite, debugging:Boolean, playerX:Number, playerY:Number, pacifist:Boolean, nonStop:Boolean, world:int)
 		{
 			screen = screenP;
 			
@@ -128,6 +128,7 @@ package Parents
 			weaponRotation = 0;
 			flyCount = 0;
 			platformCount = 0;
+			ammunitionCount = 0;
 			
 			/**VISUAL*/
 			//initiate images
@@ -176,7 +177,7 @@ package Parents
 			}
 			
 			//HUD
-			gameHUD = new PlayerHUD(this, nonStop);
+			gameHUD = new PlayerHUD(this, nonStop, world);
 			this.addChild(gameHUD);
 			
 			//delay controls
@@ -187,10 +188,6 @@ package Parents
 			/**DEBUGGING*/
 			if(debugging){
 				debugDrawing();
-				
-				//display debug information
-				debug = new DebugScreen();
-				this.addChild(debug);
 			}
 			
 		}
@@ -617,11 +614,23 @@ package Parents
 			
 			//test remove stage
 			if(e.keyCode == Keyboard.X){
+				gameHUD.saveScore();
 				destroy();
 			}
 			//test remove score
 			if(e.keyCode == Keyboard.Z){
 				gameHUD.eraseScore();
+			}
+			//test debug
+			if(e.keyCode == Keyboard.V){
+				if(debug == null){
+					debug = new DebugScreen();
+					this.addChild(debug);
+				}
+				else{
+					debug.destroy();
+					debug = null;
+				}
 			}
 		}
 		
@@ -752,7 +761,11 @@ package Parents
 		public function destroy():void{
 			if(debug != null){
 				debug.destroy();
-			}						
+			}
+			gameHUD.destroy();
+			
+			this.removeChild(images);
+			
 			this.removeEventListener(Event.ENTER_FRAME, update);
 			stage.removeEventListener(KeyboardEvent.KEY_DOWN, keyPressed);
 			stage.removeEventListener(KeyboardEvent.KEY_UP, keyReleased);
@@ -760,8 +773,13 @@ package Parents
 			stage.removeEventListener(MouseEvent.MOUSE_UP, leftUp);
 			stage.removeEventListener(MouseEvent.MOUSE_WHEEL, mouseWheeled);
 			
+			childDestroy();
+			
 			screen.removeChild(this);
 		}
+		
+		/**Worlds remove differently*/
+		public function childDestroy():void{}
 		
 		/**Play*/
 		public function start():void{

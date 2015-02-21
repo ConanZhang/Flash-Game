@@ -4,6 +4,7 @@
 package FlashGame
 {
 	import flash.display.Sprite;
+	import flash.events.Event;
 	import flash.events.TimerEvent;
 	import flash.utils.Timer;
 	
@@ -17,7 +18,7 @@ package FlashGame
 	import Assets.Rain;
 	import Assets.SmallFlyingEnemy;
 	import Assets.SmallPlatformEnemy;
-		
+	
 	import Parents.Stage;
 	
 	public class TestWorld extends Stage
@@ -25,17 +26,20 @@ package FlashGame
 		private var screen:Sprite;
 		private var background:Background;
 		private var rain:Rain;
+		
+		private var ammoAdd:Timer;
+		private var enemyAdd:Timer;
 		/**			Constructor
 		 * 
 		 * Takes in screen it will be added to
 		 * 
 		 */
-		public function TestWorld(screenP:Sprite, debugging:Boolean, pacifist:Boolean, nonStop:Boolean)
+		public function TestWorld(screenP:Sprite, debugging:Boolean, pacifist:Boolean, nonStop:Boolean, world:int)
 		{			
 			screen = screenP;
 			screen.addChildAt(this,0);
 			
-			super(screen,debugging, 150, 7, pacifist, nonStop);
+			super(screen,debugging, 150, 7, pacifist, nonStop, world);
 			
 			//BACKGROUND
 			background = new Background("test");
@@ -69,7 +73,7 @@ package FlashGame
 			var spike2:Platform = new Platform(240, 12.5,10, 3, "enemy");
 			
 			//ENEMY
-			var enemyAdd:Timer = new Timer(3500);
+			enemyAdd = new Timer(3500);
 			enemyAdd.addEventListener(TimerEvent.TIMER, addEnemy);
 			enemyAdd.start();
 			
@@ -77,7 +81,7 @@ package FlashGame
 				//AMMO
 				var beginAmmoDrop:ItemDrop = new ItemDrop(Math.random()*190 + 40, Math.random()*-90, 1.5,1.5, 2);	
 				
-				var ammoAdd:Timer = new Timer(15000);
+				ammoAdd = new Timer(15000);
 				ammoAdd.addEventListener(TimerEvent.TIMER, addAmmo);
 				ammoAdd.start();
 			}
@@ -151,6 +155,15 @@ package FlashGame
 					var machinegunDrop:ItemDrop = new ItemDrop(Math.random()*190 + 40, Math.random()*-90, 2,2, 4);	
 				}
 			}
+		}
+		
+		public override function childDestroy():void{
+			if(ammoAdd != null){
+				ammoAdd.removeEventListener(TimerEvent.TIMER, addAmmo);
+				ammoAdd.stop();	
+			}
+			enemyAdd.removeEventListener(TimerEvent.TIMER, addEnemy);
+			enemyAdd.stop();
 		}
 	}
 }
