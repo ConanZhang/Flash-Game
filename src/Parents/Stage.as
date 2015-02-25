@@ -613,16 +613,16 @@ package Parents
 			}
 			
 			//test remove stage
-			if(e.keyCode == Keyboard.X){
+			if(e.keyCode == Keyboard.T){
 				gameHUD.saveScore();
 				destroy();
 			}
 			//test remove score
-			if(e.keyCode == Keyboard.Z){
+			if(e.keyCode == Keyboard.Y){
 				gameHUD.eraseScore();
 			}
 			//test debug
-			if(e.keyCode == Keyboard.V){
+			if(e.keyCode == Keyboard.X){
 				if(debug == null){
 					debug = new DebugScreen();
 					this.addChild(debug);

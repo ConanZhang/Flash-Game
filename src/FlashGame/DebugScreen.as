@@ -21,6 +21,8 @@ package FlashGame{
 		private var averageFPS:Vector.<uint>;//holds up to 60 fps values to average
 		private var vectorLength:int;
 		private var totalFPS:Number;//used to calculate average fps
+		private var correctFPSMet:Boolean;//used to check if the actual framerate has been met before checking if it ever drops
+		private var lowestFPS:uint;
 		
 		//memory usage
 		private var maxMemUsed:Number;
@@ -38,6 +40,8 @@ package FlashGame{
 			averageFPS = new Vector.<uint>();
 			vectorLength = averageFPS.length;
 			totalFPS = 0;
+			correctFPSMet = false;
+			lowestFPS = 30;
 			
 			maxMemUsed = 0;
 			
@@ -46,6 +50,8 @@ package FlashGame{
 					<header>FPS DATA</header>
 						<label>FPS: </label>
 							<FPS>-</FPS>
+						<label>Lowest FPS: </label>
+							<lowestFPS>-</lowestFPS>
 						<label>Average FPS/Minute: </label>
 							<averageFPS>-</averageFPS>
 						<label>Milliseconds/Frame: </label>
@@ -70,6 +76,7 @@ package FlashGame{
 			
 			//FPS
 			style.setStyle("FPS",{color:"#FFFFFF"});
+			style.setStyle("lowestFPS",{color:"#FFFFFF"});
 			style.setStyle("averageFPS",{color:"#FFFFFF"});
 			style.setStyle("msPerFrame",{color:"#FFFFFF"});
 			
@@ -106,6 +113,15 @@ package FlashGame{
 			if(updateTimer-1000 > updateDelay){
 				xml.FPS = fps + " / " + stage.frameRate;
 
+				/**Lowest FPS*/
+				if(fps >= stage.frameRate || correctFPSMet){
+					if(lowestFPS > fps){
+						lowestFPS = fps;
+					}
+					xml.lowestFPS = lowestFPS + " / " + stage.frameRate;
+					correctFPSMet = true;
+				}
+				
 				/**Average FPS*/
 				vectorLength = averageFPS.push(fps);//update length
 				
