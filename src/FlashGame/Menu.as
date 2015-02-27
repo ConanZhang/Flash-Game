@@ -229,8 +229,6 @@ package FlashGame
 			if(activeButton.toString() == "[object Play]"){
 				trace("play button was clicked");
 				screen.removeChild(this);
-				
-				
 			}
 			
 			if(activeButton.toString() == "[object Options]"){
