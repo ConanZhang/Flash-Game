@@ -50,14 +50,15 @@ package FlashGame
 			var rightWall:Platform = new Platform(300,-170, 30, 200, "b_tall");
 
 			//PLATFORMS
-			var lowJump:Platform = new Platform(40, 10.5, 10, 2, "wide");
+			var lowJump:Platform = new Platform(40, 10, 10, 2, "wide");
 			var highJump:Platform = new Platform(55, 5, 10, 2, "wide");
 			var hoverJump:Platform = new Platform(80, 5, 0.5, 0.5, "square");
 			var doubleJump:Platform = new Platform(95, -7, 10, 2, "wide");
-			var doubleHoverJump:Platform = new Platform(117, -19, 0.5, 0.5, "square");
+			var doubleHoverJump:Platform = new Platform(117, -17, 0.5, 0.5, "square");
 			
-			var levelOne:Platform = new Platform(100, -4, 121, 20, "b_wide");
-			
+			var levelOne:Platform = new Platform(100, -2, 121, 20, "b_wide");
+			var levelTwo:Platform = new Platform(125, -22, 96, 25, "b_wide");
+
 			var rightWallJump:Platform = new Platform(135, -40, 2, 10, "tall");
 			var leftWallJump:Platform = new Platform(120, -50, 2, 10, "tall");
 			var endWallJump:Platform = new Platform(131, -47, 10, 2, "wide");
@@ -67,7 +68,9 @@ package FlashGame
 			var middleCeilingJump:Platform = new Platform(180, -100, 3, 15, "tall");
 			var rightCeilingJump:Platform = new Platform(205, -100, 3, 15, "tall");
 			
-			var channelLeft:Platform = new Platform(220,-90, 2, 120, "b_tall");
+			var levelThree:Platform = new Platform(150, -65, 71, 45, "b_wide");
+
+			var channelLeft:Platform = new Platform(220,-87, 2, 120, "b_tall");
 			var channelRight:Platform = new Platform(230,-120, 2, 100, "b_tall");
 		}
 		

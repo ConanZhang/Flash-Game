@@ -123,7 +123,7 @@ package FlashGame{
 				}
 				
 				/**Average FPS*/
-				vectorLength = averageFPS.push(fps);//update length
+				vectorLength = averageFPS.push(fps);//update length 
 				
 				//only use 60 values to average fps over a minute
 				if (vectorLength>60) {
