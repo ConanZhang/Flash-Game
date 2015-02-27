@@ -22,8 +22,10 @@ package FlashGame
 		public var buttons:Array;
 		public var backsArray:Array = new Array(); //?????????????
 		public var speed:Number;
+		
 		//added stuff
 		private var buttonContainer: Sprite;
+		private var containerY: Number;
 		
 		private var back:MovieClip;
 		private var backX:Number;
@@ -63,12 +65,13 @@ package FlashGame
 			
 			//initialization
 			speed = 20;
-			buttonContainer = new Sprite();
 			buttons = new Array();
+			buttonContainer = new Sprite();
+			containerY = 0;
 			
 			back = new Back;
 			backX = 50;
-			backY = 600;
+			backY = 50;
 			
 			play = new Play;
 			difficulty = new Difficulty;
@@ -95,15 +98,13 @@ package FlashGame
 			conan = new Conan;
 			copyright = new Copyright;
 			
-			//add container sprite to stage
+			//add container sprite to stage, starting position
 			this.addChild(buttonContainer);
-			
-			//debug
-//			buttonContainer.y = -600;
+			buttonContainer.y = containerY;					
 			
 			//add buttons to container sprite, with positions
 			buttonContainer.addChild(back);
-			back.x = backX; //buttonContainer.x + 50???  (float it with the screen?)
+			back.x = backX;
 			back.y = backY;
 			
 			buttonContainer.addChild(play);
@@ -227,7 +228,10 @@ package FlashGame
 			
 			if(activeButton.toString() == "[object Play]"){
 				trace("play button was clicked");
-				screen.removeChild(this);
+//				screen.removeChild(this);
+				
+				containerY = 300;
+				
 			}
 			
 			if(activeButton.toString() == "[object Options]"){
@@ -258,8 +262,16 @@ package FlashGame
 				}
 			}
 			
-			//move screen by a little bit here?		
+			//animate screen change
+			if(Math.abs(buttonContainer.y) < containerY){
+				buttonContainer.y -= 5;
+			}
 			
+			
+			
+			//clicking back button to go in the reverse direction
+//			if(buttonContainer.y > containerY)
+//				buttonContainer.y += 5;			
 			
 		}
 		
