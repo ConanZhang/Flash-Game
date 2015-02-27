@@ -66,7 +66,7 @@ package
 			if(event.target is Menu){
 				
 				walls = new WallJumpingWorld(this, true, false, true, 1);
-				//tutorial = new TutorialWorld(this, true, false, true, 1);
+				//tutorial = new TutorialWorld(this, true, false, true, 0);
 			}
 			else if(event.target is TutorialWorld || event.target is WallJumpingWorld){
 				
