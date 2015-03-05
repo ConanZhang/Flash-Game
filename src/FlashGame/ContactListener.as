@@ -34,6 +34,7 @@ package FlashGame
 					Stage.airJumping = false;
 					Stage.jumpTime = 0;
 					Stage.jumpAmount = Stage.defaultJumpAmount;
+					Stage.floor = true;
 					Player.STATE = Player.IDLE;
 				}
 				else if(playerDataA == "RIGHT"){
@@ -66,6 +67,7 @@ package FlashGame
 					Stage.airJumping = false;
 					Stage.jumpTime = 0;
 					Stage.jumpAmount = Stage.defaultJumpAmount;
+					Stage.floor = true;
 					Player.STATE = Player.IDLE;
 				}
 				else if(playerDataB == "RIGHT"){
@@ -298,16 +300,21 @@ package FlashGame
 				if(playerDataA == "FOOT"){
 					Stage.jumping = true;
 					Player.STATE = Player.JUMPING;
+					Stage.floor = false;
 				}
 				else if(playerDataA == "RIGHT"){
 					Stage.rightWall = false;
-					Stage.jumping = true;
-					Player.STATE = Player.JUMPING;
+					if(!Stage.floor){
+						Stage.jumping = true;
+						Player.STATE = Player.JUMPING;
+					}
 				}
 				else if(playerDataA == "LEFT"){
 					Stage.leftWall = false;
-					Stage.jumping = true;
-					Player.STATE = Player.JUMPING;
+					if(!Stage.floor){
+						Stage.jumping = true;
+						Player.STATE = Player.JUMPING;
+					}
 				}
 			}
 			else if(userDataB == "PLAYER" &&
@@ -319,68 +326,74 @@ package FlashGame
 				
 				if(playerDataB == "FOOT"){
 					Stage.jumping = true;
+					Stage.floor = false;
 					Player.STATE = Player.JUMPING;
 				}
 				else if(playerDataB == "RIGHT"){
 					Stage.rightWall = false;
-					Stage.jumping = true;
-					Player.STATE = Player.JUMPING;
+					if(!Stage.floor){
+						Stage.jumping = true;
+						Player.STATE = Player.JUMPING;
+					}
 				}
 				else if(playerDataB == "LEFT"){
 					Stage.leftWall = false;
 					Stage.jumping = true;
-					Player.STATE = Player.JUMPING;
+					if(!Stage.floor){
+						Stage.jumping = true;
+						Player.STATE = Player.JUMPING;
+					}
 				}
 			}
 			
 			/**Platform Enemy AI*/
-			if(userDataA == "ENEMY" &&
-				userDataB != "ITEM" &&
-				userDataB != "DEAD" &&
-				userDataB != "ENEMY"){
-				
-				var enemyDataA:* = contact.GetFixtureA().GetUserData()[1];
-				
-				if(enemyDataA == "BOTTOM_ON"){
-					contact.GetFixtureA().GetUserData()[1] ="BOTTOM";
-				}
-				else if(enemyDataA == "RIGHT_ON"){
-					contact.GetFixtureA().GetUserData()[1] ="RIGHT";
-				}
-				else if(enemyDataA == "LEFT_ON"){
-					contact.GetFixtureA().GetUserData()[1] ="LEFT";
-				}
-				else if(enemyDataA == "TOP_ON"){
-					contact.GetFixtureA().GetUserData()[1] ="TOP";
-				}
-			}
-			else if(userDataB == "ENEMY" &&
-				userDataA != "ITEM" &&
-				userDataA != "DEAD"  &&
-				userDataB != "ENEMY"){
-				
-				var enemyDataB:* = contact.GetFixtureA().GetUserData()[1];
-				
-				if(enemyDataB == "BOTTOM_ON"){
-					contact.GetFixtureB().GetUserData()[1] ="BOTTOM";
-				}
-				else if(enemyDataB == "RIGHT_ON"){
-					contact.GetFixtureB().GetUserData()[1] ="RIGHT";
-				}
-				else if(enemyDataB == "LEFT_ON"){
-					contact.GetFixtureB().GetUserData()[1] ="LEFT";
-				}
-				else if(enemyDataB == "TOP_ON"){
-					contact.GetFixtureB().GetUserData()[1] ="TOP";
-				}
-			}
+//			if(userDataA == "ENEMY" &&
+//				userDataB != "ITEM" &&
+//				userDataB != "DEAD" &&
+//				userDataB != "ENEMY"){
+//				
+//				var enemyDataA:* = contact.GetFixtureA().GetUserData()[1];
+//				
+//				if(enemyDataA == "BOTTOM_ON"){
+//					contact.GetFixtureA().GetUserData()[1] ="BOTTOM";
+//				}
+//				else if(enemyDataA == "RIGHT_ON"){
+//					contact.GetFixtureA().GetUserData()[1] ="RIGHT";
+//				}
+//				else if(enemyDataA == "LEFT_ON"){
+//					contact.GetFixtureA().GetUserData()[1] ="LEFT";
+//				}
+//				else if(enemyDataA == "TOP_ON"){
+//					contact.GetFixtureA().GetUserData()[1] ="TOP";
+//				}
+//			}
+//			else if(userDataB == "ENEMY" &&
+//				userDataA != "ITEM" &&
+//				userDataA != "DEAD"  &&
+//				userDataB != "ENEMY"){
+//				
+//				var enemyDataB:* = contact.GetFixtureA().GetUserData()[1];
+//				
+//				if(enemyDataB == "BOTTOM_ON"){
+//					contact.GetFixtureB().GetUserData()[1] ="BOTTOM";
+//				}
+//				else if(enemyDataB == "RIGHT_ON"){
+//					contact.GetFixtureB().GetUserData()[1] ="RIGHT";
+//				}
+//				else if(enemyDataB == "LEFT_ON"){
+//					contact.GetFixtureB().GetUserData()[1] ="LEFT";
+//				}
+//				else if(enemyDataB == "TOP_ON"){
+//					contact.GetFixtureB().GetUserData()[1] ="TOP";
+//				}
+//			}
 		}
 		
 		override public function PreSolve(contact:b2Contact, oldManifold:b2Manifold):void{
 			var userDataA:* = contact.GetFixtureA().GetUserData()[0];
 			var userDataB:* = contact.GetFixtureB().GetUserData()[0];
 			
-			//disable contact between player and enemy for invulne
+			//disable contact between player and enemy for invulnerability
 			if(userDataA == "PLAYER" && userDataB == "ENEMY" ||
 			   userDataA == "ENEMY" && userDataB == "PLAYER"){
 				
