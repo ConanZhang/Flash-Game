@@ -329,18 +329,18 @@ package Parents
 								}
 							}
 							//animation
-							if(Player.STATE != Player.DODGE && Player.STATE != Player.R_WALK){
+							if(Player.STATE != Player.DODGE && Player.STATE != Player.R_WALK && Player.STATE != Player.R_WALK_SLOW){
 								if(!jumping && !leftWall && !rightWall && !slowMotion && Stage.floor || !jumping && !leftWall && !rightWall && slowMotion && slowAmount <= 0 && Stage.floor){
 									Player.STATE = Player.L_WALK;
 								}
-								else if(!jumping && !leftWall && slowMotion && slowAmount > 0 && Stage.floor){
+								else if(!jumping && !leftWall && !rightWall && slowMotion && slowAmount > 0 && Stage.floor){
 									Player.STATE = Player.L_WALK_SLOW;
 								}
 								else if(leftWall){
 									Player.STATE = Player.L_WALL;
 								}
 							}
-							else{
+							else if(Player.STATE != Player.DODGE && Player.STATE == Player.R_WALK || Player.STATE == Player.R_WALK_SLOW){
 								Player.STATE = Player.IDLE;
 							}
 							break;
@@ -358,7 +358,7 @@ package Parents
 								}
 							}
 							//animation
-							if(Player.STATE != Player.DODGE && Player.STATE != Player.L_WALK){
+							if(Player.STATE != Player.DODGE && Player.STATE != Player.L_WALK && Player.STATE != Player.L_WALK_SLOW){
 								if(!jumping && !rightWall && !leftWall && !slowMotion && Stage.floor || !jumping && !rightWall && !leftWall && slowMotion && slowAmount <= 0 && Stage.floor){
 									Player.STATE = Player.R_WALK;
 								}
@@ -369,7 +369,7 @@ package Parents
 									Player.STATE = Player.R_WALL;
 								}
 							}
-							else{
+							else if(Player.STATE != Player.DODGE && Player.STATE == Player.L_WALK || Player.STATE == Player.L_WALK_SLOW){
 								Player.STATE = Player.IDLE;
 							}
 							break;
