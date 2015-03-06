@@ -71,6 +71,10 @@ package FlashGame
 				var row1:Platform = new Platform(41+(i*25), 0,1, 10, "tall");
 			}
 			
+			//WALLS
+			var leftWall:Platform = new Platform(-70,-200, 30, 250, "b_tall");
+			var rightWall:Platform = new Platform(400,-200, 30, 250, "b_tall");
+			
 			//ENEMY
 			enemyAdd = new Timer(3500);
 			enemyAdd.addEventListener(TimerEvent.TIMER, addEnemy);
@@ -179,7 +183,7 @@ package FlashGame
 			}
 
 			//reset player if too far from world
-			if(player.body.GetPosition().y > 75){
+			if(player.body.GetPosition().y > 30){
 				player.body.SetPosition(new b2Vec2(130, -75));
 				reset = true;
 				PlayerHUD.heartDamaged = true;

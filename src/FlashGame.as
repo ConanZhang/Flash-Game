@@ -65,8 +65,8 @@ package
 		private function testingRemove(event:Event):void{
 			if(event.target is Menu){
 				
-				//walls = new WallJumpingWorld(this, true, false, 1);
-				tutorial = new TutorialWorld(this, true, false, 0);
+				walls = new WallJumpingWorld(this, true, false, 1);
+				//tutorial = new TutorialWorld(this, true, false, 0);
 			}
 			else if(event.target is TutorialWorld || event.target is WallJumpingWorld){
 				
