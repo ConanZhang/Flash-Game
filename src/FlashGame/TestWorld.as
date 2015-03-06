@@ -34,12 +34,12 @@ package FlashGame
 		 * Takes in screen it will be added to
 		 * 
 		 */
-		public function TestWorld(screenP:Sprite, debugging:Boolean, pacifist:Boolean, nonStop:Boolean, world:int)
+		public function TestWorld(screenP:Sprite, debugging:Boolean, pacifist:Boolean, world:int)
 		{			
 			screen = screenP;
 			screen.addChildAt(this,0);
 			
-			super(screen,debugging, 150, 7, pacifist, nonStop, world);
+			super(screen,debugging, 150, 7, pacifist, world);
 			
 			//BACKGROUND
 			background = new Background("test");

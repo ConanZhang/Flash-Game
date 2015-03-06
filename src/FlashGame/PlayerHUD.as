@@ -78,14 +78,13 @@ package FlashGame
 		public static var heartRevive:Boolean;
 		public static var heartDamaged:Boolean;
 		
-		private var nonStop: Boolean;
 		private var world:int;
 		
 		//high score
 		private var highScore:SharedObject;
 		
 		/**Constructor*/
-		public function PlayerHUD(screenP:Sprite, _nonStop:Boolean, _world:int)
+		public function PlayerHUD(screenP:Sprite, _world:int)
 		{
 			//initialize class member variables
 			heartRevive = false;
@@ -98,7 +97,6 @@ package FlashGame
 			screen = screenP;
 			screen.addChild(this);
 			
-			nonStop = _nonStop;
 			world = _world;
 			
 			fadeClip = new slowscreen();
@@ -254,85 +252,63 @@ package FlashGame
 			countDownTimer.start();
 			
 			//survive timer
-			if(nonStop){
-				highScore = SharedObject.getLocal("HighScore");
+			highScore = SharedObject.getLocal("HighScore");
 
-				if(highScore.data != null){
-					if(world == 0){
-						highMinute = highScore.data.tutorialMinute;
-						highSecond = highScore.data.tutorialSecond;
-					}
-					else if(world == 1){
-						highMinute = highScore.data.wallMinute;
-						highSecond = highScore.data.wallSecond;
-					}
+			if(highScore.data != null){
+				if(world == 0){
+					highMinute = highScore.data.tutorialMinute;
+					highSecond = highScore.data.tutorialSecond;
 				}
-				else{
-					highMinute = 0;
-					highSecond = 0;
+				else if(world == 1){
+					highMinute = highScore.data.wallMinute;
+					highSecond = highScore.data.wallSecond;
 				}
-
-				minuteDisplay = 0;
-				secondDisplay = 0;
-				
-				timerFormat = new TextFormat();
-				timerFormat.size = 30;
-				timerFormat.align = "center";
-				timerFormat.font = "Zenzai Itacha";
-				
-				timerText = new TextField();
-				timerText.embedFonts = true;
-				timerText.defaultTextFormat = timerFormat;
-				timerText.text = "0 i 00";
-				timerText.x = 225;
-				timerText.y = 50;
-				timerText.width = 275;
-				timerText.textColor = 0xff0000;
-				timerText.selectable = false;
-				this.addChild(timerText);
-				
-				scoreFormat = new TextFormat();
-				scoreFormat.size = 30;
-				scoreFormat.align = "center";
-				scoreFormat.font = "Zenzai Itacha";
-				
-				highScoreText = new TextField();
-				highScoreText.embedFonts = true;
-				highScoreText.defaultTextFormat = timerFormat;
-				
-				if(highSecond < 10){
-					highScoreText.text = "High Score " + highMinute.toString() + " i 0" + highSecond.toString();
-				}
-				else{
-					highScoreText.text = "High Score " + highMinute.toString() + " i " + highSecond.toString();
-				}
-				highScoreText.x = 250;
-				highScoreText.y = 0;
-				highScoreText.width = 275;
-				highScoreText.textColor = 0xff0000;
-				highScoreText.selectable = false;
-				this.addChild(highScoreText);
 			}
 			else{
-				minuteDisplay = 3;
-				secondDisplay = 0;
-				
-				timerFormat = new TextFormat();
-				timerFormat.size = 30;
-				timerFormat.align = "center";
-				timerFormat.font = "Zenzai Itacha";
-				
-				timerText = new TextField();
-				timerText.embedFonts = true;
-				timerText.defaultTextFormat = timerFormat;
-				timerText.text = "3 i 00";
-				timerText.x = 225;
-				timerText.y = 50;
-				timerText.width = 275;
-				timerText.textColor = 0xff0000;
-				timerText.selectable = false;
-				this.addChild(timerText);
+				highMinute = 0;
+				highSecond = 0;
 			}
+
+			minuteDisplay = 0;
+			secondDisplay = 0;
+			
+			timerFormat = new TextFormat();
+			timerFormat.size = 30;
+			timerFormat.align = "center";
+			timerFormat.font = "Zenzai Itacha";
+			
+			timerText = new TextField();
+			timerText.embedFonts = true;
+			timerText.defaultTextFormat = timerFormat;
+			timerText.text = "0 i 00";
+			timerText.x = 225;
+			timerText.y = 50;
+			timerText.width = 275;
+			timerText.textColor = 0xff0000;
+			timerText.selectable = false;
+			this.addChild(timerText);
+			
+			scoreFormat = new TextFormat();
+			scoreFormat.size = 30;
+			scoreFormat.align = "center";
+			scoreFormat.font = "Zenzai Itacha";
+			
+			highScoreText = new TextField();
+			highScoreText.embedFonts = true;
+			highScoreText.defaultTextFormat = timerFormat;
+			
+			if(highSecond < 10){
+				highScoreText.text = "High Score " + highMinute.toString() + " i 0" + highSecond.toString();
+			}
+			else{
+				highScoreText.text = "High Score " + highMinute.toString() + " i " + highSecond.toString();
+			}
+			highScoreText.x = 250;
+			highScoreText.y = 0;
+			highScoreText.width = 275;
+			highScoreText.textColor = 0xff0000;
+			highScoreText.selectable = false;
+			this.addChild(highScoreText);
 
 			
 			surviveTimer = new Timer(1000);
@@ -422,41 +398,22 @@ package FlashGame
 				else{
 					surviveTimer.delay = 1000;
 				}
-				
-				if(nonStop){
-					//plus seconds
-					if(secondDisplay < 59){
-						secondDisplay++;
-						if(highMinute <= minuteDisplay){
-							if(highSecond < secondDisplay){
-								highSecond = secondDisplay;
-							}
-						}
-					}
-						//plus minutes
-					else{
-						minuteDisplay++;
-						secondDisplay = 0;
-						if(highMinute <= minuteDisplay){
-							highMinute = minuteDisplay;
-							highSecond = 0;
+				//plus seconds
+				if(secondDisplay < 59){
+					secondDisplay++;
+					if(highMinute <= minuteDisplay){
+						if(highSecond < secondDisplay){
+							highSecond = secondDisplay;
 						}
 					}
 				}
+					//plus minutes
 				else{
-					//minus minutes
-					if(secondDisplay == 0 && minuteDisplay > 0){
-						secondDisplay = 59;
-						minuteDisplay--;
-					}
-						//minus seconds
-					else if(minuteDisplay > 0){
-						secondDisplay--;
-					}
-					else if(minuteDisplay == 0){
-						if(secondDisplay > 0){
-							secondDisplay--;
-						}
+					minuteDisplay++;
+					secondDisplay = 0;
+					if(highMinute <= minuteDisplay){
+						highMinute = minuteDisplay;
+						highSecond = 0;
 					}
 				}
 			}

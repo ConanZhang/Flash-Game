@@ -39,12 +39,12 @@ package FlashGame
 		 * Takes in screen it will be added to
 		 * 
 		 */
-		public function WallJumpingWorld(screenP:Sprite, debugging:Boolean, pacifist:Boolean, nonStop:Boolean, world:int)
+		public function WallJumpingWorld(screenP:Sprite, debugging:Boolean, pacifist:Boolean,world:int)
 		{			
 			screen = screenP;
 			screen.addChildAt(this,0);
 			
-			super(screen,debugging, 128, 7, pacifist, nonStop, world);
+			super(screen,debugging, 128, 7, pacifist, world);
 						
 			this.addEventListener(Event.ENTER_FRAME, stageBoundary, false, 0, true);
 			
