@@ -21,16 +21,14 @@ package FlashGame
 		public var activeBack:MovieClip; //????????????
 		public var buttons:Array;
 		public var backsArray:Array = new Array(); //?????????????
-		public var speed:Number;
 		
 		//added stuff
 		private var buttonContainer: Sprite;
-		private var containerY: Number;
+		private var containerGoalY: Number;
+		private var scrollSpeed: Number;
+		private var layer: int;
 		
-		private var back:MovieClip;
-		private var backX:Number;
-		private var backY:Number;
-		
+		private var back:MovieClip;	
 		private var play:MovieClip;
 		private var difficulty:MovieClip;
 		private var beginner:MovieClip;
@@ -38,8 +36,7 @@ package FlashGame
 		private var master:MovieClip;
 		private var mode:MovieClip;
 		private var tutorial:MovieClip;
-		private var normal:MovieClip;
-		private var endless:MovieClip;
+		private var weapons:MovieClip;
 		private var pacifist:MovieClip;
 		private var arena:MovieClip;
 		private var standard:MovieClip;
@@ -62,35 +59,28 @@ package FlashGame
 		{
 			screen = screenP;
 			screen.addChildAt(this, 0);
-			
-			//initialization
-			speed = 20;
 			buttons = new Array();
 			buttonContainer = new Sprite();
-			containerY = 0;
+			containerGoalY = 0;
+			scrollSpeed = 50;
+			layer = 0;
 			
 			back = new Back;
-			backX = 50;
-			backY = 50;
-			
 			play = new Play;
 			difficulty = new Difficulty;
+			tutorial = new Tutorial;
 			beginner = new Beginner;
 			apprentice = new Apprentice;
 			master = new Master;
 			mode = new Mode;
-			tutorial = new Tutorial;
-			normal = new Normal;
-			endless = new Endless;
+			weapons = new Weapons;
 			pacifist = new Pacifist;
 			arena = new Arena;
 			standard = new Standard;
-			walls = new Walls;
-			
+			walls = new Walls;			
 			options = new Options;
 			audio = new Audio;
-			controls = new Controls;
-			
+			controls = new Controls;			
 			credits = new Credits;
 			art = new Art;
 			georbec = new Georbec;
@@ -100,12 +90,20 @@ package FlashGame
 			
 			//add container sprite to stage, starting position
 			this.addChild(buttonContainer);
-			buttonContainer.y = containerY;					
+			buttonContainer.y = containerGoalY;					
 			
-			//add buttons to container sprite, with positions
+			/**
+			 * Layer 0 / Main Menu  / y = 0
+			 * Layer 1 / Difficulty / y = 500
+			 * Layer 2 / Modes      / y = 1000
+			 * Layer 3 / Stages     / y = 1500
+			 * Layer 4 / Options    / y = 2000
+			 * Layer 5 / Credits    / y = 2500
+			 */
+			
 			buttonContainer.addChild(back);
-			back.x = backX;
-			back.y = backY;
+			back.x = 50;
+			back.y = 50;
 			
 			buttonContainer.addChild(play);
 			play.x = 150;
@@ -116,88 +114,83 @@ package FlashGame
 			difficulty.y = 600;
 			
 			buttonContainer.addChild(beginner);
-			beginner.x = 100;
-			beginner.y = 700;
+			beginner.x = 150;
+			beginner.y = 850;
 			
 			buttonContainer.addChild(apprentice);
 			apprentice.x = 325;
-			apprentice.y = 750;
+			apprentice.y = 900;
 			
 			buttonContainer.addChild(master);
 			master.x = 525;
-			master.y = 700;
+			master.y = 850;
+			
+			buttonContainer.addChild(tutorial);
+			tutorial.x = 100;
+			tutorial.y = 700;
 			
 			buttonContainer.addChild(mode);
 			mode.x = 350;
-			mode.y = 1200;
+			mode.y = 1075;
 			
-			buttonContainer.addChild(tutorial);
-			tutorial.x = 150;
-			tutorial.y = 1400;
-			
-			buttonContainer.addChild(normal);
-			normal.x = 250;
-			normal.y = 1500;
-			
-			buttonContainer.addChild(endless);
-			endless.x = 450;
-			endless.y = 1450;
+			buttonContainer.addChild(weapons);
+			weapons.x = 150;
+			weapons.y = 1275;
 			
 			buttonContainer.addChild(pacifist);
-			pacifist.x = 600;
-			pacifist.y = 1400;
+			pacifist.x = 450;
+			pacifist.y = 1325;
 			
 			buttonContainer.addChild(arena);
 			arena.x = 350;
-			arena.y = 1900;
+			arena.y = 1585;
 			
 			buttonContainer.addChild(standard);
 			standard.x = 175;
-			standard.y = 2150;
+			standard.y = 1776;
 			
 			buttonContainer.addChild(walls);
-			walls.x = 500;
-			walls.y = 2050;
-			//=======================options=========================			
+			walls.x = 450;
+			walls.y = 1800;
+			
 			buttonContainer.addChild(options);
 			options.x = 325;
 			options.y = 150;
 			
 			buttonContainer.addChild(audio);
-			audio.x = 250;
-			audio.y = 2400;
+			audio.x = 150;
+			audio.y = 2175;
 			
 			buttonContainer.addChild(controls);
-			controls.x = 250;
-			controls.y = 2600;
-			//======================credits==========================
+			controls.x = 150;
+			controls.y = 2375;
+			
 			buttonContainer.addChild(credits);
 			credits.x = 415;
 			credits.y = 75;
 			
 			buttonContainer.addChild(art);
 			art.x = 200;
-			art.y = 3050;
+			art.y = 2650;
 			
 			buttonContainer.addChild(georbec);
 			georbec.x = 450;
-			georbec.y = 3050;
+			georbec.y = 2650;
 			
 			buttonContainer.addChild(programming);
 			programming.x = 200;
-			programming.y = 3250;
+			programming.y = 2800;
 			
 			buttonContainer.addChild(conan);
 			conan.x = 500;
-			conan.y = 3250;
+			conan.y = 2800;
 			
 			buttonContainer.addChild(copyright);
 			copyright.x = 350;
-			copyright.y = 3350;
-			
+			copyright.y = 2950;
 			
 			//fill array(s?)
-			buttons = [back, play, difficulty, beginner, apprentice, master, mode, tutorial, normal, endless, pacifist, arena, standard, walls, options, audio, controls, credits, art, georbec, programming, conan, copyright];
+			buttons = [back, play, difficulty, tutorial, beginner, apprentice, master, mode, weapons, pacifist, arena, standard, walls, options, audio, controls, credits, art, georbec, programming, conan, copyright];
 			
 			//add listeners to buttons
 			addEventListener(MouseEvent.MOUSE_OVER, mouseOver);
@@ -225,7 +218,7 @@ package FlashGame
 		
 		private function buttonClicked(event:MouseEvent):void
 		{
-			
+			//determine which button clicked, assign layer to a value			
 			if(activeButton.toString() == "[object Play]"){
 				trace("play button was clicked");
 				screen.removeChild(this);
@@ -233,14 +226,36 @@ package FlashGame
 			
 			if(activeButton.toString() == "[object Options]"){
 				trace("options button was clicked");
-				
-				containerY = 300;
+				containerGoalY = 2500;
 
 			}
 			
 			if(activeButton.toString() == "[object Credits]"){
 				trace("credits button was clicked");
 			}
+						
+			//determine where to move the container using layer
+			switch(layer){
+				case 0: //Main Menu
+					containerGoalY = 0;
+					break;
+				case 1: //Difficulty
+					containerGoalY = 500;
+					break;
+				case 2: //Mode
+					containerGoalY = 1000;
+					break;
+				case 3: //Stages
+					containerGoalY = 1500;
+					break;
+				case 4: //Options
+					containerGoalY = 2000;
+					break;
+				case 5: //Credits
+					containerGoalY = 2500;
+					break;
+			}
+
 
 
 		}
@@ -263,15 +278,16 @@ package FlashGame
 			}
 			
 			//animate screen change
-			if(Math.abs(buttonContainer.y) < containerY){
-				buttonContainer.y -= 5;
-			}
-			
-			
+			if(Math.abs(buttonContainer.y) < containerGoalY){
+				buttonContainer.y -= scrollSpeed;
+			}			
 			
 			//clicking back button to go in the reverse direction
-//			if(buttonContainer.y > containerY)
-//				buttonContainer.y += 5;			
+//			if(buttonContainer.y > containerGoalY)
+//				buttonContainer.y += 5;	
+			
+			//move back button with container
+			back.y = Math.abs(buttonContainer.y) + 50;
 			
 		}
 		
