@@ -5,22 +5,12 @@ package FlashGame
 	import flash.events.Event;
 	import flash.events.MouseEvent;
 	
-	/**
-	 *   get back button to move with screen somehow
-	 * 
-	 *   get screen scrolling
-	 * 
-	 * 
-	*/
-	
-	
 	public class Menu extends MovieClip
 	{
 		//already there
 		public var activeButton:MovieClip;
-		public var activeBack:MovieClip; //????????????
+		public var activeBack:MovieClip;
 		public var buttons:Array;
-		public var backsArray:Array = new Array(); //?????????????
 		
 		//added stuff
 		private var buttonContainer: Sprite;
@@ -222,16 +212,17 @@ package FlashGame
 			if(activeButton.toString() == "[object Play]"){
 				trace("play button was clicked");
 				screen.removeChild(this);
+	
 			}
 			
 			if(activeButton.toString() == "[object Options]"){
 				trace("options button was clicked");
-				containerGoalY = 2500;
+				layer = 4;
 
 			}
 			
 			if(activeButton.toString() == "[object Credits]"){
-				trace("credits button was clicked");
+				layer = 5;
 			}
 						
 			//determine where to move the container using layer
