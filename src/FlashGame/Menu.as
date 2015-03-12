@@ -11,12 +11,18 @@ package FlashGame
 		public var activeButton:MovieClip;
 		public var activeBack:MovieClip;
 		public var buttons:Array;
+		public var lastButtonClicked:MovieClip;
 		
 		//added stuff
 		private var buttonContainer: Sprite;
 		private var containerGoalY: Number;
 		private var scrollSpeed: Number;
 		private var layer: int;
+		
+		//0 = beginner, 1 = apprentice, 2 = master
+		private var difficultyInt:int;
+		private var pacifistBoolean:Boolean;
+		private var standardBoolean:Boolean;
 		
 		private var back:MovieClip;	
 		private var play:MovieClip;
@@ -51,9 +57,14 @@ package FlashGame
 			screen.addChildAt(this, 0);
 			buttons = new Array();
 			buttonContainer = new Sprite();
+			lastButtonClicked = null;
 			containerGoalY = 0;
 			scrollSpeed = 50;
 			layer = 0;
+			
+			difficultyInt = 0;
+			pacifistBoolean = false;
+			standardBoolean = true;
 			
 			back = new Back;
 			play = new Play;
@@ -208,21 +219,125 @@ package FlashGame
 		
 		private function buttonClicked(event:MouseEvent):void
 		{
-			//determine which button clicked, assign layer to a value			
-			if(activeButton.toString() == "[object Play]"){
-				trace("play button was clicked");
-				screen.removeChild(this);
-	
-			}
-			
-			if(activeButton.toString() == "[object Options]"){
-				trace("options button was clicked");
-				layer = 4;
+			/**
+			 * Layer 0 / Main Menu  / y = 0
+			 * Layer 1 / Difficulty / y = 500
+			 * Layer 2 / Modes      / y = 1000
+			 * Layer 3 / Stages     / y = 1500
+			 * Layer 4 / Options    / y = 2000
+			 * Layer 5 / Credits    / y = 2500
+			 */
+			//keep track of last button clicked			
+			lastButtonClicked = activeButton;
+			trace(lastButtonClicked.toString());
 
-			}
 			
-			if(activeButton.toString() == "[object Credits]"){
-				layer = 5;
+			//determine which button clicked, assign layer to a value
+			if(activeButton.toString() == "[object Back]"){
+				if(layer >= 1 && layer < 4)
+					layer = layer-1;
+				else if(layer == 4)
+					layer = 0;
+				else if(layer == 5)
+					layer = 0;
+			}
+			if(activeButton.toString() == "[object Play]"){
+				layer = 1;
+			}
+			else if(activeButton.toString() == "[object Tutorial]"){
+				//Start tutorial, no more options
+//				screen.removeChild(this);
+			}
+			else if(activeButton.toString() == "[object Beginner]"){
+				difficultyInt = 0;
+				layer = 2;
+			}
+			else if(activeButton.toString() == "[object Apprentice]"){
+				difficultyInt = 1;
+				layer = 2;
+			}
+			else if(activeButton.toString() == "[object Master]"){
+				difficultyInt = 2;
+				layer = 2;
+			}
+			else if(activeButton.toString() == "[object Weapons]"){
+				pacifistBoolean = false;
+				layer = 3;
+			}
+			else if(activeButton.toString() == "[object Pacifist]"){
+				pacifistBoolean = true;
+				layer = 3;
+			}
+			else if(activeButton.toString() == "[object Standard]"){
+				standardBoolean = true;
+				if(standardBoolean == true){
+					
+					//Start STANDARD...
+					if(difficultyInt == 0 && pacifistBoolean == true){
+						//easy pacifist standard
+					}
+					if(difficultyInt == 1 && pacifistBoolean == true){
+						//apprentice pacifist standard
+	
+					}
+					if(difficultyInt == 2 && pacifistBoolean == true){
+						//master pacifist standard
+	
+					}
+					if(difficultyInt == 0 && pacifistBoolean == false){
+						//easy weapons standard
+	
+					}
+					if(difficultyInt == 1 && pacifistBoolean == false){
+						//apprentice weapons standard
+	
+					}
+					if(difficultyInt == 2 && pacifistBoolean == false){
+						//hard weapons standard
+	
+					}
+				}
+			}
+			else if(activeButton.toString() == "[object Walls]"){
+				standardBoolean = false;
+				
+				//Start WALLS...
+				if(standardBoolean == false){	
+					
+					if(difficultyInt == 0 && pacifistBoolean == true){
+						//easy pacifist walls
+					}
+					if(difficultyInt == 1 && pacifistBoolean == true){
+						//apprentice pacifist walls
+						
+					}
+					if(difficultyInt == 2 && pacifistBoolean == true){
+						//master pacifist walls
+						
+					}
+					if(difficultyInt == 0 && pacifistBoolean == false){
+						//easy weapons walls
+						
+					}
+					if(difficultyInt == 1 && pacifistBoolean == false){
+						//apprentice weapons walls
+						
+					}
+					if(difficultyInt == 2 && pacifistBoolean == false){
+						//hard weapons walls
+						
+					}
+				}
+			}
+			else if(activeButton.toString() == "[object Options]"){
+				layer = 4;
+			}			
+			else if(activeButton.toString() == "[object Credits]"){
+//				layer = 5;
+				
+				//----------------------DEBUG, delete when menu is working, link to credits------------------------------------------
+				screen.removeChild(this);
+
 			}
 						
 			//determine where to move the container using layer
@@ -252,7 +367,7 @@ package FlashGame
 		}
 		
 		private function update(event:Event):void
-		{			
+		{
 			//adjust size of button
 			for each (var button:MovieClip in buttons) {
 				if(button == activeButton){
@@ -272,10 +387,22 @@ package FlashGame
 			if(Math.abs(buttonContainer.y) < containerGoalY){
 				buttonContainer.y -= scrollSpeed;
 			}			
+			 
+			trace("layer " + layer);
+			trace("buttonContainer.y " + buttonContainer.y);
+			trace("containerGoalY " + containerGoalY);
 			
 			//clicking back button to go in the reverse direction
-//			if(buttonContainer.y > containerGoalY)
-//				buttonContainer.y += 5;	
+			if(lastButtonClicked != null && lastButtonClicked.toString() == "[object Back]")
+			{
+				//scroll in reverse until layer is met
+				trace("back button was last button clicked...");
+				if(Math.abs(buttonContainer.y) > containerGoalY){
+					trace("scrolling backwards");
+					buttonContainer.y += scrollSpeed;
+				}
+			}
+
 			
 			//move back button with container
 			back.y = Math.abs(buttonContainer.y) + 50;
