@@ -281,6 +281,10 @@ package FlashGame
 			else if(activeButton.toString() == "[object Credits]"){
 				// layer = 5;
 				//----------------------DEBUG, delete when menu is working, link to credits------------------------------------------
+				this.removeEventListener(MouseEvent.MOUSE_OVER, mouseOver);
+				this.removeEventListener(MouseEvent.MOUSE_OUT, mouseOut);
+				this.removeEventListener(MouseEvent.CLICK, buttonClicked);
+				this.removeEventListener(Event.ENTER_FRAME, update);
 				screen.removeChild(this);
 			}
 			//determine where to move the container using layer
