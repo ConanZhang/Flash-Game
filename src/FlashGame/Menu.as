@@ -16,6 +16,7 @@ package FlashGame
 		private var containerGoalY: Number;
 		private var scrollSpeed: Number;
 		private var layer: int;
+		private var backgroundTexture: Sprite;
 		//0 = beginner, 1 = apprentice, 2 = master
 		private var difficultyInt:int;
 		private var pacifistBoolean:Boolean;
@@ -44,7 +45,7 @@ package FlashGame
 		private var copyright:MovieClip;
 		private var screen:Sprite;
 		public function Menu(screenP:Sprite)
-		{
+		{			
 			screen = screenP;
 			screen.addChildAt(this, 0);
 			buttons = new Array();
@@ -56,6 +57,13 @@ package FlashGame
 			difficultyInt = 0;
 			pacifistBoolean = false;
 			standardBoolean = true;
+			//texture
+			backgroundTexture = new background_texture;
+			this.addChild(backgroundTexture);
+			backgroundTexture.x = 0;
+			backgroundTexture.y = 2100;
+			backgroundTexture.scaleX = 0.45;
+			backgroundTexture.scaleY = 0.45;			
 			back = new Back;
 			play = new Play;
 			difficulty = new Difficulty;
@@ -77,7 +85,7 @@ package FlashGame
 			georbec = new Georbec;
 			programming = new Programming;
 			conan = new Conan;
-			copyright = new Copyright;
+			copyright = new Copyright;	
 			//add container sprite to stage, starting position
 			this.addChild(buttonContainer);
 			buttonContainer.y = containerGoalY;	
@@ -180,6 +188,8 @@ package FlashGame
 		}
 		private function buttonClicked(event:MouseEvent):void
 		{
+			if(activeButton == null)
+				return;
 			/**
 			 * Layer 0 / Main Menu / y = 0
 			 * Layer 1 / Difficulty / y = 500
@@ -276,7 +286,7 @@ package FlashGame
 				}
 			}
 			else if(activeButton.toString() == "[object Options]"){
-				layer = 4;
+				layer = 5;
 			}
 			else if(activeButton.toString() == "[object Credits]"){
 				// layer = 5;
@@ -328,6 +338,7 @@ package FlashGame
 			//animate screen change
 			if(Math.abs(buttonContainer.y) < containerGoalY){
 				buttonContainer.y -= scrollSpeed;
+				backgroundTexture.y -= scrollSpeed;
 			}
 			trace("layer " + layer);
 			trace("buttonContainer.y " + buttonContainer.y);
@@ -340,6 +351,7 @@ package FlashGame
 				if(Math.abs(buttonContainer.y) > containerGoalY){
 					trace("scrolling backwards");
 					buttonContainer.y += scrollSpeed;
+					backgroundTexture.y += scrollSpeed;
 				}
 			}
 			//move back button with container
