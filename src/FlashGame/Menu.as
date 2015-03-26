@@ -43,7 +43,9 @@ package FlashGame
 		private var programming:MovieClip;
 		private var conan:MovieClip;
 		private var copyright:MovieClip;
+		
 		private var screen:Sprite;
+		
 		public function Menu(screenP:Sprite)
 		{			
 			screen = screenP;
