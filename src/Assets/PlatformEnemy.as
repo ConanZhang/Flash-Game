@@ -16,7 +16,7 @@ package Assets {
 	import Box2D.Dynamics.b2World;
 	import Box2D.Dynamics.Joints.b2RevoluteJointDef;
 	
-	import FlashGame.PlayerHUD;
+	import Game.PlayerHUD;
 	
 	import Parents.Objects;
 	import Parents.Stage;

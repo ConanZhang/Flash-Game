@@ -13,7 +13,7 @@ package Assets {
 	import Box2D.Dynamics.b2FixtureDef;
 	import Box2D.Dynamics.b2World;
 	
-	import FlashGame.PlayerHUD;
+	import Game.PlayerHUD;
 	
 	import Parents.Objects;
 	import Parents.Stage;

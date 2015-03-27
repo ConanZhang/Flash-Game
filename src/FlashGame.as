@@ -12,10 +12,10 @@ package
 	import flash.ui.Keyboard;
 	import flash.ui.Mouse;
 	
-	import FlashGame.Menu;
-	import FlashGame.TestWorld;
-	import FlashGame.TutorialWorld;
-	import FlashGame.WallJumpingWorld;
+	import Game.Menu;
+	import Game.TestWorld;
+	import Game.TutorialWorld;
+	import Game.WallJumpingWorld;
 	
 	/**SWF Options*/
 	//default color #C4A57C
@@ -83,10 +83,10 @@ package
 		private function testingRemove(event:Event):void{
 			if(event.target is Menu){
 				if(world == testWorld){
-					test = new TestWorld(this, true, mode, testWorld);
+					test = new TestWorld(this, true, mode, testWorld, difficulty);
 				}
 				else if(world == wallWorld){
-					walls = new WallJumpingWorld(this, true, mode, wallWorld);	
+					walls = new WallJumpingWorld(this, true, mode, wallWorld, difficulty);	
 				}
 				else if(world == tutorialWorld){
 					tutorial = new TutorialWorld(this, true, mode, tutorialWorld);	
