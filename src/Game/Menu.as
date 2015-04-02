@@ -46,6 +46,7 @@ package Game
 		private var copyright:MovieClip;
 		
 		private var screen:Sprite;
+		private var optionsMenu:OptionsMenu;
 		
 		public function Menu(screenP:Sprite)
 		{			
@@ -176,7 +177,9 @@ package Game
 			addEventListener(MouseEvent.MOUSE_OVER, mouseOver);
 			addEventListener(MouseEvent.MOUSE_OUT, mouseOut);
 			addEventListener(MouseEvent.CLICK, buttonClicked);
-			addEventListener(Event.ENTER_FRAME, update);	
+			addEventListener(Event.ENTER_FRAME, update);
+			
+			optionsMenu = new OptionsMenu(this, 0);
 		}
 		private function mouseOver(event:MouseEvent):void
 		{
@@ -313,6 +316,7 @@ package Game
 			if(Math.abs(buttonContainer.y) < containerGoalY){
 				buttonContainer.y -= scrollSpeed;
 				backgroundTexture.y -= scrollSpeed;
+				optionsMenu.y -= scrollSpeed;
 			}
 			//clicking back button to go in the reverse direction
 			if(lastButtonClicked != null && lastButtonClicked.toString() == "[object Back]")
@@ -321,6 +325,7 @@ package Game
 				if(Math.abs(buttonContainer.y) > containerGoalY){
 					buttonContainer.y += scrollSpeed;
 					backgroundTexture.y += scrollSpeed;
+					optionsMenu.y += scrollSpeed;
 				}
 			}
 			//move back button with container
