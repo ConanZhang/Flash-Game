@@ -1,7 +1,7 @@
 /**
  * World for testing Box2D
  */
-package FlashGame
+package Game
 {
 	import flash.display.Sprite;
 	import flash.events.Event;

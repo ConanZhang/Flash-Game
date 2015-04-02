@@ -1,7 +1,7 @@
 /**
  * Background of stages.
  */
-package FlashGame
+package Game
 {
 	import flash.display.Sprite;
 	

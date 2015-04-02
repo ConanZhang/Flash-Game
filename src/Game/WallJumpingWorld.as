@@ -1,7 +1,7 @@
 /**
  * Wall jumping stage for game.
  */
-package FlashGame
+package Game
 {
 	import flash.display.Sprite;
 	import flash.events.Event;
@@ -39,7 +39,7 @@ package FlashGame
 		 * Takes in screen it will be added to
 		 * 
 		 */
-		public function WallJumpingWorld(screenP:Sprite, debugging:Boolean, pacifist:Boolean,world:int)
+		public function WallJumpingWorld(screenP:Sprite, debugging:Boolean, pacifist:Boolean,world:int, difficulty:int)
 		{			
 			screen = screenP;
 			screen.addChildAt(this,0);
@@ -76,7 +76,18 @@ package FlashGame
 			var rightWall:Platform = new Platform(400,-200, 30, 250, "b_tall");
 			
 			//ENEMY
-			enemyAdd = new Timer(3500);
+			//Beginner
+			if(difficulty == 0){
+				enemyAdd = new Timer(7500);
+			}
+			//Apprentice
+			else if(difficulty == 1){
+				enemyAdd = new Timer(5000);
+			}
+			//Master
+			else if(difficulty == 2){
+				enemyAdd = new Timer(3500);
+			}
 			enemyAdd.addEventListener(TimerEvent.TIMER, addEnemy);
 			enemyAdd.start();
 			

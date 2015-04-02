@@ -1,7 +1,7 @@
 /**
  * Code for Box2D contact listener.
  */
-package FlashGame
+package Game
 {
 	import Assets.Player;
 	

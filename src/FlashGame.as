@@ -12,10 +12,10 @@ package
 	import flash.ui.Keyboard;
 	import flash.ui.Mouse;
 	
-	import FlashGame.Menu;
-	import FlashGame.TestWorld;
-	import FlashGame.TutorialWorld;
-	import FlashGame.WallJumpingWorld;
+	import Game.Menu;
+	import Game.TestWorld;
+	import Game.TutorialWorld;
+	import Game.WallJumpingWorld;
 	
 	/**SWF Options*/
 	//default color #C4A57C
@@ -39,6 +39,22 @@ package
 		//Menu
 		private var menu:Menu;
 				
+		//Difficulties
+		public static var difficulty:int;
+		public const beginner:int = 0;
+		public const apprentice:int = 1;
+		public const master:int = 2;
+		
+		//Mode
+		public static var mode:Boolean;
+		
+		//World
+		public static var world:int;
+		
+		public const tutorialWorld:int = 0;
+		public const wallWorld:int = 1;
+		public const testWorld:int = 2;
+
 		/**Constructor*/
 		public function FlashGame()
 		{
@@ -59,17 +75,24 @@ package
 			gameReticule.width = 25;
 			gameReticule.height = 25;
 			
+			world = 1;
+			
 			this.addChild(gameReticule);
 		}
 		
 		private function testingRemove(event:Event):void{
 			if(event.target is Menu){
-				//test = new TestWorld(this, true, false, 2);
-				//walls = new WallJumpingWorld(this, true, false, 1);
-				tutorial = new TutorialWorld(this, true, false, 0);
+				if(world == testWorld){
+					test = new TestWorld(this, true, mode, testWorld, difficulty);
+				}
+				else if(world == wallWorld){
+					walls = new WallJumpingWorld(this, true, mode, wallWorld, difficulty);	
+				}
+				else if(world == tutorialWorld){
+					tutorial = new TutorialWorld(this, true, mode, tutorialWorld);	
+				}
 			}
 			else if(event.target is TutorialWorld || event.target is WallJumpingWorld || event.target is TestWorld){
-				
 				menu = new Menu(this);
 			} 
 		}
@@ -102,6 +125,19 @@ package
 					stage.quality = StageQuality.LOW;
 				}
 			}
+		}
+		
+		public static function setMode(_mode:Boolean):void{
+			mode = _mode;
+		}
+		
+		public static function setWorld(_world:int):void{
+			world = _world;
+		}
+		
+		public static function setDifficulty(_difficulty:int):void
+		{
+			difficulty = _difficulty;			
 		}
 	}
 }

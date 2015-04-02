@@ -1,7 +1,7 @@
 /**
  * HUD for screen.
  */ 
-package FlashGame
+package Game
 {
 	import flash.display.MovieClip;
 	import flash.display.Shape;

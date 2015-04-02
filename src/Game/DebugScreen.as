@@ -1,4 +1,4 @@
-package FlashGame{
+package Game{
 	import flash.display.DisplayObjectContainer;
 	import flash.display.Sprite;
 	import flash.events.Event;

@@ -22,9 +22,9 @@ package Parents
 	import Box2D.Dynamics.b2DebugDraw;
 	import Box2D.Dynamics.b2World;
 	
-	import FlashGame.ContactListener;
-	import FlashGame.DebugScreen;
-	import FlashGame.PlayerHUD;
+	import Game.ContactListener;
+	import Game.DebugScreen;
+	import Game.PlayerHUD;
 	
 	public class Stage extends MovieClip
 	{

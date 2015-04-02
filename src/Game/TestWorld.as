@@ -1,7 +1,7 @@
 /**
  * World for testing Box2D
  */
-package FlashGame
+package Game
 {
 	import flash.display.Sprite;
 	import flash.events.Event;
@@ -34,7 +34,7 @@ package FlashGame
 		 * Takes in screen it will be added to
 		 * 
 		 */
-		public function TestWorld(screenP:Sprite, debugging:Boolean, pacifist:Boolean, world:int)
+		public function TestWorld(screenP:Sprite, debugging:Boolean, pacifist:Boolean, world:int, difficulty:int)
 		{			
 			screen = screenP;
 			screen.addChildAt(this,0);
@@ -73,8 +73,18 @@ package FlashGame
 			var spike2:Platform = new Platform(240, 12.5,10, 3, "enemy");
 			
 			//ENEMY
-			enemyAdd = new Timer(3500);
-			enemyAdd.addEventListener(TimerEvent.TIMER, addEnemy);
+			//Beginner
+			if(difficulty == 0){
+				enemyAdd = new Timer(7500);
+			}
+			//Apprentice
+			else if(difficulty == 1){
+				enemyAdd = new Timer(5000);
+			}
+			//Master
+			else if(difficulty == 2){
+				enemyAdd = new Timer(3500);
+			}			enemyAdd.addEventListener(TimerEvent.TIMER, addEnemy);
 			enemyAdd.start();
 			
 			if(!pacifist){
