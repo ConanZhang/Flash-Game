@@ -17,6 +17,7 @@ package FlashGame
 		private var scrollSpeed: Number;
 		private var layer: int;
 		private var backgroundTexture: Sprite;
+		private var title: Sprite;
 		//0 = beginner, 1 = apprentice, 2 = master
 		private var difficultyInt:int;
 		private var pacifistBoolean:Boolean;
@@ -63,7 +64,14 @@ package FlashGame
 			backgroundTexture.x = 0;
 			backgroundTexture.y = 2100;
 			backgroundTexture.scaleX = 0.45;
-			backgroundTexture.scaleY = 0.45;			
+			backgroundTexture.scaleY = 0.45;
+			//title
+			title = new Title;
+			this.addChild(title);
+			title.x = 360;
+			title.y = 275;
+			title.scaleX = 0.65;
+			title.scaleY = 0.65;
 			back = new Back;
 			play = new Play;
 			difficulty = new Difficulty;
