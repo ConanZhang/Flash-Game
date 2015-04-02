@@ -22,6 +22,12 @@ package Game
 		
 		/**Test background*/
 		public function test():void{
+			//NEW:
+			var fuji:BackgroundObject = new BackgroundObject(60, -70, 195, 130, "fuji");
+			
+			
+			//OLD:
+			/*
 			var testMountain:BackgroundObject = new BackgroundObject(130, -7, 30, 30, "mountain");
 			var testCloud1:BackgroundObject = new BackgroundObject(80, -50, 10, 10, "cloud1");
 			var testCloud2:BackgroundObject = new BackgroundObject(100, -50, 10, 10, "cloud2");
@@ -31,6 +37,7 @@ package Game
 			var testBird1:BackgroundObject = new BackgroundObject(100, -80, 5, 5, "bird1");
 			var testBird2:BackgroundObject = new BackgroundObject(130, -80, 5, 5, "bird2");
 			var testBird3:BackgroundObject = new BackgroundObject(60, -780, 5, 5, "bird3");
+			*/
 
 		}
 	}

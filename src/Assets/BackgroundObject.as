@@ -69,8 +69,8 @@ package Assets {
 			
 			//Sprite
 			
-			if(backgroundObjectType == "mountain"){
-				backgroundObjectClip = new background_mountain();
+			if(backgroundObjectType == "fuji"){
+				backgroundObjectClip = new background_fuji();
 			}
 			else if(backgroundObjectType == "cloud1"){
 				backgroundObjectClip = new background_cloud1();
