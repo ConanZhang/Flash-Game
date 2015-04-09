@@ -39,8 +39,6 @@ package Parents
 		private var timeStep:Number;
 		
 		/**LOGIC*/
-		//array to hold key presses
-		private var keyPresses:Array;
 		//world is in slow motion
 		public static var slowMotion:Boolean;
 		//amount of slow motion
@@ -53,6 +51,8 @@ package Parents
 		public static var platformCount:int;
 		//ammunition count
 		public static var ammunitionCount:int;
+		//array to hold key presses
+		private var keyPresses:Array;
 		
 		/**WORLD*/
 		//world for all objects to exist in
@@ -377,7 +377,12 @@ package Parents
 							if(slowMotion == false && slowAmount > 0 && Player.playerHealth > 0){
 								slowMotion = true;
 								jumpLimit = 12;
-								Player.playerRotation = 20;
+								if(Player.playerRotation > 0){
+									Player.playerRotation = 20;
+								}
+								else{
+									Player.playerRotation = -20;
+								}
 								slowRotation = true;
 								speed = 0.75;
 								if(jumpTime == 6){
@@ -606,7 +611,12 @@ package Parents
 				if(slowMotion == true){
 					slowMotion = false;
 					jumpLimit = 5;
-					Player.playerRotation = 40;
+					if(Player.playerRotation > 0){
+						Player.playerRotation = 40;	
+					}
+					else{
+						Player.playerRotation = -40;							
+					}
 					speed = 1;
 				}
 			}

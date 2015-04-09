@@ -54,6 +54,23 @@ package
 		public const tutorialWorld:int = 0;
 		public const wallWorld:int = 1;
 		public const testWorld:int = 2;
+		
+		//key bindings
+		public static var keyBindings:Object = {
+			left: Keyboard.A,
+			right: Keyboard.D,
+			jump: Keyboard.W,
+			fall: Keyboard.S,
+			slow: Keyboard.SPACE,
+			pistol: Keyboard.NUMBER_1,
+			shotgun: Keyboard.NUMBER_2,
+			machineGun: Keyboard.NUMBER_3,
+			pause: Keyboard.R,
+			defaultPause: Keyboard.P,
+			escapePause: Keyboard.ESCAPE,
+			fullScreen: Keyboard.F,
+			quality: Keyboard.C
+		};
 
 		/**Constructor*/
 		public function FlashGame()
@@ -86,7 +103,7 @@ package
 					test = new TestWorld(this, true, mode, testWorld, difficulty);
 				}
 				else if(world == wallWorld){
-					walls = new WallJumpingWorld(this, true, mode, wallWorld, difficulty);	
+					walls = new WallJumpingWorld(this, false, mode, wallWorld, difficulty);	
 				}
 				else if(world == tutorialWorld){
 					tutorial = new TutorialWorld(this, true, mode, tutorialWorld);	
@@ -105,7 +122,7 @@ package
 		
 		private function options(e:KeyboardEvent):void{
 			//full screen
-			if(e.keyCode == Keyboard.F){
+			if(e.keyCode == keyBindings.fullScreen){
 				if(stage.displayState == StageDisplayState.NORMAL){
 					stage.displayState = StageDisplayState.FULL_SCREEN_INTERACTIVE;
 				}
@@ -114,7 +131,7 @@ package
 				}
 			}
 				//quality
-			else if(e.keyCode == Keyboard.C){
+			else if(e.keyCode == keyBindings.quality){
 				if(stage.quality == "LOW" ){
 					stage.quality = StageQuality.MEDIUM;
 				}
