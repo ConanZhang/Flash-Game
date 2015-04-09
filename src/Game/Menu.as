@@ -68,8 +68,8 @@ package Game
 			//title
 			title = new Title;
 			this.addChild(title);
-			title.x = 360;
-			title.y = 275;
+			title.x = 375;
+			title.y = 270;
 			title.scaleX = 0.65;
 			title.scaleY = 0.65;
 			back = new Back;
@@ -317,6 +317,7 @@ package Game
 				buttonContainer.y -= scrollSpeed;
 				backgroundTexture.y -= scrollSpeed;
 				optionsMenu.y -= scrollSpeed;
+				title.y -= scrollSpeed;
 			}
 			//clicking back button to go in the reverse direction
 			if(lastButtonClicked != null && lastButtonClicked.toString() == "[object Back]")
@@ -326,6 +327,8 @@ package Game
 					buttonContainer.y += scrollSpeed;
 					backgroundTexture.y += scrollSpeed;
 					optionsMenu.y += scrollSpeed;
+					title.y += scrollSpeed;
+
 				}
 			}
 			//move back button with container
