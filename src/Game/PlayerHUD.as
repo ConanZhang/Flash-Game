@@ -258,17 +258,109 @@ package Game
 			//survive timer
 			highScore = SharedObject.getLocal("HighScore");
 
+			var scores:Array;
+
 			if(highScore.data != null){
-				if(world == 0){
-					highMinute = highScore.data.tutorialMinute;
-					highSecond = highScore.data.tutorialSecond;
+				
+				if(pacifist){
+					if(difficulty == 0){
+						if(world == 1){
+							scores = highScore.data.pacifistBeginnerStandard;
+							highMinute = scores[0];
+							highSecond = scores[1];
+						}
+						else{
+							scores = highScore.data.pacifistBeginnerWall;
+							highMinute = scores[0];
+							highSecond = scores[1];
+						}
+					}
+					else if(difficulty == 1){
+						if(world == 1){
+							scores = highScore.data.pacifistApprenticeStandard;
+							highMinute = scores[0];
+							highSecond = scores[1];
+						}
+						else{
+							scores = highScore.data.pacifistApprenticeWall;
+							highMinute = scores[0];
+							highSecond = scores[1];
+						}
+					}
+					else{
+						if(world == 1){
+							scores = highScore.data.pacifistMasterStandard;
+							highMinute = scores[0];
+							highSecond = scores[1];
+						}
+						else{
+							scores = highScore.data.pacifistMasterWall;
+							highMinute = scores[0];
+							highSecond = scores[1];
+						}
+					}
 				}
-				else if(world == 1){
-					highMinute = highScore.data.wallMinute;
-					highSecond = highScore.data.wallSecond;
+				else{
+					if(difficulty == 0){
+						if(world == 0){
+							scores = highScore.data.weaponsBeginnerTutorial;
+							highMinute = scores[0];
+							highSecond = scores[1];
+						}
+						else if(world == 1){
+							scores = highScore.data.weaponsBeginnerStandard;
+							highMinute = scores[0];
+							highSecond = scores[1];
+						}
+						else{
+							scores = highScore.data.weaponsBeginnerWall;
+							highMinute = scores[0];
+							highSecond = scores[1];
+						}
+					}
+					else if(difficulty == 1){
+						if(world == 1){
+							scores = highScore.data.weaponsApprenticeStandard;
+							highMinute = scores[0];
+							highSecond = scores[1];
+						}
+						else{
+							scores = highScore.data.weaponsApprenticeWall;
+							highMinute = scores[0];
+							highSecond = scores[1];
+						}
+					}
+					else{
+						if(world == 1){
+							scores = highScore.data.weaponsMasterStandard;
+							highMinute = scores[0];
+							highSecond = scores[1];
+						}
+						else{
+							scores = highScore.data.weaponsMasterWall;
+							highMinute = scores[0];
+							highSecond = scores[1];
+						}
+					}
 				}
 			}
 			else{
+				scores = [0,0];
+				
+				highScore.data.pacifistBeginnerStandard = scores;
+				highScore.data.pacifistBeginnerWall = scores;
+				highScore.data.pacifistApprenticeStandard = scores;
+				highScore.data.pacifistApprenticeWall = scores;
+				highScore.data.pacifistMasterStandard = scores;
+				highScore.data.pacifistMasterWall = scores;
+				highScore.data.weaponsBeginnerTutorial = scores;
+				highScore.data.weaponsBeginnerStandard = scores;
+				highScore.data.weaponsBeginnerWall = scores;
+				highScore.data.weaponsApprenticeStandard = scores;
+				highScore.data.weaponsApprenticeWall = scores;
+				highScore.data.weaponsMasterStandard = scores;
+				highScore.data.weaponsMasterWall = scores;
+				
 				highMinute = 0;
 				highSecond = 0;
 			}
@@ -449,41 +541,66 @@ package Game
 			}
 			else if(Player.playerHealth == 0){
 				countDownText.text = "Dead!";
-				if(world == 0){
-					highScore.data.tutorialMinute = highMinute;
-					highScore.data.tutorialSecond = highSecond;
+				
+				var score:Array = [highMinute, highSecond];
+				if(pacifist){
+					if(difficulty == 0){
+						if(world == 1){
+							highScore.data.pacifistBeginnerStandard = score;
+						}
+						else{
+							highScore.data.pacifistBeginnerWall = score;
+						}
+					}
+					else if(difficulty == 1){
+						if(world == 1){
+							highScore.data.pacifistApprenticeStandard = score;
+						}
+						else{
+							highScore.data.pacifistApprenticeWall = score;
+						}
+					}
+					else{
+						if(world == 1){
+							highScore.data.pacifistMasterStandard = score;
+						}
+						else{
+							highScore.data.pacifistMasterWall = score;
+						}
+					}
 				}
-				else if(world == 1){
-					highScore.data.wallMinute = highMinute;
-					highScore.data.wallSecond = highSecond;
+				else{
+					if(difficulty == 0){
+						if(world == 0){
+							highScore.data.weaponsBeginnerTutorial = score;
+						}
+						else if(world == 1){
+							highScore.data.weaponsBeginnerStandard = score;
+						}
+						else{
+							highScore.data.weaponsBeginnerWall = score;
+						}
+					}
+					else if(difficulty == 1){
+						if(world == 1){
+							highScore.data.weaponsApprenticeStandard = score;
+						}
+						else{
+							highScore.data.weaponsApprenticeWall = score;
+						}
+					}
+					else{
+						if(world == 1){
+							highScore.data.weaponsMasterStandard = score;
+						}
+						else{
+							highScore.data.weaponsMasterWall = score;
+						}
+					}
 				}
 
 				highScore.flush();
 			}
-		}
-		
-		public function saveScore():void{
-			if(world == 0){
-				highScore.data.tutorialMinute = highMinute;
-				highScore.data.tutorialSecond = highSecond;
-			}
-			else if(world == 1){
-				highScore.data.wallMinute = highMinute;
-				highScore.data.wallSecond = highSecond;
-			}
-			highScore.flush();
-		}
-		
-		public function eraseScore():void{
-			if(world == 0){
-				highScore.data.tutorialMinute = 0;
-				highScore.data.tutorialSecond = 0;
-			}
-			else if(world == 1){
-				highScore.data.wallMinute = 0;
-				highScore.data.wallSecond = 0;
-			}
-			highScore.flush();
 		}
 		
 		public function destroy():void{

@@ -46,7 +46,7 @@ package
 		public const master:int = 2;
 		
 		//Mode
-		public static var mode:Boolean;
+		public static var pacifist:Boolean;
 		
 		//World
 		public static var world:int;
@@ -92,7 +92,8 @@ package
 			gameReticule.width = 25;
 			gameReticule.height = 25;
 			
-			world = 1;
+			world = 2;
+			pacifist = false;
 			
 			this.addChild(gameReticule);
 		}
@@ -100,13 +101,13 @@ package
 		private function testingRemove(event:Event):void{
 			if(event.target is Menu){
 				if(world == testWorld){
-					test = new TestWorld(this, true, mode, testWorld, difficulty);
+					test = new TestWorld(this, true, pacifist, testWorld, difficulty);
 				}
 				else if(world == wallWorld){
-					walls = new WallJumpingWorld(this, false, mode, wallWorld, difficulty);	
+					walls = new WallJumpingWorld(this, false, pacifist, wallWorld, difficulty);	
 				}
 				else if(world == tutorialWorld){
-					tutorial = new TutorialWorld(this, true, mode, tutorialWorld);	
+					tutorial = new TutorialWorld(this, true, pacifist, tutorialWorld);	
 				}
 			}
 			else if(event.target is TutorialWorld || event.target is WallJumpingWorld || event.target is TestWorld){
@@ -144,8 +145,8 @@ package
 			}
 		}
 		
-		public static function setMode(_mode:Boolean):void{
-			mode = _mode;
+		public static function setPacifist(_pacifist:Boolean):void{
+			pacifist = _pacifist;
 		}
 		
 		public static function setWorld(_world:int):void{

@@ -224,7 +224,7 @@ package Game
 			}
 			else if(activeButton.toString() == "[object Tutorial]"){
 				FlashGame.setDifficulty(0);
-				FlashGame.setMode(false);
+				FlashGame.setPacifist(false);
 				FlashGame.setWorld(0);
 				this.removeEventListener(MouseEvent.MOUSE_OVER, mouseOver);
 				this.removeEventListener(MouseEvent.MOUSE_OUT, mouseOut);
@@ -245,11 +245,11 @@ package Game
 				layer = 2;
 			}
 			else if(activeButton.toString() == "[object Weapons]"){
-				FlashGame.setMode(false);
+				FlashGame.setPacifist(false);
 				layer = 3;
 			}
 			else if(activeButton.toString() == "[object Pacifist]"){
-				FlashGame.setMode(true);
+				FlashGame.setPacifist(true);
 				layer = 3;
 			}
 			else if(activeButton.toString() == "[object Standard]"){
