@@ -75,6 +75,10 @@ package Game
 			var leftWall:Platform = new Platform(-70,-200, 30, 250, "b_tall");
 			var rightWall:Platform = new Platform(400,-200, 30, 250, "b_tall");
 			
+			//FLOOR & CEILING
+			var floor:Platform = new Platform(-70, 45, 500, 15, "b_wide");
+			var ceiling:Platform = new Platform(-70, -120, 500, 15, "b_wide");
+			
 			//ENEMY
 			//Beginner
 			if(difficulty == 0){

@@ -186,54 +186,74 @@ package Game
 			/**Platform Enemy AI*/
 			if(userDataA == "ENEMY" &&
 				userDataB != "ITEM" &&
-				userDataB != "DEAD" &&
-				userDataB != "ENEMY"){
+				userDataB != "DEAD"){
+				var enemyDataA:* = contact.GetFixtureA().GetUserData()[1];
 				
-//				if(userDataB != "GROUND"){
-//					var enemyDataA:* = contact.GetFixtureA().GetUserData()[1];
-//					
-//					if(enemyDataA == "BOTTOM"){
-//						contact.GetFixtureA().GetUserData()[1] ="BOTTOM_ON";
-//					}
-//					else if(enemyDataA == "RIGHT"){
-//						contact.GetFixtureA().GetUserData()[1] ="RIGHT_ON";
-//					}
-//					else if(enemyDataA == "LEFT"){
-//						contact.GetFixtureA().GetUserData()[1] ="LEFT_ON";
-//					}
-//					else if(enemyDataA == "TOP"){
-//						contact.GetFixtureA().GetUserData()[1] ="TOP_ON";
-//					}
-//				}
-//				else{
-//					contact.GetFixtureA().GetUserData()[1] = "GROUND";
-//				}
-//				
-//			}
-//			else if(userDataB == "ENEMY" &&
-//				userDataA != "ITEM" &&
-//				userDataA != "DEAD" &&
-//				userDataA != "ENEMY"){
-//				
-//				if(userDataA != "GROUND"){
-//					var enemyDataB:* = contact.GetFixtureA().GetUserData()[1];
-//					
-//					if(enemyDataB == "BOTTOM"){
-//						contact.GetFixtureB().GetUserData()[1] ="BOTTOM_ON";
-//					}
-//					else if(enemyDataB == "RIGHT"){
-//						contact.GetFixtureB().GetUserData()[1] ="RIGHT_ON";
-//					}
-//					else if(enemyDataB == "LEFT"){
-//						contact.GetFixtureB().GetUserData()[1] ="LEFT_ON";
-//					}
-//					else if(enemyDataB == "TOP"){
-//						contact.GetFixtureB().GetUserData()[1] ="TOP_ON";
-//					}
-//				}
-//				else{
-//					contact.GetFixtureB().GetUserData()[1] ="GROUND";
-//				}
+				if(userDataB != "GROUND" && userDataB != "NO_JUMP"){
+					if(enemyDataA == "BOTTOM"){
+						contact.GetFixtureA().GetUserData()[1] ="BOTTOM_ON";
+					}
+					else if(enemyDataA == "TOP"){
+						contact.GetFixtureA().GetUserData()[1] ="TOP_ON";
+					}
+					else if(enemyDataA == "RIGHT"){
+						contact.GetFixtureA().GetUserData()[1] ="RIGHT_ON";
+					}
+					else if(enemyDataA == "LEFT"){
+						contact.GetFixtureA().GetUserData()[1] ="LEFT_ON";
+					}
+				}
+				else{					
+					if(enemyDataA == "BOTTOM"){
+						contact.GetFixtureA().GetUserData()[1] ="BOTTOM_S";
+					}
+					else if(enemyDataA == "TOP"){
+						contact.GetFixtureA().GetUserData()[1] ="TOP_S";
+					}
+					else if(enemyDataA == "RIGHT"){
+						contact.GetFixtureA().GetUserData()[1] ="RIGHT_S";
+					}
+					else if(enemyDataA == "LEFT"){
+						contact.GetFixtureA().GetUserData()[1] ="LEFT_S";
+					}				
+				}
+								
+			}
+			else if(userDataB == "ENEMY" &&
+				userDataA != "ITEM" &&
+				userDataA != "DEAD"){
+				
+				var enemyDataB:* = contact.GetFixtureA().GetUserData()[1];
+
+				if(userDataA != "GROUND" && userDataA != "NO_JUMP"){
+					
+					if(enemyDataB == "BOTTOM"){
+						contact.GetFixtureB().GetUserData()[1] ="BOTTOM_ON";
+					}
+					else if(enemyDataB == "TOP"){
+						contact.GetFixtureB().GetUserData()[1] ="TOP_ON";
+					}
+					else if(enemyDataB == "RIGHT"){
+						contact.GetFixtureB().GetUserData()[1] ="RIGHT_ON";
+					}
+					else if(enemyDataB == "LEFT"){
+						contact.GetFixtureB().GetUserData()[1] ="LEFT_ON";
+					}
+				}
+				else{
+					if(enemyDataB == "BOTTOM"){
+						contact.GetFixtureB().GetUserData()[1] ="BOTTOM_S";
+					}
+					else if(enemyDataB == "TOP"){
+						contact.GetFixtureB().GetUserData()[1] ="TOP_S";
+					}
+					else if(enemyDataB == "RIGHT"){
+						contact.GetFixtureB().GetUserData()[1] ="RIGHT_S";
+					}
+					else if(enemyDataB == "LEFT"){
+						contact.GetFixtureB().GetUserData()[1] ="LEFT_S";
+					}
+				}
 				
 			}
 			
@@ -347,46 +367,44 @@ package Game
 			}
 			
 			/**Platform Enemy AI*/
-//			if(userDataA == "ENEMY" &&
-//				userDataB != "ITEM" &&
-//				userDataB != "DEAD" &&
-//				userDataB != "ENEMY"){
-//				
-//				var enemyDataA:* = contact.GetFixtureA().GetUserData()[1];
-//				
-//				if(enemyDataA == "BOTTOM_ON"){
-//					contact.GetFixtureA().GetUserData()[1] ="BOTTOM";
-//				}
-//				else if(enemyDataA == "RIGHT_ON"){
-//					contact.GetFixtureA().GetUserData()[1] ="RIGHT";
-//				}
-//				else if(enemyDataA == "LEFT_ON"){
-//					contact.GetFixtureA().GetUserData()[1] ="LEFT";
-//				}
-//				else if(enemyDataA == "TOP_ON"){
-//					contact.GetFixtureA().GetUserData()[1] ="TOP";
-//				}
-//			}
-//			else if(userDataB == "ENEMY" &&
-//				userDataA != "ITEM" &&
-//				userDataA != "DEAD"  &&
-//				userDataB != "ENEMY"){
-//				
-//				var enemyDataB:* = contact.GetFixtureA().GetUserData()[1];
-//				
-//				if(enemyDataB == "BOTTOM_ON"){
-//					contact.GetFixtureB().GetUserData()[1] ="BOTTOM";
-//				}
-//				else if(enemyDataB == "RIGHT_ON"){
-//					contact.GetFixtureB().GetUserData()[1] ="RIGHT";
-//				}
-//				else if(enemyDataB == "LEFT_ON"){
-//					contact.GetFixtureB().GetUserData()[1] ="LEFT";
-//				}
-//				else if(enemyDataB == "TOP_ON"){
-//					contact.GetFixtureB().GetUserData()[1] ="TOP";
-//				}
-//			}
+			if(userDataA == "ENEMY" &&
+				userDataB != "ITEM" &&
+				userDataB != "DEAD"){
+				
+				var enemyDataA:* = contact.GetFixtureA().GetUserData()[1];
+				
+				if(enemyDataA == "BOTTOM_ON" || enemyDataA == "BOTTOM_S"){
+					contact.GetFixtureA().GetUserData()[1] ="BOTTOM";
+				}
+				else if(enemyDataA == "RIGHT_ON" || enemyDataA == "RIGHT_S"){
+					contact.GetFixtureA().GetUserData()[1] ="RIGHT";
+				}
+				else if(enemyDataA == "LEFT_ON" || enemyDataA == "LEFT_S"){
+					contact.GetFixtureA().GetUserData()[1] ="LEFT";
+				}
+				else if(enemyDataA == "TOP_ON" || enemyDataA == "TOP_S"){
+					contact.GetFixtureA().GetUserData()[1] ="TOP";
+				}
+			}
+			else if(userDataB == "ENEMY" &&
+				userDataA != "ITEM" &&
+				userDataA != "DEAD"){
+				
+				var enemyDataB:* = contact.GetFixtureA().GetUserData()[1];
+				
+				if(enemyDataB == "BOTTOM_ON" || enemyDataB == "BOTTOM_S"){
+					contact.GetFixtureB().GetUserData()[1] ="BOTTOM";
+				}
+				else if(enemyDataB == "RIGHT_ON" || enemyDataB == "RIGHT_S"){
+					contact.GetFixtureB().GetUserData()[1] ="RIGHT";
+				}
+				else if(enemyDataB == "LEFT_ON" || enemyDataB == "LEFT_S"){
+					contact.GetFixtureB().GetUserData()[1] ="LEFT";
+				}
+				else if(enemyDataB == "TOP_ON" || enemyDataB == "TOP_S"){
+					contact.GetFixtureB().GetUserData()[1] ="TOP";
+				}
+			}
 		}
 		
 		override public function PreSolve(contact:b2Contact, oldManifold:b2Manifold):void{
