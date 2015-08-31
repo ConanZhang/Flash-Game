@@ -183,7 +183,7 @@ package Game
 			addEventListener(MouseEvent.CLICK, buttonClicked);
 			addEventListener(Event.ENTER_FRAME, update);
 			
-			optionsMenu = new OptionsMenu(this, 0,0);
+			optionsMenu = new OptionsMenu(this, 0, 2000);
 		}
 		private function mouseOver(event:MouseEvent):void
 		{
