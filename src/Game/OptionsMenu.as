@@ -35,6 +35,9 @@ package Game
 		//keybindings
 		public static var keybindings:Object;
 		private var bindings:SharedObject;
+		private var currentKey:int;
+		
+		private const jump:int = 1;
 		
 		//Text format
 		private var textFormat:TextFormat;
@@ -51,6 +54,8 @@ package Game
 			
 			this.x = x;
 			this.y = y;
+			
+			currentKey = 0;
 			
 			audio = new Audio;
 			controls = new Controls;
@@ -106,6 +111,7 @@ package Game
 			textFormat.font = "Zenzai Itacha";
 			
 			textField = new TextField();
+			textField.name = "jump";
 			textField.x = 250;
 			textField.y = 250;
 			textField.embedFonts = true;
@@ -129,14 +135,21 @@ package Game
 		
 		protected function mouseClick(event:MouseEvent):void
 		{
-						
+			//Change font to indicate focus
+			if(event.currentTarget.name == "jump"){
+				currentKey = jump;
+				textField.textColor = 0xffffff;
+			}
 		}
 		
 		protected function keyDown(e:KeyboardEvent):void
 		{
-			keybindings.jump = e.keyCode;
-			bindings.data.bindings = keybindings;
+			if(currentKey == jump){
+				keybindings.jump = e.keyCode;
+				textField.textColor = 0xff0000;
+			}
 			
+			bindings.data.bindings = keybindings;
 			bindings.flush();
 		} 
 		
