@@ -23,7 +23,7 @@ package Game
 	
 	public class TestWorld extends Stage
 	{
-		private var screen:Sprite;
+		private var screen:FlashGame;
 		private var background:Background;
 		private var rain:Rain;
 		
@@ -34,7 +34,7 @@ package Game
 		 * Takes in screen it will be added to
 		 * 
 		 */
-		public function TestWorld(screenP:Sprite, debugging:Boolean, pacifist:Boolean, world:int, difficulty:int)
+		public function TestWorld(screenP:FlashGame, debugging:Boolean, pacifist:Boolean, world:int, difficulty:int)
 		{			
 			screen = screenP;
 			screen.addChildAt(this,0);

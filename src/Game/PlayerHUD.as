@@ -536,9 +536,6 @@ package Game
 			else if(countDownSeconds == -1 && minuteDisplay != 3 && Player.playerHealth != 0){
 				countDownText.text = "";
 			}
-			else if(minuteDisplay == 0 && secondDisplay == 0){
-				countDownText.text = "Win!";
-			}
 			else if(Player.playerHealth == 0){
 				countDownText.text = "Dead!";
 				

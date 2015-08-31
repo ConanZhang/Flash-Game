@@ -145,6 +145,10 @@ package
 			}
 		}
 		
+		public function restart():void{
+			menu.destroy();
+		}
+		
 		public static function setPacifist(_pacifist:Boolean):void{
 			pacifist = _pacifist;
 		}

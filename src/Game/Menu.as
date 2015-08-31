@@ -254,19 +254,11 @@ package Game
 			}
 			else if(activeButton.toString() == "[object Standard]"){
 				FlashGame.setWorld(2);
-				this.removeEventListener(MouseEvent.MOUSE_OVER, mouseOver);
-				this.removeEventListener(MouseEvent.MOUSE_OUT, mouseOut);
-				this.removeEventListener(MouseEvent.CLICK, buttonClicked);
-				this.removeEventListener(Event.ENTER_FRAME, update);
-				screen.removeChild(this);
+				destroy();
 			}
 			else if(activeButton.toString() == "[object Walls]"){
 				FlashGame.setWorld(1);
-				this.removeEventListener(MouseEvent.MOUSE_OVER, mouseOver);
-				this.removeEventListener(MouseEvent.MOUSE_OUT, mouseOut);
-				this.removeEventListener(MouseEvent.CLICK, buttonClicked);
-				this.removeEventListener(Event.ENTER_FRAME, update);
-				screen.removeChild(this);
+				destroy();
 			}
 			else if(activeButton.toString() == "[object Options]"){
 				layer = 4;
@@ -296,6 +288,15 @@ package Game
 					break;
 			}
 		}
+		
+		public function destroy():void{
+			this.removeEventListener(MouseEvent.MOUSE_OVER, mouseOver);
+			this.removeEventListener(MouseEvent.MOUSE_OUT, mouseOut);
+			this.removeEventListener(MouseEvent.CLICK, buttonClicked);
+			this.removeEventListener(Event.ENTER_FRAME, update);
+			screen.removeChild(this);
+		}
+		
 		private function update(event:Event):void
 		{
 			//adjust size of button

@@ -42,7 +42,7 @@ package Game
 			audioLabelText.embedFonts = true;
 			audioLabelText.defaultTextFormat = labelFormat;
 			audioLabelText.x = 450;
-			audioLabelText.y = 25+offset;
+			audioLabelText.y = 250+offset;
 			audioLabelText.textColor = 0xff0000;
 			audioLabelText.selectable = false;	
 			
@@ -54,7 +54,7 @@ package Game
 			systemLabelText.embedFonts = true;
 			systemLabelText.defaultTextFormat = labelFormat;
 			systemLabelText.x = 450;
-			systemLabelText.y = 250+offset;
+			systemLabelText.y = 25+offset;
 			systemLabelText.textColor = 0xff0000;
 			systemLabelText.selectable = false;	
 			

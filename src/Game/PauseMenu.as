@@ -4,6 +4,7 @@ package Game
 	import flash.display.Sprite;
 	import flash.events.Event;
 	import flash.events.MouseEvent;
+	import Parents.Stage;
 	
 	public class PauseMenu extends MovieClip
 	{
@@ -13,7 +14,7 @@ package Game
 		public var buttons:Array;
 		public var lastButtonClicked:MovieClip;
 		//screen stuff
-		private var screen:Sprite;
+		private var screen:Stage;
 		private var buttonContainer: Sprite;
 		//sprite container and buttons
 		private var optionsContainer: Sprite;
@@ -24,13 +25,16 @@ package Game
 		//options menu text object
 		private var optionsMenu:OptionsMenu;
 		
-		public function PauseMenu(screenP: Sprite)
+		public function PauseMenu(screenP: Stage, x:int, y:int)
 		{
 			screen = screenP;
-			screen.addChildAt(this, 0);
+			screen.addChild(this);
 			buttons = new Array();
 			buttonContainer = new Sprite();
 			lastButtonClicked = null;
+			this.x = x;
+			this.y = y;
+			
 			
 			optionsContainer = new Options_Container;
 			resume = new Resume;
@@ -38,32 +42,32 @@ package Game
 			optionsPause = new Options_Pause;
 			exit = new Exit;
 			
+			this.addChild(optionsContainer);
+			optionsContainer.x = 0;
+			optionsContainer.y = 0;
+			
 			//add container sprite to stage, starting position
 			this.addChild(buttonContainer);
 			buttonContainer.x = 0;
 			buttonContainer.y = 0;
 			
-			buttonContainer.addChild(optionsContainer);
-			optionsContainer.x = 0;
-			optionsContainer.y = 0;
-			
 			buttonContainer.addChild(restart);
-			restart.x = 50;
-			restart.y = 0;
+			restart.x = 80;
+			restart.y = -80;
 			
 			buttonContainer.addChild(resume);
-			resume.x = 0;
-			resume.y = 0;
+			resume.x = -80;
+			resume.y = -80;
 			
 			buttonContainer.addChild(optionsPause);
-			optionsPause.x = 0;
-			optionsPause.y = 50;
+			optionsPause.x = -80;
+			optionsPause.y = 80;
 			
 			buttonContainer.addChild(exit);
-			exit.x = 50;
-			exit.y = 50;
+			exit.x = 80;
+			exit.y = 80;
 			
-			buttons = [optionsContainer, restart, resume, optionsPause, exit];
+			buttons = [restart, resume, optionsPause, exit];
 			
 			//add listeners to buttons
 			addEventListener(MouseEvent.MOUSE_OVER, mouseOver);
@@ -99,15 +103,22 @@ package Game
 			lastButtonClicked = activeButton;
 			
 			if(activeButton.toString() == "[object Resume]"){
+				Stage.paused = false;
 				//resume game
+				destroy();
 			}
 			else if(activeButton.toString() == "[object Restart]"){
 				//restart game
+				//exit game
+				Stage.paused = false;
+				destroy();
+				screen.destroy();
+				screen.screen.restart();
 			}
 			else if(activeButton.toString() == "[object Options_Pause]"){
 				
 				//create a new blank background on top of everything to hold the options text?
-				var newOptionsContainer = new Options_Container;
+				var newOptionsContainer:Sprite = new Options_Container;
 				buttonContainer.addChild(newOptionsContainer);
 				newOptionsContainer.x = optionsContainer.x;
 				newOptionsContainer.y = optionsContainer.y;
@@ -121,6 +132,9 @@ package Game
 			}
 			else if(activeButton.toString() == "[object Exit]"){
 				//exit game
+				Stage.paused = false;
+				destroy();
+				screen.destroy();
 			}			
 		}
 		
@@ -140,6 +154,15 @@ package Game
 					}
 				}
 			}
+		}
+		
+		public function destroy():void
+		{
+			this.removeEventListener(MouseEvent.MOUSE_OVER, mouseOver);
+			this.removeEventListener(MouseEvent.MOUSE_OUT, mouseOut);
+			this.removeEventListener(MouseEvent.CLICK, buttonClicked);
+			this.removeEventListener(Event.ENTER_FRAME, update);
+			screen.removeChild(this);
 		}
 		
 	}

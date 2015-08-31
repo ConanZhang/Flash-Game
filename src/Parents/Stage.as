@@ -24,6 +24,7 @@ package Parents
 	
 	import Game.ContactListener;
 	import Game.DebugScreen;
+	import Game.PauseMenu;
 	import Game.PlayerHUD;
 	
 	public class Stage extends MovieClip
@@ -66,14 +67,16 @@ package Parents
 		//rotate weapon
 		public static var weaponRotation:Number;
 		//screen
-		private var screen:Sprite;
+		public var screen:FlashGame;
 		
 		/**GAME*/
 		//delay controls
 		private var beginTimer:Timer;
 		//debug
 		private var debug:DebugScreen;
-
+		//pause
+		private var pauseMenu:PauseMenu;
+		
 		/**PLAYER*/
 		//player
 		public var player:Player;
@@ -116,7 +119,7 @@ package Parents
 		private var machineDelay:int;
 		
 		/**Constructor*/
-		public function Stage(screenP:Sprite, debugging:Boolean, playerX:Number, playerY:Number, pacifist:Boolean, world:int, difficulty:int)
+		public function Stage(screenP:FlashGame, debugging:Boolean, playerX:Number, playerY:Number, pacifist:Boolean, world:int, difficulty:int)
 		{
 			screen = screenP;
 			
@@ -140,6 +143,7 @@ package Parents
 			/**EVENT*/
 			//update every frame
 			this.addEventListener(Event.ENTER_FRAME, update, false, 0, true);
+			paused = false;
 			
 			/**WORLD*/
 			var gravity:b2Vec2 = new b2Vec2(0, 85);
@@ -166,7 +170,7 @@ package Parents
 			jumpAmount = defaultJumpAmount;
 			slowRotation = false;
 			flinchTime = 0;
-			
+						
 			//PLAYER
 			player = new Player(playerX, playerY, 3.5);
 			this.setPlayer(player.body);
@@ -197,270 +201,272 @@ package Parents
 		
 		/**Stages can update their properties*/
 		public function update(e:Event):void{
-			//clear sprites from last frame
-			sprites.graphics.clear();
-			
-			/**CAMERA*/
-			centerScreen(playerBody.GetPosition().x, playerBody.GetPosition().y);
-			
-			/**BOX2D*/
-			world.Step(timeStep,iterations,iterations);
-			world.ClearForces();
-			world.DrawDebugData();
-			
-			/**OBJECTS*/
-			for(var bodies:b2Body = world.GetBodyList(); bodies; bodies = bodies.GetNext() ){
-				//if they exist update them
-				if(bodies.GetUserData() != null){
-					bodies.GetUserData().update();
-					
-					//slow motion
-					var bodyVelocity:b2Vec2 = bodies.GetLinearVelocity();
-					if(slowMotion == true && slowAmount > 0 ){
-						var slowVelocity:b2Vec2 = new b2Vec2(bodyVelocity.x*0.5,bodyVelocity.y*0.5);
+			if(!paused){
+				//clear sprites from last frame
+				sprites.graphics.clear();
+				
+				/**CAMERA*/
+				centerScreen(playerBody.GetPosition().x, playerBody.GetPosition().y);
+				
+				/**BOX2D*/
+				world.Step(timeStep,iterations,iterations);
+				world.ClearForces();
+				world.DrawDebugData();
+				
+				/**OBJECTS*/
+				for(var bodies:b2Body = world.GetBodyList(); bodies; bodies = bodies.GetNext() ){
+					//if they exist update them
+					if(bodies.GetUserData() != null){
+						bodies.GetUserData().update();
 						
-						bodies.SetLinearVelocity(slowVelocity);
-					}
-					else if(slowMotion == false){
-						bodies.SetLinearVelocity(bodyVelocity);
+						//slow motion
+						var bodyVelocity:b2Vec2 = bodies.GetLinearVelocity();
+						if(slowMotion == true && slowAmount > 0 ){
+							var slowVelocity:b2Vec2 = new b2Vec2(bodyVelocity.x*0.5,bodyVelocity.y*0.5);
+							
+							bodies.SetLinearVelocity(slowVelocity);
+						}
+						else if(slowMotion == false){
+							bodies.SetLinearVelocity(bodyVelocity);
+						}
 					}
 				}
-			}
-			
-			/**FORCES & KEY PRESSES*/
-			var direction:b2Vec2 = new b2Vec2();
-			
-			for(var i:uint = 0; i < keyPresses.length;i++){
-				if(flinchTime == 0){
-					switch(keyPresses[i]){
-						case Keyboard.S:
-							//downward velocity in air
-							if(jumping){
-								direction.Set(0, 180);
-								playerBody.SetAwake(true);
-								playerBody.ApplyForce(direction, playerBody.GetPosition() );
-								if(Player.STATE != Player.DODGE ){
-									Player.STATE = Player.FAST_FALL;
+				
+				/**FORCES & KEY PRESSES*/
+				var direction:b2Vec2 = new b2Vec2();
+				
+				for(var i:uint = 0; i < keyPresses.length;i++){
+					if(flinchTime == 0){
+						switch(keyPresses[i]){
+							case Keyboard.S:
+								//downward velocity in air
+								if(jumping){
+									direction.Set(0, 180);
+									playerBody.SetAwake(true);
+									playerBody.ApplyForce(direction, playerBody.GetPosition() );
+									if(Player.STATE != Player.DODGE ){
+										Player.STATE = Player.FAST_FALL;
+									}
 								}
-							}
-							break;
-						case Keyboard.W:
-							//initial jump
-							if(jumping == false && !rightWall && !leftWall){
-								jumping = true;
-								direction.Set(0,-25);
-								playerBody.SetAwake(true);
-								playerBody.ApplyImpulse(direction, playerBody.GetPosition() );
-								if(Player.STATE != Player.DODGE ){
-									Player.STATE = Player.JUMPING;
+								break;
+							case Keyboard.W:
+								//initial jump
+								if(jumping == false && !rightWall && !leftWall){
+									jumping = true;
+									direction.Set(0,-25);
+									playerBody.SetAwake(true);
+									playerBody.ApplyImpulse(direction, playerBody.GetPosition() );
+									if(Player.STATE != Player.DODGE ){
+										Player.STATE = Player.JUMPING;
+									}
 								}
-							}
-								//continuing initial jump
-							else if(jumping == true && 
-								jumpTime <= jumpLimit && 
-								jumpAmount == defaultJumpAmount){
-								jumpTime++;
-								direction.Set(0,-500);
-								playerBody.SetAwake(true);
-								playerBody.ApplyForce(direction, playerBody.GetPosition() );
-							}
-								//air jump initial
-							else if(jumping == true &&
-								jumpAmount < defaultJumpAmount && 
-								jumpAmount > 0 &&
-								!airJumping){
-								jumpTime = 0;
-								airJumping = true;
-								direction.Set(playerBody.GetLinearVelocity().x,-25);
-								playerBody.SetLinearVelocity(direction);
-							}
-								//continuing air jump
-							else if(airJumping == true && 
-								jumpTime <= jumpLimit && 
-								jumpAmount > 0){
-								jumpTime++;
-								direction.Set(0,-500);
-								playerBody.SetAwake(true);
-								playerBody.ApplyForce(direction, playerBody.GetPosition() );
-							}
-								//hover
-							else if(jumpTime == jumpLimit+1 && playerBody.GetLinearVelocity().y > 0 || jumpAmount == 0){
-								direction.Set(0,-150);
-								playerBody.SetAwake(true);
-								playerBody.ApplyForce(direction, playerBody.GetPosition() );
-								if(Player.STATE != Player.DODGE){
-									Player.STATE = Player.HOVER;
+									//continuing initial jump
+								else if(jumping == true && 
+									jumpTime <= jumpLimit && 
+									jumpAmount == defaultJumpAmount){
+									jumpTime++;
+									direction.Set(0,-500);
+									playerBody.SetAwake(true);
+									playerBody.ApplyForce(direction, playerBody.GetPosition() );
 								}
-							}
-								//initial jump off right wall
-							else if(rightWall){
-								jumping = true;
-								rightWall = false;
-								direction.Set(-90,-43);
-								playerBody.SetAwake(true);
-								playerBody.ApplyImpulse(direction, playerBody.GetPosition() );
-								if(Player.STATE != Player.DODGE && !Stage.floor){
-									Player.STATE = Player.JUMPING;
+									//air jump initial
+								else if(jumping == true &&
+									jumpAmount < defaultJumpAmount && 
+									jumpAmount > 0 &&
+									!airJumping){
+									jumpTime = 0;
+									airJumping = true;
+									direction.Set(playerBody.GetLinearVelocity().x,-25);
+									playerBody.SetLinearVelocity(direction);
 								}
-							}
-								//initial jump off left wall
-							else if(leftWall){
-								jumping = true;
-								leftWall = false;
-								direction.Set(90,-43);
-								playerBody.SetAwake(true);
-								playerBody.ApplyImpulse(direction, playerBody.GetPosition() );
-								if(Player.STATE != Player.DODGE && !Stage.floor){
-									Player.STATE = Player.JUMPING;
+									//continuing air jump
+								else if(airJumping == true && 
+									jumpTime <= jumpLimit && 
+									jumpAmount > 0){
+									jumpTime++;
+									direction.Set(0,-500);
+									playerBody.SetAwake(true);
+									playerBody.ApplyForce(direction, playerBody.GetPosition() );
 								}
-							}
-							break;	
-						case Keyboard.A:
-							//limit speed
-							if(horizontal>-2){
-								direction.Set(-250*speed,0);
-								playerBody.SetAwake(true);
-								playerBody.ApplyForce(direction,playerBody.GetPosition());
-								if(slowMotion && slowAmount > 0){
-									Player.playerRotation = -20;
+									//hover
+								else if(jumpTime == jumpLimit+1 && playerBody.GetLinearVelocity().y > 0 || jumpAmount == 0){
+									direction.Set(0,-150);
+									playerBody.SetAwake(true);
+									playerBody.ApplyForce(direction, playerBody.GetPosition() );
+									if(Player.STATE != Player.DODGE){
+										Player.STATE = Player.HOVER;
+									}
 								}
-								else{
-									Player.playerRotation = -40;
-								}
-							}
-							//animation
-							if(Player.STATE != Player.DODGE && Player.STATE != Player.R_WALK && Player.STATE != Player.R_WALK_SLOW){
-								if(!jumping && !leftWall && !rightWall && !slowMotion && Stage.floor || !jumping && !leftWall && !rightWall && slowMotion && slowAmount <= 0 && Stage.floor){
-									Player.STATE = Player.L_WALK;
-								}
-								else if(!jumping && !leftWall && !rightWall && slowMotion && slowAmount > 0 && Stage.floor){
-									Player.STATE = Player.L_WALK_SLOW;
-								}
-								else if(leftWall){
-									Player.STATE = Player.L_WALL;
-								}
-							}
-							else if(Player.STATE != Player.DODGE && Player.STATE == Player.R_WALK || Player.STATE == Player.R_WALK_SLOW){
-								Player.STATE = Player.IDLE;
-							}
-							break;
-						case Keyboard.D:
-							//limit speed
-							if(horizontal<2){
-								direction.Set(250*speed,0);
-								playerBody.SetAwake(true);
-								playerBody.ApplyForce(direction,playerBody.GetPosition());
-								if(slowMotion && slowAmount > 0){
-									Player.playerRotation = 20;
-								}
-								else{
-									Player.playerRotation = 40;
-								}
-							}
-							//animation
-							if(Player.STATE != Player.DODGE && Player.STATE != Player.L_WALK && Player.STATE != Player.L_WALK_SLOW){
-								if(!jumping && !rightWall && !leftWall && !slowMotion && Stage.floor || !jumping && !rightWall && !leftWall && slowMotion && slowAmount <= 0 && Stage.floor){
-									Player.STATE = Player.R_WALK;
-								}
-								else if(!jumping && !rightWall && !leftWall && slowMotion && slowAmount > 0 && Stage.floor){
-									Player.STATE = Player.R_WALK_SLOW;
-								}
+									//initial jump off right wall
 								else if(rightWall){
-									Player.STATE = Player.R_WALL;
+									jumping = true;
+									rightWall = false;
+									direction.Set(-90,-43);
+									playerBody.SetAwake(true);
+									playerBody.ApplyImpulse(direction, playerBody.GetPosition() );
+									if(Player.STATE != Player.DODGE && !Stage.floor){
+										Player.STATE = Player.JUMPING;
+									}
 								}
-							}
-							else if(Player.STATE != Player.DODGE && Player.STATE == Player.L_WALK || Player.STATE == Player.L_WALK_SLOW){
-								Player.STATE = Player.IDLE;
-							}
-							break;
-						case Keyboard.SPACE:
-							if(slowMotion == false && slowAmount > 0 && Player.playerHealth > 0){
-								slowMotion = true;
-								jumpLimit = 12;
-								if(Player.playerRotation > 0){
-									Player.playerRotation = 20;
+									//initial jump off left wall
+								else if(leftWall){
+									jumping = true;
+									leftWall = false;
+									direction.Set(90,-43);
+									playerBody.SetAwake(true);
+									playerBody.ApplyImpulse(direction, playerBody.GetPosition() );
+									if(Player.STATE != Player.DODGE && !Stage.floor){
+										Player.STATE = Player.JUMPING;
+									}
 								}
-								else{
-									Player.playerRotation = -20;
+								break;	
+							case Keyboard.A:
+								//limit speed
+								if(horizontal>-2){
+									direction.Set(-250*speed,0);
+									playerBody.SetAwake(true);
+									playerBody.ApplyForce(direction,playerBody.GetPosition());
+									if(slowMotion && slowAmount > 0){
+										Player.playerRotation = -20;
+									}
+									else{
+										Player.playerRotation = -40;
+									}
 								}
-								slowRotation = true;
-								speed = 0.75;
-								if(jumpTime == 6){
-									jumpTime = 13;
+								//animation
+								if(Player.STATE != Player.DODGE && Player.STATE != Player.R_WALK && Player.STATE != Player.R_WALK_SLOW){
+									if(!jumping && !leftWall && !rightWall && !slowMotion && Stage.floor || !jumping && !leftWall && !rightWall && slowMotion && slowAmount <= 0 && Stage.floor){
+										Player.STATE = Player.L_WALK;
+									}
+									else if(!jumping && !leftWall && !rightWall && slowMotion && slowAmount > 0 && Stage.floor){
+										Player.STATE = Player.L_WALK_SLOW;
+									}
+									else if(leftWall){
+										Player.STATE = Player.L_WALL;
+									}
 								}
-							}
-							else if(slowAmount > 0 && Player.playerHealth > 0){
-								slowAmount-=3.375;
-							}
-							break;
+								else if(Player.STATE != Player.DODGE && Player.STATE == Player.R_WALK || Player.STATE == Player.R_WALK_SLOW){
+									Player.STATE = Player.IDLE;
+								}
+								break;
+							case Keyboard.D:
+								//limit speed
+								if(horizontal<2){
+									direction.Set(250*speed,0);
+									playerBody.SetAwake(true);
+									playerBody.ApplyForce(direction,playerBody.GetPosition());
+									if(slowMotion && slowAmount > 0){
+										Player.playerRotation = 20;
+									}
+									else{
+										Player.playerRotation = 40;
+									}
+								}
+								//animation
+								if(Player.STATE != Player.DODGE && Player.STATE != Player.L_WALK && Player.STATE != Player.L_WALK_SLOW){
+									if(!jumping && !rightWall && !leftWall && !slowMotion && Stage.floor || !jumping && !rightWall && !leftWall && slowMotion && slowAmount <= 0 && Stage.floor){
+										Player.STATE = Player.R_WALK;
+									}
+									else if(!jumping && !rightWall && !leftWall && slowMotion && slowAmount > 0 && Stage.floor){
+										Player.STATE = Player.R_WALK_SLOW;
+									}
+									else if(rightWall){
+										Player.STATE = Player.R_WALL;
+									}
+								}
+								else if(Player.STATE != Player.DODGE && Player.STATE == Player.L_WALK || Player.STATE == Player.L_WALK_SLOW){
+									Player.STATE = Player.IDLE;
+								}
+								break;
+							case Keyboard.SPACE:
+								if(slowMotion == false && slowAmount > 0 && Player.playerHealth > 0){
+									slowMotion = true;
+									jumpLimit = 12;
+									if(Player.playerRotation > 0){
+										Player.playerRotation = 20;
+									}
+									else{
+										Player.playerRotation = -20;
+									}
+									slowRotation = true;
+									speed = 0.75;
+									if(jumpTime == 6){
+										jumpTime = 13;
+									}
+								}
+								else if(slowAmount > 0 && Player.playerHealth > 0){
+									slowAmount-=3.375;
+								}
+								break;
+						}
+					}
+					
+				}
+				
+				//get current physics
+				var currentPos:Point = new Point(playerBody.GetPosition().x, playerBody.GetPosition().y);
+				var currentVelocity:Number = currentPos.x - lastPos.x;
+				
+				//update forces and positions
+				acceleration = currentVelocity - horizontal;
+				horizontal = currentVelocity;
+				vertical = currentPos.y - lastPos.y;
+				lastPos = currentPos;
+				
+				//slow meter
+				if(slowAmount < 225 && !slowMotion){
+					slowAmount+= 2.25;
+				}
+				else if(slowAmount <= 0 && slowMotion){
+					jumpLimit = 5;
+					speed = 1;
+				}
+				
+				//fix rotation if necessary
+				if(slowAmount <= 0 && slowRotation){
+					slowRotation = false;
+					Player.playerRotation = 40;
+				}
+				
+				//flinch
+				if(flinchTime > 1){
+					flinchTime--;
+				} 	
+				else if(flinchTime == 1){
+					flinchTime--;
+					if(jumping){
+						Player.STATE = Player.JUMPING;
+					}
+					else{
+						Player.STATE = Player.IDLE;
 					}
 				}
 				
-			}
-			
-			//get current physics
-			var currentPos:Point = new Point(playerBody.GetPosition().x, playerBody.GetPosition().y);
-			var currentVelocity:Number = currentPos.x - lastPos.x;
-			
-			//update forces and positions
-			acceleration = currentVelocity - horizontal;
-			horizontal = currentVelocity;
-			vertical = currentPos.y - lastPos.y;
-			lastPos = currentPos;
-			
-			//slow meter
-			if(slowAmount < 225 && !slowMotion){
-				slowAmount+= 2.25;
-			}
-			else if(slowAmount <= 0 && slowMotion){
-				jumpLimit = 5;
-				speed = 1;
-			}
-			
-			//fix rotation if necessary
-			if(slowAmount <= 0 && slowRotation){
-				slowRotation = false;
-				Player.playerRotation = 40;
-			}
-			
-			//flinch
-			if(flinchTime > 1){
-				flinchTime--;
-			} 	
-			else if(flinchTime == 1){
-				flinchTime--;
-				if(jumping){
-					Player.STATE = Player.JUMPING;
-				}
-				else{
-					Player.STATE = Player.IDLE;
-				}
-			}
-			
-			var mouseDirectionX:Number = mouseX - stage.stageWidth/2;
-			var mouseDirectionY:Number = mouseY - stage.stageHeight/2;
-			
-			weaponRotation = Math.atan2(mouseDirectionY, mouseDirectionX);
-			
-			//fire machine gun
-			if(machineFire == true){
-				if(machineDelay == 2){
-					var machineBullet:Bullet = new Bullet(playerBody.GetPosition().x + 3 * Math.cos(weaponRotation), playerBody.GetPosition().y + 3 * Math.sin(weaponRotation),0.3,0.3);
-					Weapon.machinegunAmmo--;
-					machineDelay = 0;
-				}
-				else{
-					machineDelay++;
+				var mouseDirectionX:Number = mouseX - stage.stageWidth/2;
+				var mouseDirectionY:Number = mouseY - stage.stageHeight/2;
+				
+				weaponRotation = Math.atan2(mouseDirectionY, mouseDirectionX);
+				
+				//fire machine gun
+				if(machineFire == true){
+					if(machineDelay == 2){
+						var machineBullet:Bullet = new Bullet(playerBody.GetPosition().x + 3 * Math.cos(weaponRotation), playerBody.GetPosition().y + 3 * Math.sin(weaponRotation),0.3,0.3);
+						Weapon.machinegunAmmo--;
+						machineDelay = 0;
+					}
+					else{
+						machineDelay++;
+					}
+					
+					if(Weapon.machinegunAmmo <= 0){
+						machineFire = false;
+						machineDelay = 2;
+					}
 				}
 				
-				if(Weapon.machinegunAmmo <= 0){
-					machineFire = false;
-					machineDelay = 2;
-				}
+				//HUD
+				gameHUD.updateHUD();
 			}
-			
-			//HUD
-			gameHUD.updateHUD();
 		}
 		
 		/**Stages always center the screen on the player*/
@@ -495,10 +501,12 @@ package Parents
 			//pausing
 			if(e.keyCode == Keyboard.P || e.keyCode == Keyboard.R){
 				if(paused == false){
-					pause();
+					pauseMenu = new PauseMenu(this, 350, 260);
+					paused = true;
 				}
 				else if(paused == true){
-					start();
+					pauseMenu.destroy();
+					paused = false;
 				}
 			}
 			//change weapon
@@ -619,21 +627,6 @@ package Parents
 					}
 					speed = 1;
 				}
-			}
-			
-			//pausing
-			if(e.keyCode == Keyboard.P || e.keyCode == Keyboard.R){
-				if(paused == false){
-					paused = true;
-				}
-				else if(paused == true){
-					paused = false;
-				}
-			}
-			
-			//test remove stage
-			if(e.keyCode == Keyboard.T){
-				destroy();
 			}
 
 			//test debug
@@ -795,16 +788,6 @@ package Parents
 		
 		/**Worlds remove differently*/
 		public function childDestroy():void{}
-		
-		/**Play*/
-		public function start():void{
-			stage.frameRate = 30;
-		}
-		
-		/**Pause*/
-		public function pause():void{
-			stage.frameRate = 0;
-		}
 		
 		/**Get and Set for stageWorld*/
 		static public function get world():b2World{ return worldStage; }
