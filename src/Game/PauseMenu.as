@@ -4,6 +4,7 @@ package Game
 	import flash.display.Sprite;
 	import flash.events.Event;
 	import flash.events.MouseEvent;
+	
 	import Parents.Stage;
 	
 	public class PauseMenu extends MovieClip
@@ -17,6 +18,8 @@ package Game
 		private var screen:Stage;
 		private var buttonContainer: Sprite;
 		//sprite container and buttons
+		private var backButton:Sprite;
+		private var newOptionsContainer:Sprite;
 		private var optionsContainer: Sprite;
 		private var restart: Sprite;
 		private var resume: Sprite;
@@ -118,7 +121,7 @@ package Game
 			else if(activeButton.toString() == "[object Options_Pause]"){
 				
 				//create a new blank background on top of everything to hold the options text?
-				var newOptionsContainer:Sprite = new Options_Container;
+				newOptionsContainer = new Options_Container;
 				buttonContainer.addChild(newOptionsContainer);
 				newOptionsContainer.x = optionsContainer.x;
 				newOptionsContainer.y = optionsContainer.y;
@@ -126,8 +129,13 @@ package Game
 				//put the options text on top of that?
 				optionsMenu = new OptionsMenu(this, -325,-225);
 				
-				//put exit button on top so it is clickable and will close the pause menu?				
-				buttonContainer.setChildIndex(exit, 0);				
+				backButton = new Back;
+				buttonContainer.addChild(backButton);
+				
+				backButton.x = 300;
+				backButton.y = -200;
+				
+				buttons.push(backButton);
 				
 			}
 			else if(activeButton.toString() == "[object Exit]"){
@@ -135,7 +143,14 @@ package Game
 				Stage.paused = false;
 				destroy();
 				screen.destroy();
-			}			
+			}		
+			else if(activeButton.toString() == "[object Back]"){
+				//exit game
+				buttonContainer.removeChild(newOptionsContainer);
+				optionsMenu.destroy();
+				buttonContainer.removeChild(backButton);
+				buttons.pop();
+			}		
 		}
 		
 		protected function update(event:Event):void

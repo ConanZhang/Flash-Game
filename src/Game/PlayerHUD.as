@@ -361,6 +361,8 @@ package Game
 				highScore.data.weaponsMasterStandard = scores;
 				highScore.data.weaponsMasterWall = scores;
 				
+				highScore.flush();
+				
 				highMinute = 0;
 				highSecond = 0;
 			}
