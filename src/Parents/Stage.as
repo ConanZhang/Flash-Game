@@ -25,6 +25,7 @@ package Parents
 	import Game.ContactListener;
 	import Game.DebugScreen;
 	import Game.PauseMenu;
+	import Game.OptionsMenu;
 	import Game.PlayerHUD;
 	
 	public class Stage extends MovieClip
@@ -238,7 +239,7 @@ package Parents
 				for(var i:uint = 0; i < keyPresses.length;i++){
 					if(flinchTime == 0){
 						switch(keyPresses[i]){
-							case Keyboard.S:
+							case OptionsMenu.keybindings.fall:
 								//downward velocity in air
 								if(jumping){
 									direction.Set(0, 180);
@@ -249,7 +250,7 @@ package Parents
 									}
 								}
 								break;
-							case Keyboard.W:
+							case OptionsMenu.keybindings.jump:
 								//initial jump
 								if(jumping == false && !rightWall && !leftWall){
 									jumping = true;
@@ -320,7 +321,7 @@ package Parents
 									}
 								}
 								break;	
-							case Keyboard.A:
+							case OptionsMenu.keybindings.left:
 								//limit speed
 								if(horizontal>-2){
 									direction.Set(-250*speed,0);
@@ -349,7 +350,7 @@ package Parents
 									Player.STATE = Player.IDLE;
 								}
 								break;
-							case Keyboard.D:
+							case OptionsMenu.keybindings.right:
 								//limit speed
 								if(horizontal<2){
 									direction.Set(250*speed,0);
@@ -378,7 +379,7 @@ package Parents
 									Player.STATE = Player.IDLE;
 								}
 								break;
-							case Keyboard.SPACE:
+							case OptionsMenu.keybindings.slow:
 								if(slowMotion == false && slowAmount > 0 && Player.playerHealth > 0){
 									slowMotion = true;
 									jumpLimit = 12;
@@ -499,7 +500,7 @@ package Parents
 			}
 			
 			//pausing
-			if(e.keyCode == Keyboard.P || e.keyCode == Keyboard.R){
+			if(e.keyCode == OptionsMenu.keybindings.pause || e.keyCode == Keyboard.R){
 				if(paused == false){
 					pauseMenu = new PauseMenu(this, 350, 260);
 					paused = true;
@@ -510,7 +511,7 @@ package Parents
 				}
 			}
 			//change weapon
-			else if(e.keyCode == Keyboard.Q){
+			else if(e.keyCode == OptionsMenu.keybindings.weaponLeft){
 				if(Weapon.weaponType == 1 && Weapon.machinegunAmmo > 0){
 					Weapon.weaponType = 3;
 					Weapon.changeWeapon = true;
@@ -536,7 +537,7 @@ package Parents
 					Weapon.changeWeapon = true;
 				}
 			}
-			else if(e.keyCode == Keyboard.E){
+			else if(e.keyCode == OptionsMenu.keybindings.weaponRight){
 				if(Weapon.weaponType == 1 && Weapon.shotgunAmmo > 0){
 					Weapon.weaponType = 2;
 					Weapon.changeWeapon = true;
@@ -562,19 +563,19 @@ package Parents
 					Weapon.changeWeapon = true;
 				}
 			}
-			else if(e.keyCode == Keyboard.NUMBER_1){
+			else if(e.keyCode == OptionsMenu.keybindings.pistol){
 				if(Weapon.pistolAmmo > 0){
 					Weapon.weaponType = 1;
 					Weapon.changeWeapon = true;
 				}
 			}
-			else if(e.keyCode == Keyboard.NUMBER_2){
+			else if(e.keyCode == OptionsMenu.keybindings.shotgun){
 				if(Weapon.shotgunAmmo > 0){
 					Weapon.weaponType = 2;
 					Weapon.changeWeapon = true;
 				}
 			}
-			else if(e.keyCode == Keyboard.NUMBER_3){
+			else if(e.keyCode == OptionsMenu.keybindings.machinegun){
 				if(Weapon.machinegunAmmo > 0){
 					Weapon.weaponType = 3;
 					Weapon.changeWeapon = true;
@@ -595,7 +596,7 @@ package Parents
 			}
 			
 			//jumping
-			if(e.keyCode == Keyboard.W){
+			if(e.keyCode == OptionsMenu.keybindings.jump){
 				airJumping = false;
 				if(jumpAmount > 0){
 					jumpAmount--;
@@ -605,17 +606,17 @@ package Parents
 					Player.STATE = Player.JUMPING;
 				}
 			}
-			else if(e.keyCode == Keyboard.S){
+			else if(e.keyCode ==OptionsMenu.keybindings.fall){
 				if(Player.STATE == Player.FAST_FALL){
 					Player.STATE = Player.JUMPING;
 				}
 			}
 			//movement
-			else if(e.keyCode == Keyboard.D && !jumping && !rightWall || e.keyCode == Keyboard.A && !jumping && !leftWall){
+			else if(e.keyCode == OptionsMenu.keybindings.right && !jumping && !rightWall || e.keyCode == OptionsMenu.keybindings.left && !jumping && !leftWall){
 				Player.STATE = Player.IDLE;
 			}
 			//slow motion
-			else if(e.keyCode == Keyboard.SPACE){
+			else if(e.keyCode == OptionsMenu.keybindings.slow){
 				if(slowMotion == true){
 					slowMotion = false;
 					jumpLimit = 5;

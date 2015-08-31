@@ -2,64 +2,131 @@ package Game
 {
 	import flash.display.MovieClip;
 	import flash.display.Sprite;
-	import flash.text.TextField;
-	import flash.text.TextFormat;
-
+	import flash.events.Event;
+	import flash.events.MouseEvent;
+	import flash.ui.Keyboard;
+	import flash.events.KeyboardEvent;
+	
 	public class OptionsMenu extends MovieClip
 	{
+		//old stuff
+		public var activeButton:MovieClip;
+		public var activeBack:MovieClip;
+		public var buttons:Array;
+		
+		//screen stuff
 		private var screen:Sprite;
+		private var buttonContainer: Sprite;
 		
-		private var labelFormat:TextFormat;
-
-		private var controlsLabelText:TextField;	
-		private var audioLabelText:TextField;		
-		private var systemLabelText:TextField;
+		//sprite container and buttons
+		private var audio: MovieClip;
+		private var controls: MovieClip;
 		
-		public function OptionsMenu(screenP:Sprite, offset:int)
+		//options menu text object
+		private var optionsMenu:OptionsMenu;
+		
+		//keybindings
+		public static var keybindings:Object;
+		
+		public function OptionsMenu(screenP: Sprite, x:int, y:int)
 		{
 			screen = screenP;
 			screen.addChild(this);
+			buttons = new Array();
+			buttonContainer = new Sprite();
 			
-			labelFormat = new TextFormat();
-			labelFormat.size = 35;
-			labelFormat.align = "right";
-			labelFormat.font = "Zenzai Itacha";
+			this.x = x;
+			this.y = y;
 			
-			//controls
-			controlsLabelText = new TextField();
-			controlsLabelText.embedFonts = true;
-			controlsLabelText.defaultTextFormat = labelFormat;
-			controlsLabelText.x = 150;
-			controlsLabelText.y = 25+offset;
-			controlsLabelText.textColor = 0xff0000;
-			controlsLabelText.selectable = false;	
+			audio = new Audio;
+			controls = new Controls;
 			
-			controlsLabelText.text = "Controls";
-			this.addChild(controlsLabelText);
+			//add container sprite to stage, starting position
+			this.addChild(buttonContainer);
+			buttonContainer.x = 0;
+			buttonContainer.y = 0;
 			
-			//audio		
-			audioLabelText = new TextField();
-			audioLabelText.embedFonts = true;
-			audioLabelText.defaultTextFormat = labelFormat;
-			audioLabelText.x = 450;
-			audioLabelText.y = 250+offset;
-			audioLabelText.textColor = 0xff0000;
-			audioLabelText.selectable = false;	
+			buttonContainer.addChild(audio);
+			audio.x = 150;
+			audio.y = 400;
 			
-			audioLabelText.text = "Audio";
-			this.addChild(audioLabelText);
+			buttonContainer.addChild(controls);
+			controls.x = 150;
+			controls.y = 100;
 			
-			//system
-			systemLabelText = new TextField();
-			systemLabelText.embedFonts = true;
-			systemLabelText.defaultTextFormat = labelFormat;
-			systemLabelText.x = 450;
-			systemLabelText.y = 25+offset;
-			systemLabelText.textColor = 0xff0000;
-			systemLabelText.selectable = false;	
+			buttons = [audio, controls];
 			
-			systemLabelText.text = "System";
-			this.addChild(systemLabelText);
+			keybindings = {
+				jump : Keyboard.W,
+				left : Keyboard.A,
+				fall : Keyboard.S,
+				right: Keyboard.D,
+				slow : Keyboard.SPACE,
+				weaponLeft: Keyboard.Q,
+				weaponRight: Keyboard.E,
+				pistol : Keyboard.NUMBER_1,
+				shotgun : Keyboard.NUMBER_2,
+				machinegun : Keyboard.NUMBER_3,
+				pause: Keyboard.P,
+				fullscreen: Keyboard.F,
+				quality: Keyboard.C
+			};
+			
+			//add listeners to buttons
+			addEventListener(MouseEvent.MOUSE_OVER, mouseOver);
+			addEventListener(MouseEvent.MOUSE_OUT, mouseOut);
+			addEventListener(Event.ENTER_FRAME, update);
+			addEventListener(KeyboardEvent.KEY_DOWN, keyDown);
+			
 		}
+		
+		protected function keyDown(e:KeyboardEvent):void
+		{
+			keybindings.jump = e.keyCode;
+		}
+		
+		protected function mouseOver(event:MouseEvent):void
+		{
+			if(activeBack == null){
+				if(buttons.indexOf(event.target) != -1){
+					activeButton = event.target as MovieClip;
+					buttonContainer.setChildIndex(activeButton, numChildren - 1);
+				}
+			}
+		}
+		
+		protected function mouseOut(event:MouseEvent):void
+		{
+			if(event.target == activeButton){
+				activeButton = null;
+			}
+		}
+		
+		protected function update(event:Event):void
+		{
+			//adjust size of button
+			for each (var button:MovieClip in buttons) {
+				if(button == activeButton){
+					if(button.scaleX <= 1.5){
+						button.scaleX +=0.1;
+						button.scaleY +=0.1;
+					}
+				}else{
+					if(button.scaleX >= 1){
+						button.scaleX -=0.1;
+						button.scaleY -=0.1;
+					}
+				}
+			}
+		}
+		
+		public function destroy():void
+		{
+			this.removeEventListener(MouseEvent.MOUSE_OVER, mouseOver);
+			this.removeEventListener(MouseEvent.MOUSE_OUT, mouseOut);
+			this.removeEventListener(Event.ENTER_FRAME, update);
+			screen.removeChild(this);
+		}
+		
 	}
 }

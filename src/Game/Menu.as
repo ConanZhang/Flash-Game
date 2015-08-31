@@ -36,8 +36,6 @@ package Game
 		private var standard:MovieClip;
 		private var walls:MovieClip;
 		private var options:MovieClip;
-		private var audio:MovieClip;
-		private var controls:MovieClip;
 		private var credits:MovieClip;
 		private var art:MovieClip;
 		private var georbec:MovieClip;
@@ -85,9 +83,7 @@ package Game
 			arena = new Arena;
 			standard = new Standard;
 			walls = new Walls;	
-			options = new Options;
-			audio = new Audio;
-			controls = new Controls;	
+			options = new Options;	
 			credits = new Credits;
 			art = new Art;
 			georbec = new Georbec;
@@ -147,12 +143,6 @@ package Game
 			buttonContainer.addChild(options);
 			options.x = 325;
 			options.y = 150;
-			buttonContainer.addChild(audio);
-			audio.x = 150;
-			audio.y = 2175;
-			buttonContainer.addChild(controls);
-			controls.x = 150;
-			controls.y = 2375;
 			buttonContainer.addChild(credits);
 			credits.x = 415;
 			credits.y = 75;
@@ -172,14 +162,14 @@ package Game
 			copyright.x = 350;
 			copyright.y = 2950;
 			//fill array(s?)
-			buttons = [back, play, difficulty, tutorial, beginner, apprentice, master, mode, weapons, pacifist, arena, standard, walls, options, audio, controls, credits, art, georbec, programming, conan, copyright];
+			buttons = [back, play, difficulty, tutorial, beginner, apprentice, master, mode, weapons, pacifist, arena, standard, walls, options, credits, art, georbec, programming, conan, copyright];
 			//add listeners to buttons
 			addEventListener(MouseEvent.MOUSE_OVER, mouseOver);
 			addEventListener(MouseEvent.MOUSE_OUT, mouseOut);
 			addEventListener(MouseEvent.CLICK, buttonClicked);
 			addEventListener(Event.ENTER_FRAME, update);
 			
-			optionsMenu = new OptionsMenu(this, 0);
+			optionsMenu = new OptionsMenu(this, 0,0);
 		}
 		private function mouseOver(event:MouseEvent):void
 		{

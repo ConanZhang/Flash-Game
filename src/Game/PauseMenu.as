@@ -124,7 +124,7 @@ package Game
 				newOptionsContainer.y = optionsContainer.y;
 				
 				//put the options text on top of that?
-				optionsMenu = new OptionsMenu(this, 0);
+				optionsMenu = new OptionsMenu(this, -325,-225);
 				
 				//put exit button on top so it is clickable and will close the pause menu?				
 				buttonContainer.setChildIndex(exit, 0);				
