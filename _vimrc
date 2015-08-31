@@ -26,14 +26,27 @@ call neobundle#begin(expand('~/.vim/bundle/'))
 NeoBundleFetch 'Shougo/neobundle.vim'
 
 " PLUG INS/BUNDLES
-NeoBundle "https://github.com/altercation/vim-colors-solarized"
-NeoBundle "https://github.com/bling/vim-airline"
+NeoBundle "altercation/vim-colors-solarized"
+NeoBundle "bling/vim-airline"
+NeoBundle "scrooloose/nerdtree"
+NeoBundle "jistr/vim-nerdtree-tabs"
+NeoBundle "scrooloose/syntastic"
+NeoBundle "xolox/vim-misc"
+NeoBundle "xolox/vim-easytags"
+NeoBundle "majutsushi/tagbar"
+NeoBundle "Shougo/unite.vim"
+NeoBundle "tpope/vim-projectionist"
+NeoBundle "airblade/vim-gitgutter"
+NeoBundle "tpope/vim-fugitive"
+NeoBundle "Raimondi/DelimitMate"
+NeoBundle "vim-latex/vim-latex"
+NeoBundle "xuhdev/vim-latex-live-preview.git"
 
 call neobundle#end()
 
 " Attempt to determine the type of a file based on its name and possibly its
 " contents. Use this to allow intelligent auto-indenting for each filetype,
-" and for plugins that are filetype specific.
+" and for 
 filetype indent plugin on
 
 " Install uninstalled bundles
@@ -42,31 +55,95 @@ NeoBundleCheck
 " Enable syntax highlighting
 syntax on
 
-" Colorscheme
-try
-    colorscheme solarized 
-catch /^Vim\%((\a\+)\)\=:E185/
-    colorscheme ron 
-endtry
+" Colorscheme & Font
+if has('gui_running')
+    set guioptions=egmrt
 
-" Font
+    try
+        colorscheme solarized 
+    catch /^Vim\%((\a\+)\)\=:E185/
+        colorscheme ron 
+    endtry
+else
+    colorscheme ron
+endif
+
 set guifont=Consolas:h11:cANSI
-
 "------------------------------------------------------------
 " Plug in options
 
-" --------vim-airline settings--------
+" --------vim-airline--------
 " Show statusbar
 set laststatus=2
-
-" Arrow symbols
-let g:airline_powerline_fonts=1
 
 " Paste mode display
 let g:airline_detect_past=1
 
 " Airline for tabs
 let g:airline#extensions#tabline#enabled=1
+
+" --------vim-nerdtree--------
+"  Open=close NERDTree with \t
+nmap <silent><leader>t :NERDTreeTabsToggle<CR>
+
+" Alway have NERDTree open on startup
+let g:nerdtree_tabs_open_on_console_startup = 0
+
+" --------syntastic-------
+let g:syntastic_error_symbol = 'x'
+let g:syntastic_warning_symbol = 'o'
+ 
+augroup mySyntastic
+    au!
+    au FileType tex let b:syntastic_mode = "passive"
+augroup END
+
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 1
+
+let g:syntastic_c_checkers = ['gcc', 'make']
+
+"-------vim-easytags--------
+" Look for tag endings 
+set tags=./tags;,~/.vimtags
+
+" Defaults
+let g:easytags_events = ['BufReadPost', 'BufWritePost']
+let g:easytags_async = 1
+let g:easytags_dynamic_files = 2
+let g:easytags_resolve_links = 1
+let g:easytags_suppress_ctags_warning = 1
+
+"--------tagbar--------
+" Close tagbar with \b
+nmap <silent> <leader>b :TagbarToggle<CR>
+
+"--------vim-gitgutter--------
+" Colorscheme
+hi clear SignColumn
+
+" Display hunks of diff is non-zero
+let g:airline#extensions#hunks#non_zero_only = 1
+
+"--------delimitMate--------
+let delimitMate_expand_cr = 1
+augroup mydelimitMate
+    au!
+    au FileType markdown let b:delimitMate_nesting_quotes = ["`"]
+    au FileType tex let b:delimitMate_quotes = ""
+    au FileType tex let b:delimitMate_matchpairs = "(:),[:],{:},`:'"
+    au FileType python let b:delimitMate_nesting_quotes = ['"', "'"]
+augroup END
+
+"--------VIM_LaTeX--------
+let g:tex_flavor='latex'
+"--------vim-latex-live-preview--------
+autocmd Filetype tex setl updatetime=1
+let g:livepreview_previewer = 'open -a Preview'
+
 "------------------------------------------------------------
 " Must have options {{{1
 "
@@ -198,14 +275,16 @@ map Y y$
 " next search
 nnoremap <C-L> :nohl<CR><C-L>
 
-" Map Shift enter make space above withou going to insert mode
+" Map Shift enter make space above without going to insert mode
 nmap <S-Enter> O<Esc>
-" Map Enter make space under withou going to insert mode
+" Map Enter make space under without going to insert mode
 nmap <CR> o<esc>
 
-"Map Backspace to delete line
+" Map Backspace to delete line
 nmap <bs> dd k
 
+" Map tab in normal mode to move through windows 
+nmap <Tab> <C-w><C-w>
 " Default vim start up location
-:cd C:\Users\Conan
+:cd C:\Users\Conan\Programming
 "------------------------------------------------------------
