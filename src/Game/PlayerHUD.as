@@ -260,7 +260,19 @@ package Game
 
 			var scores:Array;
 
-			if(highScore.data != null){
+			if(highScore.data.pacifistBeginnerStandard != null &&
+				highScore.data.pacifistBeginnerWall != null &&
+				highScore.data.pacifistApprenticeStandard != null &&
+				highScore.data.pacifistApprenticeWall != null &&
+				highScore.data.pacifistMasterStandard != null &&
+				highScore.data.pacifistMasterWall != null &&
+				highScore.data.weaponsBeginnerTutorial != null &&
+				highScore.data.weaponsBeginnerStandard != null &&
+				highScore.data.weaponsBeginnerWall != null &&
+				highScore.data.weaponsApprenticeStandard != null &&
+				highScore.data.weaponsApprenticeWall != null &&
+				highScore.data.weaponsMasterStandard != null &&
+				highScore.data.weaponsMasterWall != null){
 				
 				if(pacifist){
 					if(difficulty == 0){

@@ -81,7 +81,7 @@ package Game
 			
 			bindings = SharedObject.getLocal("Bindings");
 			
-			if(bindings.data != null){
+			if(bindings.data.bindings != null){
 				keybindings = bindings.data.bindings;
 			}
 			else{
