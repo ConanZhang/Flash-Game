@@ -5,8 +5,10 @@ package Game
 	import flash.events.Event;
 	import flash.events.KeyboardEvent;
 	import flash.events.MouseEvent;
+	import flash.events.TextEvent;
 	import flash.net.SharedObject;
 	import flash.text.TextField;
+	import flash.text.TextFieldType;
 	import flash.text.TextFormat;
 	import flash.ui.Keyboard;
 	import flash.utils.Dictionary;
@@ -99,39 +101,35 @@ package Game
 			
 			
 			textFormat = new TextFormat();
-			textFormat.size = 100;
-			textFormat.align = "right";
+			textFormat.size = 30;
+			textFormat.align = "center";
 			textFormat.font = "Zenzai Itacha";
 			
 			textField = new TextField();
+			textField.x = 250;
+			textField.y = 250;
 			textField.embedFonts = true;
 			textField.defaultTextFormat = textFormat;
-			textField.name = "textField";
-			textField.width = 1000;
 			textField.textColor = 0xff0000;
-			textField.mouseEnabled = false;
-			textField.text = "Jump: " + keyCodeStrings[keybindings.jump];
+			textField.selectable = false;
+			textField.type= TextFieldType.INPUT;
+			textField.text = "Jump i " + keyCodeStrings[keybindings.jump];
 			
-			var buttonSprite:Sprite = new platform_square;
-			buttonSprite.width = 100;
-			buttonSprite.height = 100;
-			buttonSprite.x = 400;
-			buttonSprite.y = 400;
-			buttonSprite.addChild(textField);
-			this.addChild(buttonSprite);
-			buttonSprite.buttonMode = true;
-			buttonSprite.addEventListener(MouseEvent.CLICK, testClick);
-			
+			addChild(textField);
+						
 			//add listeners to buttons
 			addEventListener(MouseEvent.MOUSE_OVER, mouseOver);
 			addEventListener(MouseEvent.MOUSE_OUT, mouseOut);
 			addEventListener(Event.ENTER_FRAME, update);
 			
+			textField.addEventListener(KeyboardEvent.KEY_DOWN, keyDown);
+			textField.addEventListener(MouseEvent.CLICK, mouseClick);
+			
 		}
 		
-		protected function testClick(event:MouseEvent):void
+		protected function mouseClick(event:MouseEvent):void
 		{
-			addEventListener(KeyboardEvent.KEY_DOWN, keyDown);
+						
 		}
 		
 		protected function keyDown(e:KeyboardEvent):void
