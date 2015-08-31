@@ -41,7 +41,9 @@ package Game
 		
 		//Text format
 		private var textFormat:TextFormat;
-		private var textField:TextField;
+		
+		//Keys
+		private var jumpField:TextField;
 		
 		private var keyCodeStrings:Dictionary;
 		
@@ -110,26 +112,26 @@ package Game
 			textFormat.align = "center";
 			textFormat.font = "Zenzai Itacha";
 			
-			textField = new TextField();
-			textField.name = "jump";
-			textField.x = 250;
-			textField.y = 250;
-			textField.embedFonts = true;
-			textField.defaultTextFormat = textFormat;
-			textField.textColor = 0xff0000;
-			textField.selectable = false;
-			textField.type= TextFieldType.INPUT;
-			textField.text = "Jump i " + keyCodeStrings[keybindings.jump];
+			jumpField = new TextField();
+			jumpField.name = "jump";
+			jumpField.x = 250;
+			jumpField.y = 250;
+			jumpField.embedFonts = true;
+			jumpField.defaultTextFormat = textFormat;
+			jumpField.textColor = 0xff0000;
+			jumpField.selectable = false;
+			jumpField.type= TextFieldType.INPUT;
+			jumpField.text = "Jump i " + keyCodeStrings[keybindings.jump];
 			
-			addChild(textField);
+			addChild(jumpField);
 						
 			//add listeners to buttons
 			addEventListener(MouseEvent.MOUSE_OVER, mouseOver);
 			addEventListener(MouseEvent.MOUSE_OUT, mouseOut);
 			addEventListener(Event.ENTER_FRAME, update);
 			
-			textField.addEventListener(KeyboardEvent.KEY_DOWN, keyDown);
-			textField.addEventListener(MouseEvent.CLICK, mouseClick);
+			jumpField.addEventListener(KeyboardEvent.KEY_DOWN, keyDown);
+			jumpField.addEventListener(MouseEvent.CLICK, mouseClick);
 			
 		}
 		
@@ -138,7 +140,7 @@ package Game
 			//Change font to indicate focus
 			if(event.currentTarget.name == "jump"){
 				currentKey = jump;
-				textField.textColor = 0xffffff;
+				jumpField.textColor = 0xffffff;
 			}
 		}
 		
@@ -146,7 +148,8 @@ package Game
 		{
 			if(currentKey == jump){
 				keybindings.jump = e.keyCode;
-				textField.textColor = 0xff0000;
+				jumpField.textColor = 0xff0000;
+				currentKey = 0;
 			}
 			
 			bindings.data.bindings = keybindings;
@@ -187,7 +190,7 @@ package Game
 				}
 			}
 			
-			textField.text = "Jump: " + keyCodeStrings[keybindings.jump];
+			jumpField.text = "Jump: " + keyCodeStrings[keybindings.jump];
 
 		}
 		

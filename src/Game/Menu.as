@@ -4,6 +4,10 @@ package Game
 	import flash.display.Sprite;
 	import flash.events.Event;
 	import flash.events.MouseEvent;
+	import flash.media.Sound;
+	import flash.media.SoundChannel;
+	import flash.net.URLRequest;
+
 	public class Menu extends MovieClip
 	{
 		//already there
@@ -46,6 +50,9 @@ package Game
 		private var screen:Sprite;
 		private var optionsMenu:OptionsMenu;
 		
+		private var menuMusic:Sound;
+		private var musicChannel:SoundChannel;
+		
 		public function Menu(screenP:Sprite)
 		{			
 			screen = screenP;
@@ -56,6 +63,13 @@ package Game
 			containerGoalY = 0;
 			scrollSpeed = 50;
 			layer = 0;
+			
+			//sound
+//			menuMusic = new Sound();
+//			menuMusic.load(new URLRequest("MenuMusic.wav"));
+//			musicChannel = new SoundChannel();
+//			musicChannel = menuMusic.play();
+			
 			//texture
 			backgroundTexture = new background_texture;
 			this.addChild(backgroundTexture);
