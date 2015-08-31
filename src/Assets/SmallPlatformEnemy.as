@@ -44,9 +44,11 @@ package Assets {
 		private var leftSensor:b2Body;
 		private var topSensor:b2Body;
 		private var platformEnemyType:int;
+		private var platformEnemyDirection:int;
+		private var avoiding:int;
 		
 		/**Constructor*/
-		public function SmallPlatformEnemy(xPos:Number, yPos:Number, width:Number, height:Number, type:int){
+		public function SmallPlatformEnemy(xPos:Number, yPos:Number, width:Number, height:Number, type:int, startingDirection:int){
 			//assign parameters to class member variables
 			position = new Point(xPos, yPos);
 			
@@ -56,10 +58,13 @@ package Assets {
 			platformEnemy_LinearDamping = 1;
 			platformEnemyHealth = 1;
 			platformEnemyType = type;
-			
+			platformEnemyDirection = startingDirection;
+
 			platformEnemyFixture = new b2FixtureDef();
 			platformEnemyJoints = new b2RevoluteJointDef();
-						
+			
+			avoiding = 0;
+
 			Stage.platformCount++;
 
 			make();
@@ -194,121 +199,134 @@ package Assets {
 			var leftData:* = leftSensor.GetFixtureList().GetUserData()[1];
 			var topData:* = topSensor.GetFixtureList().GetUserData()[1];
 			
-			/**Circle objects*/
-			//circle left
+			/**Go around objects*/
+			//moving top to bottom
 			if(platformEnemyType == 1){
-				if(leftData != "GROUND" && rightData != "GROUND" && bottomData != "GROUND" && topData != "GROUND"){
-					//on top
-					if(leftData == "LEFT_ON" && bottomData == "BOTTOM_ON" && topData == "TOP"){
-						direction.Set(-5.5, 1);
-						collisionBody.SetLinearVelocity(direction);
-					}
-						//on left and top
-					else if(rightData == "RIGHT_ON" && bottomData == "BOTTOM_ON"){
-						direction.Set(3 , 5);
-						collisionBody.SetLinearVelocity(direction);
-					}
-						//on left and bottom
-					else if(rightData == "RIGHT_ON" && topData == "TOP_ON"){
-						direction.Set(5.5, -1);
-						collisionBody.SetLinearVelocity(direction);
-					}
-						//on right and bottom
-					else if(leftData == "LEFT_ON" && topData == "TOP_ON"){
-						direction.Set(-3, -5);
-						collisionBody.SetLinearVelocity(direction);
-					}
-						//fall
-					else{
-						direction.Set(0, 40);
-						collisionBody.ApplyForce(direction, collisionBody.GetPosition());
-					}
-				}
-				//simply move toward player
-				else{
-					//push away if too close
-					if(collisionBody.GetPosition().x - Stage.playerBody.GetPosition().x < 1 && 
-						collisionBody.GetPosition().x - Stage.playerBody.GetPosition().x > -1){
-						
+				if(bottomData == "BOTTOM_ON"){
+					if(avoiding == 0){
 						if(Math.random() > 0.5){
-							direction.Set(30, 0);
-							collisionBody.ApplyImpulse(direction, collisionBody.GetPosition());	
+							direction.Set(10, 0);
+							avoiding = 1;
 						}
 						else{
-							direction.Set(-30, 0);
-							collisionBody.ApplyImpulse(direction, collisionBody.GetPosition());
+							direction.Set(-10, 0);
+							avoiding = 2;
 						}
 					}
-						//move toward
+					else if(avoiding == 1){
+						direction.Set(10, 0);
+					}
 					else{
-						if(collisionBody.GetPosition().x < Stage.playerBody.GetPosition().x ){
-							direction.Set(25, 0);
-							collisionBody.SetLinearVelocity(direction);
-						}
-						else{
-							direction.Set(-25, 0);
-							collisionBody.SetLinearVelocity(direction);
-						}
+						direction.Set(-10, 0);
 					}
+					
+					collisionBody.SetLinearVelocity(direction);
 				}
-			}
-				//circle right
-			else{
-				if(leftData != "GROUND" && rightData != "GROUND" && bottomData != "GROUND" && topData != "GROUND"){
-					//on top
-					if(rightData == "RIGHT_ON" && bottomData == "BOTTOM_ON" && topData == "TOP"){
-						direction.Set(5.5, 1);
-						collisionBody.SetLinearVelocity(direction);
-					}
-						//on right and top
-					else if(leftData == "LEFT_ON" && bottomData == "BOTTOM_ON"){
-						direction.Set(-3, 5);
-						collisionBody.SetLinearVelocity(direction);
-					}
-						//on right and bottom
-					else if(leftData == "LEFT_ON" && topData == "TOP_ON"){
-						direction.Set(-5.5, -1);
-						collisionBody.SetLinearVelocity(direction);
-					}
-						//on left and bottom
-					else if(rightData == "RIGHT_ON" && topData == "TOP_ON"){
-						direction.Set(3, -5);
-						collisionBody.SetLinearVelocity(direction);
-					}
-						//fall
-					else{
-						direction.Set(0, 40);
-						collisionBody.ApplyForce(direction, collisionBody.GetPosition());
-					}
-				}
-					//simply move toward player
-				else{
-					//push away if too close
-					if(collisionBody.GetPosition().x - Stage.playerBody.GetPosition().x < 1 && 
-						collisionBody.GetPosition().x - Stage.playerBody.GetPosition().x > -1){
-						
+				else if(topData == "TOP_ON"){
+					if(avoiding == 0){
 						if(Math.random() > 0.5){
-							direction.Set(30, 0);
-							collisionBody.ApplyImpulse(direction, collisionBody.GetPosition());	
+							direction.Set(10, 0);
+							avoiding = 1;
 						}
 						else{
-							direction.Set(-30, 0);
-							collisionBody.ApplyImpulse(direction, collisionBody.GetPosition());
+							direction.Set(-10, 0);
+							avoiding = 2;
 						}
 					}
-						//move toward
+					else if(avoiding == 1){
+						direction.Set(10, 0);
+					}
 					else{
-						if(collisionBody.GetPosition().x < Stage.playerBody.GetPosition().x ){
-							direction.Set(25, 0);
-							collisionBody.SetLinearVelocity(direction);
-						}
-						else{
-							direction.Set(-25, 0);
-							collisionBody.SetLinearVelocity(direction);
-						}
+						direction.Set(-10, 0);
 					}
+					
+					collisionBody.SetLinearVelocity(direction);
+				}
+				else if(bottomData == "BOTTOM_S"){
+					platformEnemyDirection = 2;
+				}
+				else if(topData == "TOP_S"){
+					platformEnemyDirection = 1;
+				}
+				else if(bottomData == "BOTTOM" && topData == "TOP"){
+					avoiding = 0;
 				}
 				
+				//Move in main direction
+				// move down
+				if(platformEnemyDirection == 1){
+					direction.Set(0, 70);
+				}
+					// move up
+				else{
+					direction.Set(0, -70);
+				}
+				
+				collisionBody.ApplyForce(direction, collisionBody.GetPosition());
+			}
+				//moving left to right
+			else if(platformEnemyType == 2){
+				if(rightData == "RIGHT_ON"){
+					if(avoiding == 0){
+						if(Math.random() > 0.5){
+							direction.Set(0, 10);
+							avoiding = 1;
+						}
+						else{
+							direction.Set(0, -10);
+							avoiding = 2;
+						}
+					}
+					else if(avoiding == 1){
+						direction.Set(0, 10);
+					}
+					else{
+						direction.Set(0, -10);
+					}
+					
+					collisionBody.SetLinearVelocity(direction);
+				}
+				else if(leftData == "LEFT_ON"){
+					if(avoiding == 0){
+						if(Math.random() > 0.5){
+							direction.Set(0, 10);
+							avoiding = 1;
+						}
+						else{
+							direction.Set(0, -10);
+							avoiding = 2;
+						}
+					}
+					else if(avoiding == 1){
+						direction.Set(0, 10);
+					}
+					else{
+						direction.Set(0, -10);
+					}
+					
+					collisionBody.SetLinearVelocity(direction);
+				}
+				else if(rightData == "RIGHT_S"){
+					platformEnemyDirection = 2;
+				}
+				else if(leftData == "LEFT_S"){
+					platformEnemyDirection = 1;
+				}
+				else if(rightData == "RIGHT" && leftData == "LEFT"){
+					avoiding = 0;
+				}
+				
+				//Move in main direction
+				// move right
+				if(platformEnemyDirection == 1){
+					direction.Set(70, 0);
+				}
+					// move left
+				else{
+					direction.Set(-70, 0);
+				}
+				
+				collisionBody.ApplyForce(direction, collisionBody.GetPosition());
 			}
 			
 			

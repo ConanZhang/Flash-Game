@@ -15,9 +15,7 @@ package Assets {
 	import Box2D.Dynamics.b2FixtureDef;
 	import Box2D.Dynamics.b2World;
 	import Box2D.Dynamics.Joints.b2RevoluteJointDef;
-	
-	import Game.PlayerHUD;
-	
+		
 	import Parents.Objects;
 	import Parents.Stage;
 	
@@ -208,19 +206,19 @@ package Assets {
 				if(bottomData == "BOTTOM_ON"){
 					if(avoiding == 0){
 						if(Math.random() > 0.5){
-							direction.Set(5, 0);
+							direction.Set(10, 0);
 							avoiding = 1;
 						}
 						else{
-							direction.Set(-5, 0);
+							direction.Set(-10, 0);
 							avoiding = 2;
 						}
 					}
 					else if(avoiding == 1){
-						direction.Set(5, 0);
+						direction.Set(10, 0);
 					}
 					else{
-						direction.Set(-5, 0);
+						direction.Set(-10, 0);
 					}
 					
 					collisionBody.SetLinearVelocity(direction);
@@ -228,19 +226,19 @@ package Assets {
 				else if(topData == "TOP_ON"){
 					if(avoiding == 0){
 						if(Math.random() > 0.5){
-							direction.Set(5, 0);
+							direction.Set(10, 0);
 							avoiding = 1;
 						}
 						else{
-							direction.Set(-5, 0);
+							direction.Set(-10, 0);
 							avoiding = 2;
 						}
 					}
 					else if(avoiding == 1){
-						direction.Set(5, 0);
+						direction.Set(10, 0);
 					}
 					else{
-						direction.Set(-5, 0);
+						direction.Set(-10, 0);
 					}
 					
 					collisionBody.SetLinearVelocity(direction);
@@ -258,11 +256,11 @@ package Assets {
 				//Move in main direction
 				// move down
 				if(platformEnemyDirection == 1){
-					direction.Set(0, 30);
+					direction.Set(0, 50);
 				}
 				// move up
 				else{
-					direction.Set(0, -30);
+					direction.Set(0, -50);
 				}
 				
 				collisionBody.ApplyForce(direction, collisionBody.GetPosition());
@@ -272,19 +270,19 @@ package Assets {
 				if(rightData == "RIGHT_ON"){
 					if(avoiding == 0){
 						if(Math.random() > 0.5){
-							direction.Set(0, 5);
+							direction.Set(0, 10);
 							avoiding = 1;
 						}
 						else{
-							direction.Set(0, -5);
+							direction.Set(0, -10);
 							avoiding = 2;
 						}
 					}
 					else if(avoiding == 1){
-						direction.Set(0, 5);
+						direction.Set(0, 10);
 					}
 					else{
-						direction.Set(0, -5);
+						direction.Set(0, -10);
 					}
 					
 					collisionBody.SetLinearVelocity(direction);
@@ -292,19 +290,19 @@ package Assets {
 				else if(leftData == "LEFT_ON"){
 					if(avoiding == 0){
 						if(Math.random() > 0.5){
-							direction.Set(0, 5);
+							direction.Set(0, 10);
 							avoiding = 1;
 						}
 						else{
-							direction.Set(0, -5);
+							direction.Set(0, -10);
 							avoiding = 2;
 						}
 					}
 					else if(avoiding == 1){
-						direction.Set(0, 5);
+						direction.Set(0, 10);
 					}
 					else{
-						direction.Set(0, -5);
+						direction.Set(0, -10);
 					}
 					
 					collisionBody.SetLinearVelocity(direction);
@@ -322,11 +320,11 @@ package Assets {
 				//Move in main direction
 				// move right
 				if(platformEnemyDirection == 1){
-					direction.Set(30, 0);
+					direction.Set(50, 0);
 				}
 					// move left
 				else{
-					direction.Set(-30, 0);
+					direction.Set(-50, 0);
 				}
 				
 				collisionBody.ApplyForce(direction, collisionBody.GetPosition());

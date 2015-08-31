@@ -39,7 +39,7 @@ package Game
 			screen = screenP;
 			screen.addChildAt(this,0);
 			
-			super(screen,debugging, 150, 7, pacifist, world);
+			super(screen,debugging, 150, 7, pacifist, world, difficulty);
 			
 			//BACKGROUND
 			background = new Background("test");
@@ -100,7 +100,7 @@ package Game
 		private function addEnemy(e:TimerEvent):void{
 			//test enemies
 			if(!Stage.paused && Player.playerHealth > 0){
-				if(Stage.flyCount < 10	){
+				if(Stage.flyCount < 15){
 					var randomAdd:Number = Math.random();
 					
 					if(randomAdd > 0.66){
@@ -114,7 +114,7 @@ package Game
 					}
 				}
 				
-				if(Stage.platformCount < 10){
+				if(Stage.platformCount < 15){
 					randomAdd = Math.random();
 					
 					var randomType:Number = Math.random();
@@ -126,7 +126,7 @@ package Game
 						randomDirection = 2;
 					}
 					
-					if(randomAdd > 0){
+					if(randomAdd > 0.66){
 						//floats
 						if(randomType > 0.66){
 							var testEnemy4:PlatformEnemy = new PlatformEnemy(Math.random()*190 + 40, Math.random()*-90, 4, 4, 0, randomDirection);
@@ -141,21 +141,31 @@ package Game
 						}
 					}
 					else if(randomAdd > 0.33){
-						//circles left
-						if(Math.random() > 0.5){
-							var testEnemy7:BigPlatformEnemy = new BigPlatformEnemy(Math.random()*190 + 40, Math.random()*-90, 5, 5, 1);
+						//floats
+						if(randomType > 0.66){
+							var testEnemy7:BigPlatformEnemy = new BigPlatformEnemy(Math.random()*190 + 40, Math.random()*-90, 5, 5, 0, randomDirection);
 						}
-							//circles right
+							//goes up and down
+						else if(randomType > 0.33){
+							var testEnemy8:BigPlatformEnemy = new BigPlatformEnemy(Math.random()*190 + 40, Math.random()*-90, 5, 5, 1, randomDirection);
+						}
+							//goes left and right
 						else{
-							var testEnemy8:BigPlatformEnemy = new BigPlatformEnemy(Math.random()*190 + 40, Math.random()*-90, 5, 5, 2);
+							var testEnemy9:BigPlatformEnemy = new BigPlatformEnemy(Math.random()*190 + 40, Math.random()*-90, 5, 5, 2, randomDirection);
 						}
 					}
 					else{
-						if(Math.random() > 0.5){
-							var testEnemy9:SmallPlatformEnemy = new SmallPlatformEnemy(Math.random()*190 + 40, Math.random()*-90, 2.25,2.5, 1);
+						//floats
+						if(randomType > 0.66){
+							var testEnemy10:SmallPlatformEnemy = new SmallPlatformEnemy(Math.random()*190 + 40, Math.random()*-90, 2.25, 2.5, 0, randomDirection);
 						}
+							//goes up and down
+						else if(randomType > 0.33){
+							var testEnemy11:SmallPlatformEnemy = new SmallPlatformEnemy(Math.random()*190 + 40, Math.random()*-90, 2.25, 2.5, 1, randomDirection);
+						}
+							//goes left and right
 						else{
-							var testEnemy10:SmallPlatformEnemy = new SmallPlatformEnemy(Math.random()*190 + 40, Math.random()*-90, 2.25,2.5, 2);
+							var testEnemy12:SmallPlatformEnemy = new SmallPlatformEnemy(Math.random()*190 + 40, Math.random()*-90, 2.25, 2.5, 2, randomDirection);
 						}
 					}
 				}

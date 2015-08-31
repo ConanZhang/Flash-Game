@@ -116,7 +116,7 @@ package Parents
 		private var machineDelay:int;
 		
 		/**Constructor*/
-		public function Stage(screenP:Sprite, debugging:Boolean, playerX:Number, playerY:Number, pacifist:Boolean, world:int)
+		public function Stage(screenP:Sprite, debugging:Boolean, playerX:Number, playerY:Number, pacifist:Boolean, world:int, difficulty:int)
 		{
 			screen = screenP;
 			
@@ -180,7 +180,7 @@ package Parents
 			}
 			
 			//HUD
-			gameHUD = new PlayerHUD(this, world);
+			gameHUD = new PlayerHUD(this, pacifist, world, difficulty);
 			this.addChild(gameHUD);
 			
 			//delay controls

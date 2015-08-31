@@ -78,13 +78,15 @@ package Game
 		public static var heartRevive:Boolean;
 		public static var heartDamaged:Boolean;
 		
+		// High score
+		private var pacifist:Boolean;
 		private var world:int;
+		private var difficulty:int;
 		
-		//high score
 		private var highScore:SharedObject;
 		
 		/**Constructor*/
-		public function PlayerHUD(screenP:Sprite, _world:int)
+		public function PlayerHUD(screenP:Sprite, _pacifist:Boolean, _world:int, _difficulty:int)
 		{
 			//initialize class member variables
 			heartRevive = false;
@@ -97,7 +99,9 @@ package Game
 			screen = screenP;
 			screen.addChild(this);
 			
+			pacifist = _pacifist;
 			world = _world;
+			difficulty = _difficulty;
 			
 			fadeClip = new slowscreen();
 			

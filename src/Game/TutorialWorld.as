@@ -30,7 +30,7 @@ package Game
 			screen = screenP;
 			screen.addChildAt(this,0);
 			
-			super(screen,debugging, 30, 7, pacifist, world);
+			super(screen,debugging, 30, 7, pacifist, world, 0);
 			
 			this.addEventListener(Event.ENTER_FRAME, addEnemy, false, 0, true);
 			enemyAdded = false;
