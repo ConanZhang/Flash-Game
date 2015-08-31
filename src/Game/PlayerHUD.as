@@ -247,6 +247,8 @@ package Game
 			countDownText.x = 265;
 			countDownText.y = 150;
 			countDownText.width = 200;
+			countDownText.height = 400;
+			countDownText.multiline = true;
 			countDownText.textColor = 0xff0000;
 			countDownText.selectable = false;
 			this.addChild(countDownText);
@@ -551,7 +553,7 @@ package Game
 				countDownText.text = "";
 			}
 			else if(Player.playerHealth == 0){
-				countDownText.text = "Dead!";
+				countDownText.text = "Dead!\nPress R";
 				
 				var score:Array = [highMinute, highSecond];
 				if(pacifist){
