@@ -3,20 +3,17 @@
  */
 package Game
 {
-	import flash.events.Event;
 	
-	import Assets.FlyingEnemy;
-	import Assets.ItemDrop;
 	import Assets.Platform;
 	import Assets.Rain;
 	
 	import Parents.Stage;
 	
-	public class TutorialWorld extends Stage
+	public class MovementWorld extends Stage
 	{
 		private var screen:FlashGame;
 		private var background:Background;
-		private var rain:Rain;
+		private var rain:Rain;	
 		
 		private var enemyAdded:Boolean;
 		/**			Constructor
@@ -24,16 +21,13 @@ package Game
 		 * Takes in screen it will be added to
 		 * 
 		 */
-		public function TutorialWorld(screenP:FlashGame, debugging:Boolean, pacifist:Boolean, world:int)
+		public function MovementWorld(screenP:FlashGame, debugging:Boolean, pacifist:Boolean, world:int)
 		{			
 			screen = screenP;
 			screen.addChildAt(this,0);
 			
 			super(screen,debugging, 30, 7, pacifist, world, 0);
-			
-			this.addEventListener(Event.ENTER_FRAME, addEnemy, false, 0, true);
-			enemyAdded = false;
-			
+						
 			//BACKGROUND
 			background = new Background("test");
 			
@@ -42,7 +36,7 @@ package Game
 			
 			//GROUND & SKY
 			var ground:Platform = new Platform(7, 15, 300, 15, "b_wide");
-			var sky:Platform = new Platform(7, -110, 275, 15, "b_wide");
+			var sky:Platform = new Platform(7, -110, 300, 15, "b_wide");
 
 			//WALLS
 			var leftWall:Platform = new Platform(-5,-170, 30, 200, "b_tall");
@@ -71,19 +65,23 @@ package Game
 
 			var channelLeft:Platform = new Platform(220,-87, 2, 120, "b_tall");
 			var channelRight:Platform = new Platform(230,-120, 2, 100, "b_tall");
-		}
-		
-		private function addEnemy(event:Event):void
-		{
-			if(player.body.GetPosition().x >= 235 && player.body.GetPosition().y >= 7 && !enemyAdded){
-				var starterEnemy:FlyingEnemy = new FlyingEnemy(250, -20, 2,3);
-				enemyAdded = true;
-				var pistol:ItemDrop = new ItemDrop(270, 10, 1.5, 1.5, 2);
+			
+			// Wall jumping
+			for(var i:int = 0; i < 3; i++){
+				var row9:Platform = new Platform(238+(i*25), -85,1, 10, "tall");
+				var row8:Platform = new Platform(250+(i*25), -75,1, 10, "tall");
+				var row7:Platform = new Platform(238+(i*25), -65,1, 10, "tall");
+				var row6:Platform = new Platform(250+(i*25), -55,1, 10, "tall");
+				var row5:Platform = new Platform(238+(i*25), -45,1, 10, "tall");
+				var row4:Platform = new Platform(250+(i*25), -35,1, 10, "tall");
+				var row3:Platform = new Platform(238+(i*25), -25,1, 10, "tall");
+				var row2:Platform = new Platform(250+(i*25), -15,1, 10, "tall");
+				var row1:Platform = new Platform(238+(i*25), 0,1, 10, "tall");
 			}
 		}
 		
+		
 		public override function childDestroy():void{
-			this.removeEventListener(Event.ENTER_FRAME, addEnemy);
 		}
 	}
 }

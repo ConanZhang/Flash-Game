@@ -14,7 +14,7 @@ package
 	import Game.Menu;
 	import Game.OptionsMenu;
 	import Game.TestWorld;
-	import Game.TutorialWorld;
+	import Game.MovementWorld;
 	import Game.WallJumpingWorld;
 	
 	/**SWF Options*/
@@ -34,7 +34,7 @@ package
 		//Levels
 		private var test:TestWorld;  
 		private var walls:WallJumpingWorld;
-		private var tutorial:TutorialWorld;
+		private var tutorial:MovementWorld;
 		
 		//Menu
 		private var menu:Menu;
@@ -90,10 +90,10 @@ package
 					walls = new WallJumpingWorld(this, false, pacifist, wallWorld, difficulty);	
 				}
 				else if(world == tutorialWorld){
-					tutorial = new TutorialWorld(this, true, pacifist, tutorialWorld);	
+					tutorial = new MovementWorld(this, false, pacifist, tutorialWorld);	
 				}
 			}
-			else if(event.target is TutorialWorld || event.target is WallJumpingWorld || event.target is TestWorld){
+			else if(event.target is MovementWorld || event.target is WallJumpingWorld || event.target is TestWorld){
 				menu = new Menu(this);
 			} 
 		}
