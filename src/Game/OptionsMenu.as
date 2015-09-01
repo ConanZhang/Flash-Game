@@ -49,6 +49,7 @@ package Game
 		private const pause:int = 11;
 		private const fullscreen:int = 12;
 		private const quality:int = 13;
+		private const rain:int = 14;
 		
 		//Text format
 		private var textFormat:TextFormat;
@@ -67,6 +68,7 @@ package Game
 		private var pauseField:TextField;
 		private var fullscreenField:TextField;
 		private var qualityField:TextField;
+		private var rainField:TextField;
 		
 		private var keyCodeStrings:Dictionary;
 		
@@ -121,7 +123,8 @@ package Game
 					machinegun : Keyboard.NUMBER_3,
 					pause: Keyboard.P,
 					fullscreen: Keyboard.F,
-					quality: Keyboard.C
+					quality: Keyboard.C,
+					rain: Keyboard.Z
 				};
 				
 				bindings.data.bindings = keybindings;
@@ -245,8 +248,8 @@ package Game
 			
 			machinegunField = new TextField();
 			machinegunField.name = "machinegun";
-			machinegunField.x = 210;
-			machinegunField.y = 285;
+			machinegunField.x = 70;
+			machinegunField.y = 280;
 			machinegunField.width = 250;
 			machinegunField.embedFonts = true;
 			machinegunField.defaultTextFormat = textFormat;
@@ -291,6 +294,17 @@ package Game
 			qualityField.type= TextFieldType.INPUT;
 			qualityField.text = "Quality i " + keyCodeStrings[keybindings.quality];
 			
+			rainField = new TextField();
+			rainField.name = "rain";
+			rainField.x = 310;
+			rainField.y = 280;
+			rainField.width = 200;
+			rainField.embedFonts = true;
+			rainField.defaultTextFormat = textFormat;
+			rainField.textColor = 0xff0000;
+			rainField.selectable = false;
+			rainField.type= TextFieldType.INPUT;
+			rainField.text = "Rain i " + keyCodeStrings[keybindings.rain];
 			
 			addChild(jumpField);
 			addChild(fallField);
@@ -305,6 +319,7 @@ package Game
 			addChild(pauseField);
 			addChild(fullscreenField);
 			addChild(qualityField);
+			addChild(rainField);
 
 
 
@@ -339,6 +354,8 @@ package Game
 			fullscreenField.addEventListener(MouseEvent.CLICK, mouseClick);
 			qualityField.addEventListener(KeyboardEvent.KEY_DOWN, keyDown);
 			qualityField.addEventListener(MouseEvent.CLICK, mouseClick);
+			rainField.addEventListener(KeyboardEvent.KEY_DOWN, keyDown);
+			rainField.addEventListener(MouseEvent.CLICK, mouseClick);
 		}
 		
 		protected function mouseClick(event:MouseEvent):void
@@ -396,6 +413,10 @@ package Game
 					currentKey = 0;
 					qualityField.textColor = 0xff0000;
 				}
+				else if(currentKey == rain){
+					currentKey = 0;
+					rainField.textColor = 0xff0000;
+				}
 			}
 			
 			//Change font to indicate focus
@@ -450,6 +471,10 @@ package Game
 			else if(event.currentTarget.name == "quality"){
 				currentKey = quality;
 				qualityField.textColor = 0xffffff;
+			}
+			else if(event.currentTarget.name == "rain"){
+				currentKey = rain;
+				rainField.textColor = 0xffffff;
 			}
 		}
 		
@@ -520,6 +545,11 @@ package Game
 				qualityField.textColor = 0xff0000;
 				currentKey = 0;
 			}
+			else if(currentKey == rain){
+				keybindings.rain = e.keyCode;
+				rainField.textColor = 0xff0000;
+				currentKey = 0;
+			}
 			
 			
 			bindings.data.bindings = keybindings;
@@ -570,6 +600,7 @@ package Game
 			pauseField.text = "Pause i " + keyCodeStrings[keybindings.pause];
 			fullscreenField.text = "Fullscreen i " + keyCodeStrings[keybindings.fullscreen];
 			qualityField.text = "Quality i " + keyCodeStrings[keybindings.quality];
+			rainField.text = "Rain i " + keyCodeStrings[keybindings.rain];
 		}
 		
 		public function destroy():void

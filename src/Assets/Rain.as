@@ -82,6 +82,10 @@ package Assets
 			
 		}
 		
+		public function destroy():void{
+			stage.removeChild(this);
+		}
+		
 		private function moveLeft(e:Event):void{
 			//slow motion or default movement
 			if(Stage.slowMotion && Stage.slowAmount > 0){

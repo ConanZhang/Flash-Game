@@ -24,8 +24,8 @@ package Parents
 	
 	import Game.ContactListener;
 	import Game.DebugScreen;
-	import Game.PauseMenu;
 	import Game.OptionsMenu;
+	import Game.PauseMenu;
 	import Game.PlayerHUD;
 	
 	public class Stage extends MovieClip
@@ -77,6 +77,8 @@ package Parents
 		private var debug:DebugScreen;
 		//pause
 		private var pauseMenu:PauseMenu;
+		//rain
+		public var hasRain:Boolean;
 		
 		/**PLAYER*/
 		//player
@@ -581,6 +583,9 @@ package Parents
 					Weapon.changeWeapon = true;
 				}
 			}
+			else if(e.keyCode == OptionsMenu.keybindings.rain){
+				removeAddRain();
+			}
 		}
 		
 		/**Stages can detect key releases*/
@@ -789,6 +794,9 @@ package Parents
 		
 		/**Worlds remove differently*/
 		public function childDestroy():void{}
+		
+		/**Remove or Add Rain*/
+		public function removeAddRain():void{}
 		
 		/**Get and Set for stageWorld*/
 		static public function get world():b2World{ return worldStage; }

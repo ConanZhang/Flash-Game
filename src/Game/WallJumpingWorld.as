@@ -6,6 +6,7 @@ package Game
 	import flash.display.Sprite;
 	import flash.events.Event;
 	import flash.events.TimerEvent;
+	import flash.net.SharedObject;
 	import flash.utils.Timer;
 	
 	import Assets.BigFlyingEnemy;
@@ -34,12 +35,14 @@ package Game
 		
 		private var enemyAdd:Timer;
 		private var ammoAdd:Timer;
+		
+		private var settings:SharedObject;
 		/**			Constructor
 		 * 
 		 * Takes in screen it will be added to
 		 * 
 		 */
-		public function WallJumpingWorld(screenP:FlashGame, debugging:Boolean, pacifist:Boolean,world:int, difficulty:int)
+		public function WallJumpingWorld(screenP:FlashGame, debugging:Boolean, pacifist:Boolean,world:int, difficulty:int, _hasRain:Boolean, _settings:SharedObject)
 		{			
 			screen = screenP;
 			screen.addChildAt(this,0);
@@ -51,8 +54,14 @@ package Game
 			//BACKGROUND
 			background = new Background("test");
 			
+			settings = _settings;
+			
 			//RAIN
-			rain = new Rain(this, 100,900,525,50, 15, 5, "left");
+			hasRain = _hasRain;
+			
+			if(hasRain){
+				rain = new Rain(this, 100,900,525,50, 15, 5, "left");
+			}
 			
 			//Platform player starts on
 			startPlatform = new Platform(120, 15, 20, 3, "ground");
@@ -228,6 +237,21 @@ package Game
 				Player.playerHealth--;
 				Player.playerInvulnerable = 50;
 			}
+		}
+		
+		public override function removeAddRain():void{
+			if(hasRain){
+				rain.destroy();
+				hasRain = false;
+				settings.data.hasRain = "false";
+			}
+			else{
+				rain = new Rain(this, 100,900,525,50, 15, 5, "left");
+				hasRain = true;
+				settings.data.hasRain = "true";
+			}
+			
+			settings.flush();
 		}
 		
 		public override function childDestroy():void{

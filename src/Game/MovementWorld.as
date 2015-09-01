@@ -4,6 +4,8 @@
 package Game
 {
 	
+	import flash.net.SharedObject;
+	
 	import Assets.Platform;
 	import Assets.Rain;
 	
@@ -16,12 +18,14 @@ package Game
 		private var rain:Rain;	
 		
 		private var enemyAdded:Boolean;
+		
+		private var settings:SharedObject;
 		/**			Constructor
 		 * 
 		 * Takes in screen it will be added to
 		 * 
 		 */
-		public function MovementWorld(screenP:FlashGame, debugging:Boolean, pacifist:Boolean, world:int)
+		public function MovementWorld(screenP:FlashGame, debugging:Boolean, pacifist:Boolean, world:int, _hasRain:Boolean, _settings:SharedObject)
 		{			
 			screen = screenP;
 			screen.addChildAt(this,0);
@@ -32,7 +36,12 @@ package Game
 			background = new Background("test");
 			
 			//RAIN
-			rain = new Rain(this, 100,900,525,50, 15, 5, "left");
+			settings = _settings;
+			
+			hasRain = _hasRain;
+			if(hasRain){
+				rain = new Rain(this, 100,900,525,50, 15, 5, "left");
+			}
 			
 			//GROUND & SKY
 			var ground:Platform = new Platform(7, 15, 300, 15, "b_wide");
@@ -80,6 +89,20 @@ package Game
 			}
 		}
 		
+		public override function removeAddRain():void{
+			if(hasRain){
+				rain.destroy();
+				hasRain = false;
+				settings.data.hasRain = "false";
+			}
+			else{
+				rain = new Rain(this, 100,900,525,50, 15, 5, "left");
+				hasRain = true;
+				settings.data.hasRain = "true";
+			}
+			
+			settings.flush();
+		}
 		
 		public override function childDestroy():void{
 		}

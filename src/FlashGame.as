@@ -8,13 +8,15 @@ package
 	import flash.display.StageQuality;
 	import flash.events.Event;
 	import flash.events.KeyboardEvent;
+	import flash.net.SharedObject;
 	import flash.text.Font;
+	import flash.ui.Keyboard;
 	import flash.ui.Mouse;
 	
 	import Game.Menu;
+	import Game.MovementWorld;
 	import Game.OptionsMenu;
 	import Game.TestWorld;
-	import Game.MovementWorld;
 	import Game.WallJumpingWorld;
 	
 	/**SWF Options*/
@@ -54,6 +56,10 @@ package
 		public const tutorialWorld:int = 0;
 		public const wallWorld:int = 1;
 		public const testWorld:int = 2;
+		
+		//settings
+		private var settings:SharedObject;
+		private var hasRain:Boolean;
 
 		/**Constructor*/
 		public function FlashGame()
@@ -79,18 +85,58 @@ package
 			pacifist = false;
 			
 			this.addChild(gameReticule);
+			
+			settings = SharedObject.getLocal("Settings");
+			
+			
+			if(settings.data.quality != null){
+				if(settings.data.quality == "medium"){
+					stage.quality = StageQuality.MEDIUM;
+				}
+				else if(settings.data.quality == "low"){
+					stage.quality = StageQuality.LOW;
+				}
+				else{
+					stage.quality = StageQuality.HIGH;
+				}
+			}
+			else{
+				settings.data.quality = "medium";				
+			}
+			
+			if(settings.data.hasRain != null){
+				if(settings.data.hasRain == "true"){
+					hasRain = true;
+				}
+				else{
+					hasRain = false;
+				}
+			}
+			else{
+				settings.data.quality = "medium";
+				hasRain = true;
+			}
+			
+			settings.flush();
 		}
 		
 		private function testingRemove(event:Event):void{
+			if(settings.data.hasRain == "true"){
+				hasRain = true;
+			}
+			else{
+				hasRain = false;
+			}
+			
 			if(event.target is Menu){
 				if(world == testWorld){
-					test = new TestWorld(this, false, pacifist, testWorld, difficulty);
+					test = new TestWorld(this, false, pacifist, testWorld, difficulty, hasRain, settings);
 				}
 				else if(world == wallWorld){
-					walls = new WallJumpingWorld(this, false, pacifist, wallWorld, difficulty);	
+					walls = new WallJumpingWorld(this, false, pacifist, wallWorld, difficulty, hasRain, settings);	
 				}
 				else if(world == tutorialWorld){
-					tutorial = new MovementWorld(this, false, pacifist, tutorialWorld);	
+					tutorial = new MovementWorld(this, false, pacifist, tutorialWorld, hasRain, settings);	
 				}
 			}
 			else if(event.target is MovementWorld || event.target is WallJumpingWorld || event.target is TestWorld){
@@ -118,13 +164,18 @@ package
 			else if(e.keyCode == OptionsMenu.keybindings.quality){
 				if(stage.quality == "LOW" ){
 					stage.quality = StageQuality.MEDIUM;
+					settings.data.quality = "medium";
 				}
 				else if(stage.quality == "MEDIUM"){
 					stage.quality = StageQuality.HIGH;
+					settings.data.quality = "high";
 				}
 				else if(stage.quality == "HIGH" ){
-					stage.quality = StageQuality.LOW;
+					stage.quality = StageQuality.LOW;					
+					settings.data.quality = "low";
 				}
+				
+				settings.flush();
 			}
 		}
 		

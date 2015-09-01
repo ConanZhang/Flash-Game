@@ -3,9 +3,8 @@
  */
 package Game
 {
-	import flash.display.Sprite;
-	import flash.events.Event;
 	import flash.events.TimerEvent;
+	import flash.net.SharedObject;
 	import flash.utils.Timer;
 	
 	import Assets.BigFlyingEnemy;
@@ -29,12 +28,14 @@ package Game
 		
 		private var ammoAdd:Timer;
 		private var enemyAdd:Timer;
+		
+		private var settings:SharedObject;
 		/**			Constructor
 		 * 
 		 * Takes in screen it will be added to
 		 * 
 		 */
-		public function TestWorld(screenP:FlashGame, debugging:Boolean, pacifist:Boolean, world:int, difficulty:int)
+		public function TestWorld(screenP:FlashGame, debugging:Boolean, pacifist:Boolean, world:int, difficulty:int, _hasRain:Boolean, _settings:SharedObject)
 		{			
 			screen = screenP;
 			screen.addChildAt(this,0);
@@ -44,8 +45,14 @@ package Game
 			//BACKGROUND
 			background = new Background("test");
 			
+			settings = _settings;
+			
 			//RAIN
-			rain = new Rain(this, 100,900,525,50, 15, 5, "left");
+			hasRain = _hasRain;
+			
+			if(hasRain){
+				rain = new Rain(this, 100,900,525,50, 15, 5, "left");
+			}
 			
 			//GROUND & SKY
 			var testGround:Platform = new Platform(7, 15, 275, 15, "b_wide");
@@ -188,6 +195,21 @@ package Game
 					var machinegunDrop:ItemDrop = new ItemDrop(Math.random()*190 + 40, Math.random()*-90, 2,2, 4);	
 				}
 			}
+		}
+		
+		public override function removeAddRain():void{
+			if(hasRain){
+				rain.destroy();
+				hasRain = false;
+				settings.data.hasRain = "false";
+			}
+			else{
+				rain = new Rain(this, 100,900,525,50, 15, 5, "left");
+				hasRain = true;
+				settings.data.hasRain = "true";
+			}
+			
+			settings.flush();
 		}
 		
 		public override function childDestroy():void{
