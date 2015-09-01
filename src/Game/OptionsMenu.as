@@ -5,7 +5,6 @@ package Game
 	import flash.events.Event;
 	import flash.events.KeyboardEvent;
 	import flash.events.MouseEvent;
-	import flash.events.TextEvent;
 	import flash.net.SharedObject;
 	import flash.text.TextField;
 	import flash.text.TextFieldType;
@@ -529,11 +528,8 @@ package Game
 		
 		protected function mouseOver(event:MouseEvent):void
 		{
-			if(activeBack == null){
-				if(buttons.indexOf(event.target) != -1){
-					activeButton = event.target as MovieClip;
-					buttonContainer.setChildIndex(activeButton, numChildren - 1);
-				}
+			if(buttons.indexOf(event.target) != -1){
+				activeButton = event.target as MovieClip;
 			}
 		}
 		

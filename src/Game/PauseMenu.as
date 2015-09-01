@@ -49,6 +49,9 @@ package Game
 			optionsContainer.x = 0;
 			optionsContainer.y = 0;
 			
+			optionsContainer.width = 1200;
+			optionsContainer.height = 800;
+			
 			//add container sprite to stage, starting position
 			this.addChild(buttonContainer);
 			buttonContainer.x = 0;
@@ -127,7 +130,7 @@ package Game
 				newOptionsContainer.y = optionsContainer.y;
 				
 				//put the options text on top of that?
-				optionsMenu = new OptionsMenu(this, -325,-225);
+				optionsMenu = new OptionsMenu(this, -360,-275);
 				
 				backButton = new Back;
 				buttonContainer.addChild(backButton);

@@ -6,7 +6,6 @@ package Game
 	import flash.events.MouseEvent;
 	import flash.media.Sound;
 	import flash.media.SoundChannel;
-	import flash.net.URLRequest;
 
 	public class Menu extends MovieClip
 	{
@@ -65,10 +64,9 @@ package Game
 			layer = 0;
 			
 			//sound
-//			menuMusic = new Sound();
-//			menuMusic.load(new URLRequest("MenuMusic.wav"));
-//			musicChannel = new SoundChannel();
-//			musicChannel = menuMusic.play();
+			menuMusic = new MenuMusic();
+			musicChannel = new SoundChannel();
+			musicChannel = menuMusic.play(0, int.MAX_VALUE);
 			
 			//texture
 			backgroundTexture = new background_texture;

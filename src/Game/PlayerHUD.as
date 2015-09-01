@@ -43,14 +43,6 @@ package Game
 		private var ammoCount:TextField;
 		private var ammoFormat:TextFormat;
 		
-		//enemy count
-		private var enemyCount:TextField;
-		private var enemyFormat:TextFormat;
-		
-		//ammunition
-		private var ammunitionCount:TextField;
-		private var ammunitionFormat:TextFormat;
-		
 		//survive timer
 		private var timerText:TextField;
 		private var timerFormat:TextFormat;
@@ -197,40 +189,6 @@ package Game
 			ammoCount.textColor = 0xff0000;
 			ammoCount.selectable = false;			
 			this.addChild(ammoCount);
-			
-			//ammunition
-			ammunitionFormat = new TextFormat();
-			ammunitionFormat.size = 35;
-			ammunitionFormat.align = "center";
-			ammunitionFormat.font = "Zenzai Itacha";
-			
-			ammunitionCount = new TextField();
-			ammunitionCount.embedFonts = true;
-			ammunitionCount.defaultTextFormat = ammoFormat;
-			ammunitionCount.height = 50;
-			ammunitionCount.width = 200;
-			ammunitionCount.x = 225;
-			ammunitionCount.y = 435;
-			ammunitionCount.textColor = 0xff0000;
-			ammunitionCount.selectable = false;			
-			this.addChild(ammunitionCount);
-			
-			//enemy count
-			enemyFormat = new TextFormat();
-			enemyFormat.size = 35;
-			enemyFormat.align = "left";
-			enemyFormat.font = "Zenzai Itacha";
-			
-			enemyCount = new TextField();
-			enemyCount.embedFonts = true;
-			enemyCount.defaultTextFormat = enemyFormat;
-			enemyCount.height = 500;
-			enemyCount.width = 400;
-			enemyCount.x = 50;
-			enemyCount.y = 350;
-			enemyCount.textColor = 0xff0000;
-			enemyCount.selectable = false;			
-			this.addChild(enemyCount);
 			
 			//count down timer
 			countDownSeconds = 3;
@@ -490,14 +448,7 @@ package Game
 			
 			//ammo
 			ammoCount.text = "Ammo i " + (Weapon.weaponType == 1 ? Weapon.pistolAmmo: (Weapon.weaponType == 2) ? Weapon.shotgunAmmo: (Weapon.weaponType == 3) ? Weapon.machinegunAmmo: 0) + "\n" +
-							 "Weapon i " + (Weapon.weaponType == 1 ? "Pistol": (Weapon.weaponType == 2) ? "Shotgun": (Weapon.weaponType == 3) ? "Machine gun": "None");
-			
-			//enemy count
-			enemyCount.text = "Flying i " + Stage.flyCount + "\n" +
-							  "Platform i " + Stage.platformCount;
-			
-			//ammunition
-			ammunitionCount.text = "Ammunition i " + Stage.ammunitionCount;				 				
+							 "Weapon i " + (Weapon.weaponType == 1 ? "Pistol": (Weapon.weaponType == 2) ? "Shotgun": (Weapon.weaponType == 3) ? "Machine gun": "None");		 				
 		}
 		
 		/**Survive count down timer*/

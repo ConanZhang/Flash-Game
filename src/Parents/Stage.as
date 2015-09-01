@@ -502,7 +502,7 @@ package Parents
 			//pausing
 			if(e.keyCode == OptionsMenu.keybindings.pause || e.keyCode == Keyboard.R){
 				if(paused == false){
-					pauseMenu = new PauseMenu(this, 350, 300);
+					pauseMenu = new PauseMenu(this, 350, 260);
 					paused = true;
 				}
 				else if(paused == true){
