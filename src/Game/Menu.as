@@ -146,7 +146,7 @@ package Game
 			walls.x = 450;
 			walls.y = 1800;
 			buttonContainer.addChild(small);
-			small.x = 450;
+			small.x = 800;
 			small.y = 1730;
 			buttonContainer.addChild(options);
 			options.x = 325;

@@ -3,8 +3,6 @@
  */
 package Game
 {
-	import flash.display.Sprite;
-	import flash.events.Event;
 	import flash.events.TimerEvent;
 	import flash.net.SharedObject;
 	import flash.utils.Timer;
@@ -19,9 +17,7 @@ package Game
 	import Assets.Rain;
 	import Assets.SmallFlyingEnemy;
 	import Assets.SmallPlatformEnemy;
-	
-	import Box2D.Common.Math.b2Vec2;
-	
+		
 	import Parents.Stage;
 	
 	public class WallJumpingWorld extends Stage
@@ -47,10 +43,8 @@ package Game
 			screen = screenP;
 			screen.addChildAt(this,0);
 			
-			super(screen,debugging, 128, 7, pacifist, world, difficulty);
-						
-			this.addEventListener(Event.ENTER_FRAME, stageBoundary, false, 0, true);
-			
+			super(screen,debugging, 139.75, -15, pacifist, world, difficulty);
+									
 			//BACKGROUND
 			background = new Background("test");
 			
@@ -62,9 +56,6 @@ package Game
 			if(hasRain){
 				rain = new Rain(this, 100,900,525,50, 15, 5, "left");
 			}
-			
-			//Platform player starts on
-			startPlatform = new Platform(120, 15, 20, 3, "ground");
 
 			//PLATFORMS
 			for(var i:int = 0; i < 12; i++){
@@ -77,7 +68,12 @@ package Game
 				var row4:Platform = new Platform(53+(i*25), -35,1, 10, "tall");
 				var row3:Platform = new Platform(41+(i*25), -25,1, 10, "tall");
 				var row2:Platform = new Platform(53+(i*25), -15,1, 10, "tall");
-				var row1:Platform = new Platform(41+(i*25), 0,1, 10, "tall");
+				var row1:Platform = new Platform(41+(i*25), -5,1, 10, "tall");
+			}
+			
+			//SPIKES
+			for(var j:int = 0; j < 40; j++){
+				var spike1:Platform = new Platform(-40+(j*11), 10,10, 3, "enemy");
 			}
 			
 			//WALLS
@@ -85,7 +81,7 @@ package Game
 			var rightWall:Platform = new Platform(400,-200, 30, 250, "b_tall");
 			
 			//FLOOR & CEILING
-			var floor:Platform = new Platform(-70, 45, 500, 15, "b_wide");
+			var floor:Platform = new Platform(-70, 12.5, 500, 15, "b_wide");
 			var ceiling:Platform = new Platform(-70, -135, 500, 15, "b_wide");
 			
 			//ENEMY
@@ -117,7 +113,7 @@ package Game
 		private function addEnemy(e:TimerEvent):void{
 			//test enemies
 			if(!Stage.paused && Player.playerHealth > 0){
-				if(Stage.flyCount < 15){
+				if(Stage.flyCount < 10){
 					var randomAdd:Number = Math.random();
 					
 					if(randomAdd > 0.66){
@@ -210,35 +206,6 @@ package Game
 			}
 		}
 		
-		/**Computes the bottom boundary of the stage and resets player if necessary*/
-		private function stageBoundary(e:Event):void{
-			//Fade out starting platform
-			if(startPlatform.sprite.alpha > 0)
-			{
-				startPlatform.sprite.alpha -= 0.005;
-			}
-			//Delete it once it complete fades away
-			else if(startPlatform.sprite.alpha == 0){
-				startPlatform.destroyBody();
-			}
-			
-			//create new starting platform for player
-			if(reset){
-				startPlatform.destroyAll();
-				startPlatform = new Platform(player.body.GetPosition().x - 10, 15, 20, 3, "ground");
-				reset = false;
-			}
-
-			//reset player if too far from world
-			if(player.body.GetPosition().y > 30){
-				player.body.SetPosition(new b2Vec2(130, -75));
-				reset = true;
-				PlayerHUD.heartDamaged = true;
-				Player.playerHealth--;
-				Player.playerInvulnerable = 50;
-			}
-		}
-		
 		public override function removeAddRain():void{
 			if(hasRain){
 				rain.destroy();
@@ -255,7 +222,6 @@ package Game
 		}
 		
 		public override function childDestroy():void{
-			this.removeEventListener(Event.ENTER_FRAME, stageBoundary);
 			if(ammoAdd != null){
 				ammoAdd.removeEventListener(TimerEvent.TIMER, addAmmo);
 				ammoAdd.stop();	

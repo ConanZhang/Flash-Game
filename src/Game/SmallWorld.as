@@ -46,7 +46,7 @@ package Game
 			screen = screenP;
 			screen.addChildAt(this,0);
 			
-			super(screen,debugging, 128, 7, pacifist, world, difficulty);
+			super(screen,debugging, 139, -200, pacifist, world, difficulty);
 			
 			this.addEventListener(Event.ENTER_FRAME, stageBoundary, false, 0, true);
 			
@@ -63,29 +63,39 @@ package Game
 			}
 			
 			//Platform player starts on
-			startPlatform = new Platform(120, 15, 20, 3, "ground");
+			startPlatform = new Platform(131, -192, 20, 3, "ground");
 			
 			//PLATFORMS
 			for(var i:int = 0; i < 12; i++){
-				var row10:Platform = new Platform(53+(i*25), -95,1, 1, "square");
-				var row9:Platform = new Platform(41+(i*25), -85,1, 1, "square");
-				var row8:Platform = new Platform(53+(i*25), -75,1, 1, "square");
-				var row7:Platform = new Platform(41+(i*25), -65,1, 1, "square");
-				var row6:Platform = new Platform(53+(i*25), -55,1, 1, "square");
-				var row5:Platform = new Platform(41+(i*25), -45,1, 1, "square");
-				var row4:Platform = new Platform(53+(i*25), -35,1, 1, "square");
-				var row3:Platform = new Platform(41+(i*25), -25,1, 1, "square");
-				var row2:Platform = new Platform(53+(i*25), -15,1, 1, "square");
-				var row1:Platform = new Platform(41+(i*25), 0,1, 1, "square");
+				var row20:Platform = new Platform(53+(i*25), -185,0.5, 0.5, "square");
+				var row19:Platform = new Platform(41+(i*25), -175,0.5, 0.5, "square");
+				var row18:Platform = new Platform(53+(i*25), -165,0.5, 0.5, "square");
+				var row17:Platform = new Platform(41+(i*25), -155,0.5, 0.5, "square");
+				var row16:Platform = new Platform(53+(i*25), -145,0.5, 0.5, "square");
+				var row15:Platform = new Platform(41+(i*25), -135,0.5, 0.5, "square");
+				var row14:Platform = new Platform(53+(i*25), -125,0.5, 0.5, "square");
+				var row13:Platform = new Platform(41+(i*25), -115,0.5, 0.5, "square");
+				var row12:Platform = new Platform(53+(i*25), -105,0.5, 0.5, "square");
+				var row11:Platform = new Platform(41+(i*25), -95,0.5, 0.5, "square");
+				var row10:Platform = new Platform(53+(i*25), -85,0.5, 0.5, "square");
+				var row9:Platform = new Platform(41+(i*25), -75,0.5, 0.5, "square");
+				var row8:Platform = new Platform(53+(i*25), -65,0.5, 0.5, "square");
+				var row7:Platform = new Platform(41+(i*25), -55,0.5, 0.5, "square");
+				var row6:Platform = new Platform(53+(i*25), -45,0.5, 0.5, "square");
+				var row5:Platform = new Platform(41+(i*25), -35,0.5, 0.5, "square");
+				var row4:Platform = new Platform(53+(i*25), -25,0.5, 0.5, "square");
+				var row3:Platform = new Platform(41+(i*25), -15,0.5, 0.5, "square");
+				var row2:Platform = new Platform(53+(i*25), -5,0.5, 0.5, "square");
+				var row1:Platform = new Platform(41+(i*25), 5,0.5, 0.5, "square");
 			}
 			
 			//WALLS
-			var leftWall:Platform = new Platform(-70,-200, 30, 250, "b_tall");
-			var rightWall:Platform = new Platform(400,-200, 30, 250, "b_tall");
+			var leftWall:Platform = new Platform(-70,-250, 30, 300, "b_tall");
+			var rightWall:Platform = new Platform(400,-250, 30, 300, "b_tall");
 			
 			//FLOOR & CEILING
 			var floor:Platform = new Platform(-70, 45, 500, 15, "b_wide");
-			var ceiling:Platform = new Platform(-70, -135, 500, 15, "b_wide");
+			var ceiling:Platform = new Platform(-70, -235, 500, 15, "b_wide");
 			
 			//ENEMY
 			//Beginner
@@ -116,7 +126,7 @@ package Game
 		private function addEnemy(e:TimerEvent):void{
 			//test enemies
 			if(!Stage.paused && Player.playerHealth > 0){
-				if(Stage.flyCount < 15){
+				if(Stage.flyCount < 10){
 					var randomAdd:Number = Math.random();
 					
 					if(randomAdd > 0.66){

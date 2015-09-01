@@ -107,7 +107,7 @@ package Game
 		private function addEnemy(e:TimerEvent):void{
 			//test enemies
 			if(!Stage.paused && Player.playerHealth > 0){
-				if(Stage.flyCount < 15){
+				if(Stage.flyCount < 10){
 					var randomAdd:Number = Math.random();
 					
 					if(randomAdd > 0.66){

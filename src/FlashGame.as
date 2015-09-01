@@ -10,7 +10,6 @@ package
 	import flash.events.KeyboardEvent;
 	import flash.net.SharedObject;
 	import flash.text.Font;
-	import flash.ui.Keyboard;
 	import flash.ui.Mouse;
 	
 	import Game.Menu;
