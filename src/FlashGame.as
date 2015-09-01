@@ -16,6 +16,7 @@ package
 	import Game.Menu;
 	import Game.MovementWorld;
 	import Game.OptionsMenu;
+	import Game.SmallWorld;
 	import Game.TestWorld;
 	import Game.WallJumpingWorld;
 	
@@ -37,6 +38,7 @@ package
 		private var test:TestWorld;  
 		private var walls:WallJumpingWorld;
 		private var tutorial:MovementWorld;
+		private var small:SmallWorld;
 		
 		//Menu
 		private var menu:Menu;
@@ -56,6 +58,8 @@ package
 		public const tutorialWorld:int = 0;
 		public const wallWorld:int = 1;
 		public const testWorld:int = 2;
+		public const smallWorld:int = 3;
+
 		
 		//settings
 		private var settings:SharedObject;
@@ -114,7 +118,7 @@ package
 			}
 			else{
 				settings.data.quality = "medium";
-				hasRain = true;
+				hasRain = false;
 			}
 			
 			settings.flush();
@@ -138,8 +142,14 @@ package
 				else if(world == tutorialWorld){
 					tutorial = new MovementWorld(this, false, pacifist, tutorialWorld, hasRain, settings);	
 				}
+				else if(world == smallWorld){
+					small = new SmallWorld(this, true, pacifist, smallWorld, difficulty, hasRain, settings);	 
+				}
 			}
-			else if(event.target is MovementWorld || event.target is WallJumpingWorld || event.target is TestWorld){
+			else if(event.target is MovementWorld || 
+				event.target is WallJumpingWorld || 
+				event.target is TestWorld || 
+				event.target is SmallWorld){
 				menu = new Menu(this);
 			} 
 		}

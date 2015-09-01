@@ -37,6 +37,7 @@ package Game
 		private var arena:MovieClip;
 		private var standard:MovieClip;
 		private var walls:MovieClip;
+		private var small:MovieClip;
 		private var options:MovieClip;
 		private var credits:MovieClip;
 		private var art:MovieClip;
@@ -86,6 +87,7 @@ package Game
 			arena = new Arena;
 			standard = new Standard;
 			walls = new Walls;	
+			small = new platform_square;
 			options = new Options;	
 			credits = new Credits;
 			art = new Art;
@@ -143,6 +145,9 @@ package Game
 			buttonContainer.addChild(walls);
 			walls.x = 450;
 			walls.y = 1800;
+			buttonContainer.addChild(small);
+			small.x = 450;
+			small.y = 1730;
 			buttonContainer.addChild(options);
 			options.x = 325;
 			options.y = 150;
@@ -165,7 +170,7 @@ package Game
 			copyright.x = 350;
 			copyright.y = 2950;
 			//fill array(s?)
-			buttons = [back, play, difficulty, tutorial, beginner, apprentice, master, mode, weapons, pacifist, arena, standard, walls, options, credits, art, georbec, programming, conan, copyright];
+			buttons = [back, play, difficulty, tutorial, beginner, apprentice, master, mode, weapons, pacifist, arena, standard, walls, small, options, credits, art, georbec, programming, conan, copyright];
 			//add listeners to buttons
 			addEventListener(MouseEvent.MOUSE_OVER, mouseOver);
 			addEventListener(MouseEvent.MOUSE_OUT, mouseOut);
@@ -254,6 +259,10 @@ package Game
 			}
 			else if(activeButton.toString() == "[object Walls]"){
 				FlashGame.setWorld(1);
+				destroy();
+			}
+			else if(activeButton.toString() == "[object platform_square]"){
+				FlashGame.setWorld(3);
 				destroy();
 			}
 			else if(activeButton.toString() == "[object Options]"){
