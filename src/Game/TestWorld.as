@@ -114,7 +114,7 @@ package Game
 					}
 				}
 				
-				if(Stage.platformCount < 15){
+				if(Stage.platformCount < 10){
 					randomAdd = Math.random();
 					
 					var randomType:Number = Math.random();

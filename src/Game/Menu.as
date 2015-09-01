@@ -5,7 +5,6 @@ package Game
 	import flash.events.Event;
 	import flash.events.MouseEvent;
 	import flash.media.Sound;
-	import flash.media.SoundChannel;
 
 	public class Menu extends MovieClip
 	{
@@ -49,9 +48,6 @@ package Game
 		private var screen:Sprite;
 		private var optionsMenu:OptionsMenu;
 		
-		private var menuMusic:Sound;
-		private var musicChannel:SoundChannel;
-		
 		public function Menu(screenP:Sprite)
 		{			
 			screen = screenP;
@@ -62,11 +58,6 @@ package Game
 			containerGoalY = 0;
 			scrollSpeed = 50;
 			layer = 0;
-			
-			//sound
-			menuMusic = new MenuMusic();
-			musicChannel = new SoundChannel();
-			musicChannel = menuMusic.play(0, int.MAX_VALUE);
 			
 			//texture
 			backgroundTexture = new background_texture;
@@ -181,7 +172,10 @@ package Game
 			addEventListener(MouseEvent.CLICK, buttonClicked);
 			addEventListener(Event.ENTER_FRAME, update);
 			
-			optionsMenu = new OptionsMenu(this, 0, 2000);
+			optionsMenu = new OptionsMenu(this, 0, 2000);	
+			
+			var menuMusic:Sound = new MenuMusic();
+			var menuPitch:MP3Pitch = new MP3Pitch(menuMusic);
 		}
 		private function mouseOver(event:MouseEvent):void
 		{

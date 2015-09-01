@@ -9,10 +9,10 @@ package
 	import flash.events.Event;
 	import flash.events.KeyboardEvent;
 	import flash.text.Font;
-	import flash.ui.Keyboard;
 	import flash.ui.Mouse;
 	
 	import Game.Menu;
+	import Game.OptionsMenu;
 	import Game.TestWorld;
 	import Game.TutorialWorld;
 	import Game.WallJumpingWorld;
@@ -54,23 +54,6 @@ package
 		public const tutorialWorld:int = 0;
 		public const wallWorld:int = 1;
 		public const testWorld:int = 2;
-		
-		//key bindings
-		public static var keyBindings:Object = {
-			left: Keyboard.A,
-			right: Keyboard.D,
-			jump: Keyboard.W,
-			fall: Keyboard.S,
-			slow: Keyboard.SPACE,
-			pistol: Keyboard.NUMBER_1,
-			shotgun: Keyboard.NUMBER_2,
-			machineGun: Keyboard.NUMBER_3,
-			pause: Keyboard.R,
-			defaultPause: Keyboard.P,
-			escapePause: Keyboard.ESCAPE,
-			fullScreen: Keyboard.F,
-			quality: Keyboard.C
-		};
 
 		/**Constructor*/
 		public function FlashGame()
@@ -101,7 +84,7 @@ package
 		private function testingRemove(event:Event):void{
 			if(event.target is Menu){
 				if(world == testWorld){
-					test = new TestWorld(this, true, pacifist, testWorld, difficulty);
+					test = new TestWorld(this, false, pacifist, testWorld, difficulty);
 				}
 				else if(world == wallWorld){
 					walls = new WallJumpingWorld(this, false, pacifist, wallWorld, difficulty);	
@@ -123,7 +106,7 @@ package
 		
 		private function options(e:KeyboardEvent):void{
 			//full screen
-			if(e.keyCode == keyBindings.fullScreen){
+			if(e.keyCode == OptionsMenu.keybindings.fullscreen){
 				if(stage.displayState == StageDisplayState.NORMAL){
 					stage.displayState = StageDisplayState.FULL_SCREEN_INTERACTIVE;
 				}
@@ -132,7 +115,7 @@ package
 				}
 			}
 				//quality
-			else if(e.keyCode == keyBindings.quality){
+			else if(e.keyCode == OptionsMenu.keybindings.quality){
 				if(stage.quality == "LOW" ){
 					stage.quality = StageQuality.MEDIUM;
 				}

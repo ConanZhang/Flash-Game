@@ -173,7 +173,7 @@ package Game
 			
 			rightField = new TextField();
 			rightField.name = "right";
-			rightField.x = 310;
+			rightField.x = 280;
 			rightField.y = 110;
 			rightField.width = 200;
 			rightField.embedFonts = true;
