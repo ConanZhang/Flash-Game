@@ -198,12 +198,10 @@ package Parents
 			this.setPlayer(player.body);
 			Player.playerInvulnerable = 100;
 			
-			if(!pacifist){
-				//WEAPON
-				weapon = new Weapon(15, 7,1);
-				machineFire = false;
-				machineDelay = 2;
-			}
+			//WEAPON
+			weapon = new Weapon(15, 7,1);
+			machineFire = false;
+			machineDelay = 2;
 			
 			//HUD
 			gameHUD = new PlayerHUD(this, pacifist, world, difficulty);
