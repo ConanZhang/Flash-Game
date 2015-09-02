@@ -239,7 +239,7 @@ package Game
 			conan.y = 2800;
 			buttonContainer.addChild(copyright);
 			copyright.x = 350;
-			copyright.y = 2950;
+			copyright.y = 2900;
 			
 			highScore = SharedObject.getLocal("HighScore");
 			
@@ -797,7 +797,7 @@ package Game
 						displayField.text = "Learn the power of  tofu";
 					}
 					else if(activeButton.toString() == "[object Difficulty]"){
-						displayField.text = "Set your tofu abilities";
+						displayField.text = "Select your tofu level";
 					}
 					else if(activeButton.toString() == "[object Beginner]"){
 						displayField.text = "Begin your tofu journey";
