@@ -18,6 +18,8 @@ package
 	import Game.SmallWorld;
 	import Game.TestWorld;
 	import Game.WallJumpingWorld;
+	import Game.DodgeWorld;
+	import Game.WeaponWorld;
 	
 	/**SWF Options*/
 	//default color #C4A57C
@@ -34,10 +36,12 @@ package
 		private var gameReticule:Sprite;
 		
 		//Levels
-		private var test:TestWorld;  
+		private var test:TestWorld; 
 		private var walls:WallJumpingWorld;
-		private var tutorial:MovementWorld;
 		private var small:SmallWorld;
+		private var tutorial:MovementWorld;
+		private var dodge:DodgeWorld;
+		private var weapon:WeaponWorld;
 		
 		//Menu
 		private var menu:Menu;
@@ -58,6 +62,8 @@ package
 		public const wallWorld:int = 1;
 		public const testWorld:int = 2;
 		public const smallWorld:int = 3;
+		public const dodgeWorld:int = 4;
+		public const weaponWorld:int = 5;
 
 		
 		//settings
@@ -136,7 +142,8 @@ package
 					test = new TestWorld(this, false, pacifist, testWorld, difficulty, hasRain, settings);
 				}
 				else if(world == wallWorld){
-					walls = new WallJumpingWorld(this, false, pacifist, wallWorld, difficulty, hasRain, settings);	
+					walls = new WallJumpingWorld(this, false, pacifist, wallWorld,
+						difficulty, hasRain, settings);	
 				}
 				else if(world == tutorialWorld){
 					tutorial = new MovementWorld(this, false, pacifist, tutorialWorld, hasRain, settings);	
@@ -144,11 +151,19 @@ package
 				else if(world == smallWorld){
 					small = new SmallWorld(this, false, pacifist, smallWorld, difficulty, hasRain, settings);	 
 				}
+				else if(world == dodgeWorld){
+					dodge = new DodgeWorld(this, true, pacifist, dodgeWorld, hasRain, settings);	
+				}
+				else{
+					weapon = new WeaponWorld(this, true, pacifist, weaponWorld, hasRain, settings);	
+				}
 			}
 			else if(event.target is MovementWorld || 
 				event.target is WallJumpingWorld || 
 				event.target is TestWorld || 
-				event.target is SmallWorld){
+				event.target is SmallWorld|| 
+				event.target is DodgeWorld|| 
+				event.target is WeaponWorld){
 				menu = new Menu(this);
 			} 
 		}

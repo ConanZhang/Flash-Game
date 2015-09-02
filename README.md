@@ -24,6 +24,8 @@ Survive for 3 minutes. Scavenge for randomly dropped ammo and avoid randomly spa
 * P or R - Pause
 * F - Full Screen **(FLASH 11.3 OR HIGHER!!!)**
 * C - Quality: High -> Low -> Medium -> High
+* Z - Turn rain on or off
+* X - Show debug
 
 ####MOUSE CONTROLS
 

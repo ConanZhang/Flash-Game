@@ -230,6 +230,8 @@ package Game
 				highScore.data.pacifistMasterWall != null &&
 				highScore.data.pacifistMasterSmall != null &&
 				highScore.data.weaponsBeginnerTutorial != null &&
+				highScore.data.weaponsBeginnerDodge != null &&
+				highScore.data.weaponsBeginnerWeapon != null &&
 				highScore.data.weaponsBeginnerStandard != null &&
 				highScore.data.weaponsBeginnerWall != null &&
 				highScore.data.weaponsBeginnerSmall != null &&
@@ -315,6 +317,16 @@ package Game
 							highMinute = scores[0];
 							highSecond = scores[1];
 						}
+						else if(world == 4){
+							scores = highScore.data.weaponsBeginnerDodge;
+							highMinute = scores[0];
+							highSecond = scores[1];
+						}
+						else if(world == 5){
+							scores = highScore.data.weaponsBeginnerWeapon;
+							highMinute = scores[0];
+							highSecond = scores[1];
+						}
 					}
 					else if(difficulty == 1){
 						if(world == 1){
@@ -365,6 +377,8 @@ package Game
 				highScore.data.pacifistMasterWall = scores;
 				highScore.data.pacifistMasterSmall = scores;
 				highScore.data.weaponsBeginnerTutorial = scores;
+				highScore.data.weaponsBeginnerDodge = scores;
+				highScore.data.weaponsBeginnerWeapon = scores;
 				highScore.data.weaponsBeginnerStandard = scores;
 				highScore.data.weaponsBeginnerWall = scores;
 				highScore.data.weaponsBeginnerSmall = scores;
@@ -597,6 +611,12 @@ package Game
 						}
 						else if(world == 3){
 							highScore.data.weaponsBeginnerSmall = score;
+						}
+						else if(world == 4){
+							highScore.data.weaponsBeginnerDodge = score;
+						}
+						else{
+							highScore.data.weaponsBeginnerWeapon = score;
 						}
 					}
 					else if(difficulty == 1){

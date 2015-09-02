@@ -32,6 +32,8 @@ package Game
 		private var master:MovieClip;
 		private var mode:MovieClip;
 		private var tutorial:MovieClip;
+		private var dodgeTutorial:MovieClip;
+		private var weaponTutorial:MovieClip;
 		private var weapons:MovieClip;
 		private var pacifist:MovieClip;
 		private var arena:MovieClip;
@@ -78,6 +80,8 @@ package Game
 			play = new Play;
 			difficulty = new Difficulty;
 			tutorial = new Tutorial;
+			dodgeTutorial = new platform_wide;
+			weaponTutorial = new platform_tall;
 			beginner = new Beginner;
 			apprentice = new Apprentice;
 			master = new Master;
@@ -127,6 +131,12 @@ package Game
 			buttonContainer.addChild(tutorial);
 			tutorial.x = 100;
 			tutorial.y = 700;
+			buttonContainer.addChild(dodgeTutorial);
+			dodgeTutorial.x = 400;
+			dodgeTutorial.y = 650;
+			buttonContainer.addChild(weaponTutorial);
+			weaponTutorial.x = 600;
+			weaponTutorial.y = 700;
 			buttonContainer.addChild(mode);
 			mode.x = 350;
 			mode.y = 1075;
@@ -170,7 +180,7 @@ package Game
 			copyright.x = 350;
 			copyright.y = 2950;
 			//fill array(s?)
-			buttons = [back, play, difficulty, tutorial, beginner, apprentice, master, mode, weapons, pacifist, arena, standard, walls, small, options, credits, art, georbec, programming, conan, copyright];
+			buttons = [back, play, difficulty, tutorial, dodgeTutorial, weaponTutorial, beginner, apprentice, master, mode, weapons, pacifist, arena, standard, walls, small, options, credits, art, georbec, programming, conan, copyright];
 			//add listeners to buttons
 			addEventListener(MouseEvent.MOUSE_OVER, mouseOver);
 			addEventListener(MouseEvent.MOUSE_OUT, mouseOut);
@@ -178,9 +188,6 @@ package Game
 			addEventListener(Event.ENTER_FRAME, update);
 			
 			optionsMenu = new OptionsMenu(this, 0, 2000);	
-			
-			var menuMusic:Sound = new MenuMusic();
-			var menuPitch:MP3Pitch = new MP3Pitch(menuMusic);
 		}
 		private function mouseOver(event:MouseEvent):void
 		{
@@ -227,11 +234,19 @@ package Game
 				FlashGame.setDifficulty(0);
 				FlashGame.setPacifist(false);
 				FlashGame.setWorld(0);
-				this.removeEventListener(MouseEvent.MOUSE_OVER, mouseOver);
-				this.removeEventListener(MouseEvent.MOUSE_OUT, mouseOut);
-				this.removeEventListener(MouseEvent.CLICK, buttonClicked);
-				this.removeEventListener(Event.ENTER_FRAME, update);
-				screen.removeChild(this);
+				destroy();
+			}
+			else if(activeButton.toString() == "[object platform_wide]"){
+				FlashGame.setDifficulty(0);
+				FlashGame.setPacifist(false);
+				FlashGame.setWorld(4);
+				destroy();
+			}
+			else if(activeButton.toString() == "[object platform_tall]"){
+				FlashGame.setDifficulty(0);
+				FlashGame.setPacifist(false);
+				FlashGame.setWorld(5);
+				destroy();
 			}
 			else if(activeButton.toString() == "[object Beginner]"){
 				FlashGame.setDifficulty(0);
