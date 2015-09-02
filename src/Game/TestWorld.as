@@ -51,7 +51,12 @@ package Game
 			hasRain = _hasRain;
 			
 			if(hasRain){
-				rain = new Rain(this, 100,900,525,50, 15, 5, "left");
+				if(Math.random() > 0.5){
+					rain = new Rain(this, 100,900,525,50, Math.random()*(20-10)+10, Math.random()*(8-3)+3, "left");
+				}
+				else{
+					rain = new Rain(this, 100,900,525,50, Math.random()*(20-10)+10, Math.random()*(8-3)+3, "right");
+				}
 			}
 			
 			//GROUND & SKY
@@ -214,7 +219,12 @@ package Game
 				settings.data.hasRain = "false";
 			}
 			else{
-				rain = new Rain(this, 100,900,525,50, 15, 5, "left");
+				if(Math.random() > 0.5){
+					rain = new Rain(this, 100,900,525,50, Math.random()*(20-10)+10, Math.random()*(8-3)+3, "left");
+				}
+				else{
+					rain = new Rain(this, 100,900,525,50, Math.random()*(20-10)+10, Math.random()*(8-3)+3, "right");
+				}
 				hasRain = true;
 				settings.data.hasRain = "true";
 			}
