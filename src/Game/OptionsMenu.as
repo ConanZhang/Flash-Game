@@ -72,7 +72,9 @@ package Game
 		
 		private var keyCodeStrings:Dictionary;
 		
-		public function OptionsMenu(screenP: Sprite, x:int, y:int)
+		private var displayField:TextField;
+		
+		public function OptionsMenu(screenP: Sprite, x:int, y:int, display:TextField)
 		{
 			screen = screenP;
 			screen.addChild(this);
@@ -81,6 +83,8 @@ package Game
 			
 			this.x = x;
 			this.y = y;
+			
+			displayField = display;
 			
 			currentKey = 0;
 			
@@ -579,10 +583,19 @@ package Game
 						button.scaleX +=0.1;
 						button.scaleY +=0.1;
 					}
-				}else{
+					
+					if(activeButton.toString() == "[object Controls]"){
+						displayField.text = "Customize your tofu";
+					}
+					else if(activeButton.toString() == "[object Audio]"){
+						displayField.text = "Rave with your tofu";
+					}
+				}
+				else{
 					if(button.scaleX >= 1){
 						button.scaleX -=0.1;
 						button.scaleY -=0.1;
+						displayField.text = "";
 					}
 				}
 			}

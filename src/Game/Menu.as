@@ -4,7 +4,8 @@ package Game
 	import flash.display.Sprite;
 	import flash.events.Event;
 	import flash.events.MouseEvent;
-	import flash.media.Sound;
+	import flash.text.TextField;
+	import flash.text.TextFormat;
 
 	public class Menu extends MovieClip
 	{
@@ -48,6 +49,9 @@ package Game
 		private var conan:MovieClip;
 		private var copyright:MovieClip;
 		
+		private var displayField:TextField;
+		private var displayFormat:TextFormat;
+		
 		private var screen:Sprite;
 		private var optionsMenu:OptionsMenu;
 		
@@ -61,6 +65,22 @@ package Game
 			containerGoalY = 0;
 			scrollSpeed = 50;
 			layer = 0;
+			
+			displayFormat = new TextFormat();
+			displayFormat.size = 50;
+			displayFormat.align = "left";
+			displayFormat.font = "Zenzai Itacha";
+			
+			displayField = new TextField();
+			displayField.name = "display";
+			displayField.x = 75;
+			displayField.y = 400;
+			displayField.width = 600;
+			displayField.embedFonts = true;
+			displayField.defaultTextFormat = displayFormat;
+			displayField.textColor = 0xff0000;
+			displayField.selectable = false;
+			displayField.text = "";
 			
 			//texture
 			backgroundTexture = new background_texture;
@@ -179,6 +199,8 @@ package Game
 			buttonContainer.addChild(copyright);
 			copyright.x = 350;
 			copyright.y = 2950;
+			
+			
 			//fill array(s?)
 			buttons = [back, play, difficulty, tutorial, dodgeTutorial, weaponTutorial, beginner, apprentice, master, mode, weapons, pacifist, arena, standard, walls, small, options, credits, art, georbec, programming, conan, copyright];
 			//add listeners to buttons
@@ -187,7 +209,8 @@ package Game
 			addEventListener(MouseEvent.CLICK, buttonClicked);
 			addEventListener(Event.ENTER_FRAME, update);
 			
-			optionsMenu = new OptionsMenu(this, 0, 2000);	
+			optionsMenu = new OptionsMenu(this, 0, 2000, displayField);
+			addChild(displayField);
 		}
 		private function mouseOver(event:MouseEvent):void
 		{
@@ -326,10 +349,90 @@ package Game
 						button.scaleX +=0.1;
 						button.scaleY +=0.1;
 					}
-				}else{
+					
+					if(activeButton.toString() == "[object Back]"){
+						if(layer == 0){
+							displayField.text = "No more tofu";
+						}
+						else if(layer == 3){
+							displayField.text = "Tofu do not  live inFire";
+						}
+						else{
+							displayField.text = "Previous tofu";
+						}
+					}
+					else if(activeButton.toString() == "[object Play]"){
+						displayField.text = "Become the tofu of  time"
+					}
+					else if(activeButton.toString() == "[object Options]"){
+						displayField.text = "C hange how you tofu"
+					}
+					else if(activeButton.toString() == "[object Credits]"){
+						displayField.text = "Appreciate the tofu"
+					}
+					else if(activeButton.toString() == "[object Art]"){
+						displayField.text = "Subjective tofu"
+					}
+					else if(activeButton.toString() == "[object Programming]"){
+						displayField.text = "Tofu technology"
+					}
+					else if(activeButton.toString() == "[object Georbec]"){
+						displayField.text = "Tofu Prophet"
+					}
+					else if(activeButton.toString() == "[object Conan]"){
+						displayField.text = "Tofu Wizard"
+					}
+					else if(activeButton.toString() == "[object Copyright]"){
+						displayField.text = "Tofu Birthday"
+					}
+					else if(activeButton.toString() == "[object Tutorial]"){
+						displayField.text = "Learn the movement of  tofu"
+					}
+					else if(activeButton.toString() == "[object platform_wide]"){
+						displayField.text = "Learn the skill of  tofu";
+					}
+					else if(activeButton.toString() == "[object platform_tall]"){
+						displayField.text = "Learn the power of  tofu";
+					}
+					else if(activeButton.toString() == "[object Difficulty]"){
+						displayField.text = "Set your tofu abilities";
+					}
+					else if(activeButton.toString() == "[object Beginner]"){
+						displayField.text = "Begin your tofu journey";
+					}
+					else if(activeButton.toString() == "[object Apprentice]"){
+						displayField.text = "Continue your tofu studies";
+					}
+					else if(activeButton.toString() == "[object Master]"){
+						displayField.text = "Prove your f luency in tofunese";
+					}
+					else if(activeButton.toString() == "[object Mode]"){
+						displayField.text = "Select your tofu way";
+					}
+					else if(activeButton.toString() == "[object Weapons]"){
+						displayField.text = "Tofu of War";
+					}
+					else if(activeButton.toString() == "[object Pacifist]"){
+						displayField.text = "Tofu of Peace";
+					}
+					else if(activeButton.toString() == "[object Arena]"){
+						displayField.text = "Select your tofu home";
+					}
+					else if(activeButton.toString() == "[object Standard]"){
+						displayField.text = "Earth";
+					}
+					else if(activeButton.toString() == "[object Walls]"){
+						displayField.text = "Water";
+					}
+					else if(activeButton.toString() == "[object platform_square]"){
+						displayField.text = "Air";
+					}
+				}
+				else{
 					if(button.scaleX >= 1){
 						button.scaleX -=0.1;
 						button.scaleY -=0.1;
+						displayField.text = "";
 					}
 				}
 			}

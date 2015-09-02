@@ -23,7 +23,7 @@ package Game
 		/**Test background*/
 		public function test():void{
 			//NEW:
-			var fuji:BackgroundObject = new BackgroundObject(60, -70, 195, 130, "fuji");
+			var fuji:BackgroundObject = new BackgroundObject(60, 0, 0.5, 0.5, "fuji");
 			
 			
 			//OLD:

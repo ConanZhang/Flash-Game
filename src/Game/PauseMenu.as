@@ -4,6 +4,8 @@ package Game
 	import flash.display.Sprite;
 	import flash.events.Event;
 	import flash.events.MouseEvent;
+	import flash.text.TextField;
+	import flash.text.TextFormat;
 	
 	import Parents.Stage;
 	
@@ -28,7 +30,29 @@ package Game
 		//options menu text object
 		private var optionsMenu:OptionsMenu;
 		
-		public function PauseMenu(screenP: Stage, x:int, y:int)
+		private var displayField:TextField;
+		private var displayFormat:TextFormat;
+		
+		private var pacifist:Boolean;
+		private var world:int;
+		private var difficulty:int;
+		
+		public const tutorialWorld:int = 0;
+		public const wallWorld:int = 1;
+		public const testWorld:int = 2;
+		public const smallWorld:int = 3;
+		public const dodgeWorld:int = 4;
+		public const weaponWorld:int = 5;
+		
+		public const beginner:int = 0;
+		public const apprentice:int = 1;
+		public const master:int = 2;
+		
+		private var pacifistState:String;
+		private var worldState:String;
+		private var difficultyState:String;
+		
+		public function PauseMenu(screenP: Stage, x:int, y:int, _pacifist:Boolean, _world:int, _difficulty:int)
 		{
 			screen = screenP;
 			screen.addChild(this);
@@ -37,6 +61,9 @@ package Game
 			lastButtonClicked = null;
 			this.x = x;
 			this.y = y;
+			pacifist = _pacifist;
+			world = _world;
+			difficulty = _difficulty;
 			
 			
 			optionsContainer = new Options_Container;
@@ -81,6 +108,61 @@ package Game
 			addEventListener(MouseEvent.CLICK, buttonClicked);
 			addEventListener(Event.ENTER_FRAME, update);
 			
+			displayFormat = new TextFormat();
+			displayFormat.size = 30;
+			displayFormat.align = "left";
+			displayFormat.font = "Zenzai Itacha";
+			
+			displayField = new TextField();
+			displayField.name = "display";
+			displayField.x = -225;
+			displayField.y = 150;
+			displayField.width = 600;
+			displayField.multiline = true;
+			displayField.embedFonts = true;
+			displayField.defaultTextFormat = displayFormat;
+			displayField.textColor = 0xff0000;
+			displayField.selectable = false;
+			
+			if(pacifist){
+				pacifistState = "Pacifist";
+			}
+			else{
+				pacifistState = "Weapons";
+			}
+			
+			if(difficulty == 0){
+				difficultyState = "Beginner";
+			}
+			else if(difficulty == 1){
+				difficultyState = "Apprentice";
+			}
+			else{
+				difficultyState = "Master";
+			}
+			
+			if(world == tutorialWorld){
+				worldState = "Movement";
+			}
+			else if(world == dodgeWorld){
+				worldState = "Dodging";
+			}
+			else if(world == weaponWorld){
+				worldState = "Weapons";
+			}
+			else if(world == testWorld){
+				worldState = "Earth";
+			}
+			else if(world == wallWorld){
+				worldState = "Water";
+			}
+			else if(world == smallWorld){
+				worldState = "Air";
+			}
+				
+			displayField.text = "Arena i " + worldState + "   Difficulty i " + difficultyState + "  Mode i " + pacifistState;
+			
+			addChild(displayField);
 		}
 		
 		protected function mouseOver(event:MouseEvent):void
@@ -130,7 +212,7 @@ package Game
 				newOptionsContainer.y = optionsContainer.y;
 				
 				//put the options text on top of that?
-				optionsMenu = new OptionsMenu(this, -360,-275);
+				optionsMenu = new OptionsMenu(this, -360,-275, displayField);
 				
 				backButton = new Back;
 				buttonContainer.addChild(backButton);
@@ -153,6 +235,7 @@ package Game
 				optionsMenu.destroy();
 				buttonContainer.removeChild(backButton);
 				buttons.pop();
+				displayField.text = "Arena i " + worldState + "   Difficulty i " + difficultyState + "  Mode i " + pacifistState;
 			}		
 		}
 		
@@ -165,10 +248,28 @@ package Game
 						button.scaleX +=0.1;
 						button.scaleY +=0.1;
 					}
-				}else{
+					
+					if(activeButton.toString() == "[object Resume]"){
+						displayField.text = "Return to your tofu";
+					}
+					else if(activeButton.toString() == "[object Restart]"){
+						displayField.text = "Turn back time";
+					}
+					else if(activeButton.toString() == "[object Options_Pause]"){
+						displayField.text = "Customize your tofu on the f ly";
+					}
+					else if(activeButton.toString() == "[object Exit]"){
+						displayField.text = "Leave your tofu to die";
+					}
+					else if(activeButton.toString() == "[object Back]"){
+						displayField.text = "Finish repairing your tofu";
+					}
+				}
+				else{
 					if(button.scaleX >= 1){
 						button.scaleX -=0.1;
 						button.scaleY -=0.1;
+						displayField.text = "Arena i " + worldState + "   Difficulty i " + difficultyState + "  Mode i " + pacifistState;
 					}
 				}
 			}

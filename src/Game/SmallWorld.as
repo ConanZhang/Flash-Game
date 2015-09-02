@@ -76,7 +76,7 @@ package Game
 			
 			//SPIKES
 			for(var j:int = 0; j < 30; j++){
-				var spike:Platform = new Platform(15+(j*11), 10,10, 3, "enemy");
+				var spike:Platform = new Platform(15+(j*11), 2.5,10, 3, "enemy");
 			}
 			
 			//WALLS

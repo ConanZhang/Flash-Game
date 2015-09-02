@@ -92,6 +92,7 @@ package
 			
 			world = 2;
 			pacifist = false;
+			difficulty = beginner;
 			
 			this.addChild(gameReticule);
 			

@@ -6,6 +6,7 @@ package Game
 	
 	import flash.net.SharedObject;
 	
+	import Assets.BigFlyingEnemy;
 	import Assets.Platform;
 	import Assets.Rain;
 	
@@ -30,7 +31,7 @@ package Game
 			screen = screenP;
 			screen.addChildAt(this,0);
 			
-			super(screen,debugging, 30, 7, pacifist, world, 0);
+			super(screen,debugging, 62, 7, pacifist, world, 0);
 			
 			//BACKGROUND
 			background = new Background("test");
@@ -44,12 +45,27 @@ package Game
 			}
 			
 			//GROUND & SKY
-			var ground:Platform = new Platform(7, 15, 300, 15, "b_wide");
-			var sky:Platform = new Platform(7, -110, 300, 15, "b_wide");
+			var ground:Platform = new Platform(7, 15, 100, 15, "b_wide");
+			var sky:Platform = new Platform(7, -110, 100, 15, "b_wide");
 			
 			//WALLS
 			var leftWall:Platform = new Platform(-5,-170, 30, 200, "b_tall");
-			var rightWall:Platform = new Platform(300,-170, 30, 200, "b_tall");
+			var rightWall:Platform = new Platform(100,-170, 30, 200, "b_tall");
+			
+			//PLATFORMS
+			for(var i:int = 0; i < 4; i++){
+				var row9:Platform = new Platform(41+(i*15), -80,0.5, 0.5, "square");
+				var row8:Platform = new Platform(41+(i*15), -70,0.5, 0.5, "square");
+				var row7:Platform = new Platform(41+(i*15), -60,0.5, 0.5, "square");
+				var row6:Platform = new Platform(41+(i*15), -50,0.5, 0.5, "square");
+				var row5:Platform = new Platform(41+(i*15), -40,0.5, 0.5, "square");
+				var row4:Platform = new Platform(41+(i*15), -30,0.5, 0.5, "square");
+				var row3:Platform = new Platform(41+(i*15), -20,0.5, 0.5, "square");
+				var row2:Platform = new Platform(41+(i*15), -10,0.5, 0.5, "square");
+				var row1:Platform = new Platform(41+(i*15), 0,0.5, 0.5, "square");
+			}
+			
+			var practiceEnemy2:BigFlyingEnemy = new BigFlyingEnemy(60, -90, 4, 5);
 		}
 		
 		public override function removeAddRain():void{

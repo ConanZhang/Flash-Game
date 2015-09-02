@@ -121,10 +121,17 @@ package Parents
 		public static var machineFire:Boolean;
 		private var machineDelay:int;
 		
+		private var pacifistState:Boolean;
+		private var worldState:int;
+		private var difficultyState:int;
+		
 		/**Constructor*/
 		public function Stage(screenP:FlashGame, debugging:Boolean, playerX:Number, playerY:Number, pacifist:Boolean, world:int, difficulty:int)
 		{
 			screen = screenP;
+			pacifistState = pacifist;
+			worldState = world;
+			difficultyState = difficulty;
 			
 			/**BOX2D*/
 			//initiate time
@@ -504,7 +511,7 @@ package Parents
 			//pausing
 			if(e.keyCode == OptionsMenu.keybindings.pause || e.keyCode == Keyboard.R){
 				if(paused == false){
-					pauseMenu = new PauseMenu(this, 350, 260);
+					pauseMenu = new PauseMenu(this, 350, 260, pacifistState, worldState, difficultyState);
 					paused = true;
 				}
 				else if(paused == true){

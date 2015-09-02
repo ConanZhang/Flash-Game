@@ -554,7 +554,7 @@ package Game
 				countDownText.text = countDownSeconds+"!";	
 			}
 			else if(countDownSeconds == 0 && !Stage.paused && Player.playerHealth != 0){
-				countDownText.text = "Start!";	
+				countDownText.text = "Fight!";	
 			}
 			else if(countDownSeconds == -1 && minuteDisplay != 3 && Player.playerHealth != 0){
 				countDownText.text = "";
