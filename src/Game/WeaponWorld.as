@@ -201,11 +201,11 @@ package Game
 						var pistolDrop:ItemDrop = new ItemDrop(Math.random()*(190-135) + 135, Math.random()*(10-6)+6, 1.5,1.5, 2);	
 					}
 						//shotgun ammo
-					else if(randomDrop > 0.4 && randomDrop < 0.6){
+					else if(randomDrop > 0.4 && randomDrop < 0.65){
 						var shotgunDrop:ItemDrop = new ItemDrop(Math.random()*(190-135) + 135, Math.random()*(10-6)+6, 2.5,2.5, 3);	
 					}
 						//machinegun ammo
-					else if(randomDrop > 0.6 && randomDrop < 8){
+					else if(randomDrop > 0.65 && randomDrop < 0.9){
 						var machinegunDrop:ItemDrop = new ItemDrop(Math.random()*(190-135) + 135, Math.random()*(10-6)+6, 2,2, 4);	
 					}
 					else{

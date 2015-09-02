@@ -65,7 +65,7 @@ package Assets {
 
 			avoiding = 0;
 			
-			Stage.platformCount++;
+			Stage.bigPlatformCount++;
 			
 			make();
 		}
@@ -389,7 +389,7 @@ package Assets {
 							}
 						}
 					}
-					Stage.platformCount--;
+					Stage.bigPlatformCount--;
 
 					//destroy yourself
 					destroyAll();

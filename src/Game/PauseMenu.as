@@ -197,7 +197,6 @@ package Game
 			}
 			else if(activeButton.toString() == "[object Restart]"){
 				//restart game
-				//exit game
 				Stage.paused = false;
 				destroy();
 				screen.destroy();

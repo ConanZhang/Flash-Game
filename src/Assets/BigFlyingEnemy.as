@@ -75,7 +75,7 @@ package Assets {
 			
 			flyingEnemyFixture = new b2FixtureDef();
 			
-			Stage.flyCount++;
+			Stage.bigFlyCount++;
 
 			make();
 		}
@@ -328,7 +328,7 @@ package Assets {
 							}
 						}
 					}
-					Stage.flyCount--;
+					Stage.bigFlyCount--;
 
 					//destroy yourself
 					destroyAll();

@@ -49,8 +49,16 @@ package Parents
 		public static var paused:Boolean;
 		//flying enemy count
 		public static var flyCount:int;
+		//flying enemy count
+		public static var smallFlyCount:int;
+		//flying enemy count
+		public static var bigFlyCount:int;
 		//platform enemy count
 		public static var platformCount:int;
+		//platform enemy count
+		public static var smallPlatformCount:int;
+		//platform enemy count
+		public static var bigPlatformCount:int;
 		//ammunition count
 		public static var ammunitionCount:int;
 		//array to hold key presses
@@ -142,7 +150,11 @@ package Parents
 			keyPresses = new Array();
 			weaponRotation = 0;
 			flyCount = 0;
+			smallFlyCount = 0;
+			bigFlyCount = 0;
 			platformCount = 0;
+			smallPlatformCount = 0;
+			bigPlatformCount = 0;
 			ammunitionCount = 0;
 			
 			/**VISUAL*/
