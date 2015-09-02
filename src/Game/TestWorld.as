@@ -40,7 +40,7 @@ package Game
 			screen = screenP;
 			screen.addChildAt(this,0);
 			
-			super(screen,debugging, 150, 7, pacifist, world, difficulty);
+			super(screen,debugging, 152, 7, pacifist, world, difficulty);
 			
 			//BACKGROUND
 			background = new Background("test");
@@ -56,7 +56,7 @@ package Game
 			
 			//GROUND & SKY
 			var testGround:Platform = new Platform(7, 15, 275, 15, "b_wide");
-			var testSky:Platform = new Platform(7, -120, 275, 15, "b_wide");
+			var testSky:Platform = new Platform(7, -110, 275, 15, "b_wide");
 
 			//WALLS
 			var leftWall:Platform = new Platform(-5,-170, 30, 200, "b_tall");

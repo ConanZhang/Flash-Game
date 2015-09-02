@@ -142,7 +142,7 @@ package
 					tutorial = new MovementWorld(this, false, pacifist, tutorialWorld, hasRain, settings);	
 				}
 				else if(world == smallWorld){
-					small = new SmallWorld(this, true, pacifist, smallWorld, difficulty, hasRain, settings);	 
+					small = new SmallWorld(this, false, pacifist, smallWorld, difficulty, hasRain, settings);	 
 				}
 			}
 			else if(event.target is MovementWorld || 

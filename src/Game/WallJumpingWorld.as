@@ -43,7 +43,7 @@ package Game
 			screen = screenP;
 			screen.addChildAt(this,0);
 			
-			super(screen,debugging, 139.75, -15, pacifist, world, difficulty);
+			super(screen,debugging, 139.75, -97, pacifist, world, difficulty);
 									
 			//BACKGROUND
 			background = new Background("test");
@@ -72,13 +72,13 @@ package Game
 			}
 			
 			//SPIKES
-			for(var j:int = 0; j < 40; j++){
-				var spike1:Platform = new Platform(-40+(j*11), 10,10, 3, "enemy");
+			for(var j:int = 0; j < 30; j++){
+				var spike:Platform = new Platform(15+(j*11), 10,10, 3, "enemy");
 			}
 			
 			//WALLS
-			var leftWall:Platform = new Platform(-70,-200, 30, 250, "b_tall");
-			var rightWall:Platform = new Platform(400,-200, 30, 250, "b_tall");
+			var leftWall:Platform = new Platform(-15,-200, 30, 250, "b_tall");
+			var rightWall:Platform = new Platform(345,-200, 30, 250, "b_tall");
 			
 			//FLOOR & CEILING
 			var floor:Platform = new Platform(-70, 12.5, 500, 15, "b_wide");
