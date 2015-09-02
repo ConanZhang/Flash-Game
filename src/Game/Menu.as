@@ -4,6 +4,7 @@ package Game
 	import flash.display.Sprite;
 	import flash.events.Event;
 	import flash.events.MouseEvent;
+	import flash.net.SharedObject;
 	import flash.text.TextField;
 	import flash.text.TextFormat;
 
@@ -27,6 +28,7 @@ package Game
 		private var standardBoolean:Boolean;
 		private var back:MovieClip;	
 		private var play:MovieClip;
+		private var highscore:MovieClip;
 		private var difficulty:MovieClip;
 		private var beginner:MovieClip;
 		private var apprentice:MovieClip;
@@ -52,8 +54,43 @@ package Game
 		private var displayField:TextField;
 		private var displayFormat:TextFormat;
 		
+		private var highscoreFormat:TextFormat;
+		private var pacifistLabel:TextField;
+		private var weaponsLabel:TextField;
+		private var beginnerLabel:TextField;
+		private var apprenticeLabel:TextField;
+		private var masterLabel:TextField;
+		private var earthLabel1:TextField;
+		private var waterLabel1:TextField;
+		private var airLabel1:TextField;
+		private var earthLabel2:TextField;
+		private var waterLabel2:TextField;
+		private var airLabel2:TextField;
+		
+		private var pacifistBeginnerStandard:String;
+		private var pacifistBeginnerWall:String;
+		private var pacifistBeginnerSmall:String;
+		private var pacifistApprenticeStandard:String;
+		private var pacifistApprenticeWall:String;
+		private var pacifistApprenticeSmall:String;
+		private var pacifistMasterStandard:String;
+		private var pacifistMasterWall:String;
+		private var pacifistMasterSmall:String;
+		
+		private var weaponsBeginnerStandard:String;
+		private var weaponsBeginnerWall:String;
+		private var weaponsBeginnerSmall:String;
+		private var weaponsApprenticeStandard:String;
+		private var weaponsApprenticeWall:String;
+		private var weaponsApprenticeSmall:String;
+		private var weaponsMasterStandard:String;
+		private var weaponsMasterWall:String;
+		private var weaponsMasterSmall:String;
+		
 		private var screen:Sprite;
 		private var optionsMenu:OptionsMenu;
+		
+		private var highScore:SharedObject;
 		
 		public function Menu(screenP:Sprite)
 		{			
@@ -98,6 +135,7 @@ package Game
 			title.scaleY = 0.65;
 			back = new Back;
 			play = new Play;
+			highscore = new ammobox_pistol;
 			difficulty = new Difficulty;
 			tutorial = new Tutorial;
 			dodgeTutorial = new platform_wide;
@@ -136,6 +174,9 @@ package Game
 			buttonContainer.addChild(play);
 			play.x = 150;
 			play.y = 150;
+			buttonContainer.addChild(highscore);
+			highscore.x = 150;
+			highscore.y = 350;
 			buttonContainer.addChild(difficulty);
 			difficulty.x = 350;
 			difficulty.y = 600;
@@ -148,7 +189,7 @@ package Game
 			buttonContainer.addChild(master);
 			master.x = 525;
 			master.y = 850;
-			buttonContainer.addChild(tutorial);
+			buttonContainer.addChild(tutorial); 	
 			tutorial.x = 100;
 			tutorial.y = 700;
 			buttonContainer.addChild(dodgeTutorial);
@@ -200,9 +241,359 @@ package Game
 			copyright.x = 350;
 			copyright.y = 2950;
 			
+			highScore = SharedObject.getLocal("HighScore");
+			
+			var scores:Array;
+			
+			if(highScore.data.pacifistBeginnerStandard != null &&
+				highScore.data.pacifistBeginnerWall != null &&
+				highScore.data.pacifistBeginnerSmall != null &&
+				highScore.data.pacifistApprenticeStandard != null &&
+				highScore.data.pacifistApprenticeWall != null &&
+				highScore.data.pacifistApprenticeSmall != null &&
+				highScore.data.pacifistMasterStandard != null &&
+				highScore.data.pacifistMasterWall != null &&
+				highScore.data.pacifistMasterSmall != null &&
+				highScore.data.weaponsBeginnerTutorial != null &&
+				highScore.data.weaponsBeginnerDodge != null &&
+				highScore.data.weaponsBeginnerWeapon != null &&
+				highScore.data.weaponsBeginnerStandard != null &&
+				highScore.data.weaponsBeginnerWall != null &&
+				highScore.data.weaponsBeginnerSmall != null &&
+				highScore.data.weaponsApprenticeStandard != null &&
+				highScore.data.weaponsApprenticeWall != null &&
+				highScore.data.weaponsApprenticeSmall != null &&
+				highScore.data.weaponsMasterStandard != null &&
+				highScore.data.weaponsMasterWall != null &&
+				highScore.data.weaponsMasterSmall != null){
+				
+				scores = highScore.data.pacifistBeginnerStandard;
+				if(scores[1] < 10){
+					pacifistBeginnerStandard = scores[0].toString() + " i 0" + scores[1].toString();
+				}
+				else{
+					pacifistBeginnerStandard = scores[0].toString() + " i " + scores[1].toString();	
+				}
+				
+				scores = highScore.data.pacifistBeginnerWall;
+				if(scores[1] < 10){
+					pacifistBeginnerWall = scores[0].toString() + " i 0" + scores[1].toString();
+				}
+				else{
+					pacifistBeginnerWall = scores[0].toString() + " i " + scores[1].toString();	
+				}
+				
+				scores = highScore.data.pacifistBeginnerSmall;
+				if(scores[1] < 10){
+					pacifistBeginnerSmall = scores[0].toString() + " i 0" + scores[1].toString();
+				}
+				else{
+					pacifistBeginnerSmall = scores[0].toString() + " i " + scores[1].toString();	
+				}
+				
+				scores = highScore.data.pacifistApprenticeStandard;
+				if(scores[1] < 10){
+					pacifistApprenticeStandard = scores[0].toString() + " i 0" + scores[1].toString();
+				}
+				else{
+					pacifistApprenticeStandard = scores[0].toString() + " i " + scores[1].toString();	
+				}
+				
+				scores = highScore.data.pacifistApprenticeWall;
+				if(scores[1] < 10){
+					pacifistApprenticeWall = scores[0].toString() + " i 0" + scores[1].toString();
+				}
+				else{
+					pacifistApprenticeWall = scores[0].toString() + " i " + scores[1].toString();	
+				}
+				
+				scores = highScore.data.pacifistApprenticeSmall;
+				if(scores[1] < 10){
+					pacifistApprenticeSmall = scores[0].toString() + " i 0" + scores[1].toString();
+				}
+				else{
+					pacifistApprenticeSmall = scores[0].toString() + " i " + scores[1].toString();	
+				}
+				
+				scores = highScore.data.pacifistMasterStandard;
+				if(scores[1] < 10){
+					pacifistMasterStandard = scores[0].toString() + " i 0" + scores[1].toString();
+				}
+				else{
+					pacifistMasterStandard = scores[0].toString() + " i " + scores[1].toString();	
+				}
+				
+				scores = highScore.data.pacifistMasterWall;
+				if(scores[1] < 10){
+					pacifistMasterWall = scores[0].toString() + " i 0" + scores[1].toString();
+				}
+				else{
+					pacifistMasterWall = scores[0].toString() + " i " + scores[1].toString();	
+				}
+				
+				scores = highScore.data.pacifistMasterSmall;
+				if(scores[1] < 10){
+					pacifistMasterSmall = scores[0].toString() + " i 0" + scores[1].toString();
+				}
+				else{
+					pacifistMasterSmall = scores[0].toString() + " i " + scores[1].toString();	
+				}
+				
+				scores = highScore.data.weaponsBeginnerStandard;
+				if(scores[1] < 10){
+					weaponsBeginnerStandard = scores[0].toString() + " i 0" + scores[1].toString();
+				}
+				else{
+					weaponsBeginnerStandard = scores[0].toString() + " i " + scores[1].toString();	
+				}
+				
+				scores = highScore.data.weaponsBeginnerWall;
+				if(scores[1] < 10){
+					weaponsBeginnerWall = scores[0].toString() + " i 0" + scores[1].toString();
+				}
+				else{
+					weaponsBeginnerWall = scores[0].toString() + " i " + scores[1].toString();	
+				}
+				
+				scores = highScore.data.weaponsBeginnerSmall;
+				if(scores[1] < 10){
+					weaponsBeginnerSmall = scores[0].toString() + " i 0" + scores[1].toString();
+				}
+				else{
+					weaponsBeginnerSmall = scores[0].toString() + " i " + scores[1].toString();	
+				}
+				
+				scores = highScore.data.weaponsApprenticeStandard;
+				if(scores[1] < 10){
+					weaponsApprenticeStandard = scores[0].toString() + " i 0" + scores[1].toString();
+				}
+				else{
+					weaponsApprenticeStandard = scores[0].toString() + " i " + scores[1].toString();	
+				}
+				
+				scores = highScore.data.weaponsApprenticeWall;
+				if(scores[1] < 10){
+					weaponsApprenticeWall = scores[0].toString() + " i 0" + scores[1].toString();
+				}
+				else{
+					weaponsApprenticeWall = scores[0].toString() + " i " + scores[1].toString();	
+				}
+				
+				scores = highScore.data.weaponsApprenticeSmall;
+				if(scores[1] < 10){
+					weaponsApprenticeSmall = scores[0].toString() + " i 0" + scores[1].toString();
+				}
+				else{
+					weaponsApprenticeSmall = scores[0].toString() + " i " + scores[1].toString();	
+				}
+				
+				scores = highScore.data.weaponsMasterStandard;
+				if(scores[1] < 10){
+					weaponsMasterStandard = scores[0].toString() + " i 0" + scores[1].toString();
+				}
+				else{
+					weaponsMasterStandard = scores[0].toString() + " i " + scores[1].toString();	
+				}
+				
+				scores = highScore.data.weaponsMasterWall;
+				if(scores[1] < 10){
+					weaponsMasterWall = scores[0].toString() + " i 0" + scores[1].toString();
+				}
+				else{
+					weaponsMasterWall = scores[0].toString() + " i " + scores[1].toString();	
+				}
+				
+				scores = highScore.data.weaponsMasterSmall;
+				if(scores[1] < 10){
+					weaponsMasterSmall = scores[0].toString() + " i 0" + scores[1].toString();
+				}
+				else{
+					weaponsMasterSmall = scores[0].toString() + " i " + scores[1].toString();	
+				}
+			}
+			else{
+				scores = [0,0];
+				
+				highScore.data.pacifistBeginnerStandard = scores;
+				highScore.data.pacifistBeginnerWall = scores;
+				highScore.data.pacifistBeginnerSmall = scores;
+				highScore.data.pacifistApprenticeStandard = scores;
+				highScore.data.pacifistApprenticeWall = scores;
+				highScore.data.pacifistApprenticeSmall = scores;
+				highScore.data.pacifistMasterStandard = scores;
+				highScore.data.pacifistMasterWall = scores;
+				highScore.data.pacifistMasterSmall = scores;
+				highScore.data.weaponsBeginnerTutorial = scores;
+				highScore.data.weaponsBeginnerDodge = scores;
+				highScore.data.weaponsBeginnerWeapon = scores;
+				highScore.data.weaponsBeginnerStandard = scores;
+				highScore.data.weaponsBeginnerWall = scores;
+				highScore.data.weaponsBeginnerSmall = scores;
+				highScore.data.weaponsApprenticeStandard = scores;
+				highScore.data.weaponsApprenticeWall = scores;
+				highScore.data.weaponsApprenticeSmall = scores;
+				highScore.data.weaponsMasterStandard = scores;
+				highScore.data.weaponsMasterWall = scores;
+				highScore.data.weaponsMasterSmall = scores;
+			
+				pacifistBeginnerStandard= "0 i 00";
+				pacifistBeginnerWall= "0 i 00";
+				pacifistBeginnerSmall= "0 i 00";
+				pacifistApprenticeStandard= "0 i 00";
+				pacifistApprenticeWall= "0 i 00";
+				pacifistApprenticeSmall= "0 i 00";
+				pacifistMasterStandard= "0 i 00";
+				pacifistMasterWall= "0 i 00";
+				pacifistMasterSmall= "0 i 00";
+				
+				weaponsBeginnerStandard= "0 i 00";
+				weaponsBeginnerWall= "0 i 00";
+				weaponsBeginnerSmall= "0 i 00";
+				weaponsApprenticeStandard= "0 i 00";
+				weaponsApprenticeWall= "0 i 00";
+				weaponsApprenticeSmall= "0 i 00";
+				weaponsMasterStandard= "0 i 00";
+				weaponsMasterWall= "0 i 00";
+				weaponsMasterSmall= "0 i 00";
+				
+				highScore.flush();
+			}
+			
+			highscoreFormat = new TextFormat();
+			highscoreFormat.size = 30;
+			highscoreFormat.align = "left";
+			highscoreFormat.font = "Zenzai Itacha";
+			
+			pacifistLabel = new TextField();
+			pacifistLabel.name = "pacifistLabel";
+			pacifistLabel.x = 330;
+			pacifistLabel.y = 3075;
+			pacifistLabel.embedFonts = true;
+			pacifistLabel.defaultTextFormat = highscoreFormat;
+			pacifistLabel.textColor = 0xff0000;
+			pacifistLabel.selectable = false;
+			pacifistLabel.text = "Pacifist";
+			
+			weaponsLabel = new TextField();
+			weaponsLabel.name = "weaponsLabel";
+			weaponsLabel.x = 330;
+			weaponsLabel.y = 3280;
+			weaponsLabel.embedFonts = true;
+			weaponsLabel.defaultTextFormat = highscoreFormat;
+			weaponsLabel.textColor = 0xff0000;
+			weaponsLabel.selectable = false;
+			weaponsLabel.text = "Weapons";
+			
+			beginnerLabel = new TextField();
+			beginnerLabel.name = "beginnerLabel";
+			beginnerLabel.x = 130;
+			beginnerLabel.y = 3030;
+			beginnerLabel.embedFonts = true;
+			beginnerLabel.defaultTextFormat = highscoreFormat;
+			beginnerLabel.textColor = 0xff0000;
+			beginnerLabel.selectable = false;
+			beginnerLabel.text = "Beginner";
+			
+			apprenticeLabel = new TextField();
+			apprenticeLabel.name = "apprenticeLabel";
+			apprenticeLabel.x = 330;
+			apprenticeLabel.y = 3030;
+			apprenticeLabel.embedFonts = true;
+			apprenticeLabel.defaultTextFormat = highscoreFormat;
+			apprenticeLabel.textColor = 0xff0000;
+			apprenticeLabel.selectable = false;
+			apprenticeLabel.text = "Apprentice";
+			
+			masterLabel = new TextField();
+			masterLabel.name = "masterLabel";
+			masterLabel.x = 530;
+			masterLabel.y = 3030;
+			masterLabel.embedFonts = true;
+			masterLabel.defaultTextFormat = highscoreFormat;
+			masterLabel.textColor = 0xff0000;
+			masterLabel.selectable = false;
+			masterLabel.text = "Master";
+			
+			earthLabel1 = new TextField();
+			earthLabel1.name = "earthLabel1";
+			earthLabel1.x = 60;
+			earthLabel1.y = 3130;
+			earthLabel1.width = 600;
+			earthLabel1.embedFonts = true;
+			earthLabel1.defaultTextFormat = highscoreFormat;
+			earthLabel1.textColor = 0xff0000;
+			earthLabel1.selectable = false;
+			earthLabel1.text = "Earth" + "       " +pacifistBeginnerStandard + "                       " + pacifistApprenticeStandard + "                        " + pacifistMasterStandard;
+
+			waterLabel1 = new TextField();
+			waterLabel1.name = "waterLabel1";
+			waterLabel1.x = 60;
+			waterLabel1.y = 3180;
+			waterLabel1.width = 600;
+			waterLabel1.embedFonts = true;
+			waterLabel1.defaultTextFormat = highscoreFormat;
+			waterLabel1.textColor = 0xff0000;
+			waterLabel1.selectable = false;
+			waterLabel1.text = "Water" + "   " +pacifistBeginnerWall + "                       " + pacifistApprenticeWall + "                        " + pacifistMasterWall;
+
+			airLabel1 = new TextField();
+			airLabel1.name = "airLabel1";
+			airLabel1.x = 60;
+			airLabel1.y = 3230;
+			airLabel1.width = 600;
+			airLabel1.embedFonts = true;
+			airLabel1.defaultTextFormat = highscoreFormat;
+			airLabel1.textColor = 0xff0000;
+			airLabel1.selectable = false;
+			airLabel1.text = "Air" + "       " +pacifistBeginnerSmall + "                       " + pacifistApprenticeSmall + "                        " + pacifistMasterSmall;
+			
+			earthLabel2 = new TextField();
+			earthLabel2.name = "earthLabel2";
+			earthLabel2.x = 60;
+			earthLabel2.y = 3335;
+			earthLabel2.width = 600;
+			earthLabel2.embedFonts = true;
+			earthLabel2.defaultTextFormat = highscoreFormat;
+			earthLabel2.textColor = 0xff0000;
+			earthLabel2.selectable = false;
+			earthLabel2.text = "Earth" + "       " +weaponsBeginnerStandard + "                       " + weaponsApprenticeStandard + "                        " + weaponsMasterStandard;
+			
+			waterLabel2 = new TextField();
+			waterLabel2.name = "waterLabel2";
+			waterLabel2.x = 60;
+			waterLabel2.y = 3385;
+			waterLabel2.width = 600;
+			waterLabel2.embedFonts = true;
+			waterLabel2.defaultTextFormat = highscoreFormat;
+			waterLabel2.textColor = 0xff0000;
+			waterLabel2.selectable = false;
+			waterLabel2.text = "Water" + "   " +weaponsBeginnerWall + "                       " + weaponsApprenticeWall + "                        " + weaponsMasterWall;
+			
+			airLabel2 = new TextField();
+			airLabel2.name = "airLabel2";
+			airLabel2.x = 60;
+			airLabel2.y = 3435;
+			airLabel2.width = 600;
+			airLabel2.embedFonts = true;
+			airLabel2.defaultTextFormat = highscoreFormat;
+			airLabel2.textColor = 0xff0000;
+			airLabel2.selectable = false;
+			airLabel2.text = "Air" + "       " +weaponsBeginnerSmall + "                       " + weaponsApprenticeSmall + "                        " + weaponsMasterSmall;
+			
+			buttonContainer.addChild(pacifistLabel);
+			buttonContainer.addChild(weaponsLabel);
+			buttonContainer.addChild(beginnerLabel);
+			buttonContainer.addChild(apprenticeLabel);
+			buttonContainer.addChild(masterLabel);
+			buttonContainer.addChild(earthLabel1);
+			buttonContainer.addChild(waterLabel1);
+			buttonContainer.addChild(airLabel1);
+			buttonContainer.addChild(earthLabel2);
+			buttonContainer.addChild(waterLabel2);
+			buttonContainer.addChild(airLabel2);
 			
 			//fill array(s?)
-			buttons = [back, play, difficulty, tutorial, dodgeTutorial, weaponTutorial, beginner, apprentice, master, mode, weapons, pacifist, arena, standard, walls, small, options, credits, art, georbec, programming, conan, copyright];
+			buttons = [back, play, highscore, difficulty, tutorial, dodgeTutorial, weaponTutorial, beginner, apprentice, master, mode, weapons, pacifist, arena, standard, walls, small, options, credits, art, georbec, programming, conan, copyright];
 			//add listeners to buttons
 			addEventListener(MouseEvent.MOUSE_OVER, mouseOver);
 			addEventListener(MouseEvent.MOUSE_OUT, mouseOut);
@@ -249,9 +640,14 @@ package Game
 					layer = 0;
 				else if(layer == 5)
 					layer = 0;
+				else if(layer == 6)
+					layer = 0;
 			}
-			if(activeButton.toString() == "[object Play]"){
+			else if(activeButton.toString() == "[object Play]"){
 				layer = 1;
+			}
+			else if(activeButton.toString() == "[object ammobox_pistol]"){
+				layer = 6;
 			}
 			else if(activeButton.toString() == "[object Tutorial]"){
 				FlashGame.setDifficulty(0);
@@ -292,11 +688,11 @@ package Game
 				layer = 3;
 			}
 			else if(activeButton.toString() == "[object Standard]"){
-				FlashGame.setWorld(2);
+				FlashGame.setWorld(1);
 				destroy();
 			}
 			else if(activeButton.toString() == "[object Walls]"){
-				FlashGame.setWorld(1);
+				FlashGame.setWorld(2);
 				destroy();
 			}
 			else if(activeButton.toString() == "[object platform_square]"){
@@ -328,6 +724,9 @@ package Game
 					break;
 				case 5: //Credits
 					containerGoalY = 2500;
+					break;
+				case 6: //Highscore
+					containerGoalY = 3000;
 					break;
 			}
 		}
@@ -363,6 +762,9 @@ package Game
 					}
 					else if(activeButton.toString() == "[object Play]"){
 						displayField.text = "Become the tofu of  time"
+					}
+					else if(activeButton.toString() == "[object ammobox_pistol]"){
+						displayField.text = "Admire your tofu"
 					}
 					else if(activeButton.toString() == "[object Options]"){
 						displayField.text = "C hange how you tofu"
@@ -410,10 +812,10 @@ package Game
 						displayField.text = "Select your tofu way";
 					}
 					else if(activeButton.toString() == "[object Weapons]"){
-						displayField.text = "Tofu of War";
+						displayField.text = "Tofu of War uses Guns";
 					}
 					else if(activeButton.toString() == "[object Pacifist]"){
-						displayField.text = "Tofu of Peace";
+						displayField.text = "Tofu of Peace only Avoids";
 					}
 					else if(activeButton.toString() == "[object Arena]"){
 						displayField.text = "Select your tofu home";

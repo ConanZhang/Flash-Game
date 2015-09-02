@@ -220,180 +220,128 @@ package Game
 
 			var scores:Array;
 
-			if(highScore.data.pacifistBeginnerStandard != null &&
-				highScore.data.pacifistBeginnerWall != null &&
-				highScore.data.pacifistBeginnerSmall != null &&
-				highScore.data.pacifistApprenticeStandard != null &&
-				highScore.data.pacifistApprenticeWall != null &&
-				highScore.data.pacifistApprenticeSmall != null &&
-				highScore.data.pacifistMasterStandard != null &&
-				highScore.data.pacifistMasterWall != null &&
-				highScore.data.pacifistMasterSmall != null &&
-				highScore.data.weaponsBeginnerTutorial != null &&
-				highScore.data.weaponsBeginnerDodge != null &&
-				highScore.data.weaponsBeginnerWeapon != null &&
-				highScore.data.weaponsBeginnerStandard != null &&
-				highScore.data.weaponsBeginnerWall != null &&
-				highScore.data.weaponsBeginnerSmall != null &&
-				highScore.data.weaponsApprenticeStandard != null &&
-				highScore.data.weaponsApprenticeWall != null &&
-				highScore.data.weaponsApprenticeSmall != null &&
-				highScore.data.weaponsMasterStandard != null &&
-				highScore.data.weaponsMasterWall != null &&
-				highScore.data.weaponsMasterSmall != null){
-				
-				if(pacifist){
-					if(difficulty == 0){
-						if(world == 1){
-							scores = highScore.data.pacifistBeginnerStandard;
-							highMinute = scores[0];
-							highSecond = scores[1];
-						}
-						else if(world == 2){
-							scores = highScore.data.pacifistBeginnerWall;
-							highMinute = scores[0];
-							highSecond = scores[1];
-						}
-						else{
-							scores = highScore.data.pacifistBeginnerSmall;
-							highMinute = scores[0];
-							highSecond = scores[1];
-						}
+			if(pacifist){
+				if(difficulty == 0){
+					if(world == 1){
+						scores = highScore.data.pacifistBeginnerStandard;
+						highMinute = scores[0];
+						highSecond = scores[1];
 					}
-					else if(difficulty == 1){
-						if(world == 1){
-							scores = highScore.data.pacifistApprenticeStandard;
-							highMinute = scores[0];
-							highSecond = scores[1];
-						}
-						else if(world == 2){
-							scores = highScore.data.pacifistApprenticeWall;
-							highMinute = scores[0];
-							highSecond = scores[1];
-						}
-						else{
-							scores = highScore.data.pacifistApprenticeSmall;
-							highMinute = scores[0];
-							highSecond = scores[1];
-						}
+					else if(world == 2){
+						scores = highScore.data.pacifistBeginnerWall;
+						highMinute = scores[0];
+						highSecond = scores[1];
 					}
 					else{
-						if(world == 1){
-							scores = highScore.data.pacifistMasterStandard;
-							highMinute = scores[0];
-							highSecond = scores[1];
-						}
-						else if(world == 2){
-							scores = highScore.data.pacifistMasterWall;
-							highMinute = scores[0];
-							highSecond = scores[1];
-						}
-						else if(world == 3){
-							scores = highScore.data.pacifistMasterSmall;
-							highMinute = scores[0];
-							highSecond = scores[1];
-						}
+						scores = highScore.data.pacifistBeginnerSmall;
+						highMinute = scores[0];
+						highSecond = scores[1];
+					}
+				}
+				else if(difficulty == 1){
+					if(world == 1){
+						scores = highScore.data.pacifistApprenticeStandard;
+						highMinute = scores[0];
+						highSecond = scores[1];
+					}
+					else if(world == 2){
+						scores = highScore.data.pacifistApprenticeWall;
+						highMinute = scores[0];
+						highSecond = scores[1];
+					}
+					else{
+						scores = highScore.data.pacifistApprenticeSmall;
+						highMinute = scores[0];
+						highSecond = scores[1];
 					}
 				}
 				else{
-					if(difficulty == 0){
-						if(world == 0){
-							scores = highScore.data.weaponsBeginnerTutorial;
-							highMinute = scores[0];
-							highSecond = scores[1];
-						}
-						else if(world == 1){
-							scores = highScore.data.weaponsBeginnerStandard;
-							highMinute = scores[0];
-							highSecond = scores[1];
-						}
-						else if(world == 2){
-							scores = highScore.data.weaponsBeginnerWall;
-							highMinute = scores[0];
-							highSecond = scores[1];
-						}
-						else if(world == 3){
-							scores = highScore.data.weaponsBeginnerSmall;
-							highMinute = scores[0];
-							highSecond = scores[1];
-						}
-						else if(world == 4){
-							scores = highScore.data.weaponsBeginnerDodge;
-							highMinute = scores[0];
-							highSecond = scores[1];
-						}
-						else if(world == 5){
-							scores = highScore.data.weaponsBeginnerWeapon;
-							highMinute = scores[0];
-							highSecond = scores[1];
-						}
+					if(world == 1){
+						scores = highScore.data.pacifistMasterStandard;
+						highMinute = scores[0];
+						highSecond = scores[1];
 					}
-					else if(difficulty == 1){
-						if(world == 1){
-							scores = highScore.data.weaponsApprenticeStandard;
-							highMinute = scores[0];
-							highSecond = scores[1];
-						}
-						else if(world == 2){
-							scores = highScore.data.weaponsApprenticeWall;
-							highMinute = scores[0];
-							highSecond = scores[1];
-						}
-						else if(world == 3){
-							scores = highScore.data.weaponsApprenticeSmall;
-							highMinute = scores[0];
-							highSecond = scores[1];
-						}
+					else if(world == 2){
+						scores = highScore.data.pacifistMasterWall;
+						highMinute = scores[0];
+						highSecond = scores[1];
 					}
-					else{
-						if(world == 1){
-							scores = highScore.data.weaponsMasterStandard;
-							highMinute = scores[0];
-							highSecond = scores[1];
-						}
-						else if(world == 2){
-							scores = highScore.data.weaponsMasterWall;
-							highMinute = scores[0];
-							highSecond = scores[1];
-						}
-						else if(world == 3){
-							scores = highScore.data.weaponsMasterSmall;
-							highMinute = scores[0];
-							highSecond = scores[1];
-						}
+					else if(world == 3){
+						scores = highScore.data.pacifistMasterSmall;
+						highMinute = scores[0];
+						highSecond = scores[1];
 					}
 				}
 			}
 			else{
-				scores = [0,0];
-				
-				highScore.data.pacifistBeginnerStandard = scores;
-				highScore.data.pacifistBeginnerWall = scores;
-				highScore.data.pacifistBeginnerSmall = scores;
-				highScore.data.pacifistApprenticeStandard = scores;
-				highScore.data.pacifistApprenticeWall = scores;
-				highScore.data.pacifistApprenticeSmall = scores;
-				highScore.data.pacifistMasterStandard = scores;
-				highScore.data.pacifistMasterWall = scores;
-				highScore.data.pacifistMasterSmall = scores;
-				highScore.data.weaponsBeginnerTutorial = scores;
-				highScore.data.weaponsBeginnerDodge = scores;
-				highScore.data.weaponsBeginnerWeapon = scores;
-				highScore.data.weaponsBeginnerStandard = scores;
-				highScore.data.weaponsBeginnerWall = scores;
-				highScore.data.weaponsBeginnerSmall = scores;
-				highScore.data.weaponsApprenticeStandard = scores;
-				highScore.data.weaponsApprenticeWall = scores;
-				highScore.data.weaponsApprenticeSmall = scores;
-				highScore.data.weaponsMasterStandard = scores;
-				highScore.data.weaponsMasterWall = scores;
-				highScore.data.weaponsMasterSmall = scores;
-				
-				highScore.flush();
-				
-				highMinute = 0;
-				highSecond = 0;
+				if(difficulty == 0){
+					if(world == 0){
+						scores = highScore.data.weaponsBeginnerTutorial;
+						highMinute = scores[0];
+						highSecond = scores[1];
+					}
+					else if(world == 1){
+						scores = highScore.data.weaponsBeginnerStandard;
+						highMinute = scores[0];
+						highSecond = scores[1];
+					}
+					else if(world == 2){
+						scores = highScore.data.weaponsBeginnerWall;
+						highMinute = scores[0];
+						highSecond = scores[1];
+					}
+					else if(world == 3){
+						scores = highScore.data.weaponsBeginnerSmall;
+						highMinute = scores[0];
+						highSecond = scores[1];
+					}
+					else if(world == 4){
+						scores = highScore.data.weaponsBeginnerDodge;
+						highMinute = scores[0];
+						highSecond = scores[1];
+					}
+					else if(world == 5){
+						scores = highScore.data.weaponsBeginnerWeapon;
+						highMinute = scores[0];
+						highSecond = scores[1];
+					}
+				}
+				else if(difficulty == 1){
+					if(world == 1){
+						scores = highScore.data.weaponsApprenticeStandard;
+						highMinute = scores[0];
+						highSecond = scores[1];
+					}
+					else if(world == 2){
+						scores = highScore.data.weaponsApprenticeWall;
+						highMinute = scores[0];
+						highSecond = scores[1];
+					}
+					else if(world == 3){
+						scores = highScore.data.weaponsApprenticeSmall;
+						highMinute = scores[0];
+						highSecond = scores[1];
+					}
+				}
+				else{
+					if(world == 1){
+						scores = highScore.data.weaponsMasterStandard;
+						highMinute = scores[0];
+						highSecond = scores[1];
+					}
+					else if(world == 2){
+						scores = highScore.data.weaponsMasterWall;
+						highMinute = scores[0];
+						highSecond = scores[1];
+					}
+					else if(world == 3){
+						scores = highScore.data.weaponsMasterSmall;
+						highMinute = scores[0];
+						highSecond = scores[1];
+					}
+				}
 			}
+			
 
 			minuteDisplay = 0;
 			secondDisplay = 0;
