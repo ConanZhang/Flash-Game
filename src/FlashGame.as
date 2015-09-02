@@ -153,10 +153,10 @@ package
 					small = new SmallWorld(this, false, pacifist, smallWorld, difficulty, hasRain, settings);	 
 				}
 				else if(world == dodgeWorld){
-					dodge = new DodgeWorld(this, true, pacifist, dodgeWorld, hasRain, settings);	
+					dodge = new DodgeWorld(this, false, pacifist, dodgeWorld, hasRain, settings);	
 				}
 				else{
-					weapon = new WeaponWorld(this, true, pacifist, weaponWorld, hasRain, settings);	
+					weapon = new WeaponWorld(this, false, pacifist, weaponWorld, hasRain, settings);	
 				}
 			}
 			else if(event.target is MovementWorld || 

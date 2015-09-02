@@ -1,6 +1,6 @@
 ###GOAL
 
-Survive for 3 minutes. Scavenge for randomly dropped ammo and avoid randomly spawning enemies!
+Scavenge for randomly dropped ammo and avoid randomly spawning enemies for as long as you can!
 
 ###KEYBOARD CONTROLS
 
