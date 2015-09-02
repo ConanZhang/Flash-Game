@@ -38,8 +38,8 @@ package Game
 		private var difficulty:int;
 		
 		public const tutorialWorld:int = 0;
-		public const wallWorld:int = 1;
-		public const testWorld:int = 2;
+		public const testWorld:int = 1;
+		public const wallWorld:int = 2;
 		public const smallWorld:int = 3;
 		public const dodgeWorld:int = 4;
 		public const weaponWorld:int = 5;

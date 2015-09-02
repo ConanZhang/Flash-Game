@@ -90,7 +90,7 @@ package
 			gameReticule.width = 25;
 			gameReticule.height = 25;
 			
-			world = 2;
+			world = 1;
 			pacifist = false;
 			difficulty = beginner;
 			
@@ -143,8 +143,7 @@ package
 					test = new TestWorld(this, false, pacifist, testWorld, difficulty, hasRain, settings);
 				}
 				else if(world == wallWorld){
-					walls = new WallJumpingWorld(this, false, pacifist, wallWorld,
-						difficulty, hasRain, settings);	
+					walls = new WallJumpingWorld(this, false, pacifist, wallWorld,difficulty, hasRain, settings);	
 				}
 				else if(world == tutorialWorld){
 					tutorial = new MovementWorld(this, false, pacifist, tutorialWorld, hasRain, settings);	

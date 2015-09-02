@@ -812,7 +812,7 @@ package Game
 						displayField.text = "Select your tofu way";
 					}
 					else if(activeButton.toString() == "[object Weapons]"){
-						displayField.text = "Tofu of War uses Guns";
+						displayField.text = "Tofu of War uses guns";
 					}
 					else if(activeButton.toString() == "[object Pacifist]"){
 						displayField.text = "Tofu of Peace only Avoids";
