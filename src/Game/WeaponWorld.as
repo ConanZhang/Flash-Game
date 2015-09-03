@@ -82,7 +82,7 @@ package Game
 			var pistolDrop1:ItemDrop = new ItemDrop(110, 8, 1.5,1.5, 2);				
 			var shotgunDrop1:ItemDrop = new ItemDrop(125, 8, 2.5,2.5, 3);				
 			var machinegunDrop1:ItemDrop = new ItemDrop(130, 8, 2,2, 4);	
-			var heartDrop1:ItemDrop = new ItemDrop(132, 7, 1.5,1.5, 1);
+			var heartDrop1:ItemDrop = new ItemDrop(135, 8, 1.5,1.5, 1);
 			
 			var endPlatform:Platform = new Platform(185, 5,10, 2, "wide");
 			
