@@ -467,7 +467,7 @@ package Game
 			pacifistLabel = new TextField();
 			pacifistLabel.name = "pacifistLabel";
 			pacifistLabel.x = 330;
-			pacifistLabel.y = 3075;
+			pacifistLabel.y = 3280;
 			pacifistLabel.embedFonts = true;
 			pacifistLabel.defaultTextFormat = highscoreFormat;
 			pacifistLabel.textColor = 0xff0000;
@@ -477,7 +477,7 @@ package Game
 			weaponsLabel = new TextField();
 			weaponsLabel.name = "weaponsLabel";
 			weaponsLabel.x = 330;
-			weaponsLabel.y = 3280;
+			weaponsLabel.y = 3075;
 			weaponsLabel.embedFonts = true;
 			weaponsLabel.defaultTextFormat = highscoreFormat;
 			weaponsLabel.textColor = 0xff0000;
@@ -517,7 +517,7 @@ package Game
 			earthLabel1 = new TextField();
 			earthLabel1.name = "earthLabel1";
 			earthLabel1.x = 60;
-			earthLabel1.y = 3130;
+			earthLabel1.y = 3335;
 			earthLabel1.width = 600;
 			earthLabel1.embedFonts = true;
 			earthLabel1.defaultTextFormat = highscoreFormat;
@@ -528,7 +528,7 @@ package Game
 			waterLabel1 = new TextField();
 			waterLabel1.name = "waterLabel1";
 			waterLabel1.x = 60;
-			waterLabel1.y = 3180;
+			waterLabel1.y = 3385;
 			waterLabel1.width = 600;
 			waterLabel1.embedFonts = true;
 			waterLabel1.defaultTextFormat = highscoreFormat;
@@ -539,7 +539,7 @@ package Game
 			airLabel1 = new TextField();
 			airLabel1.name = "airLabel1";
 			airLabel1.x = 60;
-			airLabel1.y = 3230;
+			airLabel1.y = 3435;
 			airLabel1.width = 600;
 			airLabel1.embedFonts = true;
 			airLabel1.defaultTextFormat = highscoreFormat;
@@ -550,7 +550,7 @@ package Game
 			earthLabel2 = new TextField();
 			earthLabel2.name = "earthLabel2";
 			earthLabel2.x = 60;
-			earthLabel2.y = 3335;
+			earthLabel2.y = 3130;
 			earthLabel2.width = 600;
 			earthLabel2.embedFonts = true;
 			earthLabel2.defaultTextFormat = highscoreFormat;
@@ -561,7 +561,7 @@ package Game
 			waterLabel2 = new TextField();
 			waterLabel2.name = "waterLabel2";
 			waterLabel2.x = 60;
-			waterLabel2.y = 3385;
+			waterLabel2.y = 3180;
 			waterLabel2.width = 600;
 			waterLabel2.embedFonts = true;
 			waterLabel2.defaultTextFormat = highscoreFormat;
@@ -572,7 +572,7 @@ package Game
 			airLabel2 = new TextField();
 			airLabel2.name = "airLabel2";
 			airLabel2.x = 60;
-			airLabel2.y = 3435;
+			airLabel2.y = 3230;
 			airLabel2.width = 600;
 			airLabel2.embedFonts = true;
 			airLabel2.defaultTextFormat = highscoreFormat;

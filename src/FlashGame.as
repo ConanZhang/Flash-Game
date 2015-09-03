@@ -144,7 +144,7 @@ package
 			if(event.target is Menu){
 				if(world == testWorld){
 					test = new TestWorld(this, false, pacifist, testWorld, difficulty, hasRain, settings);
-				}
+				} 
 				else if(world == wallWorld){
 					walls = new WallJumpingWorld(this, false, pacifist, wallWorld,difficulty, hasRain, settings);	
 				}
