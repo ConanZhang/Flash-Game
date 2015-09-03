@@ -3,22 +3,25 @@
  */
 package
 {
+	import flash.display.Loader;
 	import flash.display.Sprite;
 	import flash.display.StageDisplayState;
 	import flash.display.StageQuality;
 	import flash.events.Event;
 	import flash.events.KeyboardEvent;
+	import flash.events.ProgressEvent;
 	import flash.net.SharedObject;
+	import flash.net.URLRequest;
 	import flash.text.Font;
 	import flash.ui.Mouse;
 	
+	import Game.DodgeWorld;
 	import Game.Menu;
 	import Game.MovementWorld;
 	import Game.OptionsMenu;
 	import Game.SmallWorld;
 	import Game.TestWorld;
 	import Game.WallJumpingWorld;
-	import Game.DodgeWorld;
 	import Game.WeaponWorld;
 	
 	/**SWF Options*/
