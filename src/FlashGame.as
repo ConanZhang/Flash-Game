@@ -111,7 +111,8 @@ package
 				}
 			}
 			else{
-				settings.data.quality = "medium";				
+				settings.data.quality = "medium";
+				stage.quality = StageQuality.MEDIUM;
 			}
 			
 			if(settings.data.hasRain != null){
@@ -123,7 +124,6 @@ package
 				}
 			}
 			else{
-				settings.data.quality = "medium";
 				hasRain = false;
 			}
 			
