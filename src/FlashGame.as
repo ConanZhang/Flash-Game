@@ -10,6 +10,8 @@ package
 	import flash.events.Event;
 	import flash.events.KeyboardEvent;
 	import flash.events.ProgressEvent;
+	import flash.media.Sound;
+	import flash.media.SoundChannel;
 	import flash.net.SharedObject;
 	import flash.net.URLRequest;
 	import flash.text.Font;
@@ -84,6 +86,11 @@ package
 			this.addEventListener(Event.REMOVED, testingRemove);
 
 			menu = new Menu(this);
+			
+			var menuMusic:Sound = new MenuMusic;
+			var menuChannel:SoundChannel = new SoundChannel();
+			
+			menuChannel = menuMusic.play(0, int.MAX_VALUE);
 			
 			//hide cursor
 			Mouse.hide();
