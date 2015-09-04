@@ -192,7 +192,7 @@ package Game
 			if(!Stage.paused && Player.playerHealth != 0){
 				var randomDrop: Number = Math.random();
 				
-				if(Stage.ammunitionCount < 20){
+				if(Stage.ammunitionCount < 10){
 					//pistol ammo
 					if(randomDrop < 0.4){
 						var pistolDrop:ItemDrop = new ItemDrop(Math.random()*190 + 40, Math.random()*-90, 1.5,1.5, 2);	
