@@ -3,6 +3,8 @@
  */
 package Game
 {
+	import flash.media.Sound;
+	
 	import Assets.Player;
 	
 	import Box2D.Collision.b2Manifold;
@@ -14,6 +16,8 @@ package Game
 	
 	public class ContactListener extends b2ContactListener
 	{
+		private var hit:Sound = new Hit;
+		
 		/**Constructor DOES NOTHING*/
 		public function ContactListener(){}
 		
@@ -97,6 +101,8 @@ package Game
 						Player.playerHealth--;
 						PlayerHUD.heartDamaged = true;
 						
+						hit.play();
+						
 						//flinch
 						if(contact.GetFixtureA().GetBody().GetPosition().x < contact.GetFixtureB().GetBody().GetPosition().x){
 							Stage.playerBody.SetLinearVelocity( new b2Vec2(-75, 0) );
@@ -117,6 +123,8 @@ package Game
 							Player.playerHealth--;
 							PlayerHUD.heartDamaged = true;
 							
+							hit.play();
+
 							//flinch
 							if(contact.GetFixtureB().GetBody().GetPosition().x < contact.GetFixtureA().GetBody().GetPosition().x){
 								Stage.playerBody.SetLinearVelocity( new b2Vec2(-75, 0) );
@@ -144,6 +152,8 @@ package Game
 						Player.playerHealth--;
 						PlayerHUD.heartDamaged = true;
 						
+						hit.play();
+
 						//flinch
 						if(contact.GetFixtureB().GetBody().GetPosition().x < contact.GetFixtureA().GetBody().GetPosition().x){
 							Stage.playerBody.SetLinearVelocity( new b2Vec2(-75, 0) );
@@ -164,6 +174,8 @@ package Game
 							Player.playerHealth--;
 							PlayerHUD.heartDamaged = true;
 							
+							hit.play();
+
 							//flinch
 							if(contact.GetFixtureB().GetBody().GetPosition().x < contact.GetFixtureA().GetBody().GetPosition().x){
 								Stage.playerBody.SetLinearVelocity( new b2Vec2(-75, 0) );
