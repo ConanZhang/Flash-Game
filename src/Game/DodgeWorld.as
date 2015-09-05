@@ -11,6 +11,7 @@ package Game
 	import Assets.Rain;
 	
 	import Parents.Stage;
+	import flash.media.SoundChannel;
 	
 	public class DodgeWorld extends Stage
 	{
@@ -26,12 +27,12 @@ package Game
 		 * Takes in screen it will be added to
 		 * 
 		 */
-		public function DodgeWorld(screenP:FlashGame, debugging:Boolean, pacifist:Boolean, world:int, _hasRain:Boolean, _settings:SharedObject)
+		public function DodgeWorld(screenP:FlashGame, debugging:Boolean, pacifist:Boolean, world:int, _hasRain:Boolean, _settings:SharedObject,  _musicChannel:SoundChannel, _effectsChannel:SoundChannel, _musicVolume:Number, _effectsVolume:Number)
 		{			
 			screen = screenP;
 			screen.addChildAt(this,0);
 			
-			super(screen,debugging, 62, 7, pacifist, world, 0);
+			super(screen,debugging, 62, 7, pacifist, world, 0, _musicChannel, _effectsChannel, _musicVolume, _effectsVolume);
 			
 			//BACKGROUND
 			background = new Background("test");

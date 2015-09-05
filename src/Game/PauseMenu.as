@@ -4,6 +4,7 @@ package Game
 	import flash.display.Sprite;
 	import flash.events.Event;
 	import flash.events.MouseEvent;
+	import flash.media.SoundChannel;
 	import flash.text.TextField;
 	import flash.text.TextFormat;
 	
@@ -52,7 +53,12 @@ package Game
 		private var worldState:String;
 		private var difficultyState:String;
 		
-		public function PauseMenu(screenP: Stage, x:int, y:int, _pacifist:Boolean, _world:int, _difficulty:int)
+		private var musicChannel:SoundChannel;
+		private var effectsChannel:SoundChannel;
+		private var musicVolume:Number;
+		private var effectsVolume:Number;
+		
+		public function PauseMenu(screenP: Stage, x:int, y:int, _pacifist:Boolean, _world:int, _difficulty:int, _musicChannel:SoundChannel, _effectsChannel:SoundChannel, _musicVolume:Number, _effectsVolume:Number)
 		{
 			screen = screenP;
 			screen.addChild(this);
@@ -65,6 +71,10 @@ package Game
 			world = _world;
 			difficulty = _difficulty;
 			
+			musicChannel = _musicChannel;
+			effectsChannel = _effectsChannel;
+			musicVolume = _musicVolume;
+			effectsVolume = _effectsVolume;
 			
 			optionsContainer = new Options_Container;
 			resume = new Resume;
@@ -211,7 +221,7 @@ package Game
 				newOptionsContainer.y = optionsContainer.y;
 				
 				//put the options text on top of that?
-				optionsMenu = new OptionsMenu(this, -360,-275, displayField);
+				optionsMenu = new OptionsMenu(this, -360,-275, displayField, musicChannel, effectsChannel, musicVolume, effectsVolume, false, worldState, pacifistState, difficultyState);
 				
 				backButton = new Back;
 				buttonContainer.addChild(backButton);

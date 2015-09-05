@@ -19,6 +19,7 @@ package Game
 	import Assets.SmallPlatformEnemy;
 	
 	import Parents.Stage;
+	import flash.media.SoundChannel;
 	
 	public class TestWorld extends Stage
 	{
@@ -35,12 +36,12 @@ package Game
 		 * Takes in screen it will be added to
 		 * 
 		 */
-		public function TestWorld(screenP:FlashGame, debugging:Boolean, pacifist:Boolean, world:int, difficulty:int, _hasRain:Boolean, _settings:SharedObject)
+		public function TestWorld(screenP:FlashGame, debugging:Boolean, pacifist:Boolean, world:int, difficulty:int, _hasRain:Boolean, _settings:SharedObject,  _musicChannel:SoundChannel, _effectsChannel:SoundChannel, _musicVolume:Number, _effectsVolume:Number)
 		{			
 			screen = screenP;
 			screen.addChildAt(this,0);
 			
-			super(screen,debugging, 115, 7, pacifist, world, difficulty);
+			super(screen,debugging, 115, 7, pacifist, world, difficulty, _musicChannel, _effectsChannel, _musicVolume, _effectsVolume);
 			
 			//BACKGROUND
 			background = new Background("test");

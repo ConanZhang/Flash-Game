@@ -10,6 +10,9 @@ package Parents
 	import flash.events.MouseEvent;
 	import flash.events.TimerEvent;
 	import flash.geom.Point;
+	import flash.media.Sound;
+	import flash.media.SoundChannel;
+	import flash.media.SoundTransform;
 	import flash.ui.Keyboard;
 	import flash.utils.Timer;
 	
@@ -133,14 +136,30 @@ package Parents
 		private var worldState:int;
 		private var difficultyState:int;
 		
+		/**AUDIO**/
+		private var musicChannel:SoundChannel;
+		private var effectsChannel:SoundChannel;
+		private var musicVolume:Number;
+		private var effectsVolume:Number;
+		
+		private var stageMusic:Sound;
+		
 		/**Constructor*/
-		public function Stage(screenP:FlashGame, debugging:Boolean, playerX:Number, playerY:Number, pacifist:Boolean, world:int, difficulty:int)
+		public function Stage(screenP:FlashGame, debugging:Boolean, playerX:Number, playerY:Number, pacifist:Boolean, world:int, difficulty:int, _musicChannel:SoundChannel, _effectsChannel:SoundChannel, _musicVolume:Number, _effectsVolume:Number)
 		{
 			screen = screenP;
 			pacifistState = pacifist;
 			worldState = world;
 			difficultyState = difficulty;
+			musicChannel = _musicChannel;
+			effectsChannel = _effectsChannel;
+			musicVolume = _musicVolume;
+			effectsVolume = _effectsVolume;
 			
+			stageMusic = new MenuMusic;
+			musicChannel = stageMusic.play(0, int.MAX_VALUE);
+			musicChannel.soundTransform = new SoundTransform(musicVolume);
+
 			/**BOX2D*/
 			//initiate time
 			iterations = 10;
@@ -171,7 +190,7 @@ package Parents
 			var gravity:b2Vec2 = new b2Vec2(0, 85);
 			var doSleep:Boolean = true;//don't simulate sleeping bodies
 			worldStage = new b2World(gravity, doSleep);
-			worldStage.SetContactListener(new ContactListener() );
+			worldStage.SetContactListener(new ContactListener(effectsChannel, effectsVolume) );
 			slowMotion = false;
 			slowAmount = 225;
 			speed = 1;
@@ -521,7 +540,7 @@ package Parents
 			//pausing
 			if(e.keyCode == OptionsMenu.keybindings.pause || e.keyCode == Keyboard.R){
 				if(paused == false){
-					pauseMenu = new PauseMenu(this, 350, 260, pacifistState, worldState, difficultyState);
+					pauseMenu = new PauseMenu(this, 350, 260, pacifistState, worldState, difficultyState, musicChannel, effectsChannel, musicVolume, effectsVolume);
 					paused = true;
 				}
 				else if(paused == true){
@@ -794,6 +813,8 @@ package Parents
 				debug.destroy();
 			}
 			gameHUD.destroy();
+			
+			musicChannel.stop();
 			
 			this.removeChild(images);
 			

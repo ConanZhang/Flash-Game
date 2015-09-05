@@ -5,6 +5,10 @@ package Game
 	import flash.events.Event;
 	import flash.events.KeyboardEvent;
 	import flash.events.MouseEvent;
+	import flash.geom.Rectangle;
+	import flash.media.Sound;
+	import flash.media.SoundChannel;
+	import flash.media.SoundTransform;
 	import flash.net.SharedObject;
 	import flash.text.TextField;
 	import flash.text.TextFieldType;
@@ -30,6 +34,8 @@ package Game
 		
 		//options menu text object
 		private var optionsMenu:OptionsMenu;
+		
+		private var onMenu:Boolean;
 		
 		//keybindings
 		public static var keybindings:Object;
@@ -73,23 +79,66 @@ package Game
 		private var keyCodeStrings:Dictionary;
 		
 		private var displayField:TextField;
+		private var worldState:String;
+		private var pacifistState:String;
+		private var difficultyState:String;
 		
-		public function OptionsMenu(screenP: Sprite, x:int, y:int, display:TextField)
+		// Music
+		private var musicKnob:MovieClip;
+		private var musicSlide:MovieClip;
+		
+		private var effectsKnob:MovieClip;
+		private var effectsSlide:MovieClip;
+		
+		private var dragging:Boolean;
+		private var sliderLength:Number;
+		private var musicBox:Rectangle;
+		private var musicChannel:SoundChannel;
+		private var effectsChannel:SoundChannel;
+		private var effectsBox:Rectangle;
+		private var musicVolume:Number;
+		private var effectsVolume:Number;
+		
+		private var musicField:TextField;
+		private var effectsField:TextField;
+		
+		private var settings:SharedObject;
+
+		private var hit:Sound;
+		public function OptionsMenu(screenP: Sprite, x:int, y:int, display:TextField, _musicChannel:SoundChannel, _effectsChannel:SoundChannel, _musicVolume:Number, _effectsVolume:Number, _onMenu:Boolean, _worldState:String, _pacifistState:String, _difficultyState:String)
 		{
 			screen = screenP;
 			screen.addChild(this);
 			buttons = new Array();
 			buttonContainer = new Sprite();
+			musicChannel = _musicChannel;
+			effectsChannel = _effectsChannel;
+			musicVolume = _musicVolume;
+			effectsVolume = _effectsVolume;
 			
 			this.x = x;
 			this.y = y;
 			
+			hit = new Hit;
+			
 			displayField = display;
+			worldState = _worldState;
+			pacifistState = _pacifistState;
+			difficultyState = _difficultyState;
+			
+			settings = SharedObject.getLocal("Settings");
 			
 			currentKey = 0;
 			
 			audio = new Audio;
 			controls = new Controls;
+			musicSlide = new volume_line;
+			musicKnob = new volume_slider;
+			effectsSlide = new volume_line;
+			effectsKnob = new volume_slider;
+			onMenu = _onMenu;
+			
+			sliderLength = 270;
 			
 			keyCodeStrings = keyCodeToString();			
 
@@ -105,6 +154,22 @@ package Game
 			buttonContainer.addChild(controls);
 			controls.x = 150;
 			controls.y = 100;
+			
+			buttonContainer.addChild(musicSlide);
+			musicSlide.x = 475;
+			musicSlide.y = 350;
+			
+			buttonContainer.addChild(musicKnob);
+			musicKnob.x = (musicVolume*sliderLength)+380;
+			musicKnob.y = 350;
+			
+			buttonContainer.addChild(effectsSlide);
+			effectsSlide.x = 475;
+			effectsSlide.y = 400;
+			
+			buttonContainer.addChild(effectsKnob);
+			effectsKnob.x = (effectsVolume*sliderLength)+380;
+			effectsKnob.y = 400;
 			
 			buttons = [audio, controls];
 			
@@ -255,6 +320,7 @@ package Game
 			machinegunField.x = 70;
 			machinegunField.y = 280;
 			machinegunField.width = 250;
+			machinegunField.height = 50;
 			machinegunField.embedFonts = true;
 			machinegunField.defaultTextFormat = textFormat;
 			machinegunField.textColor = 0xff0000;
@@ -291,6 +357,7 @@ package Game
 			qualityField.x = 460;
 			qualityField.y = 280;
 			qualityField.width = 200;
+			qualityField.height = 50;
 			qualityField.embedFonts = true;
 			qualityField.defaultTextFormat = textFormat;
 			qualityField.textColor = 0xff0000;
@@ -303,6 +370,7 @@ package Game
 			rainField.x = 310;
 			rainField.y = 280;
 			rainField.width = 200;
+			rainField.height = 50;
 			rainField.embedFonts = true;
 			rainField.defaultTextFormat = textFormat;
 			rainField.textColor = 0xff0000;
@@ -325,8 +393,35 @@ package Game
 			addChild(qualityField);
 			addChild(rainField);
 
+			// Music
+			musicField = new TextField();
+			musicField.name = "music";
+			musicField.x = 230;
+			musicField.y = 325;
+			musicField.width = 150;
+			musicField.height = 50;
+			musicField.embedFonts = true;
+			musicField.defaultTextFormat = textFormat;
+			musicField.textColor = 0xff0000;
+			musicField.selectable = false;
+			musicField.text = "Music i ";
+			
+			// Music
+			effectsField = new TextField();
+			effectsField.name = "effects";
+			effectsField.x = 210;
+			effectsField.y = 375;
+			effectsField.width = 150;
+			effectsField.height = 50;
+			effectsField.embedFonts = true;
+			effectsField.defaultTextFormat = textFormat;
+			effectsField.textColor = 0xff0000;
+			effectsField.selectable = false;
+			effectsField.text = "Sound FX i ";
 
-
+			addChild(musicField);
+			addChild(effectsField);
+			
 			//add listeners to buttons
 			addEventListener(MouseEvent.MOUSE_OVER, mouseOver);
 			addEventListener(MouseEvent.MOUSE_OUT, mouseOut);
@@ -360,6 +455,61 @@ package Game
 			qualityField.addEventListener(MouseEvent.CLICK, mouseClick);
 			rainField.addEventListener(KeyboardEvent.KEY_DOWN, keyDown);
 			rainField.addEventListener(MouseEvent.CLICK, mouseClick);
+			
+			dragging = false;
+			
+			musicBox = new Rectangle(380, 350, sliderLength, 0);
+			effectsBox = new Rectangle(380, 400, sliderLength, 0);
+
+			musicKnob.addEventListener(MouseEvent.MOUSE_DOWN, dragMusicKnob);
+			stage.addEventListener(MouseEvent.MOUSE_UP, releaseMusicKnob);
+			
+			effectsKnob.addEventListener(MouseEvent.MOUSE_DOWN, dragEffectsKnob);
+		}
+		
+		protected function dragEffectsKnob(event:MouseEvent):void
+		{
+			effectsKnob.startDrag(false, effectsBox);
+			dragging = true;
+			effectsKnob.addEventListener(Event.ENTER_FRAME, adjustEffectsVolume);
+		}
+		
+		protected function adjustEffectsVolume(event:Event):void
+		{
+			effectsVolume = (effectsKnob.x - 380)/sliderLength; 
+			
+			settings.data.effectsVolume = effectsVolume;
+			settings.flush();
+		}
+		
+		protected function releaseMusicKnob(event:MouseEvent):void
+		{
+			if (dragging) { 
+				musicKnob.stopDrag(); 
+				dragging=false;
+				musicKnob.removeEventListener(Event.ENTER_FRAME, adjustMusicVolume);
+				effectsChannel = hit.play();
+				effectsChannel.soundTransform = new SoundTransform(effectsVolume);
+			} 			
+		}
+		
+		protected function dragMusicKnob(event:MouseEvent):void
+		{
+			musicKnob.startDrag(false, musicBox);
+			dragging = true;
+			musicKnob.addEventListener(Event.ENTER_FRAME, adjustMusicVolume);
+		}
+		
+		protected function adjustMusicVolume(event:Event):void
+		{			
+			var _musicVolume:Number=(musicKnob.x - 380)/sliderLength; 
+			var musicTransform:SoundTransform =new SoundTransform(_musicVolume); 
+			musicChannel.soundTransform=musicTransform;   
+			
+			settings.data.musicVolume = _musicVolume;
+			settings.flush();
+			
+			trace(true);
 		}
 		
 		protected function mouseClick(event:MouseEvent):void
@@ -595,7 +745,13 @@ package Game
 					if(button.scaleX >= 1){
 						button.scaleX -=0.1;
 						button.scaleY -=0.1;
-						displayField.text = "";
+						
+						if(onMenu){
+							displayField.text = "";
+						}
+						else{
+							displayField.text = "Arena i " + worldState + "   Difficulty i " + difficultyState + "  Mode i " + pacifistState;
+						}
 					}
 				}
 			}
@@ -622,7 +778,12 @@ package Game
 			this.removeEventListener(MouseEvent.MOUSE_OUT, mouseOut);
 			this.removeEventListener(Event.ENTER_FRAME, update);
 			this.removeEventListener(KeyboardEvent.KEY_DOWN, keyDown);
-
+			
+			musicKnob.removeEventListener(MouseEvent.MOUSE_DOWN, dragMusicKnob);
+			stage.removeEventListener(MouseEvent.MOUSE_UP, releaseMusicKnob);
+			
+			effectsKnob.removeEventListener(MouseEvent.MOUSE_DOWN, dragEffectsKnob);
+			
 			screen.removeChild(this);
 		}
 		

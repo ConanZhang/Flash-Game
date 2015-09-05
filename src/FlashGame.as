@@ -3,17 +3,14 @@
  */
 package
 {
-	import flash.display.Loader;
 	import flash.display.Sprite;
 	import flash.display.StageDisplayState;
 	import flash.display.StageQuality;
 	import flash.events.Event;
 	import flash.events.KeyboardEvent;
-	import flash.events.ProgressEvent;
-	import flash.media.Sound;
 	import flash.media.SoundChannel;
+	import flash.media.SoundTransform;
 	import flash.net.SharedObject;
-	import flash.net.URLRequest;
 	import flash.text.Font;
 	import flash.ui.Mouse;
 	
@@ -74,6 +71,10 @@ package
 		//settings
 		private var settings:SharedObject;
 		private var hasRain:Boolean;
+		private var musicChannel:SoundChannel;
+		private var effectsChannel:SoundChannel;
+		private var musicVolume:Number;
+		private var effectsVolume:Number;
 
 		/**Constructor*/
 		public function FlashGame()
@@ -85,13 +86,6 @@ package
 			stage.addEventListener(KeyboardEvent.KEY_DOWN, options);
 			this.addEventListener(Event.REMOVED, testingRemove);
 
-			menu = new Menu(this);
-			
-			var menuMusic:Sound = new MenuMusic;
-			var menuChannel:SoundChannel = new SoundChannel();
-			
-			menuChannel = menuMusic.play(0, int.MAX_VALUE);
-			
 			//hide cursor
 			Mouse.hide();
 			
@@ -137,7 +131,26 @@ package
 				hasRain = false;
 			}
 			
+			if(settings.data.musicVolume != null &&
+				settings.data.effectsVolume != null){
+
+				musicVolume = settings.data.musicVolume;
+				effectsVolume = settings.data.effectsVolume;
+			}
+			else{
+				musicVolume = 0.75;
+				effectsVolume = 0.5;
+				
+				settings.data.musicVolume = musicVolume;
+				settings.data.effectsVolume = effectsVolume;
+			}
+			
 			settings.flush();
+						
+			musicChannel = new SoundChannel();
+			effectsChannel = new SoundChannel();
+			
+			menu = new Menu(this, musicChannel, effectsChannel, musicVolume, effectsVolume);
 		}
 		
 		private function testingRemove(event:Event):void{
@@ -148,24 +161,27 @@ package
 				hasRain = false;
 			}
 			
-			if(event.target is Menu){
+			musicVolume = settings.data.musicVolume;
+			effectsVolume = settings.data.effectsVolume;
+			
+			if(event.target is Menu){			
 				if(world == testWorld){
-					test = new TestWorld(this, false, pacifist, testWorld, difficulty, hasRain, settings);
+					test = new TestWorld(this, false, pacifist, testWorld, difficulty, hasRain, settings, musicChannel, effectsChannel, musicVolume, effectsVolume);
 				} 
 				else if(world == wallWorld){
-					walls = new WallJumpingWorld(this, false, pacifist, wallWorld,difficulty, hasRain, settings);	
+					walls = new WallJumpingWorld(this, false, pacifist, wallWorld,difficulty, hasRain, settings, musicChannel, effectsChannel, musicVolume, effectsVolume);	
 				}
 				else if(world == tutorialWorld){
-					tutorial = new MovementWorld(this, false, pacifist, tutorialWorld, hasRain, settings);	
+					tutorial = new MovementWorld(this, false, pacifist, tutorialWorld, hasRain, settings, musicChannel, effectsChannel, musicVolume, effectsVolume);	
 				}
 				else if(world == smallWorld){
-					small = new SmallWorld(this, false, pacifist, smallWorld, difficulty, hasRain, settings);	 
+					small = new SmallWorld(this, false, pacifist, smallWorld, difficulty, hasRain, settings, musicChannel, effectsChannel, musicVolume, effectsVolume);	 
 				}
 				else if(world == dodgeWorld){
-					dodge = new DodgeWorld(this, false, pacifist, dodgeWorld, hasRain, settings);	
+					dodge = new DodgeWorld(this, false, pacifist, dodgeWorld, hasRain, settings, musicChannel, effectsChannel, musicVolume, effectsVolume);	
 				}
 				else{
-					weapon = new WeaponWorld(this, false, pacifist, weaponWorld, hasRain, settings);	
+					weapon = new WeaponWorld(this, false, pacifist, weaponWorld, hasRain, settings, musicChannel, effectsChannel, musicVolume, effectsVolume);	
 				}
 			}
 			else if(event.target is MovementWorld || 
@@ -174,7 +190,7 @@ package
 				event.target is SmallWorld|| 
 				event.target is DodgeWorld|| 
 				event.target is WeaponWorld){
-				menu = new Menu(this);
+				menu = new Menu(this, musicChannel, effectsChannel, musicVolume, effectsVolume);
 			} 
 		}
 

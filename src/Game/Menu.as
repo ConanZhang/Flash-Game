@@ -4,6 +4,9 @@ package Game
 	import flash.display.Sprite;
 	import flash.events.Event;
 	import flash.events.MouseEvent;
+	import flash.media.Sound;
+	import flash.media.SoundChannel;
+	import flash.media.SoundTransform;
 	import flash.net.SharedObject;
 	import flash.text.TextField;
 	import flash.text.TextFormat;
@@ -95,7 +98,15 @@ package Game
 		
 		private var highScore:SharedObject;
 		
-		public function Menu(screenP:Sprite)
+		private var musicChannel:SoundChannel;
+		private var effectsChannel:SoundChannel;
+		
+		private var musicVolume:Number;
+		private var effectsVolume:Number;
+		
+		private var menuMusic:Sound;
+		
+		public function Menu(screenP:Sprite, _musicChannel:SoundChannel, _effectsChannel:SoundChannel, _musicVolume:Number, _effectsVolume:Number)
 		{			
 			screen = screenP;
 			screen.addChildAt(this, 0);
@@ -105,6 +116,16 @@ package Game
 			containerGoalY = 0;
 			scrollSpeed = 50;
 			layer = 0;
+			musicChannel = _musicChannel;
+			effectsChannel = _effectsChannel;
+			musicVolume = _musicVolume;
+			effectsVolume = _effectsVolume;
+			
+			menuMusic = new MenuMusic;
+			
+			var musicTransform:SoundTransform = new SoundTransform(musicVolume);
+			musicChannel = menuMusic.play(0, int.MAX_VALUE);
+			musicChannel.soundTransform = musicTransform;
 			
 			displayFormat = new TextFormat();
 			displayFormat.size = 50;
@@ -618,7 +639,7 @@ package Game
 			addEventListener(MouseEvent.CLICK, buttonClicked);
 			addEventListener(Event.ENTER_FRAME, update);
 			
-			optionsMenu = new OptionsMenu(this, 0, 2000, displayField);
+			optionsMenu = new OptionsMenu(this, 0, 2000, displayField, musicChannel, effectsChannel, musicVolume, effectsVolume, true, "", "", "");
 			addChild(displayField);
 		}
 		private function mouseOver(event:MouseEvent):void
@@ -690,7 +711,7 @@ package Game
 				FlashGame.setDifficulty(0);
 				FlashGame.setPacifist(false);
 				FlashGame.setWorld(5);
-				destroy();
+				destroy();				
 			}
 			else if(activeButton.toString() == "[object Beginner]"){
 				FlashGame.setDifficulty(0);
@@ -712,8 +733,8 @@ package Game
 				FlashGame.setPacifist(true);
 				layer = 3;
 			}
-			else if(activeButton.toString() == "[object Standard]"){
-				FlashGame.setWorld(1);
+			else if(activeButton.toString() == "[object Earth]"){
+				FlashGame.setWorld(1);				
 				destroy();
 			}
 			else if(activeButton.toString() == "[object Water]"){
@@ -722,7 +743,7 @@ package Game
 			}
 			else if(activeButton.toString() == "[object Air]"){
 				FlashGame.setWorld(3);
-				destroy();
+				musicChannel.stop();
 			}
 			else if(activeButton.toString() == "[object Options]"){
 				layer = 4;
@@ -764,6 +785,7 @@ package Game
 			this.removeEventListener(MouseEvent.MOUSE_OUT, mouseOut);
 			this.removeEventListener(MouseEvent.CLICK, buttonClicked);
 			this.removeEventListener(Event.ENTER_FRAME, update);
+			musicChannel.stop();
 			screen.removeChild(this);
 		}
 		
