@@ -35,6 +35,8 @@ package Game
 		private var master:MovieClip;
 		private var mode:MovieClip;
 		private var tutorial:MovieClip;
+		private var tutorials:MovieClip;
+		private var movementTutorial:MovieClip;
 		private var dodgeTutorial:MovieClip;
 		private var weaponTutorial:MovieClip;
 		private var weapons:MovieClip;
@@ -50,6 +52,7 @@ package Game
 		private var programming:MovieClip;
 		private var conan:MovieClip;
 		private var copyright:MovieClip;
+		private var testers:Testers;
 		
 		private var displayField:TextField;
 		private var displayFormat:TextFormat;
@@ -129,17 +132,19 @@ package Game
 			//title
 			title = new Title;
 			this.addChild(title);
-			title.x = 375;
-			title.y = 270;
-			title.scaleX = 0.65;
-			title.scaleY = 0.65;
+			title.x = 400;
+			title.y = 280;
+			title.scaleX = 0.35;
+			title.scaleY = 0.35;
 			back = new Back;
 			play = new Play;
 			highscore = new ammobox_pistol;
 			difficulty = new Difficulty;
 			tutorial = new Tutorial;
-			dodgeTutorial = new platform_wide;
-			weaponTutorial = new platform_tall;
+			tutorials = new Tutorials;
+			dodgeTutorial = new Tutorial_Enemies;
+			weaponTutorial = new Tutorial_Weapons;
+			movementTutorial = new TutorialMovement;
 			beginner = new Beginner;
 			apprentice = new Apprentice;
 			master = new Master;
@@ -147,9 +152,9 @@ package Game
 			weapons = new Weapons;
 			pacifist = new Pacifist;
 			arena = new Arena;
-			standard = new Standard;
-			walls = new Walls;	
-			small = new platform_square;
+			standard = new Earth;
+			walls = new Water;	
+			small = new Air;
 			options = new Options;	
 			credits = new Credits;
 			art = new Art;
@@ -157,6 +162,7 @@ package Game
 			programming = new Programming;
 			conan = new Conan;
 			copyright = new Copyright;	
+			testers = new Testers;
 			//add container sprite to stage, starting position
 			this.addChild(buttonContainer);
 			buttonContainer.y = containerGoalY;	
@@ -167,6 +173,8 @@ package Game
 			 * Layer 3 / Stages / y = 1500
 			 * Layer 4 / Options / y = 2000
 			 * Layer 5 / Credits / y = 2500
+			 * Layer 6 / Highscores / y = 3000
+			 * Layer 7 / Tutorials / y = 3500
 			 */
 			buttonContainer.addChild(back);
 			back.x = 50;
@@ -184,20 +192,26 @@ package Game
 			beginner.x = 150;
 			beginner.y = 850;
 			buttonContainer.addChild(apprentice);
-			apprentice.x = 325;
+			apprentice.x = 350;
 			apprentice.y = 900;
 			buttonContainer.addChild(master);
 			master.x = 525;
 			master.y = 850;
 			buttonContainer.addChild(tutorial); 	
-			tutorial.x = 100;
-			tutorial.y = 700;
+			tutorial.x = 350;
+			tutorial.y = 750;
+			buttonContainer.addChild(tutorials); 	
+			tutorials.x = 350;
+			tutorials.y = 3575;
 			buttonContainer.addChild(dodgeTutorial);
-			dodgeTutorial.x = 400;
-			dodgeTutorial.y = 650;
+			dodgeTutorial.x = 350;
+			dodgeTutorial.y = 3750;
 			buttonContainer.addChild(weaponTutorial);
-			weaponTutorial.x = 600;
-			weaponTutorial.y = 700;
+			weaponTutorial.x = 500;
+			weaponTutorial.y = 3750;
+			buttonContainer.addChild(movementTutorial);
+			movementTutorial.x = 200;
+			movementTutorial.y = 3750;
 			buttonContainer.addChild(mode);
 			mode.x = 350;
 			mode.y = 1075;
@@ -211,14 +225,14 @@ package Game
 			arena.x = 350;
 			arena.y = 1585;
 			buttonContainer.addChild(standard);
-			standard.x = 175;
+			standard.x = 150;
 			standard.y = 1776;
 			buttonContainer.addChild(walls);
-			walls.x = 450;
+			walls.x = 350;
 			walls.y = 1800;
 			buttonContainer.addChild(small);
-			small.x = 800;
-			small.y = 1730;
+			small.x = 525;
+			small.y = 1775;
 			buttonContainer.addChild(options);
 			options.x = 325;
 			options.y = 150;
@@ -227,19 +241,22 @@ package Game
 			credits.y = 75;
 			buttonContainer.addChild(art);
 			art.x = 200;
-			art.y = 2650;
+			art.y = 2700;
 			buttonContainer.addChild(georbec);
 			georbec.x = 450;
-			georbec.y = 2650;
+			georbec.y = 2700;
 			buttonContainer.addChild(programming);
-			programming.x = 200;
-			programming.y = 2800;
+			programming.x = 225;
+			programming.y = 2850;
 			buttonContainer.addChild(conan);
-			conan.x = 500;
-			conan.y = 2800;
+			conan.x = 550;
+			conan.y = 2825;
 			buttonContainer.addChild(copyright);
-			copyright.x = 350;
-			copyright.y = 2900;
+			copyright.x = 375;
+			copyright.y = 2875;
+			buttonContainer.addChild(testers);
+			testers.x = 325;
+			testers.y = 2600;
 			
 			highScore = SharedObject.getLocal("HighScore");
 			
@@ -593,7 +610,8 @@ package Game
 			buttonContainer.addChild(airLabel2);
 			
 			//fill array(s?)
-			buttons = [back, play, highscore, difficulty, tutorial, dodgeTutorial, weaponTutorial, beginner, apprentice, master, mode, weapons, pacifist, arena, standard, walls, small, options, credits, art, georbec, programming, conan, copyright];
+			buttons = [back, play, highscore, difficulty, tutorial, tutorials, movementTutorial, dodgeTutorial, weaponTutorial, beginner, apprentice, master, mode, weapons, pacifist, arena, standard, walls, small, options, credits, art, georbec, programming, conan, copyright, testers];
+			
 			//add listeners to buttons
 			addEventListener(MouseEvent.MOUSE_OVER, mouseOver);
 			addEventListener(MouseEvent.MOUSE_OUT, mouseOut);
@@ -629,6 +647,8 @@ package Game
 			 * Layer 3 / Stages / y = 1500
 			 * Layer 4 / Options / y = 2000
 			 * Layer 5 / Credits / y = 2500
+			 * Layer 6 / Highscore / y = 3000
+			 * Layer 7 / Highscore / y = 3500
 			 */
 			//keep track of last button clicked
 			lastButtonClicked = activeButton;
@@ -642,6 +662,8 @@ package Game
 					layer = 0;
 				else if(layer == 6)
 					layer = 0;
+				else if(layer == 7)
+					layer = 1;
 			}
 			else if(activeButton.toString() == "[object Play]"){
 				layer = 1;
@@ -650,18 +672,21 @@ package Game
 				layer = 6;
 			}
 			else if(activeButton.toString() == "[object Tutorial]"){
+				layer = 7;
+			}
+			else if(activeButton.toString() == "[object TutorialMovement]"){
 				FlashGame.setDifficulty(0);
 				FlashGame.setPacifist(false);
 				FlashGame.setWorld(0);
 				destroy();
 			}
-			else if(activeButton.toString() == "[object platform_wide]"){
+			else if(activeButton.toString() == "[object Tutorial_Enemies]"){
 				FlashGame.setDifficulty(0);
 				FlashGame.setPacifist(false);
 				FlashGame.setWorld(4);
 				destroy();
 			}
-			else if(activeButton.toString() == "[object platform_tall]"){
+			else if(activeButton.toString() == "[object Tutorial_Weapons]"){
 				FlashGame.setDifficulty(0);
 				FlashGame.setPacifist(false);
 				FlashGame.setWorld(5);
@@ -691,11 +716,11 @@ package Game
 				FlashGame.setWorld(1);
 				destroy();
 			}
-			else if(activeButton.toString() == "[object Walls]"){
+			else if(activeButton.toString() == "[object Water]"){
 				FlashGame.setWorld(2);
 				destroy();
 			}
-			else if(activeButton.toString() == "[object platform_square]"){
+			else if(activeButton.toString() == "[object Air]"){
 				FlashGame.setWorld(3);
 				destroy();
 			}
@@ -727,6 +752,9 @@ package Game
 					break;
 				case 6: //Highscore
 					containerGoalY = 3000;
+					break;
+				case 7: //Tutorial
+					containerGoalY = 3500;
 					break;
 			}
 		}
@@ -767,7 +795,7 @@ package Game
 						displayField.text = "Admire your tofu"
 					}
 					else if(activeButton.toString() == "[object Options]"){
-						displayField.text = "C hange how you tofu"
+						displayField.text = "Customize your tofu"
 					}
 					else if(activeButton.toString() == "[object Credits]"){
 						displayField.text = "Appreciate the tofu"
@@ -787,20 +815,29 @@ package Game
 					else if(activeButton.toString() == "[object Copyright]"){
 						displayField.text = "Tofu Birthday"
 					}
+					else if(activeButton.toString() == "[object Testers]"){
+						displayField.text = "Tofu Disciples"
+					}
 					else if(activeButton.toString() == "[object Tutorial]"){
-						displayField.text = "Learn the movement of  tofu"
+						displayField.text = "Learn the theory of  tofu"
 					}
-					else if(activeButton.toString() == "[object platform_wide]"){
-						displayField.text = "Learn the skill of  tofu";
+					else if(activeButton.toString() == "[object TutorialMovement]"){
+						displayField.text = "The grace of  tofu"
 					}
-					else if(activeButton.toString() == "[object platform_tall]"){
-						displayField.text = "Learn the power of  tofu";
+					else if(activeButton.toString() == "[object Tutorials]"){
+						displayField.text = "Select your tofu major"
+					}
+					else if(activeButton.toString() == "[object Tutorial_Enemies]"){
+						displayField.text = "The skill of  tofu";
+					}
+					else if(activeButton.toString() == "[object Tutorial_Weapons]"){
+						displayField.text = "The power of  tofu";
 					}
 					else if(activeButton.toString() == "[object Difficulty]"){
 						displayField.text = "Select your tofu level";
 					}
 					else if(activeButton.toString() == "[object Beginner]"){
-						displayField.text = "Begin your tofu journey";
+						displayField.text = "Start your tofu journey";
 					}
 					else if(activeButton.toString() == "[object Apprentice]"){
 						displayField.text = "Continue your tofu studies";
@@ -820,14 +857,14 @@ package Game
 					else if(activeButton.toString() == "[object Arena]"){
 						displayField.text = "Select your tofu home";
 					}
-					else if(activeButton.toString() == "[object Standard]"){
-						displayField.text = "Earth";
+					else if(activeButton.toString() == "[object Earth]"){
+						displayField.text = "Tofu Dwelling";
 					}
-					else if(activeButton.toString() == "[object Walls]"){
-						displayField.text = "Water";
+					else if(activeButton.toString() == "[object Water]"){
+						displayField.text = "Tofu Paradise";
 					}
-					else if(activeButton.toString() == "[object platform_square]"){
-						displayField.text = "Air";
+					else if(activeButton.toString() == "[object Air]"){
+						displayField.text = "Tofu Nightmare";
 					}
 				}
 				else{

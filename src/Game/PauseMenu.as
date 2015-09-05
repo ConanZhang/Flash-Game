@@ -145,7 +145,7 @@ package Game
 				worldState = "Movement";
 			}
 			else if(world == dodgeWorld){
-				worldState = "Dodging";
+				worldState = "Enemies";
 			}
 			else if(world == weaponWorld){
 				worldState = "Weapons";

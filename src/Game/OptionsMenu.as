@@ -585,7 +585,7 @@ package Game
 					}
 					
 					if(activeButton.toString() == "[object Controls]"){
-						displayField.text = "Customize your tofu";
+						displayField.text = "C hange how you tofu";
 					}
 					else if(activeButton.toString() == "[object Audio]"){
 						displayField.text = "Rave with your tofu";
