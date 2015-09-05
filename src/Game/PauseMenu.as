@@ -5,6 +5,7 @@ package Game
 	import flash.events.Event;
 	import flash.events.MouseEvent;
 	import flash.media.SoundChannel;
+	import flash.net.SharedObject;
 	import flash.text.TextField;
 	import flash.text.TextFormat;
 	
@@ -55,10 +56,9 @@ package Game
 		
 		private var musicChannel:SoundChannel;
 		private var effectsChannel:SoundChannel;
-		private var musicVolume:Number;
-		private var effectsVolume:Number;
 		
-		public function PauseMenu(screenP: Stage, x:int, y:int, _pacifist:Boolean, _world:int, _difficulty:int, _musicChannel:SoundChannel, _effectsChannel:SoundChannel, _musicVolume:Number, _effectsVolume:Number)
+		private var settings:SharedObject
+		public function PauseMenu(screenP: Stage, x:int, y:int, _pacifist:Boolean, _world:int, _difficulty:int, _musicChannel:SoundChannel, _effectsChannel:SoundChannel, _settings:SharedObject)
 		{
 			screen = screenP;
 			screen.addChild(this);
@@ -71,10 +71,10 @@ package Game
 			world = _world;
 			difficulty = _difficulty;
 			
+			settings = _settings;
+			
 			musicChannel = _musicChannel;
 			effectsChannel = _effectsChannel;
-			musicVolume = _musicVolume;
-			effectsVolume = _effectsVolume;
 			
 			optionsContainer = new Options_Container;
 			resume = new Resume;
@@ -221,7 +221,7 @@ package Game
 				newOptionsContainer.y = optionsContainer.y;
 				
 				//put the options text on top of that?
-				optionsMenu = new OptionsMenu(this, -360,-275, displayField, musicChannel, effectsChannel, musicVolume, effectsVolume, false, worldState, pacifistState, difficultyState);
+				optionsMenu = new OptionsMenu(this, -360,-275, displayField, musicChannel, effectsChannel, settings, false, worldState, pacifistState, difficultyState);
 				
 				backButton = new Back;
 				buttonContainer.addChild(backButton);
@@ -239,12 +239,15 @@ package Game
 				screen.destroy();
 			}		
 			else if(activeButton.toString() == "[object Back]"){
-				//exit game
-				buttonContainer.removeChild(newOptionsContainer);
-				optionsMenu.destroy();
-				buttonContainer.removeChild(backButton);
-				buttons.pop();
-				displayField.text = "Arena i " + worldState + "   Difficulty i " + difficultyState + "  Mode i " + pacifistState;
+				if(optionsMenu != null){
+					//exit game
+					buttonContainer.removeChild(newOptionsContainer);
+					optionsMenu.destroy();
+					optionsMenu = null;
+					buttonContainer.removeChild(backButton);
+					buttons.pop();
+					displayField.text = "Arena i " + worldState + "   Difficulty i " + difficultyState + "  Mode i " + pacifistState;
+				}
 			}		
 		}
 		

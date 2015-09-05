@@ -104,9 +104,11 @@ package Game
 		private var musicVolume:Number;
 		private var effectsVolume:Number;
 		
+		private var settings:SharedObject;
+		
 		private var menuMusic:Sound;
 		
-		public function Menu(screenP:Sprite, _musicChannel:SoundChannel, _effectsChannel:SoundChannel, _musicVolume:Number, _effectsVolume:Number)
+		public function Menu(screenP:Sprite, _musicChannel:SoundChannel, _effectsChannel:SoundChannel, _settings:SharedObject)
 		{			
 			screen = screenP;
 			screen.addChildAt(this, 0);
@@ -118,8 +120,10 @@ package Game
 			layer = 0;
 			musicChannel = _musicChannel;
 			effectsChannel = _effectsChannel;
-			musicVolume = _musicVolume;
-			effectsVolume = _effectsVolume;
+			
+			settings = _settings;
+			musicVolume = settings.data.musicVolume;
+			effectsVolume = settings.data.effectsVolume;
 			
 			menuMusic = new MenuMusic;
 			
@@ -639,7 +643,7 @@ package Game
 			addEventListener(MouseEvent.CLICK, buttonClicked);
 			addEventListener(Event.ENTER_FRAME, update);
 			
-			optionsMenu = new OptionsMenu(this, 0, 2000, displayField, musicChannel, effectsChannel, musicVolume, effectsVolume, true, "", "", "");
+			optionsMenu = new OptionsMenu(this, 0, 2000, displayField, musicChannel, effectsChannel, settings, true, "", "", "");
 			addChild(displayField);
 		}
 		private function mouseOver(event:MouseEvent):void

@@ -6,6 +6,8 @@ package Assets {
 	import flash.display.MovieClip;
 	import flash.display.Sprite;
 	import flash.geom.Point;
+	import flash.media.SoundChannel;
+	import flash.net.SharedObject;
 	
 	import Box2D.Collision.Shapes.b2PolygonShape;
 	import Box2D.Common.Math.b2Vec2;
@@ -47,10 +49,15 @@ package Assets {
 		private var platformEnemyDirection:int;
 		private var avoiding:int;
 		
+		private var effectsChannel:SoundChannel;
+		private var settings:SharedObject;
+		
 		/**Constructor*/
-		public function BigPlatformEnemy(xPos:Number, yPos:Number, width:Number, height:Number, type:int,  startingDirection:int){
+		public function BigPlatformEnemy(xPos:Number, yPos:Number, width:Number, height:Number, type:int,  startingDirection:int, _effectsChannel:SoundChannel, _settings:SharedObject){
 			//assign parameters to class member variables
 			position = new Point(xPos, yPos);
+			effectsChannel = _effectsChannel;
+			settings = _settings;
 			
 			//initialize default private variables
 			platformEnemy_Width = width;
@@ -371,21 +378,21 @@ package Assets {
 					if(Math.random() > 0.9){
 						//health
 						if(Math.random() > 0.7 && Player.playerHealth < 6){
-							var healthDrop:ItemDrop = new ItemDrop(collisionBody.GetPosition().x, collisionBody.GetPosition().y, 1.5, 1.5, 1);
+							var healthDrop:ItemDrop = new ItemDrop(collisionBody.GetPosition().x, collisionBody.GetPosition().y, 1.5, 1.5, 1, effectsChannel, settings);
 						}
 						else{
 							var randomDrop: Number = Math.random();
 							//pistol ammo
 							if(randomDrop < 0.6){
-								var pistolDrop:ItemDrop = new ItemDrop(Math.random()*190 + 40, Math.random()*-90, 1.5,1.5, 2);	
+								var pistolDrop:ItemDrop = new ItemDrop(Math.random()*190 + 40, Math.random()*-90, 1.5,1.5, 2, effectsChannel, settings);	
 							}
 								//shotgun ammo
 							else if(randomDrop > 0.6 && randomDrop < 0.8){
-								var shotgunDrop:ItemDrop = new ItemDrop(Math.random()*190 + 40, Math.random()*-90, 2.5,2.5, 3);	
+								var shotgunDrop:ItemDrop = new ItemDrop(Math.random()*190 + 40, Math.random()*-90, 2.5,2.5, 3, effectsChannel, settings);	
 							}
 								//machinegun ammo
 							else if(randomDrop > 0.8 && randomDrop < 1){
-								var machinegunDrop:ItemDrop = new ItemDrop(Math.random()*190 + 40, Math.random()*-90, 2,2, 4);	
+								var machinegunDrop:ItemDrop = new ItemDrop(Math.random()*190 + 40, Math.random()*-90, 2,2, 4, effectsChannel, settings);	
 							}
 						}
 					}

@@ -9,7 +9,6 @@ package
 	import flash.events.Event;
 	import flash.events.KeyboardEvent;
 	import flash.media.SoundChannel;
-	import flash.media.SoundTransform;
 	import flash.net.SharedObject;
 	import flash.text.Font;
 	import flash.ui.Mouse;
@@ -73,8 +72,6 @@ package
 		private var hasRain:Boolean;
 		private var musicChannel:SoundChannel;
 		private var effectsChannel:SoundChannel;
-		private var musicVolume:Number;
-		private var effectsVolume:Number;
 
 		/**Constructor*/
 		public function FlashGame()
@@ -131,18 +128,11 @@ package
 				hasRain = false;
 			}
 			
-			if(settings.data.musicVolume != null &&
-				settings.data.effectsVolume != null){
-
-				musicVolume = settings.data.musicVolume;
-				effectsVolume = settings.data.effectsVolume;
-			}
-			else{
-				musicVolume = 0.75;
-				effectsVolume = 0.5;
+			if(settings.data.musicVolume == null &&
+				settings.data.effectsVolume == null){
 				
-				settings.data.musicVolume = musicVolume;
-				settings.data.effectsVolume = effectsVolume;
+				settings.data.musicVolume = 0.75;
+				settings.data.effectsVolume = 0.5;
 			}
 			
 			settings.flush();
@@ -150,7 +140,7 @@ package
 			musicChannel = new SoundChannel();
 			effectsChannel = new SoundChannel();
 			
-			menu = new Menu(this, musicChannel, effectsChannel, musicVolume, effectsVolume);
+			menu = new Menu(this, musicChannel, effectsChannel, settings);
 		}
 		
 		private function testingRemove(event:Event):void{
@@ -161,27 +151,24 @@ package
 				hasRain = false;
 			}
 			
-			musicVolume = settings.data.musicVolume;
-			effectsVolume = settings.data.effectsVolume;
-			
 			if(event.target is Menu){			
 				if(world == testWorld){
-					test = new TestWorld(this, false, pacifist, testWorld, difficulty, hasRain, settings, musicChannel, effectsChannel, musicVolume, effectsVolume);
+					test = new TestWorld(this, false, pacifist, testWorld, difficulty, hasRain, settings, musicChannel, effectsChannel);
 				} 
 				else if(world == wallWorld){
-					walls = new WallJumpingWorld(this, false, pacifist, wallWorld,difficulty, hasRain, settings, musicChannel, effectsChannel, musicVolume, effectsVolume);	
+					walls = new WallJumpingWorld(this, false, pacifist, wallWorld,difficulty, hasRain, settings, musicChannel, effectsChannel);	
 				}
 				else if(world == tutorialWorld){
-					tutorial = new MovementWorld(this, false, pacifist, tutorialWorld, hasRain, settings, musicChannel, effectsChannel, musicVolume, effectsVolume);	
+					tutorial = new MovementWorld(this, false, pacifist, tutorialWorld, hasRain, settings, musicChannel, effectsChannel);	
 				}
 				else if(world == smallWorld){
-					small = new SmallWorld(this, false, pacifist, smallWorld, difficulty, hasRain, settings, musicChannel, effectsChannel, musicVolume, effectsVolume);	 
+					small = new SmallWorld(this, false, pacifist, smallWorld, difficulty, hasRain, settings, musicChannel, effectsChannel);	 
 				}
 				else if(world == dodgeWorld){
-					dodge = new DodgeWorld(this, false, pacifist, dodgeWorld, hasRain, settings, musicChannel, effectsChannel, musicVolume, effectsVolume);	
+					dodge = new DodgeWorld(this, false, pacifist, dodgeWorld, hasRain, settings, musicChannel, effectsChannel);	
 				}
 				else{
-					weapon = new WeaponWorld(this, false, pacifist, weaponWorld, hasRain, settings, musicChannel, effectsChannel, musicVolume, effectsVolume);	
+					weapon = new WeaponWorld(this, false, pacifist, weaponWorld, hasRain, settings, musicChannel, effectsChannel);	
 				}
 			}
 			else if(event.target is MovementWorld || 
@@ -190,7 +177,7 @@ package
 				event.target is SmallWorld|| 
 				event.target is DodgeWorld|| 
 				event.target is WeaponWorld){
-				menu = new Menu(this, musicChannel, effectsChannel, musicVolume, effectsVolume);
+				menu = new Menu(this, musicChannel, effectsChannel, settings);
 			} 
 		}
 

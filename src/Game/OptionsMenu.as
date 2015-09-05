@@ -105,7 +105,7 @@ package Game
 		private var settings:SharedObject;
 
 		private var hit:Sound;
-		public function OptionsMenu(screenP: Sprite, x:int, y:int, display:TextField, _musicChannel:SoundChannel, _effectsChannel:SoundChannel, _musicVolume:Number, _effectsVolume:Number, _onMenu:Boolean, _worldState:String, _pacifistState:String, _difficultyState:String)
+		public function OptionsMenu(screenP: Sprite, x:int, y:int, display:TextField, _musicChannel:SoundChannel, _effectsChannel:SoundChannel, _settings:SharedObject, _onMenu:Boolean, _worldState:String, _pacifistState:String, _difficultyState:String)
 		{
 			screen = screenP;
 			screen.addChild(this);
@@ -113,8 +113,10 @@ package Game
 			buttonContainer = new Sprite();
 			musicChannel = _musicChannel;
 			effectsChannel = _effectsChannel;
-			musicVolume = _musicVolume;
-			effectsVolume = _effectsVolume;
+			
+			settings = _settings;
+			musicVolume = settings.data.musicVolume;
+			effectsVolume = settings.data.effectsVolume;
 			
 			this.x = x;
 			this.y = y;
@@ -462,7 +464,7 @@ package Game
 			effectsBox = new Rectangle(380, 400, sliderLength, 0);
 
 			musicKnob.addEventListener(MouseEvent.MOUSE_DOWN, dragMusicKnob);
-			stage.addEventListener(MouseEvent.MOUSE_UP, releaseMusicKnob);
+			stage.addEventListener(MouseEvent.MOUSE_UP, releaseKnob);
 			
 			effectsKnob.addEventListener(MouseEvent.MOUSE_DOWN, dragEffectsKnob);
 		}
@@ -477,17 +479,18 @@ package Game
 		protected function adjustEffectsVolume(event:Event):void
 		{
 			effectsVolume = (effectsKnob.x - 380)/sliderLength; 
-			
 			settings.data.effectsVolume = effectsVolume;
 			settings.flush();
 		}
 		
-		protected function releaseMusicKnob(event:MouseEvent):void
+		protected function releaseKnob(event:MouseEvent):void
 		{
 			if (dragging) { 
 				musicKnob.stopDrag(); 
+				effectsKnob.stopDrag(); 
 				dragging=false;
 				musicKnob.removeEventListener(Event.ENTER_FRAME, adjustMusicVolume);
+				effectsKnob.removeEventListener(Event.ENTER_FRAME, adjustEffectsVolume);
 				effectsChannel = hit.play();
 				effectsChannel.soundTransform = new SoundTransform(effectsVolume);
 			} 			
@@ -508,8 +511,6 @@ package Game
 			
 			settings.data.musicVolume = _musicVolume;
 			settings.flush();
-			
-			trace(true);
 		}
 		
 		protected function mouseClick(event:MouseEvent):void
@@ -780,7 +781,7 @@ package Game
 			this.removeEventListener(KeyboardEvent.KEY_DOWN, keyDown);
 			
 			musicKnob.removeEventListener(MouseEvent.MOUSE_DOWN, dragMusicKnob);
-			stage.removeEventListener(MouseEvent.MOUSE_UP, releaseMusicKnob);
+			stage.removeEventListener(MouseEvent.MOUSE_UP, releaseKnob);
 			
 			effectsKnob.removeEventListener(MouseEvent.MOUSE_DOWN, dragEffectsKnob);
 			

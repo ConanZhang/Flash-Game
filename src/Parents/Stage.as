@@ -13,6 +13,7 @@ package Parents
 	import flash.media.Sound;
 	import flash.media.SoundChannel;
 	import flash.media.SoundTransform;
+	import flash.net.SharedObject;
 	import flash.ui.Keyboard;
 	import flash.utils.Timer;
 	
@@ -139,26 +140,27 @@ package Parents
 		/**AUDIO**/
 		private var musicChannel:SoundChannel;
 		private var effectsChannel:SoundChannel;
-		private var musicVolume:Number;
-		private var effectsVolume:Number;
 		
 		private var stageMusic:Sound;
+		private var settings:SharedObject;
 		
 		/**Constructor*/
-		public function Stage(screenP:FlashGame, debugging:Boolean, playerX:Number, playerY:Number, pacifist:Boolean, world:int, difficulty:int, _musicChannel:SoundChannel, _effectsChannel:SoundChannel, _musicVolume:Number, _effectsVolume:Number)
+		public function Stage(screenP:FlashGame, debugging:Boolean, playerX:Number, playerY:Number, pacifist:Boolean, world:int, difficulty:int, _musicChannel:SoundChannel, _effectsChannel:SoundChannel, _settings:SharedObject)
 		{
 			screen = screenP;
 			pacifistState = pacifist;
 			worldState = world;
 			difficultyState = difficulty;
+			
+			settings = _settings;
+			settings = SharedObject.getLocal("Settings");
+			
 			musicChannel = _musicChannel;
-			effectsChannel = _effectsChannel;
-			musicVolume = _musicVolume;
-			effectsVolume = _effectsVolume;
+			effectsChannel = _effectsChannel;	
 			
 			stageMusic = new MenuMusic;
 			musicChannel = stageMusic.play(0, int.MAX_VALUE);
-			musicChannel.soundTransform = new SoundTransform(musicVolume);
+			musicChannel.soundTransform = new SoundTransform(settings.data.musicVolume);
 
 			/**BOX2D*/
 			//initiate time
@@ -190,7 +192,7 @@ package Parents
 			var gravity:b2Vec2 = new b2Vec2(0, 85);
 			var doSleep:Boolean = true;//don't simulate sleeping bodies
 			worldStage = new b2World(gravity, doSleep);
-			worldStage.SetContactListener(new ContactListener(effectsChannel, effectsVolume) );
+			worldStage.SetContactListener(new ContactListener(effectsChannel, settings) );
 			slowMotion = false;
 			slowAmount = 225;
 			speed = 1;
@@ -540,7 +542,7 @@ package Parents
 			//pausing
 			if(e.keyCode == OptionsMenu.keybindings.pause || e.keyCode == Keyboard.R){
 				if(paused == false){
-					pauseMenu = new PauseMenu(this, 350, 260, pacifistState, worldState, difficultyState, musicChannel, effectsChannel, musicVolume, effectsVolume);
+					pauseMenu = new PauseMenu(this, 350, 260, pacifistState, worldState, difficultyState, musicChannel, effectsChannel, settings);
 					paused = true;
 				}
 				else if(paused == true){

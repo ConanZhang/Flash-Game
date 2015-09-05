@@ -6,6 +6,7 @@ package Game
 	import flash.media.Sound;
 	import flash.media.SoundChannel;
 	import flash.media.SoundTransform;
+	import flash.net.SharedObject;
 	
 	import Assets.Player;
 	
@@ -20,14 +21,14 @@ package Game
 	{
 		private var hit:Sound;
 		private var effectsChannel:SoundChannel;
-		private var effectsVolume:Number;
+		private var settings:SharedObject;
 		
 		/**Constructor DOES NOTHING*/
-		public function ContactListener(_effectsChannel:SoundChannel, _effectsVolume:Number)
+		public function ContactListener(_effectsChannel:SoundChannel, _settings:SharedObject)
 		{
 			hit = new Hit;
 			effectsChannel = _effectsChannel;
-			effectsVolume = _effectsVolume;
+			settings = _settings;
 		}
 		
 		/**Collision begins*/
@@ -111,7 +112,7 @@ package Game
 						PlayerHUD.heartDamaged = true;
 						
 						effectsChannel = hit.play();
-						effectsChannel.soundTransform = new SoundTransform(effectsVolume);
+						effectsChannel.soundTransform = new SoundTransform(settings.data.effectsVolume);
 						
 						//flinch
 						if(contact.GetFixtureA().GetBody().GetPosition().x < contact.GetFixtureB().GetBody().GetPosition().x){
@@ -134,7 +135,7 @@ package Game
 							PlayerHUD.heartDamaged = true;
 							
 							effectsChannel = hit.play();
-							effectsChannel.soundTransform = new SoundTransform(effectsVolume);
+							effectsChannel.soundTransform = new SoundTransform(settings.data.effectsVolume);
 							
 							//flinch
 							if(contact.GetFixtureB().GetBody().GetPosition().x < contact.GetFixtureA().GetBody().GetPosition().x){
@@ -164,7 +165,7 @@ package Game
 						PlayerHUD.heartDamaged = true;
 						
 						effectsChannel = hit.play();
-						effectsChannel.soundTransform = new SoundTransform(effectsVolume);
+						effectsChannel.soundTransform = new SoundTransform(settings.data.effectsVolume);
 
 						//flinch
 						if(contact.GetFixtureB().GetBody().GetPosition().x < contact.GetFixtureA().GetBody().GetPosition().x){
@@ -187,7 +188,7 @@ package Game
 							PlayerHUD.heartDamaged = true;
 							
 							effectsChannel = hit.play();
-							effectsChannel.soundTransform = new SoundTransform(effectsVolume);
+							effectsChannel.soundTransform = new SoundTransform(settings.data.effectsVolume);
 
 							//flinch
 							if(contact.GetFixtureB().GetBody().GetPosition().x < contact.GetFixtureA().GetBody().GetPosition().x){

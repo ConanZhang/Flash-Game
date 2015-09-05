@@ -4,6 +4,7 @@
 package Game
 {
 	import flash.events.TimerEvent;
+	import flash.media.SoundChannel;
 	import flash.net.SharedObject;
 	import flash.utils.Timer;
 	
@@ -17,9 +18,8 @@ package Game
 	import Assets.Rain;
 	import Assets.SmallFlyingEnemy;
 	import Assets.SmallPlatformEnemy;
-		
+	
 	import Parents.Stage;
-	import flash.media.SoundChannel;
 	
 	public class WallJumpingWorld extends Stage
 	{
@@ -34,23 +34,25 @@ package Game
 		private var ammoAdd:Timer;
 		
 		private var settings:SharedObject;
+		private var effectsChannel:SoundChannel;
+		
 		/**			Constructor
 		 * 
 		 * Takes in screen it will be added to
 		 * 
 		 */
-		public function WallJumpingWorld(screenP:FlashGame, debugging:Boolean, pacifist:Boolean,world:int, difficulty:int, _hasRain:Boolean, _settings:SharedObject,  _musicChannel:SoundChannel, _effectsChannel:SoundChannel, _musicVolume:Number, _effectsVolume:Number)
+		public function WallJumpingWorld(screenP:FlashGame, debugging:Boolean, pacifist:Boolean,world:int, difficulty:int, _hasRain:Boolean, _settings:SharedObject,  _musicChannel:SoundChannel, _effectsChannel:SoundChannel)
 		{			
 			screen = screenP;
 			screen.addChildAt(this,0);
 			
-			super(screen,debugging, 139.75, -97, pacifist, world, difficulty, _musicChannel, _effectsChannel, _musicVolume, _effectsVolume);
+			settings = _settings;
+			effectsChannel = _effectsChannel;
+			super(screen,debugging, 139.75, -97, pacifist, world, difficulty, _musicChannel, effectsChannel, settings);
 									
 			//BACKGROUND
 			background = new Background("test");
-			
-			settings = _settings;
-			
+						
 			//RAIN
 			hasRain = _hasRain;
 			
@@ -108,7 +110,7 @@ package Game
 			
 			if(!pacifist){
 				//AMMO
-				var beginAmmoDrop:ItemDrop = new ItemDrop(Math.random()*190 + 40, Math.random()*-90, 1.5,1.5, 2);	
+				var beginAmmoDrop:ItemDrop = new ItemDrop(Math.random()*190 + 40, Math.random()*-90, 1.5,1.5, 2, effectsChannel, settings);	
 				
 				ammoAdd = new Timer(15000);
 				ammoAdd.addEventListener(TimerEvent.TIMER, addAmmo);
@@ -122,13 +124,13 @@ package Game
 				var randomAdd:Number = Math.random();
 				
 				if(randomAdd > 0.66 && flyCount < 4){
-					var testEnemy1:FlyingEnemy = new FlyingEnemy(Math.random()*190 + 40, Math.random()*-90, 2, 3);
+					var testEnemy1:FlyingEnemy = new FlyingEnemy(Math.random()*190 + 40, Math.random()*-90, 2, 3, effectsChannel, settings);
 				}
 				else if(randomAdd > 0.33 && bigFlyCount < 3){
-					var testEnemy2:BigFlyingEnemy = new BigFlyingEnemy(Math.random()*190 + 40, Math.random()*-90, 4, 5);
+					var testEnemy2:BigFlyingEnemy = new BigFlyingEnemy(Math.random()*190 + 40, Math.random()*-90, 4, 5, effectsChannel, settings);
 				}
 				else if(smallFlyCount < 3){
-					var testEnemy3:SmallFlyingEnemy = new SmallFlyingEnemy(Math.random()*190 + 40, Math.random()*-90, 1.5, 1.5);
+					var testEnemy3:SmallFlyingEnemy = new SmallFlyingEnemy(Math.random()*190 + 40, Math.random()*-90, 1.5, 1.5, effectsChannel, settings);
 				}
 			}
 			
@@ -146,43 +148,43 @@ package Game
 			if(randomAdd > 0.66 && Stage.platformCount < 4){
 				//floats
 				if(randomType > 0.66){
-					var testEnemy4:PlatformEnemy = new PlatformEnemy(Math.random()*190 + 40, Math.random()*-90, 4, 4, 0, randomDirection);
+					var testEnemy4:PlatformEnemy = new PlatformEnemy(Math.random()*190 + 40, Math.random()*-90, 4, 4, 0, randomDirection, effectsChannel, settings);
 				}
 					//goes up and down
 				else if(randomType > 0.33){
-					var testEnemy5:PlatformEnemy = new PlatformEnemy(Math.random()*190 + 40, Math.random()*-90, 4, 4, 1, randomDirection);
+					var testEnemy5:PlatformEnemy = new PlatformEnemy(Math.random()*190 + 40, Math.random()*-90, 4, 4, 1, randomDirection, effectsChannel, settings);
 				}
 					//goes left and right
 				else{
-					var testEnemy6:PlatformEnemy = new PlatformEnemy(Math.random()*190 + 40, Math.random()*-90, 4, 4, 2, randomDirection);
+					var testEnemy6:PlatformEnemy = new PlatformEnemy(Math.random()*190 + 40, Math.random()*-90, 4, 4, 2, randomDirection, effectsChannel, settings);
 				}
 			}
 			else if(randomAdd > 0.33 && Stage.bigPlatformCount < 3){
 				//floats
 				if(randomType > 0.66){
-					var testEnemy7:BigPlatformEnemy = new BigPlatformEnemy(Math.random()*190 + 40, Math.random()*-90, 5, 5, 0, randomDirection);
+					var testEnemy7:BigPlatformEnemy = new BigPlatformEnemy(Math.random()*190 + 40, Math.random()*-90, 5, 5, 0, randomDirection, effectsChannel, settings);
 				}
 					//goes up and down
 				else if(randomType > 0.33){
-					var testEnemy8:BigPlatformEnemy = new BigPlatformEnemy(Math.random()*190 + 40, Math.random()*-90, 5, 5, 1, randomDirection);
+					var testEnemy8:BigPlatformEnemy = new BigPlatformEnemy(Math.random()*190 + 40, Math.random()*-90, 5, 5, 1, randomDirection, effectsChannel, settings);
 				}
 					//goes left and right
 				else{
-					var testEnemy9:BigPlatformEnemy = new BigPlatformEnemy(Math.random()*190 + 40, Math.random()*-90, 5, 5, 2, randomDirection);
+					var testEnemy9:BigPlatformEnemy = new BigPlatformEnemy(Math.random()*190 + 40, Math.random()*-90, 5, 5, 2, randomDirection, effectsChannel, settings);
 				}
 			}
 			else if(Stage.smallPlatformCount < 3){
 				//floats
 				if(randomType > 0.66){
-					var testEnemy10:SmallPlatformEnemy = new SmallPlatformEnemy(Math.random()*190 + 40, Math.random()*-90, 2.25, 2.5, 0, randomDirection);
+					var testEnemy10:SmallPlatformEnemy = new SmallPlatformEnemy(Math.random()*190 + 40, Math.random()*-90, 2.25, 2.5, 0, randomDirection, effectsChannel, settings);
 				}
 					//goes up and down
 				else if(randomType > 0.33){
-					var testEnemy11:SmallPlatformEnemy = new SmallPlatformEnemy(Math.random()*190 + 40, Math.random()*-90, 2.25, 2.5, 1, randomDirection);
+					var testEnemy11:SmallPlatformEnemy = new SmallPlatformEnemy(Math.random()*190 + 40, Math.random()*-90, 2.25, 2.5, 1, randomDirection, effectsChannel, settings);
 				}
 					//goes left and right
 				else{
-					var testEnemy12:SmallPlatformEnemy = new SmallPlatformEnemy(Math.random()*190 + 40, Math.random()*-90, 2.25, 2.5, 2, randomDirection);
+					var testEnemy12:SmallPlatformEnemy = new SmallPlatformEnemy(Math.random()*190 + 40, Math.random()*-90, 2.25, 2.5, 2, randomDirection, effectsChannel, settings);
 				}
 			}	
 		}
@@ -194,18 +196,18 @@ package Game
 				if(Stage.ammunitionCount < 10){
 					//pistol ammo
 					if(randomDrop < 0.4){
-						var pistolDrop:ItemDrop = new ItemDrop(Math.random()*190 + 40, Math.random()*-90, 1.5,1.5, 2);	
+						var pistolDrop:ItemDrop = new ItemDrop(Math.random()*190 + 40, Math.random()*-90, 1.5,1.5, 2, effectsChannel, settings);	
 					}
 						//shotgun ammo
 					else if(randomDrop > 0.4 && randomDrop < 0.65){
-						var shotgunDrop:ItemDrop = new ItemDrop(Math.random()*190 + 40, Math.random()*-90, 2.5,2.5, 3);	
+						var shotgunDrop:ItemDrop = new ItemDrop(Math.random()*190 + 40, Math.random()*-90, 2.5,2.5, 3, effectsChannel, settings);	
 					}
 						//machinegun ammo
 					else if(randomDrop > 0.65 && randomDrop < 0.9){
-						var machinegunDrop:ItemDrop = new ItemDrop(Math.random()*190 + 40, Math.random()*-90, 2,2, 4);	
+						var machinegunDrop:ItemDrop = new ItemDrop(Math.random()*190 + 40, Math.random()*-90, 2,2, 4, effectsChannel, settings);	
 					}
 					else{
-						var heartDrop:ItemDrop = new ItemDrop(Math.random()*190 + 40, Math.random()*-90, 1.5,1.5, 1);	
+						var heartDrop:ItemDrop = new ItemDrop(Math.random()*190 + 40, Math.random()*-90, 1.5,1.5, 1, effectsChannel, settings);	
 					}
 				}
 			}

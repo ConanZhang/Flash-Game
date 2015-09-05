@@ -7,6 +7,9 @@ package Assets {
 	import flash.display.Sprite;
 	import flash.geom.Point;
 	import flash.media.Sound;
+	import flash.media.SoundChannel;
+	import flash.media.SoundTransform;
+	import flash.net.SharedObject;
 	
 	import Box2D.Collision.Shapes.b2PolygonShape;
 	import Box2D.Dynamics.b2Body;
@@ -38,8 +41,11 @@ package Assets {
 		private var itemDropXDirection:Number;
 		private var itemDropYDirection:Number;
 		
+		private var effectsChannel:SoundChannel;
+		private var settings:SharedObject;
+		
 		/**Constructor*/
-		public function ItemDrop(xPos:Number, yPos:Number, width:Number, height:Number, type:int){
+		public function ItemDrop(xPos:Number, yPos:Number, width:Number, height:Number, type:int, _effectsChannel:SoundChannel, _settings:SharedObject){
 			//assign parameters to class member variables
 			position = new Point(xPos, yPos);
 			
@@ -47,6 +53,9 @@ package Assets {
 			itemDrop_Width = width;
 			itemDrop_Height = height;
 			itemType = type;
+			
+			effectsChannel = _effectsChannel;
+			settings = _settings;
 			
 			itemDropFixture = new b2FixtureDef();
 			
@@ -121,8 +130,10 @@ package Assets {
 				if(itemType == 1 && Player.playerHealth < 6){
 					Player.playerHealth++;
 					PlayerHUD.heartRevive = true;
+					
 					var lifeUp:Sound = new LifeUp;
-					lifeUp.play();
+					effectsChannel = lifeUp.play();
+					effectsChannel.soundTransform = new SoundTransform(settings.data.effectsVolume);
 				}
 				else if(itemType == 2){
 					Weapon.pistolAmmo +=5;
