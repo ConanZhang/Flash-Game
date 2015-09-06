@@ -69,10 +69,7 @@ package Assets {
 			
 			//Sprite
 			
-			if(backgroundObjectType == "fuji"){
-				backgroundObjectClip = new background_fuji();
-			}
-			else if(backgroundObjectType == "cloud1"){
+			if(backgroundObjectType == "cloud1"){
 				backgroundObjectClip = new background_cloud1();
 			}
 			else if(backgroundObjectType =="cloud2"){
@@ -87,15 +84,49 @@ package Assets {
 			else if(backgroundObjectType == "cloud5"){
 				backgroundObjectClip = new background_cloud5();
 			}
-			else if(backgroundObjectType == "bird1"){
-				backgroundObjectClip = new background_bird1();
+			else if(backgroundObjectType == "cloud6"){
+				backgroundObjectClip = new background_cloud6();
 			}
-			else if(backgroundObjectType == "bird2"){
-				backgroundObjectClip = new background_bird2();
+			else if(backgroundObjectType == "cloud7"){
+				backgroundObjectClip = new background_cloud7();
 			}
-			else if(backgroundObjectType == "bird3"){
-				backgroundObjectClip = new background_bird3();
+			else if(backgroundObjectType == "cloud8"){
+				backgroundObjectClip = new background_cloud8();
 			}
+			else if(backgroundObjectType == "cloud9"){
+				backgroundObjectClip = new background_cloud5();
+			}
+			else if(backgroundObjectType == "cloud10"){
+				backgroundObjectClip = new background_cloud5();
+			}
+			else if(backgroundObjectType == "grass1"){
+				backgroundObjectClip = new background_grass1();
+			}
+			else if(backgroundObjectType == "grass2"){
+				backgroundObjectClip = new background_grass2();
+			}
+			else if(backgroundObjectType == "grass3"){
+				backgroundObjectClip = new background_grass3();
+			}
+			else if(backgroundObjectType == "tree1"){
+				backgroundObjectClip = new background_tree1();
+			}
+			else if(backgroundObjectType == "tree2"){
+				backgroundObjectClip = new background_tree2();
+			}
+			else if(backgroundObjectType == "tree3"){
+				backgroundObjectClip = new background_tree3();
+			}
+			else if(backgroundObjectType == "tree4"){
+				backgroundObjectClip = new background_tree4();
+			}
+			else if(backgroundObjectType == "tree5"){
+				backgroundObjectClip = new background_tree5();
+			}
+			else if(backgroundObjectType == "tutorialAD"){
+				backgroundObjectClip = new TutorialAD();
+			}
+
 			backgroundObjectClip.stop();
 			backgroundObjectClip.width = backgroundObject_Width*metricPixRatio;
 			backgroundObjectClip.height = backgroundObject_Height*metricPixRatio;

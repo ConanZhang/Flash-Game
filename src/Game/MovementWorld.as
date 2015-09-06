@@ -4,13 +4,14 @@
 package Game
 {
 	
+	import flash.display.MovieClip;
+	import flash.media.SoundChannel;
 	import flash.net.SharedObject;
 	
 	import Assets.Platform;
 	import Assets.Rain;
 	
 	import Parents.Stage;
-	import flash.media.SoundChannel;
 	
 	public class MovementWorld extends Stage
 	{
@@ -36,7 +37,7 @@ package Game
 			super(screen,debugging, 30, 7, pacifist, world, 0, _musicChannel, settings);
 						
 			//BACKGROUND
-			background = new Background("test");
+			background = new Background("TutorialMovement");
 			
 			//RAIN
 			settings = _settings;

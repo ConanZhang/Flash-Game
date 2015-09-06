@@ -95,9 +95,7 @@ package Game
 		private var musicBox:Rectangle;
 		private var musicChannel:SoundChannel;
 		private var effectsBox:Rectangle;
-		private var musicVolume:Number;
-		private var effectsVolume:Number;
-		
+		private var musicVolume:Number;		
 		private var musicField:TextField;
 		private var effectsField:TextField;
 		
@@ -114,7 +112,6 @@ package Game
 			
 			settings = _settings;
 			musicVolume = settings.data.musicVolume;
-			effectsVolume = settings.data.effectsVolume;
 			
 			this.x = x;
 			this.y = y;
@@ -166,7 +163,7 @@ package Game
 			effectsSlide.y = 400;
 			
 			buttonContainer.addChild(effectsKnob);
-			effectsKnob.x = (effectsVolume*sliderLength)+380;
+			effectsKnob.x = (settings.data.effectsVolume*sliderLength)+380;
 			effectsKnob.y = 400;
 			
 			buttons = [audio, controls];
@@ -475,7 +472,7 @@ package Game
 			}
 			else{
 				var menuSelect:Sound = new MenuSelect;
-				menuSelect.play(0,0, new SoundTransform(effectsVolume));
+				menuSelect.play(0,0, new SoundTransform(settings.data.effectsVolume));
 			}
 		}
 		
@@ -488,7 +485,7 @@ package Game
 		
 		protected function adjustEffectsVolume(event:Event):void
 		{
-			effectsVolume = (effectsKnob.x - 380)/sliderLength; 
+			var effectsVolume:Number = (effectsKnob.x - 380)/sliderLength; 
 			settings.data.effectsVolume = effectsVolume;
 			settings.flush();
 		}
@@ -502,7 +499,7 @@ package Game
 				musicKnob.removeEventListener(Event.ENTER_FRAME, adjustMusicVolume);
 				effectsKnob.removeEventListener(Event.ENTER_FRAME, adjustEffectsVolume);
 				var menuSelect:Sound = new MenuSelect;
-				menuSelect.play(0,0, new SoundTransform(effectsVolume));
+				menuSelect.play(0,0, new SoundTransform(settings.data.effectsVolume));
 			} 			
 		}
 		

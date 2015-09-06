@@ -102,7 +102,6 @@ package Game
 		private var musicChannel:SoundChannel;
 
 		private var musicVolume:Number;
-		private var effectsVolume:Number;
 		
 		private var settings:SharedObject;
 		
@@ -123,7 +122,6 @@ package Game
 			
 			settings = _settings;
 			musicVolume = settings.data.musicVolume;
-			effectsVolume = settings.data.effectsVolume;
 			
 			menuMusic = new MenuMusic;
 			
@@ -675,7 +673,7 @@ package Game
 			}
 			else{
 				var menuSelect:Sound = new MenuSelect;
-				menuSelect.play(0, 0, new SoundTransform(effectsVolume));
+				menuSelect.play(0, 0, new SoundTransform(settings.data.effectsVolume));
 			}
 			/**
 			 * Layer 0 / Main Menu / y = 0
