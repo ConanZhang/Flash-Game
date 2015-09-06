@@ -71,7 +71,6 @@ package
 		private var settings:SharedObject;
 		private var hasRain:Boolean;
 		private var musicChannel:SoundChannel;
-		private var effectsChannel:SoundChannel;
 
 		/**Constructor*/
 		public function FlashGame()
@@ -138,9 +137,8 @@ package
 			settings.flush();
 						
 			musicChannel = new SoundChannel();
-			effectsChannel = new SoundChannel();
 			
-			menu = new Menu(this, musicChannel, effectsChannel, settings);
+			menu = new Menu(this, musicChannel, settings);
 		}
 		
 		private function testingRemove(event:Event):void{
@@ -153,22 +151,22 @@ package
 			
 			if(event.target is Menu){			
 				if(world == testWorld){
-					test = new TestWorld(this, false, pacifist, testWorld, difficulty, hasRain, settings, musicChannel, effectsChannel);
+					test = new TestWorld(this, false, pacifist, testWorld, difficulty, hasRain, settings, musicChannel);
 				} 
 				else if(world == wallWorld){
-					walls = new WallJumpingWorld(this, false, pacifist, wallWorld,difficulty, hasRain, settings, musicChannel, effectsChannel);	
+					walls = new WallJumpingWorld(this, false, pacifist, wallWorld,difficulty, hasRain, settings, musicChannel);	
 				}
 				else if(world == tutorialWorld){
-					tutorial = new MovementWorld(this, false, pacifist, tutorialWorld, hasRain, settings, musicChannel, effectsChannel);	
+					tutorial = new MovementWorld(this, false, pacifist, tutorialWorld, hasRain, settings, musicChannel);	
 				}
 				else if(world == smallWorld){
-					small = new SmallWorld(this, false, pacifist, smallWorld, difficulty, hasRain, settings, musicChannel, effectsChannel);	 
+					small = new SmallWorld(this, false, pacifist, smallWorld, difficulty, hasRain, settings, musicChannel);	 
 				}
 				else if(world == dodgeWorld){
-					dodge = new DodgeWorld(this, false, pacifist, dodgeWorld, hasRain, settings, musicChannel, effectsChannel);	
+					dodge = new DodgeWorld(this, false, pacifist, dodgeWorld, hasRain, settings, musicChannel);	
 				}
 				else{
-					weapon = new WeaponWorld(this, false, pacifist, weaponWorld, hasRain, settings, musicChannel, effectsChannel);	
+					weapon = new WeaponWorld(this, false, pacifist, weaponWorld, hasRain, settings, musicChannel);	
 				}
 			}
 			else if(event.target is MovementWorld || 
@@ -177,7 +175,7 @@ package
 				event.target is SmallWorld|| 
 				event.target is DodgeWorld|| 
 				event.target is WeaponWorld){
-				menu = new Menu(this, musicChannel, effectsChannel, settings);
+				menu = new Menu(this, musicChannel, settings);
 			} 
 		}
 

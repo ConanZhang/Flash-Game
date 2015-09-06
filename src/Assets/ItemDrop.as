@@ -41,11 +41,10 @@ package Assets {
 		private var itemDropXDirection:Number;
 		private var itemDropYDirection:Number;
 		
-		private var effectsChannel:SoundChannel;
 		private var settings:SharedObject;
 		
 		/**Constructor*/
-		public function ItemDrop(xPos:Number, yPos:Number, width:Number, height:Number, type:int, _effectsChannel:SoundChannel, _settings:SharedObject){
+		public function ItemDrop(xPos:Number, yPos:Number, width:Number, height:Number, type:int, _settings:SharedObject){
 			//assign parameters to class member variables
 			position = new Point(xPos, yPos);
 			
@@ -54,7 +53,6 @@ package Assets {
 			itemDrop_Height = height;
 			itemType = type;
 			
-			effectsChannel = _effectsChannel;
 			settings = _settings;
 			
 			itemDropFixture = new b2FixtureDef();
@@ -132,8 +130,7 @@ package Assets {
 					PlayerHUD.heartRevive = true;
 					
 					var lifeUp:Sound = new LifeUp;
-					effectsChannel = lifeUp.play();
-					effectsChannel.soundTransform = new SoundTransform(settings.data.effectsVolume);
+					lifeUp.play(0, 0, new SoundTransform(settings.data.effectsVolume));
 				}
 				else if(itemType == 2){
 					Weapon.pistolAmmo +=5;

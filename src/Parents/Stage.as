@@ -139,13 +139,12 @@ package Parents
 		
 		/**AUDIO**/
 		private var musicChannel:SoundChannel;
-		private var effectsChannel:SoundChannel;
 		
 		private var stageMusic:Sound;
 		private var settings:SharedObject;
-		
+				
 		/**Constructor*/
-		public function Stage(screenP:FlashGame, debugging:Boolean, playerX:Number, playerY:Number, pacifist:Boolean, world:int, difficulty:int, _musicChannel:SoundChannel, _effectsChannel:SoundChannel, _settings:SharedObject)
+		public function Stage(screenP:FlashGame, debugging:Boolean, playerX:Number, playerY:Number, pacifist:Boolean, world:int, difficulty:int, _musicChannel:SoundChannel,  _settings:SharedObject)
 		{
 			screen = screenP;
 			pacifistState = pacifist;
@@ -156,12 +155,11 @@ package Parents
 			settings = SharedObject.getLocal("Settings");
 			
 			musicChannel = _musicChannel;
-			effectsChannel = _effectsChannel;	
 			
 			stageMusic = new MenuMusic;
 			musicChannel = stageMusic.play(0, int.MAX_VALUE);
 			musicChannel.soundTransform = new SoundTransform(settings.data.musicVolume);
-
+			
 			/**BOX2D*/
 			//initiate time
 			iterations = 10;
@@ -192,7 +190,7 @@ package Parents
 			var gravity:b2Vec2 = new b2Vec2(0, 85);
 			var doSleep:Boolean = true;//don't simulate sleeping bodies
 			worldStage = new b2World(gravity, doSleep);
-			worldStage.SetContactListener(new ContactListener(effectsChannel, settings) );
+			worldStage.SetContactListener(new ContactListener(settings) );
 			slowMotion = false;
 			slowAmount = 225;
 			speed = 1;
@@ -542,13 +540,16 @@ package Parents
 			//pausing
 			if(e.keyCode == OptionsMenu.keybindings.pause || e.keyCode == Keyboard.R){
 				if(paused == false){
-					pauseMenu = new PauseMenu(this, 350, 260, pacifistState, worldState, difficultyState, musicChannel, effectsChannel, settings);
+					pauseMenu = new PauseMenu(this, 350, 260, pacifistState, worldState, difficultyState, musicChannel, settings);
 					paused = true;
 				}
 				else if(paused == true){
 					pauseMenu.destroy();
 					paused = false;
 				}
+				
+				var menuSelect:Sound = new MenuSelect;
+				menuSelect.play(0,0, new SoundTransform(settings.data.effectsVolume));
 			}
 			//change weapon
 			else if(e.keyCode == OptionsMenu.keybindings.weaponLeft){

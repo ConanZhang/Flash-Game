@@ -5,7 +5,6 @@ package Game
 	import flash.display.Sprite;
 	import flash.events.Event;
 	import flash.events.MouseEvent;
-	import flash.geom.Rectangle;
 	import flash.media.Sound;
 	import flash.media.SoundChannel;
 	import flash.media.SoundTransform;
@@ -101,8 +100,7 @@ package Game
 		private var highScore:SharedObject;
 		
 		private var musicChannel:SoundChannel;
-		private var effectsChannel:SoundChannel;
-		
+
 		private var musicVolume:Number;
 		private var effectsVolume:Number;
 		
@@ -111,7 +109,7 @@ package Game
 		private var menuMusic:Sound;
 		private var backgroundBlock:Shape;
 		
-		public function Menu(screenP:Sprite, _musicChannel:SoundChannel, _effectsChannel:SoundChannel, _settings:SharedObject)
+		public function Menu(screenP:Sprite, _musicChannel:SoundChannel, _settings:SharedObject)
 		{			
 			screen = screenP;
 			screen.addChildAt(this, 0);
@@ -122,7 +120,6 @@ package Game
 			scrollSpeed = 50;
 			layer = 0;
 			musicChannel = _musicChannel;
-			effectsChannel = _effectsChannel;
 			
 			settings = _settings;
 			musicVolume = settings.data.musicVolume;
@@ -652,7 +649,7 @@ package Game
 			addEventListener(MouseEvent.CLICK, buttonClicked);
 			addEventListener(Event.ENTER_FRAME, update);
 			
-			optionsMenu = new OptionsMenu(this, 0, 2000, displayField, musicChannel, effectsChannel, settings, true, "", "", "");
+			optionsMenu = new OptionsMenu(this, 0, 2000, displayField, musicChannel, settings, true, "", "", "", activeButton);
 			addChild(displayField);
 		}
 		private function mouseOver(event:MouseEvent):void
@@ -671,9 +668,15 @@ package Game
 			}
 		}
 		private function buttonClicked(event:MouseEvent):void
-		{
+		{	
 			if(activeButton == null)
+			{
 				return;
+			}
+			else{
+				var menuSelect:Sound = new MenuSelect;
+				menuSelect.play(0, 0, new SoundTransform(effectsVolume));
+			}
 			/**
 			 * Layer 0 / Main Menu / y = 0
 			 * Layer 1 / Difficulty / y = 500
@@ -807,6 +810,7 @@ package Game
 			//adjust size of button
 			for each (var button:MovieClip in buttons) {
 				if(button == activeButton){
+					
 					if(button.scaleX <= 1.5){
 						button.scaleX +=0.1;
 						button.scaleY +=0.1;

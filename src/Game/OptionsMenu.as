@@ -94,7 +94,6 @@ package Game
 		private var sliderLength:Number;
 		private var musicBox:Rectangle;
 		private var musicChannel:SoundChannel;
-		private var effectsChannel:SoundChannel;
 		private var effectsBox:Rectangle;
 		private var musicVolume:Number;
 		private var effectsVolume:Number;
@@ -104,15 +103,14 @@ package Game
 		
 		private var settings:SharedObject;
 
-		private var hit:Sound;
-		public function OptionsMenu(screenP: Sprite, x:int, y:int, display:TextField, _musicChannel:SoundChannel, _effectsChannel:SoundChannel, _settings:SharedObject, _onMenu:Boolean, _worldState:String, _pacifistState:String, _difficultyState:String)
+		public function OptionsMenu(screenP: Sprite, x:int, y:int, display:TextField, _musicChannel:SoundChannel, _settings:SharedObject, _onMenu:Boolean, _worldState:String, _pacifistState:String, _difficultyState:String, _activeButton:MovieClip)
 		{
 			screen = screenP;
 			screen.addChild(this);
 			buttons = new Array();
 			buttonContainer = new Sprite();
 			musicChannel = _musicChannel;
-			effectsChannel = _effectsChannel;
+			activeButton = _activeButton;
 			
 			settings = _settings;
 			musicVolume = settings.data.musicVolume;
@@ -120,9 +118,7 @@ package Game
 			
 			this.x = x;
 			this.y = y;
-			
-			hit = new Hit;
-			
+						
 			displayField = display;
 			worldState = _worldState;
 			pacifistState = _pacifistState;
@@ -467,6 +463,20 @@ package Game
 			stage.addEventListener(MouseEvent.MOUSE_UP, releaseKnob);
 			
 			effectsKnob.addEventListener(MouseEvent.MOUSE_DOWN, dragEffectsKnob);
+			
+			addEventListener(MouseEvent.CLICK, buttonClicked);
+		}
+		
+		protected function buttonClicked(event:MouseEvent):void
+		{
+			if(activeButton == null)
+			{
+				return;
+			}
+			else{
+				var menuSelect:Sound = new MenuSelect;
+				menuSelect.play(0,0, new SoundTransform(effectsVolume));
+			}
 		}
 		
 		protected function dragEffectsKnob(event:MouseEvent):void
@@ -491,8 +501,8 @@ package Game
 				dragging=false;
 				musicKnob.removeEventListener(Event.ENTER_FRAME, adjustMusicVolume);
 				effectsKnob.removeEventListener(Event.ENTER_FRAME, adjustEffectsVolume);
-				effectsChannel = hit.play();
-				effectsChannel.soundTransform = new SoundTransform(effectsVolume);
+				var menuSelect:Sound = new MenuSelect;
+				menuSelect.play(0,0, new SoundTransform(effectsVolume));
 			} 			
 		}
 		
@@ -515,6 +525,7 @@ package Game
 		
 		protected function mouseClick(event:MouseEvent):void
 		{
+
 			if(currentKey != 0){
 				if(currentKey == jump){
 					currentKey = 0;
@@ -779,7 +790,8 @@ package Game
 			this.removeEventListener(MouseEvent.MOUSE_OUT, mouseOut);
 			this.removeEventListener(Event.ENTER_FRAME, update);
 			this.removeEventListener(KeyboardEvent.KEY_DOWN, keyDown);
-			
+			this.removeEventListener(MouseEvent.CLICK, buttonClicked);
+
 			musicKnob.removeEventListener(MouseEvent.MOUSE_DOWN, dragMusicKnob);
 			stage.removeEventListener(MouseEvent.MOUSE_UP, releaseKnob);
 			

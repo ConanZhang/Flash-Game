@@ -22,21 +22,19 @@ package Game
 		private var enemyAdded:Boolean;
 		
 		private var settings:SharedObject;
-		private var effectsChannel:SoundChannel;
 		/**			Constructor
 		 * 
 		 * Takes in screen it will be added to
 		 * 
 		 */
-		public function DodgeWorld(screenP:FlashGame, debugging:Boolean, pacifist:Boolean, world:int, _hasRain:Boolean, _settings:SharedObject,  _musicChannel:SoundChannel, _effectsChannel:SoundChannel)
+		public function DodgeWorld(screenP:FlashGame, debugging:Boolean, pacifist:Boolean, world:int, _hasRain:Boolean, _settings:SharedObject,  _musicChannel:SoundChannel)
 		{			
 			screen = screenP;
 			screen.addChildAt(this,0);
 			
 			settings = _settings;
-			effectsChannel = _effectsChannel;
 			
-			super(screen,debugging, 62, 7, pacifist, world, 0, _musicChannel, _effectsChannel, settings);
+			super(screen,debugging, 62, 7, pacifist, world, 0, _musicChannel, settings);
 			
 			//BACKGROUND
 			background = new Background("test");
@@ -75,7 +73,7 @@ package Game
 				var row1:Platform = new Platform(41+(i*15), 0,0.5, 0.5, "square");
 			}
 			
-			var practiceEnemy2:BigFlyingEnemy = new BigFlyingEnemy(60, -90, 4, 5, effectsChannel, settings);
+			var practiceEnemy2:BigFlyingEnemy = new BigFlyingEnemy(60, -90, 4, 5,settings);
 		}
 		
 		public override function removeAddRain():void{

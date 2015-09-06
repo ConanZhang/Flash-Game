@@ -26,14 +26,14 @@ package Game
 		 * Takes in screen it will be added to
 		 * 
 		 */
-		public function MovementWorld(screenP:FlashGame, debugging:Boolean, pacifist:Boolean, world:int, _hasRain:Boolean, _settings:SharedObject,  _musicChannel:SoundChannel, _effectsChannel:SoundChannel)
+		public function MovementWorld(screenP:FlashGame, debugging:Boolean, pacifist:Boolean, world:int, _hasRain:Boolean, _settings:SharedObject,  _musicChannel:SoundChannel)
 		{			
 			screen = screenP;
 			screen.addChildAt(this,0);
 			
 			settings = _settings;
 			
-			super(screen,debugging, 30, 7, pacifist, world, 0, _musicChannel, _effectsChannel, settings);
+			super(screen,debugging, 30, 7, pacifist, world, 0, _musicChannel, settings);
 						
 			//BACKGROUND
 			background = new Background("test");

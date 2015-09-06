@@ -4,7 +4,9 @@ package Game
 	import flash.display.Sprite;
 	import flash.events.Event;
 	import flash.events.MouseEvent;
+	import flash.media.Sound;
 	import flash.media.SoundChannel;
+	import flash.media.SoundTransform;
 	import flash.net.SharedObject;
 	import flash.text.TextField;
 	import flash.text.TextFormat;
@@ -55,10 +57,10 @@ package Game
 		private var difficultyState:String;
 		
 		private var musicChannel:SoundChannel;
-		private var effectsChannel:SoundChannel;
 		
 		private var settings:SharedObject
-		public function PauseMenu(screenP: Stage, x:int, y:int, _pacifist:Boolean, _world:int, _difficulty:int, _musicChannel:SoundChannel, _effectsChannel:SoundChannel, _settings:SharedObject)
+		
+		public function PauseMenu(screenP: Stage, x:int, y:int, _pacifist:Boolean, _world:int, _difficulty:int, _musicChannel:SoundChannel,_settings:SharedObject)
 		{
 			screen = screenP;
 			screen.addChild(this);
@@ -74,7 +76,6 @@ package Game
 			settings = _settings;
 			
 			musicChannel = _musicChannel;
-			effectsChannel = _effectsChannel;
 			
 			optionsContainer = new Options_Container;
 			resume = new Resume;
@@ -195,7 +196,13 @@ package Game
 		protected function buttonClicked(event:MouseEvent):void
 		{
 			if(activeButton == null)
+			{
 				return;
+			}
+			else{
+				var menuSelect:Sound = new MenuSelect;
+				menuSelect.play(0, 0, new SoundTransform(settings.data.effectsVolume));
+			}
 			
 			//keep track of last button clicked
 			lastButtonClicked = activeButton;
@@ -221,7 +228,7 @@ package Game
 				newOptionsContainer.y = optionsContainer.y;
 				
 				//put the options text on top of that?
-				optionsMenu = new OptionsMenu(this, -360,-275, displayField, musicChannel, effectsChannel, settings, false, worldState, pacifistState, difficultyState);
+				optionsMenu = new OptionsMenu(this, -360,-275, displayField, musicChannel, settings, false, worldState, pacifistState, difficultyState, activeButton);
 				
 				backButton = new Back;
 				buttonContainer.addChild(backButton);
@@ -244,6 +251,7 @@ package Game
 					buttonContainer.removeChild(newOptionsContainer);
 					optionsMenu.destroy();
 					optionsMenu = null;
+					activeButton = null;
 					buttonContainer.removeChild(backButton);
 					buttons.pop();
 					displayField.text = "Arena i " + worldState + "   Difficulty i " + difficultyState + "  Mode i " + pacifistState;
