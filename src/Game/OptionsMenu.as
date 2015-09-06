@@ -152,19 +152,19 @@ package Game
 			
 			buttonContainer.addChild(musicSlide);
 			musicSlide.x = 475;
-			musicSlide.y = 350;
+			musicSlide.y = 355;
 			
 			buttonContainer.addChild(musicKnob);
 			musicKnob.x = (musicVolume*sliderLength)+380;
-			musicKnob.y = 350;
+			musicKnob.y = 355;
 			
 			buttonContainer.addChild(effectsSlide);
 			effectsSlide.x = 475;
-			effectsSlide.y = 400;
+			effectsSlide.y = 405;
 			
 			buttonContainer.addChild(effectsKnob);
 			effectsKnob.x = (settings.data.effectsVolume*sliderLength)+380;
-			effectsKnob.y = 400;
+			effectsKnob.y = 405;
 			
 			buttons = [audio, controls];
 			
@@ -392,7 +392,7 @@ package Game
 			musicField = new TextField();
 			musicField.name = "music";
 			musicField.x = 230;
-			musicField.y = 325;
+			musicField.y = 330;
 			musicField.width = 150;
 			musicField.height = 50;
 			musicField.embedFonts = true;
@@ -405,7 +405,7 @@ package Game
 			effectsField = new TextField();
 			effectsField.name = "effects";
 			effectsField.x = 210;
-			effectsField.y = 375;
+			effectsField.y = 380;
 			effectsField.width = 150;
 			effectsField.height = 50;
 			effectsField.embedFonts = true;
@@ -453,8 +453,8 @@ package Game
 			
 			dragging = false;
 			
-			musicBox = new Rectangle(380, 350, sliderLength, 0);
-			effectsBox = new Rectangle(380, 400, sliderLength, 0);
+			musicBox = new Rectangle(380, 355, sliderLength, 0);
+			effectsBox = new Rectangle(380, 405, sliderLength, 0);
 
 			musicKnob.addEventListener(MouseEvent.MOUSE_DOWN, dragMusicKnob);
 			stage.addEventListener(MouseEvent.MOUSE_UP, releaseKnob);

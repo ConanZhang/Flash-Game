@@ -4,10 +4,13 @@
 package Game
 {
 	
+	import flash.events.TimerEvent;
 	import flash.media.SoundChannel;
 	import flash.net.SharedObject;
+	import flash.utils.Timer;
 	
 	import Assets.BigFlyingEnemy;
+	import Assets.BigPlatformEnemy;
 	import Assets.Platform;
 	import Assets.Rain;
 	
@@ -22,6 +25,7 @@ package Game
 		private var enemyAdded:Boolean;
 		
 		private var settings:SharedObject;
+		private var addEnemy:Timer;
 		/**			Constructor
 		 * 
 		 * Takes in screen it will be added to
@@ -37,7 +41,7 @@ package Game
 			super(screen,debugging, 62, 7, pacifist, world, 0, _musicChannel, settings);
 			
 			//BACKGROUND
-			background = new Background("test");
+			background = new Background("TutorialDodge");
 			
 			//RAIN
 			settings = _settings;
@@ -54,7 +58,7 @@ package Game
 			
 			//GROUND & SKY
 			var ground:Platform = new Platform(7, 15, 100, 15, "b_wide");
-			var sky:Platform = new Platform(7, -110, 100, 15, "b_wide");
+			var sky:Platform = new Platform(7, -150, 100, 15, "b_wide");
 			
 			//WALLS
 			var leftWall:Platform = new Platform(-5,-170, 30, 200, "b_tall");
@@ -62,6 +66,10 @@ package Game
 			
 			//PLATFORMS
 			for(var i:int = 0; i < 4; i++){
+				var row13:Platform = new Platform(41+(i*15), -120,0.5, 0.5, "square");
+				var row12:Platform = new Platform(41+(i*15), -110,0.5, 0.5, "square");
+				var row11:Platform = new Platform(41+(i*15), -100,0.5, 0.5, "square");
+				var row10:Platform = new Platform(41+(i*15), -90,0.5, 0.5, "square");
 				var row9:Platform = new Platform(41+(i*15), -80,0.5, 0.5, "square");
 				var row8:Platform = new Platform(41+(i*15), -70,0.5, 0.5, "square");
 				var row7:Platform = new Platform(41+(i*15), -60,0.5, 0.5, "square");
@@ -73,7 +81,18 @@ package Game
 				var row1:Platform = new Platform(41+(i*15), 0,0.5, 0.5, "square");
 			}
 			
-			var practiceEnemy2:BigFlyingEnemy = new BigFlyingEnemy(60, -90, 4, 5,settings);
+			addEnemy = new Timer(8000);
+			addEnemy.addEventListener(TimerEvent.TIMER, addEnemies);
+			addEnemy.start();
+		}
+		
+		protected function addEnemies(event:TimerEvent):void
+		{
+			addEnemy.stop();
+			
+			var testEnemy1:BigPlatformEnemy = new BigPlatformEnemy(95, -1, 8, 8, 2, 0, settings);
+			var testEnemy2:BigPlatformEnemy = new BigPlatformEnemy(95, 3, 8, 8, 2, 0, settings);
+			var testEnemy3:BigPlatformEnemy = new BigPlatformEnemy(95, 7, 8, 8, 2, 0, settings);			
 		}
 		
 		public override function removeAddRain():void{

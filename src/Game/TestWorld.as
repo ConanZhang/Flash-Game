@@ -105,7 +105,8 @@ package Game
 			//Master
 			else if(difficulty == 2){
 				enemyAdd = new Timer(3500);
-			}			enemyAdd.addEventListener(TimerEvent.TIMER, addEnemy);
+			}			
+			enemyAdd.addEventListener(TimerEvent.TIMER, addEnemy);
 			enemyAdd.start();
 		
 			if(!pacifist){

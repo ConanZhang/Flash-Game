@@ -63,9 +63,9 @@ package Game
 			//PLATFORMS
 			var lowJump:Platform = new Platform(40, 10, 10, 2, "wide");
 			var highJump:Platform = new Platform(55, 5, 10, 2, "wide");
-			var hoverJump:Platform = new Platform(80, 5, 0.5, 0.5, "square");
+			var hoverJump:Platform = new Platform(79, 5, 3, 3, "square");
 			var doubleJump:Platform = new Platform(95, -7, 10, 2, "wide");
-			var doubleHoverJump:Platform = new Platform(117, -17, 0.5, 0.5, "square");
+			var doubleHoverJump:Platform = new Platform(115, -17, 3, 3, "square");
 			
 			var levelOne:Platform = new Platform(100, -2, 55, 20, "b_wide");
 			var levelTwo:Platform = new Platform(125, -22, 31, 25, "b_wide");

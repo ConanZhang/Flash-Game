@@ -123,9 +123,58 @@ package Assets {
 			else if(backgroundObjectType == "tree5"){
 				backgroundObjectClip = new background_tree5();
 			}
+			else if(backgroundObjectType == "tutorialR"){
+				backgroundObjectClip = new TutorialR();
+			}
 			else if(backgroundObjectType == "tutorialAD"){
 				backgroundObjectClip = new TutorialAD();
 			}
+			else if(backgroundObjectType == "tutorialW"){
+				backgroundObjectClip = new TutorialW();
+			}
+			else if(backgroundObjectType == "tutorialLongJump"){
+				backgroundObjectClip = new TutorialLongJump();
+			}
+			else if(backgroundObjectType == "tutorialHover"){
+				backgroundObjectClip = new TutorialHover();
+			}
+			else if(backgroundObjectType == "tutorialDoubleJump"){
+				backgroundObjectClip = new TutorialDoubleJump();
+			}
+			else if(backgroundObjectType == "tutorialDoubleJumpHover"){
+				backgroundObjectClip = new TutorialDoubleJumpHover();
+			}
+			else if(backgroundObjectType == "tutorialWallJump"){
+				backgroundObjectClip = new TutorialWallJump();
+			}
+			else if(backgroundObjectType == "tutorialNoJump"){
+				backgroundObjectClip = new TutorialNoJump();
+			}
+			else if(backgroundObjectType == "tutorialSingleWallJump"){
+				backgroundObjectClip = new TutorialSingleWallJump();
+			}
+			else if(backgroundObjectType == "tutorialWallHug"){
+				backgroundObjectClip = new TutorialWallHug();
+			}
+			else if(backgroundObjectType == "tutorialFalling"){
+				backgroundObjectClip = new TutorialFalling();
+			}
+			else if(backgroundObjectType == "tutorialFastFall"){
+				backgroundObjectClip = new TutorialFastFall();
+			}
+			else if(backgroundObjectType == "tutorialDoubleJump"){
+				backgroundObjectClip = new TutorialDoubleJump();
+			}
+			else if(backgroundObjectType == "tutorialSpace"){
+				backgroundObjectClip = new TutorialSpace();
+			}
+			else if(backgroundObjectType == "tutorialBar"){
+				backgroundObjectClip = new TutorialBar();
+			}
+			else if(backgroundObjectType == "tutorialHealth"){
+				backgroundObjectClip = new TutorialHealth();
+			}
+
 
 			backgroundObjectClip.stop();
 			backgroundObjectClip.width = backgroundObject_Width*metricPixRatio;
