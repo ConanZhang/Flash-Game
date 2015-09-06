@@ -1,9 +1,11 @@
 package Game
 {
 	import flash.display.MovieClip;
+	import flash.display.Shape;
 	import flash.display.Sprite;
 	import flash.events.Event;
 	import flash.events.MouseEvent;
+	import flash.geom.Rectangle;
 	import flash.media.Sound;
 	import flash.media.SoundChannel;
 	import flash.media.SoundTransform;
@@ -107,6 +109,7 @@ package Game
 		private var settings:SharedObject;
 		
 		private var menuMusic:Sound;
+		private var backgroundBlock:Shape;
 		
 		public function Menu(screenP:Sprite, _musicChannel:SoundChannel, _effectsChannel:SoundChannel, _settings:SharedObject)
 		{			
@@ -130,6 +133,12 @@ package Game
 			var musicTransform:SoundTransform = new SoundTransform(musicVolume);
 			musicChannel = menuMusic.play(0, int.MAX_VALUE);
 			musicChannel.soundTransform = musicTransform;
+			
+			backgroundBlock = new Shape();
+			backgroundBlock.graphics.beginFill(0x050505); 
+			backgroundBlock.graphics.drawRect(-700, 0, 2100, 525);
+			backgroundBlock.graphics.endFill(); 
+			addChild(backgroundBlock); 
 			
 			displayFormat = new TextFormat();
 			displayFormat.size = 50;
