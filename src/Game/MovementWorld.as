@@ -67,34 +67,28 @@ package Game
 			var doubleJump:Platform = new Platform(95, -7, 10, 2, "wide");
 			var doubleHoverJump:Platform = new Platform(117, -17, 0.5, 0.5, "square");
 			
-			var levelOne:Platform = new Platform(100, -2, 121, 20, "b_wide");
-			var levelTwo:Platform = new Platform(125, -22, 96, 25, "b_wide");
+			var levelOne:Platform = new Platform(100, -2, 55, 20, "b_wide");
+			var levelTwo:Platform = new Platform(125, -22, 31, 25, "b_wide");
 
 			var rightWallJump:Platform = new Platform(135, -40, 2, 10, "tall");
 			var leftWallJump:Platform = new Platform(120, -50, 2, 10, "tall");
 			var endWallJump:Platform = new Platform(131, -47, 10, 2, "wide");
 			var singleWallJump:Platform = new Platform(143, -82, 2, 30, "tall");
 			
-			var leftCeilingJump:Platform = new Platform(155, -100, 3, 15, "tall");
-			var middleCeilingJump:Platform = new Platform(180, -100, 3, 15, "tall");
-			var rightCeilingJump:Platform = new Platform(205, -100, 3, 15, "tall");
-			
-			var levelThree:Platform = new Platform(150, -65, 71, 45, "b_wide");
-
-			var channelLeft:Platform = new Platform(220,-87, 2, 120, "b_tall");
-			var channelRight:Platform = new Platform(230,-120, 2, 100, "b_tall");
+			var channelLeft:Platform = new Platform(155,-87, 2, 120, "b_tall");
+			var channelRight:Platform = new Platform(165,-120, 2, 120, "b_tall");
 			
 			// Wall jumping
-			for(var i:int = 0; i < 3; i++){
-				var row9:Platform = new Platform(238+(i*25), -85,1, 10, "tall");
-				var row8:Platform = new Platform(250+(i*25), -75,1, 10, "tall");
-				var row7:Platform = new Platform(238+(i*25), -65,1, 10, "tall");
-				var row6:Platform = new Platform(250+(i*25), -55,1, 10, "tall");
-				var row5:Platform = new Platform(238+(i*25), -45,1, 10, "tall");
-				var row4:Platform = new Platform(250+(i*25), -35,1, 10, "tall");
-				var row3:Platform = new Platform(238+(i*25), -25,1, 10, "tall");
-				var row2:Platform = new Platform(250+(i*25), -15,1, 10, "tall");
-				var row1:Platform = new Platform(238+(i*25), 0,1, 10, "tall");
+			for(var i:int = 0; i < 5; i++){
+				var row9:Platform = new Platform(173+(i*25), -85,1, 10, "tall");
+				var row8:Platform = new Platform(185+(i*25), -75,1, 10, "tall");
+				var row7:Platform = new Platform(173+(i*25), -65,1, 10, "tall");
+				var row6:Platform = new Platform(185+(i*25), -55,1, 10, "tall");
+				var row5:Platform = new Platform(173+(i*25), -45,1, 10, "tall");
+				var row4:Platform = new Platform(185+(i*25), -35,1, 10, "tall");
+				var row3:Platform = new Platform(173+(i*25), -25,1, 10, "tall");
+				var row2:Platform = new Platform(185+(i*25), -15,1, 10, "tall");
+				var row1:Platform = new Platform(173+(i*25), 0,1, 10, "tall");
 			}
 		}
 		
