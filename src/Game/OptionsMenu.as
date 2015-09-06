@@ -260,7 +260,7 @@ package Game
 			slowField.textColor = 0xff0000;
 			slowField.selectable = false;
 			slowField.type= TextFieldType.INPUT;
-			slowField.text = "Slow Motion i " + keyCodeStrings[keybindings.slow];
+			slowField.text = "Invincibility i " + keyCodeStrings[keybindings.slow];
 			
 			weaponLeftField = new TextField();
 			weaponLeftField.name = "weaponLeft";
@@ -769,7 +769,7 @@ package Game
 			leftField.text = "Left i " + keyCodeStrings[keybindings.left];
 			fallField.text = "Fast Fall i " + keyCodeStrings[keybindings.fall];
 			rightField.text = "Right i " + keyCodeStrings[keybindings.right];
-			slowField.text = "Slow Motion i " + keyCodeStrings[keybindings.slow];
+			slowField.text = "Invincibility i " + keyCodeStrings[keybindings.slow];
 			weaponLeftField.text = "Next Weapon Left i " + keyCodeStrings[keybindings.weaponLeft];
 			weaponRightField.text = "Next Weapon Right i " + keyCodeStrings[keybindings.weaponRight];
 			pistolField.text = "Pistol i " + keyCodeStrings[keybindings.pistol];

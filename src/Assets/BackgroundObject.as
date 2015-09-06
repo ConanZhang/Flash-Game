@@ -174,6 +174,24 @@ package Assets {
 			else if(backgroundObjectType == "tutorialHealth"){
 				backgroundObjectClip = new TutorialHealth();
 			}
+			else if(backgroundObjectType == "tutorialPistol"){
+				backgroundObjectClip = new TutorialPistol();
+			}
+			else if(backgroundObjectType == "tutorialShotgun"){
+				backgroundObjectClip = new TutorialShotgun();
+			}
+			else if(backgroundObjectType == "tutorialMachineGun"){
+				backgroundObjectClip = new TutorialMachineGun();
+			}
+			else if(backgroundObjectType == "tutorialCycle"){
+				backgroundObjectClip = new TutorialCycle();
+			}
+			else if(backgroundObjectType == "tutorialHeart"){
+				backgroundObjectClip = new TutorialHeart();
+			}
+			else if(backgroundObjectType == "tutorialShoot"){
+				backgroundObjectClip = new TutorialShoot();
+			}
 
 
 			backgroundObjectClip.stop();

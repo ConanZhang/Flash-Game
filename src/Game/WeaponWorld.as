@@ -52,7 +52,7 @@ package Game
 			super(screen,debugging, 30, 7, pacifist, world, 0, _musicChannel, settings);
 			
 			//BACKGROUND
-			background = new Background("test");
+			background = new Background("TutorialWeapons");
 			
 			//RAIN
 			
@@ -97,10 +97,6 @@ package Game
 			var blockade3:Platform = new Platform(153, -85, 50, 10, "b_wide");
 			
 			this.addEventListener(Event.ENTER_FRAME, addTargets);
-			
-			ammoAdd = new Timer(15000);
-			ammoAdd.addEventListener(TimerEvent.TIMER, addAmmo);
-			ammoAdd.start();
 		}
 		
 		protected function addTargets(event:Event):void
@@ -113,6 +109,10 @@ package Game
 				enemyAdd = new Timer(7500);
 				enemyAdd.addEventListener(TimerEvent.TIMER, addEnemy);
 				enemyAdd.start();
+				
+				ammoAdd = new Timer(15000);
+				ammoAdd.addEventListener(TimerEvent.TIMER, addAmmo);
+				ammoAdd.start();
 				
 				var testEnemy1:FlyingEnemy = new FlyingEnemy(170, 8, 2, 3,  settings);
 				

@@ -3,7 +3,6 @@
  */
 package Game
 {
-	import flash.display.MovieClip;
 	import flash.display.Sprite;
 	
 	import Assets.BackgroundObject;
@@ -25,14 +24,29 @@ package Game
 			else if(background == "TutorialDodge"){
 				tutorialDodge();
 			}
+			else if(background == "TutorialWeapons"){
+				tutorialWeapons();
+			}
+		}
+		
+		private function tutorialWeapons():void
+		{
+			var tutorialR1:BackgroundObject = new BackgroundObject(32, 8, 5, 3, "tutorialR");
+			var tutorialPistol:BackgroundObject = new BackgroundObject(41, 6, 5, 3, "tutorialPistol");
+			var tutorialShotgun:BackgroundObject = new BackgroundObject(56.5, 6, 5, 3, "tutorialShotgun");
+			var tutorialCycle:BackgroundObject = new BackgroundObject(68, 6, 8, 5, "tutorialCycle");
+			var tutorialMachineGun:BackgroundObject = new BackgroundObject(81, 6, 6, 4, "tutorialMachineGun");
+			var tutorialHeart:BackgroundObject = new BackgroundObject(96, 6, 5, 3, "tutorialHeart");
+			var tutorialShoot:BackgroundObject = new BackgroundObject(111, 5, 7, 4, "tutorialShoot");
+			var tutorialR2:BackgroundObject = new BackgroundObject(135, 5, 5, 3, "tutorialR");
 		}
 		
 		private function tutorialDodge():void
 		{
 			var tutorialR1:BackgroundObject = new BackgroundObject(43, 7, 5, 3, "tutorialR");
 			var tutorialSpace:BackgroundObject = new BackgroundObject(64, 9, 5, 3, "tutorialSpace");
-			var tutorialBar:BackgroundObject = new BackgroundObject(54, 4, 5, 2, "tutorialBar");
-			var tutorialHealth:BackgroundObject = new BackgroundObject(77, 5, 5, 3, "tutorialHealth");
+			var tutorialBar:BackgroundObject = new BackgroundObject(54, 4, 6, 2, "tutorialBar");
+			var tutorialHealth:BackgroundObject = new BackgroundObject(77, 5, 7, 4, "tutorialHealth");
 			var tutorialR2:BackgroundObject = new BackgroundObject(88, 7, 5, 3, "tutorialR");
 		}
 		
@@ -45,7 +59,7 @@ package Game
 			var tutorialHover:BackgroundObject = new BackgroundObject(73, 0, 6, 4, "tutorialHover");
 			var tutorialDoubleJump:BackgroundObject = new BackgroundObject(87, -2, 6, 5, "tutorialDoubleJump");
 			var tutorialDoubleJumpHover:BackgroundObject = new BackgroundObject(105, -12, 6, 5, "tutorialDoubleJumpHover");
-			var tutorialWallJump:BackgroundObject = new BackgroundObject(129, -28, 4, 4, "tutorialWallJump");
+			var tutorialWallJump:BackgroundObject = new BackgroundObject(129, -28, 7, 5, "tutorialWallJump");
 			var tutorialNoJump:BackgroundObject = new BackgroundObject(148, -28, 6, 4, "tutorialNoJump");
 			var tutorialSingleWallJump:BackgroundObject = new BackgroundObject(136, -54, 7, 4, "tutorialSingleWallJump");
 			var tutorialWallHug:BackgroundObject = new BackgroundObject(137, -75, 7, 4, "tutorialWallHug");
@@ -57,7 +71,6 @@ package Game
 		/**Test background*/
 		public function test():void{
 			/*
-			var testMountain:BackgroundObject = new BackgroundObject(130, -7, 30, 30, "mountain");
 			var testCloud1:BackgroundObject = new BackgroundObject(80, -50, 10, 10, "cloud1");
 			var testCloud2:BackgroundObject = new BackgroundObject(100, -50, 10, 10, "cloud2");
 			var testCloud3:BackgroundObject = new BackgroundObject(200, -50, 10, 10, "cloud3");
