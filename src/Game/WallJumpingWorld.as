@@ -118,7 +118,7 @@ package Game
 		
 		private function addEnemy(e:TimerEvent):void{
 			//test enemies
-			if(!Stage.paused && Player.playerHealth > 0){
+			if(!paused && Player.playerHealth > 0){
 				var randomAdd:Number = Math.random();
 				
 				if(randomAdd > 0.66 && flyCount < 4){
@@ -143,7 +143,7 @@ package Game
 				randomDirection = 2;
 			}
 			
-			if(randomAdd > 0.66 && Stage.platformCount < 4){
+			if(randomAdd > 0.66 && platformCount < 4){
 				//floats
 				if(randomType > 0.66){
 					var testEnemy4:PlatformEnemy = new PlatformEnemy(Math.random()*190 + 40, Math.random()*-90, 4, 4, 0, randomDirection,  settings);
@@ -157,7 +157,7 @@ package Game
 					var testEnemy6:PlatformEnemy = new PlatformEnemy(Math.random()*190 + 40, Math.random()*-90, 4, 4, 2, randomDirection,  settings);
 				}
 			}
-			else if(randomAdd > 0.33 && Stage.bigPlatformCount < 3){
+			else if(randomAdd > 0.33 && bigPlatformCount < 3){
 				//floats
 				if(randomType > 0.66){
 					var testEnemy7:BigPlatformEnemy = new BigPlatformEnemy(Math.random()*190 + 40, Math.random()*-90, 5, 5, 0, randomDirection,settings);
@@ -171,7 +171,7 @@ package Game
 					var testEnemy9:BigPlatformEnemy = new BigPlatformEnemy(Math.random()*190 + 40, Math.random()*-90, 5, 5, 2, randomDirection, settings);
 				}
 			}
-			else if(Stage.smallPlatformCount < 3){
+			else if(smallPlatformCount < 3){
 				//floats
 				if(randomType > 0.66){
 					var testEnemy10:SmallPlatformEnemy = new SmallPlatformEnemy(Math.random()*190 + 40, Math.random()*-90, 2.25, 2.5, 0, randomDirection, settings);
@@ -188,10 +188,10 @@ package Game
 		}
 		
 		private function addAmmo(e:TimerEvent):void{
-			if(!Stage.paused && Player.playerHealth != 0){
+			if(!paused && Player.playerHealth != 0){
 				var randomDrop: Number = Math.random();
 				
-				if(Stage.ammunitionCount < 10){
+				if(ammunitionCount < 10){
 					//pistol ammo
 					if(randomDrop < 0.4){
 						var pistolDrop:ItemDrop = new ItemDrop(Math.random()*190 + 40, Math.random()*-90, 1.5,1.5, 2,  settings);	

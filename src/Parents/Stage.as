@@ -27,7 +27,6 @@ package Parents
 	import Box2D.Dynamics.b2World;
 	
 	import Game.ContactListener;
-	import Game.DebugScreen;
 	import Game.OptionsMenu;
 	import Game.PauseMenu;
 	import Game.PlayerHUD;
@@ -85,8 +84,6 @@ package Parents
 		/**GAME*/
 		//delay controls
 		private var beginTimer:Timer;
-		//debug
-		private var debug:DebugScreen;
 		//pause
 		private var pauseMenu:PauseMenu;
 		//rain
@@ -504,9 +501,6 @@ package Parents
 				//HUD
 				gameHUD.updateHUD();
 				
-				if(debug != null){
-					debug.updateDebug();
-				}
 			}
 			
 			if(pauseMenu != null){
@@ -681,18 +675,6 @@ package Parents
 					speed = 1;
 				}
 			}
-
-			//test debug
-			if(e.keyCode == Keyboard.X){
-				if(debug == null){
-					debug = new DebugScreen();
-					this.addChild(debug);
-				}
-				else{
-					debug.destroy();
-					debug = null;
-				}
-			}
 		}
 		
 		/**Stages can detect left clicks*/
@@ -822,9 +804,6 @@ package Parents
 		
 		/**Destroy Stage*/
 		public function destroy():void{
-			if(debug != null){
-				debug.destroy();
-			}
 			gameHUD.destroy();
 			
 			musicChannel.stop();

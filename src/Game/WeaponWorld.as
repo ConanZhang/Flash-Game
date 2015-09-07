@@ -123,84 +123,81 @@ package Game
 		
 		private function addEnemy(e:TimerEvent):void{
 			//test enemies
-			if(!Stage.paused && Player.playerHealth > 0){
-				if(Stage.flyCount < 10){
-					var randomAdd:Number = Math.random();
-					
-					if(randomAdd > 0.66){
-						var testEnemy1:FlyingEnemy = new FlyingEnemy(Math.random()*190 + 40, Math.random()*-90, 2, 3, settings);
+			if(!paused && Player.playerHealth > 0){
+				var randomAdd:Number = Math.random();
+				
+				if(randomAdd > 0.66 && flyCount < 4){
+					var testEnemy1:FlyingEnemy = new FlyingEnemy(Math.random()*190 + 40, Math.random()*-90, 2, 3, settings);
+				}
+				else if(randomAdd > 0.33 && bigFlyCount < 3){
+					var testEnemy2:BigFlyingEnemy = new BigFlyingEnemy(Math.random()*190 + 40, Math.random()*-90, 4, 5, settings);
+				}
+				else if(smallFlyCount < 3){
+					var testEnemy3:SmallFlyingEnemy = new SmallFlyingEnemy(Math.random()*190 + 40, Math.random()*-90, 1.5, 1.5, settings);
+				}
+
+				randomAdd = Math.random();
+				
+				var randomType:Number = Math.random();
+				var randomDirection:int;
+				if(Math.random() > 0.5){
+					randomDirection = 1;
+				}
+				else{
+					randomDirection = 2;
+				}
+				
+				if(randomAdd > 0.66 && platformCount < 4){
+					//floats
+					if(randomType > 0.66){
+						var testEnemy4:PlatformEnemy = new PlatformEnemy(Math.random()*(190-135) + 135, Math.random()*-90, 4, 4, 0, randomDirection, settings);
 					}
-					else if(randomAdd > 0.33){
-						var testEnemy2:BigFlyingEnemy = new BigFlyingEnemy(Math.random()*190 + 40, Math.random()*-90, 4, 5, settings);
+						//goes up and down
+					else if(randomType > 0.33){
+						var testEnemy5:PlatformEnemy = new PlatformEnemy(Math.random()*(190-135) + 135, Math.random()*-90, 4, 4, 1, randomDirection, settings);
 					}
+						//goes left and right
 					else{
-						var testEnemy3:SmallFlyingEnemy = new SmallFlyingEnemy(Math.random()*190 + 40, Math.random()*-90, 1.5, 1.5, settings);
+						var testEnemy6:PlatformEnemy = new PlatformEnemy(Math.random()*(190-135) + 135, Math.random()*-90, 4, 4, 2, randomDirection,  settings);
+					}
+				}
+				else if(randomAdd > 0.33 && bigPlatformCount < 3){
+					//floats
+					if(randomType > 0.66){
+						var testEnemy7:BigPlatformEnemy = new BigPlatformEnemy(Math.random()*(190-135) + 135, Math.random()*-90, 5, 5, 0, randomDirection, settings);
+					}
+						//goes up and down
+					else if(randomType > 0.33){
+						var testEnemy8:BigPlatformEnemy = new BigPlatformEnemy(Math.random()*(190-135) + 135, Math.random()*-90, 5, 5, 1, randomDirection,  settings);
+					}
+						//goes left and right
+					else{
+						var testEnemy9:BigPlatformEnemy = new BigPlatformEnemy(Math.random()*(190-135) + 135, Math.random()*-90, 5, 5, 2, randomDirection, settings);
+					}
+				}
+				else if(smallPlatformCount < 3){
+					//floats
+					if(randomType > 0.66){
+						var testEnemy10:SmallPlatformEnemy = new SmallPlatformEnemy(Math.random()*(190-135) + 135, Math.random()*-90, 2.25, 2.5, 0, randomDirection, settings);
+					}
+						//goes up and down
+					else if(randomType > 0.33){
+						var testEnemy11:SmallPlatformEnemy = new SmallPlatformEnemy(Math.random()*(190-135) + 135, Math.random()*-90, 2.25, 2.5, 1, randomDirection, settings);
+					}
+						//goes left and right
+					else{
+						var testEnemy12:SmallPlatformEnemy = new SmallPlatformEnemy(Math.random()*(190-135) + 135, Math.random()*-90, 2.25, 2.5, 2, randomDirection, settings);
 					}
 				}
 				
-				if(Stage.platformCount < 10){
-					randomAdd = Math.random();
-					
-					var randomType:Number = Math.random();
-					var randomDirection:int;
-					if(Math.random() > 0.5){
-						randomDirection = 1;
-					}
-					else{
-						randomDirection = 2;
-					}
-					
-					if(randomAdd > 0.66){
-						//floats
-						if(randomType > 0.66){
-							var testEnemy4:PlatformEnemy = new PlatformEnemy(Math.random()*(190-135) + 135, Math.random()*-90, 4, 4, 0, randomDirection, settings);
-						}
-							//goes up and down
-						else if(randomType > 0.33){
-							var testEnemy5:PlatformEnemy = new PlatformEnemy(Math.random()*(190-135) + 135, Math.random()*-90, 4, 4, 1, randomDirection, settings);
-						}
-							//goes left and right
-						else{
-							var testEnemy6:PlatformEnemy = new PlatformEnemy(Math.random()*(190-135) + 135, Math.random()*-90, 4, 4, 2, randomDirection,  settings);
-						}
-					}
-					else if(randomAdd > 0.33){
-						//floats
-						if(randomType > 0.66){
-							var testEnemy7:BigPlatformEnemy = new BigPlatformEnemy(Math.random()*(190-135) + 135, Math.random()*-90, 5, 5, 0, randomDirection, settings);
-						}
-							//goes up and down
-						else if(randomType > 0.33){
-							var testEnemy8:BigPlatformEnemy = new BigPlatformEnemy(Math.random()*(190-135) + 135, Math.random()*-90, 5, 5, 1, randomDirection,  settings);
-						}
-							//goes left and right
-						else{
-							var testEnemy9:BigPlatformEnemy = new BigPlatformEnemy(Math.random()*(190-135) + 135, Math.random()*-90, 5, 5, 2, randomDirection, settings);
-						}
-					}
-					else{
-						//floats
-						if(randomType > 0.66){
-							var testEnemy10:SmallPlatformEnemy = new SmallPlatformEnemy(Math.random()*(190-135) + 135, Math.random()*-90, 2.25, 2.5, 0, randomDirection, settings);
-						}
-							//goes up and down
-						else if(randomType > 0.33){
-							var testEnemy11:SmallPlatformEnemy = new SmallPlatformEnemy(Math.random()*(190-135) + 135, Math.random()*-90, 2.25, 2.5, 1, randomDirection, settings);
-						}
-							//goes left and right
-						else{
-							var testEnemy12:SmallPlatformEnemy = new SmallPlatformEnemy(Math.random()*(190-135) + 135, Math.random()*-90, 2.25, 2.5, 2, randomDirection, settings);
-						}
-					}
-				}
 			}
 		}
 		
 		private function addAmmo(e:TimerEvent):void{
-			if(!Stage.paused && Player.playerHealth != 0){
+			if(!paused && Player.playerHealth != 0){
 				var randomDrop: Number = Math.random();
 				
-				if(Stage.ammunitionCount < 10){
+				if(ammunitionCount < 10){
 					//pistol ammo
 					if(randomDrop < 0.4){
 						var pistolDrop:ItemDrop = new ItemDrop(Math.random()*(190-135) + 135, Math.random()*(10-6)+6, 1.5,1.5, 2, settings);	
