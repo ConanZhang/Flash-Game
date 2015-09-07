@@ -50,16 +50,16 @@ package
 		private var menu:Menu;
 				
 		//Difficulties
-		public static var difficulty:int;
+		public var difficulty:int;
 		public const beginner:int = 0;
 		public const apprentice:int = 1;
 		public const master:int = 2;
 		
 		//Mode
-		public static var pacifist:Boolean;
+		public var pacifist:Boolean;
 		
 		//World
-		public static var world:int;
+		public var world:int;
 		
 		public const tutorialWorld:int = 0;
 		public const testWorld:int = 1;
@@ -259,15 +259,15 @@ package
 			menu.destroy();
 		}
 		
-		public static function setPacifist(_pacifist:Boolean):void{
+		public function setPacifist(_pacifist:Boolean):void{
 			pacifist = _pacifist;
 		}
 		
-		public static function setWorld(_world:int):void{
+		public function setWorld(_world:int):void{
 			world = _world;
 		}
 		
-		public static function setDifficulty(_difficulty:int):void
+		public function setDifficulty(_difficulty:int):void
 		{
 			difficulty = _difficulty;			
 		}

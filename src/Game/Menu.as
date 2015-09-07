@@ -94,7 +94,7 @@ package Game
 		private var weaponsMasterWall:String;
 		private var weaponsMasterSmall:String;
 		
-		private var screen:Sprite;
+		private var screen:FlashGame;
 		private var optionsMenu:OptionsMenu;
 		
 		private var highScore:SharedObject;
@@ -107,7 +107,7 @@ package Game
 		
 		private var menuMusic:Sound;
 		
-		public function Menu(screenP:Sprite, _musicChannel:SoundChannel, _settings:SharedObject)
+		public function Menu(screenP:FlashGame, _musicChannel:SoundChannel, _settings:SharedObject)
 		{			
 			screen = screenP;
 			screen.addChildAt(this, 0);
@@ -708,53 +708,53 @@ package Game
 				layer = 7;
 			}
 			else if(activeButton.toString() == "[object TutorialMovement]"){
-				FlashGame.setDifficulty(0);
-				FlashGame.setPacifist(false);
-				FlashGame.setWorld(0);
+				screen.setDifficulty(0);
+				screen.setPacifist(false);
+				screen.setWorld(0);
 				destroy();
 			}
 			else if(activeButton.toString() == "[object Tutorial_Enemies]"){
-				FlashGame.setDifficulty(0);
-				FlashGame.setPacifist(false);
-				FlashGame.setWorld(4);
+				screen.setDifficulty(0);
+				screen.setPacifist(false);
+				screen.setWorld(4);
 				destroy();
 			}
 			else if(activeButton.toString() == "[object Tutorial_Weapons]"){
-				FlashGame.setDifficulty(0);
-				FlashGame.setPacifist(false);
-				FlashGame.setWorld(5);
+				screen.setDifficulty(0);
+				screen.setPacifist(false);
+				screen.setWorld(5);
 				destroy();				
 			}
 			else if(activeButton.toString() == "[object Beginner]"){
-				FlashGame.setDifficulty(0);
+				screen.setDifficulty(0);
 				layer = 2;
 			}
 			else if(activeButton.toString() == "[object Apprentice]"){
-				FlashGame.setDifficulty(1);
+				screen.setDifficulty(1);
 				layer = 2;
 			}
 			else if(activeButton.toString() == "[object Master]"){
-				FlashGame.setDifficulty(2);
+				screen.setDifficulty(2);
 				layer = 2;
 			}
 			else if(activeButton.toString() == "[object Weapons]"){
-				FlashGame.setPacifist(false);
+				screen.setPacifist(false);
 				layer = 3;
 			}
 			else if(activeButton.toString() == "[object Pacifist]"){
-				FlashGame.setPacifist(true);
+				screen.setPacifist(true);
 				layer = 3;
 			}
 			else if(activeButton.toString() == "[object Earth]"){
-				FlashGame.setWorld(1);				
+				screen.setWorld(1);				
 				destroy();
 			}
 			else if(activeButton.toString() == "[object Water]"){
-				FlashGame.setWorld(2);
+				screen.setWorld(2);
 				destroy();
 			}
 			else if(activeButton.toString() == "[object Air]"){
-				FlashGame.setWorld(3);
+				screen.setWorld(3);
 				musicChannel.stop();
 			}
 			else if(activeButton.toString() == "[object Options]"){
