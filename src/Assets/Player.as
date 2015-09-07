@@ -35,19 +35,19 @@ package Assets
 		public var playerInvulnerable:int;
 		
 		//ANIMATION STATES
-		public static var   STATE   	:int;
-		public static const IDLE    	:int = 0;
-		public static const R_WALK  	:int = 1;
-		public static const L_WALK 		:int = 2;
-		public static const R_WALK_SLOW :int = 3;
-		public static const L_WALK_SLOW :int = 4;
-		public static const JUMPING 	:int = 5;
-		public static const R_WALL		:int = 6;
-		public static const L_WALL		:int = 7;
-		public static const HOVER		:int = 8;
-		public static const FLINCH		:int = 9;
-		public static const DODGE		:int = 10;
-		public static const FAST_FALL	:int = 11;
+		public var   STATE   	:int;
+		public const IDLE    	:int = 0;
+		public const R_WALK  	:int = 1;
+		public const L_WALK 		:int = 2;
+		public const R_WALK_SLOW :int = 3;
+		public const L_WALK_SLOW :int = 4;
+		public const JUMPING 	:int = 5;
+		public const R_WALL		:int = 6;
+		public const L_WALL		:int = 7;
+		public const HOVER		:int = 8;
+		public const FLINCH		:int = 9;
+		public const DODGE		:int = 10;
+		public const FAST_FALL	:int = 11;
 		
 		//BOX2D COLLISION & PHYSICS
 		private var collisionBody:b2Body;

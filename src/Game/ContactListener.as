@@ -48,7 +48,7 @@ package Game
 					Stage.jumpTime = 0;
 					Stage.jumpAmount = Stage.defaultJumpAmount;
 					Stage.floor = true;
-					Player.STATE = Player.IDLE;
+					player.STATE = player.IDLE;
 				}
 				else if(playerDataA == "RIGHT"){
 					Stage.jumping = false;
@@ -56,7 +56,7 @@ package Game
 					Stage.jumpTime = 0;
 					Stage.jumpAmount = Stage.defaultJumpAmount;
 					Stage.rightWall = true;
-					Player.STATE = Player.R_WALL;
+					player.STATE = player.R_WALL;
 				}
 				else if(playerDataA == "LEFT"){
 					Stage.jumping = false;
@@ -64,7 +64,7 @@ package Game
 					Stage.jumpTime = 0;
 					Stage.jumpAmount = Stage.defaultJumpAmount;
 					Stage.leftWall = true;
-					Player.STATE = Player.L_WALL;
+					player.STATE = player.L_WALL;
 				}
 			}
 			else if(userDataB == "PLAYER" &&
@@ -81,7 +81,7 @@ package Game
 					Stage.jumpTime = 0;
 					Stage.jumpAmount = Stage.defaultJumpAmount;
 					Stage.floor = true;
-					Player.STATE = Player.IDLE;
+					player.STATE = player.IDLE;
 				}
 				else if(playerDataB == "RIGHT"){
 					Stage.jumping = false;
@@ -89,7 +89,7 @@ package Game
 					Stage.jumpTime = 0;
 					Stage.jumpAmount = Stage.defaultJumpAmount;
 					Stage.rightWall = true;
-					Player.STATE = Player.R_WALL;
+					player.STATE = player.R_WALL;
 				}
 				else if(playerDataB == "LEFT"){
 					Stage.jumping = false;
@@ -97,7 +97,7 @@ package Game
 					Stage.jumpTime = 0;
 					Stage.jumpAmount = Stage.defaultJumpAmount;
 					Stage.leftWall = true;
-					Player.STATE = Player.L_WALL;
+					player.STATE = player.L_WALL;
 				}
 			}
 			
@@ -117,12 +117,12 @@ package Game
 						if(contact.GetFixtureA().GetBody().GetPosition().x < contact.GetFixtureB().GetBody().GetPosition().x){
 							Stage.playerBody.SetLinearVelocity( new b2Vec2(-75, 0) );
 							Stage.flinchTime = 12;
-							Player.STATE = Player.FLINCH;
+							player.STATE = player.FLINCH;
 						}
 						else if(contact.GetFixtureA().GetBody().GetPosition().x > contact.GetFixtureB().GetBody().GetPosition().x){
 							Stage.playerBody.SetLinearVelocity( new b2Vec2(75, 0) );
 							Stage.flinchTime = 12;
-							Player.STATE = Player.FLINCH;
+							player.STATE = player.FLINCH;
 						}
 						
 					}
@@ -140,17 +140,17 @@ package Game
 							if(contact.GetFixtureB().GetBody().GetPosition().x < contact.GetFixtureA().GetBody().GetPosition().x){
 								Stage.playerBody.SetLinearVelocity( new b2Vec2(-75, 0) );
 								Stage.flinchTime = 12;
-								Player.STATE = Player.FLINCH;
+								player.STATE = player.FLINCH;
 							}
 							else if(contact.GetFixtureB().GetBody().GetPosition().x > contact.GetFixtureA().GetBody().GetPosition().x){
 								Stage.playerBody.SetLinearVelocity( new b2Vec2(75, 0) );
 								Stage.flinchTime = 12;
-								Player.STATE = Player.FLINCH;
+								player.STATE = player.FLINCH;
 							}
 						}
 					}
 					else if(Stage.slowMotion && Stage.slowAmount > 0){
-						Player.STATE = Player.DODGE;
+						player.STATE = player.DODGE;
 					}
 				}
 				
@@ -170,12 +170,12 @@ package Game
 						if(contact.GetFixtureB().GetBody().GetPosition().x < contact.GetFixtureA().GetBody().GetPosition().x){
 							Stage.playerBody.SetLinearVelocity( new b2Vec2(-75, 0) );
 							Stage.flinchTime = 12;
-							Player.STATE = Player.FLINCH;
+							player.STATE = player.FLINCH;
 						}
 						else if(contact.GetFixtureB().GetBody().GetPosition().x > contact.GetFixtureA().GetBody().GetPosition().x){
 							Stage.playerBody.SetLinearVelocity( new b2Vec2(75, 0) );
 							Stage.flinchTime = 12;
-							Player.STATE = Player.FLINCH;
+							player.STATE = player.FLINCH;
 						}
 						
 					}
@@ -193,17 +193,17 @@ package Game
 							if(contact.GetFixtureB().GetBody().GetPosition().x < contact.GetFixtureA().GetBody().GetPosition().x){
 								Stage.playerBody.SetLinearVelocity( new b2Vec2(-75, 0) );
 								Stage.flinchTime = 12;
-								Player.STATE = Player.FLINCH;
+								player.STATE = player.FLINCH;
 							}
 							else if(contact.GetFixtureB().GetBody().GetPosition().x > contact.GetFixtureA().GetBody().GetPosition().x){
 								Stage.playerBody.SetLinearVelocity( new b2Vec2(75, 0) );
 								Stage.flinchTime = 12;
-								Player.STATE = Player.FLINCH;
+								player.STATE = player.FLINCH;
 							}
 						}
 					}
 					else if(Stage.slowMotion && Stage.slowAmount > 0){
-						Player.STATE = Player.DODGE;
+						player.STATE = player.DODGE;
 					}
 				}
 			}
@@ -344,21 +344,21 @@ package Game
 				
 				if(playerDataA == "FOOT"){
 					Stage.jumping = true;
-					Player.STATE = Player.JUMPING;
+					player.STATE = player.JUMPING;
 					Stage.floor = false;
 				}
 				else if(playerDataA == "RIGHT"){
 					Stage.rightWall = false;
 					if(!Stage.floor){
 						Stage.jumping = true;
-						Player.STATE = Player.JUMPING;
+						player.STATE = player.JUMPING;
 					}
 				}
 				else if(playerDataA == "LEFT"){
 					Stage.leftWall = false;
 					if(!Stage.floor){
 						Stage.jumping = true;
-						Player.STATE = Player.JUMPING;
+						player.STATE = player.JUMPING;
 					}
 				}
 			}
@@ -372,13 +372,13 @@ package Game
 				if(playerDataB == "FOOT"){
 					Stage.jumping = true;
 					Stage.floor = false;
-					Player.STATE = Player.JUMPING;
+					player.STATE = player.JUMPING;
 				}
 				else if(playerDataB == "RIGHT"){
 					Stage.rightWall = false;
 					if(!Stage.floor){
 						Stage.jumping = true;
-						Player.STATE = Player.JUMPING;
+						player.STATE = player.JUMPING;
 					}
 				}
 				else if(playerDataB == "LEFT"){
@@ -386,7 +386,7 @@ package Game
 					Stage.jumping = true;
 					if(!Stage.floor){
 						Stage.jumping = true;
-						Player.STATE = Player.JUMPING;
+						player.STATE = player.JUMPING;
 					}
 				}
 			}

@@ -15,7 +15,6 @@ package Parents
 	import flash.media.SoundChannel;
 	import flash.media.SoundTransform;
 	import flash.net.SharedObject;
-	import flash.ui.Keyboard;
 	import flash.utils.Timer;
 	
 	import Assets.Bullet;
@@ -298,8 +297,8 @@ package Parents
 									direction.Set(0, 180);
 									playerBody.SetAwake(true);
 									playerBody.ApplyForce(direction, playerBody.GetPosition() );
-									if(Player.STATE != Player.DODGE ){
-										Player.STATE = Player.FAST_FALL;
+									if(player.STATE != player.DODGE ){
+										player.STATE = player.FAST_FALL;
 									}
 								}
 								break;
@@ -310,8 +309,8 @@ package Parents
 									direction.Set(0,-25);
 									playerBody.SetAwake(true);
 									playerBody.ApplyImpulse(direction, playerBody.GetPosition() );
-									if(Player.STATE != Player.DODGE ){
-										Player.STATE = Player.JUMPING;
+									if(player.STATE != player.DODGE ){
+										player.STATE = player.JUMPING;
 									}
 								}
 									//continuing initial jump
@@ -347,8 +346,8 @@ package Parents
 									direction.Set(0,-150);
 									playerBody.SetAwake(true);
 									playerBody.ApplyForce(direction, playerBody.GetPosition() );
-									if(Player.STATE != Player.DODGE){
-										Player.STATE = Player.HOVER;
+									if(player.STATE != player.DODGE){
+										player.STATE = player.HOVER;
 									}
 								}
 									//initial jump off right wall
@@ -358,8 +357,8 @@ package Parents
 									direction.Set(-90,-43);
 									playerBody.SetAwake(true);
 									playerBody.ApplyImpulse(direction, playerBody.GetPosition() );
-									if(Player.STATE != Player.DODGE && !Stage.floor){
-										Player.STATE = Player.JUMPING;
+									if(player.STATE != player.DODGE && !Stage.floor){
+										player.STATE = player.JUMPING;
 									}
 								}
 									//initial jump off left wall
@@ -369,8 +368,8 @@ package Parents
 									direction.Set(90,-43);
 									playerBody.SetAwake(true);
 									playerBody.ApplyImpulse(direction, playerBody.GetPosition() );
-									if(Player.STATE != Player.DODGE && !Stage.floor){
-										Player.STATE = Player.JUMPING;
+									if(player.STATE != player.DODGE && !Stage.floor){
+										player.STATE = player.JUMPING;
 									}
 								}
 								break;	
@@ -388,19 +387,19 @@ package Parents
 									}
 								}
 								//animation
-								if(Player.STATE != Player.DODGE && Player.STATE != Player.R_WALK && Player.STATE != Player.R_WALK_SLOW){
+								if(player.STATE != player.DODGE && player.STATE != player.R_WALK && player.STATE != player.R_WALK_SLOW){
 									if(!jumping && !leftWall && !rightWall && !slowMotion && Stage.floor || !jumping && !leftWall && !rightWall && slowMotion && slowAmount <= 0 && Stage.floor){
-										Player.STATE = Player.L_WALK;
+										player.STATE = player.L_WALK;
 									}
 									else if(!jumping && !leftWall && !rightWall && slowMotion && slowAmount > 0 && Stage.floor){
-										Player.STATE = Player.L_WALK_SLOW;
+										player.STATE = player.L_WALK_SLOW;
 									}
 									else if(leftWall){
-										Player.STATE = Player.L_WALL;
+										player.STATE = player.L_WALL;
 									}
 								}
-								else if(Player.STATE != Player.DODGE && Player.STATE == Player.R_WALK || Player.STATE == Player.R_WALK_SLOW){
-									Player.STATE = Player.IDLE;
+								else if(player.STATE != player.DODGE && player.STATE == player.R_WALK || player.STATE == player.R_WALK_SLOW){
+									player.STATE = player.IDLE;
 								}
 								break;
 							case keybindings.right:
@@ -417,19 +416,19 @@ package Parents
 									}
 								}
 								//animation
-								if(Player.STATE != Player.DODGE && Player.STATE != Player.L_WALK && Player.STATE != Player.L_WALK_SLOW){
+								if(player.STATE != player.DODGE && player.STATE != player.L_WALK && player.STATE != player.L_WALK_SLOW){
 									if(!jumping && !rightWall && !leftWall && !slowMotion && Stage.floor || !jumping && !rightWall && !leftWall && slowMotion && slowAmount <= 0 && Stage.floor){
-										Player.STATE = Player.R_WALK;
+										player.STATE = player.R_WALK;
 									}
 									else if(!jumping && !rightWall && !leftWall && slowMotion && slowAmount > 0 && Stage.floor){
-										Player.STATE = Player.R_WALK_SLOW;
+										player.STATE = player.R_WALK_SLOW;
 									}
 									else if(rightWall){
-										Player.STATE = Player.R_WALL;
+										player.STATE = player.R_WALL;
 									}
 								}
-								else if(Player.STATE != Player.DODGE && Player.STATE == Player.L_WALK || Player.STATE == Player.L_WALK_SLOW){
-									Player.STATE = Player.IDLE;
+								else if(player.STATE != player.DODGE && player.STATE == player.L_WALK || player.STATE == player.L_WALK_SLOW){
+									player.STATE = player.IDLE;
 								}
 								break;
 							case keybindings.slow:
@@ -489,10 +488,10 @@ package Parents
 				else if(flinchTime == 1){
 					flinchTime--;
 					if(jumping){
-						Player.STATE = Player.JUMPING;
+						player.STATE = player.JUMPING;
 					}
 					else{
-						Player.STATE = Player.IDLE;
+						player.STATE = player.IDLE;
 					}
 				}
 				
@@ -679,18 +678,18 @@ package Parents
 					jumpAmount--;
 				}
 				
-				if(Player.STATE == Player.HOVER){
-					Player.STATE = Player.JUMPING;
+				if(player.STATE == player.HOVER){
+					player.STATE = player.JUMPING;
 				}
 			}
 			else if(e.keyCode ==keybindings.fall){
-				if(Player.STATE == Player.FAST_FALL){
-					Player.STATE = Player.JUMPING;
+				if(player.STATE == player.FAST_FALL){
+					player.STATE = player.JUMPING;
 				}
 			}
 			//movement
 			else if(e.keyCode ==keybindings.right && !jumping && !rightWall || e.keyCode == keybindings.left && !jumping && !leftWall){
-				Player.STATE = Player.IDLE;
+				player.STATE = player.IDLE;
 			}
 			//slow motion
 			else if(e.keyCode == keybindings.slow){
