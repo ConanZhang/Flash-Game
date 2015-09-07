@@ -241,7 +241,6 @@ package Game
 			}
 			else if(activeButton.toString() == "[object Exit]"){
 				//exit game
-				Stage.paused = false;
 				destroy();
 				screen.destroy();
 			}		

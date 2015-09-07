@@ -83,6 +83,16 @@ package Assets
 		}
 		
 		public function destroy():void{
+			for(var i:int = 0; i <dropNumber; i++){
+				switch(dropVector[i].direction){
+					case "left":
+						dropVector[i].removeEventListener(Event.ENTER_FRAME, moveLeft);
+						break;
+					case "right":
+						dropVector[i].removeEventListener(Event.ENTER_FRAME, moveRight);
+						break;
+				}
+			}
 			stage.removeChild(this);
 		}
 		

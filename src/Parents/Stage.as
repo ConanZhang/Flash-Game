@@ -182,8 +182,6 @@ package Parents
 			this.addChild(images);
 			
 			/**EVENT*/
-			//update every frame
-			this.addEventListener(Event.ENTER_FRAME, update, false, 0, true);
 			paused = false;
 			
 			/**WORLD*/
@@ -239,7 +237,7 @@ package Parents
 		}
 		
 		/**Stages can update their properties*/
-		public function update(e:Event):void{
+		public function update():void{
 			if(!paused){
 				//clear sprites from last frame
 				sprites.graphics.clear();
@@ -505,6 +503,10 @@ package Parents
 				
 				//HUD
 				gameHUD.updateHUD();
+				
+				if(debug != null){
+					debug.updateDebug();
+				}
 			}
 		}
 		
@@ -821,7 +823,6 @@ package Parents
 			
 			this.removeChild(images);
 			
-			this.removeEventListener(Event.ENTER_FRAME, update);
 			stage.removeEventListener(KeyboardEvent.KEY_DOWN, keyPressed);
 			stage.removeEventListener(KeyboardEvent.KEY_UP, keyReleased);
 			stage.removeEventListener(MouseEvent.MOUSE_DOWN, leftClick);

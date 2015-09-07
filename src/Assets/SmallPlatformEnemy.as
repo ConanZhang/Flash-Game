@@ -6,7 +6,6 @@ package Assets {
 	import flash.display.MovieClip;
 	import flash.display.Sprite;
 	import flash.geom.Point;
-	import flash.media.SoundChannel;
 	import flash.net.SharedObject;
 	
 	import Box2D.Collision.Shapes.b2PolygonShape;

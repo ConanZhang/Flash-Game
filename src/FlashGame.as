@@ -175,6 +175,14 @@ package
 				event.target is SmallWorld|| 
 				event.target is DodgeWorld|| 
 				event.target is WeaponWorld){
+				
+				test = null;
+				walls = null;
+				tutorial = null;
+				small = null;
+				dodge = null;
+				weapon = null;
+				
 				menu = new Menu(this, musicChannel, settings);
 			} 
 		}
@@ -183,6 +191,31 @@ package
 			//reticule
 			gameReticule.x = this.mouseX;
 			gameReticule.y = this.mouseY;
+			
+			if(dodge == null){
+				trace(true);
+			}
+			else{
+				trace(false);
+			}
+			if(world == testWorld && test != null){
+				test.update();
+			} 
+			else if(world == wallWorld && walls != null){
+				walls.update();
+			}
+			else if(world == tutorialWorld && tutorial != null){
+				tutorial.update();
+			}
+			else if(world == smallWorld && small != null){
+				small.update();
+			}
+			else if(world == dodgeWorld && dodge != null){
+				dodge.update();
+			}
+			else if(world == weaponWorld && weapon != null){
+				weapon.update();
+			}
 		}
 		
 		private function options(e:KeyboardEvent):void{

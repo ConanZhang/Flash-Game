@@ -7,7 +7,6 @@ package Assets {
 	import flash.display.Sprite;
 	import flash.geom.Point;
 	import flash.media.Sound;
-	import flash.media.SoundChannel;
 	import flash.media.SoundTransform;
 	import flash.net.SharedObject;
 	

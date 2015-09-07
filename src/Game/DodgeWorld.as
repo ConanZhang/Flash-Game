@@ -9,7 +9,6 @@ package Game
 	import flash.net.SharedObject;
 	import flash.utils.Timer;
 	
-	import Assets.BigFlyingEnemy;
 	import Assets.BigPlatformEnemy;
 	import Assets.Platform;
 	import Assets.Rain;

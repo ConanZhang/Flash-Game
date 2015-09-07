@@ -103,10 +103,9 @@ package Game{
 			text.mouseEnabled=false;
 			
 			addChild(text);
-			this.addEventListener(Event.ENTER_FRAME, updateDebug);
 		}
 		
-		private function updateDebug(e:Event):void{
+		public function updateDebug():void{
 			updateTimer = getTimer();
 			
 			//if more than one second has passed
@@ -179,7 +178,6 @@ package Game{
 		}
 		
 		public function destroy():void{
-			this.removeEventListener(Event.ENTER_FRAME, updateDebug);
 			this.parent.removeChild(this);
 		}
 	}

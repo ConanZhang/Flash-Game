@@ -209,10 +209,7 @@ package Assets
 		}
 		
 		/**Child Update [called by Object's update]*/
-		public override function childUpdate():void{
-			trace("x: " + collisionBody.GetPosition().x);
-			trace("y: " + collisionBody.GetPosition().y);
-			
+		public override function childUpdate():void{	
 			if(STATE == R_WALK && playerHealth != 0){
 				playerClip.gotoAndStop("walking_right");
 				playerClip.rotation = 0;

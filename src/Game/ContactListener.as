@@ -4,7 +4,6 @@
 package Game
 {
 	import flash.media.Sound;
-	import flash.media.SoundChannel;
 	import flash.media.SoundTransform;
 	import flash.net.SharedObject;
 	

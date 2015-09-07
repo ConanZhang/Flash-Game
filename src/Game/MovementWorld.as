@@ -2,9 +2,7 @@
  * World for testing Box2D
  */
 package Game
-{
-	
-	import flash.display.MovieClip;
+{	
 	import flash.media.SoundChannel;
 	import flash.net.SharedObject;
 	
