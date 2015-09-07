@@ -101,7 +101,6 @@ package Game
 		
 		protected function addTargets(event:Event):void
 		{
-			//reset player if too far from world
 			if(player.body.GetPosition().x > 132){
 				var blockade:Platform = new Platform(100,-170, 30, 200, "b_tall");
 				var blockade1:Platform = new Platform(130, -10, 50, 10, "b_wide");

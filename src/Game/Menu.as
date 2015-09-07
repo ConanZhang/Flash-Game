@@ -645,7 +645,6 @@ package Game
 			addEventListener(MouseEvent.MOUSE_OVER, mouseOver);
 			addEventListener(MouseEvent.MOUSE_OUT, mouseOut);
 			addEventListener(MouseEvent.CLICK, buttonClicked);
-			addEventListener(Event.ENTER_FRAME, update);
 			
 			optionsMenu = new OptionsMenu(this, 0, 2000, displayField, musicChannel, settings, true, "", "", "", activeButton);
 			addChild(displayField);
@@ -798,13 +797,19 @@ package Game
 			this.removeEventListener(MouseEvent.MOUSE_OVER, mouseOver);
 			this.removeEventListener(MouseEvent.MOUSE_OUT, mouseOut);
 			this.removeEventListener(MouseEvent.CLICK, buttonClicked);
-			this.removeEventListener(Event.ENTER_FRAME, update);
+			optionsMenu.destroy();
+			optionsMenu = null;
+			
 			musicChannel.stop();
 			screen.removeChild(this);
 		}
 		
-		private function update(event:Event):void
+		public function update():void
 		{
+			if(optionsMenu != null){
+				optionsMenu.update();
+			}
+			
 			//adjust size of button
 			for each (var button:MovieClip in buttons) {
 				if(button == activeButton){

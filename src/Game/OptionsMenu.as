@@ -420,7 +420,6 @@ package Game
 			//add listeners to buttons
 			addEventListener(MouseEvent.MOUSE_OVER, mouseOver);
 			addEventListener(MouseEvent.MOUSE_OUT, mouseOut);
-			addEventListener(Event.ENTER_FRAME, update);
 			
 			jumpField.addEventListener(KeyboardEvent.KEY_DOWN, keyDown);
 			jumpField.addEventListener(MouseEvent.CLICK, mouseClick);
@@ -457,10 +456,9 @@ package Game
 			effectsBox = new Rectangle(380, 405, sliderLength, 0);
 
 			musicKnob.addEventListener(MouseEvent.MOUSE_DOWN, dragMusicKnob);
-			stage.addEventListener(MouseEvent.MOUSE_UP, releaseKnob);
-			
 			effectsKnob.addEventListener(MouseEvent.MOUSE_DOWN, dragEffectsKnob);
 			
+			stage.addEventListener(MouseEvent.MOUSE_UP, releaseKnob);
 			addEventListener(MouseEvent.CLICK, buttonClicked);
 		}
 		
@@ -733,7 +731,7 @@ package Game
 			}
 		}
 		
-		protected function update(event:Event):void
+		public function update():void
 		{
 			//adjust size of button
 			for each (var button:MovieClip in buttons) {
@@ -785,14 +783,42 @@ package Game
 		{
 			this.removeEventListener(MouseEvent.MOUSE_OVER, mouseOver);
 			this.removeEventListener(MouseEvent.MOUSE_OUT, mouseOut);
-			this.removeEventListener(Event.ENTER_FRAME, update);
 			this.removeEventListener(KeyboardEvent.KEY_DOWN, keyDown);
 			this.removeEventListener(MouseEvent.CLICK, buttonClicked);
 
 			musicKnob.removeEventListener(MouseEvent.MOUSE_DOWN, dragMusicKnob);
+			effectsKnob.removeEventListener(MouseEvent.MOUSE_DOWN, dragEffectsKnob);
+			
 			stage.removeEventListener(MouseEvent.MOUSE_UP, releaseKnob);
 			
-			effectsKnob.removeEventListener(MouseEvent.MOUSE_DOWN, dragEffectsKnob);
+			jumpField.removeEventListener(KeyboardEvent.KEY_DOWN, keyDown);
+			jumpField.removeEventListener(MouseEvent.CLICK, mouseClick);
+			leftField.removeEventListener(KeyboardEvent.KEY_DOWN, keyDown);
+			leftField.removeEventListener(MouseEvent.CLICK, mouseClick);
+			fallField.removeEventListener(KeyboardEvent.KEY_DOWN, keyDown);
+			fallField.removeEventListener(MouseEvent.CLICK, mouseClick);
+			rightField.removeEventListener(KeyboardEvent.KEY_DOWN, keyDown);
+			rightField.removeEventListener(MouseEvent.CLICK, mouseClick);
+			slowField.removeEventListener(KeyboardEvent.KEY_DOWN, keyDown);
+			slowField.removeEventListener(MouseEvent.CLICK, mouseClick);
+			weaponLeftField.removeEventListener(KeyboardEvent.KEY_DOWN, keyDown);
+			weaponLeftField.removeEventListener(MouseEvent.CLICK, mouseClick);
+			weaponRightField.removeEventListener(KeyboardEvent.KEY_DOWN, keyDown);
+			weaponRightField.removeEventListener(MouseEvent.CLICK, mouseClick);
+			pistolField.removeEventListener(KeyboardEvent.KEY_DOWN, keyDown);
+			pistolField.removeEventListener(MouseEvent.CLICK, mouseClick);
+			shotgunField.removeEventListener(KeyboardEvent.KEY_DOWN, keyDown);
+			shotgunField.removeEventListener(MouseEvent.CLICK, mouseClick);
+			machinegunField.removeEventListener(KeyboardEvent.KEY_DOWN, keyDown);
+			machinegunField.removeEventListener(MouseEvent.CLICK, mouseClick);
+			pauseField.removeEventListener(KeyboardEvent.KEY_DOWN, keyDown);
+			pauseField.removeEventListener(MouseEvent.CLICK, mouseClick);
+			fullscreenField.removeEventListener(KeyboardEvent.KEY_DOWN, keyDown);
+			fullscreenField.removeEventListener(MouseEvent.CLICK, mouseClick);
+			qualityField.removeEventListener(KeyboardEvent.KEY_DOWN, keyDown);
+			qualityField.removeEventListener(MouseEvent.CLICK, mouseClick);
+			rainField.removeEventListener(KeyboardEvent.KEY_DOWN, keyDown);
+			rainField.removeEventListener(MouseEvent.CLICK, mouseClick);
 			
 			screen.removeChild(this);
 		}

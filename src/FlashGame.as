@@ -149,7 +149,9 @@ package
 				hasRain = false;
 			}
 			
-			if(event.target is Menu){			
+			if(event.target is Menu){		
+				menu = null;
+				
 				if(world == testWorld){
 					test = new TestWorld(this, false, pacifist, testWorld, difficulty, hasRain, settings, musicChannel);
 				} 
@@ -192,12 +194,6 @@ package
 			gameReticule.x = this.mouseX;
 			gameReticule.y = this.mouseY;
 			
-			if(dodge == null){
-				trace(true);
-			}
-			else{
-				trace(false);
-			}
 			if(world == testWorld && test != null){
 				test.update();
 			} 
@@ -215,6 +211,9 @@ package
 			}
 			else if(world == weaponWorld && weapon != null){
 				weapon.update();
+			}
+			else if(menu != null){
+				menu.update();
 			}
 		}
 		

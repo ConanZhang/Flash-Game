@@ -88,7 +88,7 @@ package Game
 		protected function addEnemies(event:TimerEvent):void
 		{
 			addEnemy.stop();
-			
+
 			var testEnemy1:BigPlatformEnemy = new BigPlatformEnemy(95, -1, 8, 8, 2, 0, settings);
 			var testEnemy2:BigPlatformEnemy = new BigPlatformEnemy(95, 3, 8, 8, 2, 0, settings);
 			var testEnemy3:BigPlatformEnemy = new BigPlatformEnemy(95, 7, 8, 8, 2, 0, settings);			
@@ -115,6 +115,7 @@ package Game
 		}
 		
 		public override function childDestroy():void{
+			addEnemy.removeEventListener(TimerEvent.TIMER, addEnemies);
 		}
 	}
 }

@@ -117,7 +117,6 @@ package Game
 			addEventListener(MouseEvent.MOUSE_OVER, mouseOver);
 			addEventListener(MouseEvent.MOUSE_OUT, mouseOut);
 			addEventListener(MouseEvent.CLICK, buttonClicked);
-			addEventListener(Event.ENTER_FRAME, update);
 			
 			displayFormat = new TextFormat();
 			displayFormat.size = 30;
@@ -258,8 +257,11 @@ package Game
 			}		
 		}
 		
-		protected function update(event:Event):void
+		public function update():void
 		{
+			if(optionsMenu != null){
+				optionsMenu.update();
+			}
 			//adjust size of button
 			for each (var button:MovieClip in buttons) {
 				if(button == activeButton){
@@ -299,7 +301,11 @@ package Game
 			this.removeEventListener(MouseEvent.MOUSE_OVER, mouseOver);
 			this.removeEventListener(MouseEvent.MOUSE_OUT, mouseOut);
 			this.removeEventListener(MouseEvent.CLICK, buttonClicked);
-			this.removeEventListener(Event.ENTER_FRAME, update);
+			
+			if(optionsMenu != null){
+				optionsMenu.destroy();
+				optionsMenu = null;
+			}
 			screen.removeChild(this);
 		}
 		

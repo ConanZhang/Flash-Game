@@ -508,6 +508,10 @@ package Parents
 					debug.updateDebug();
 				}
 			}
+			
+			if(pauseMenu != null){
+				pauseMenu.update();
+			}
 		}
 		
 		/**Stages always center the screen on the player*/
@@ -547,6 +551,8 @@ package Parents
 				}
 				else if(paused == true){
 					pauseMenu.destroy();
+					pauseMenu = null;
+					
 					paused = false;
 				}
 				
@@ -810,6 +816,8 @@ package Parents
 			stage.addEventListener(MouseEvent.MOUSE_DOWN, leftClick);
 			stage.addEventListener(MouseEvent.MOUSE_UP, leftUp);
 			stage.addEventListener(MouseEvent.MOUSE_WHEEL, mouseWheeled);
+			beginTimer.removeEventListener(TimerEvent.TIMER, addControls);
+			beginTimer.stop();
 		}
 		
 		/**Destroy Stage*/
@@ -822,6 +830,8 @@ package Parents
 			musicChannel.stop();
 			
 			this.removeChild(images);
+		
+			pauseMenu = null;
 			
 			stage.removeEventListener(KeyboardEvent.KEY_DOWN, keyPressed);
 			stage.removeEventListener(KeyboardEvent.KEY_UP, keyReleased);
