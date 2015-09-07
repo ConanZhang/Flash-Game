@@ -22,16 +22,16 @@ package Assets
 	{
 		/**Class Member Variables*/
 		//STAGE
-		private var stage_Sprite:Sprite = Stage.sprites;
-		private var world_Sprite:b2World = Stage.world;
+		public var stage_Sprite:Sprite;
+		public var world_Sprite:b2World;
 		
 		//PROPERTIES
-		private var position:Point;
+		public var position:Point;
 		public var playerClip:MovieClip;
 		private var player_Width:Number;
 		private var player_Height:Number;
 		public var playerRotation: int;
-		public static var playerHealth: int;
+		public var playerHealth: int;
 		public var playerInvulnerable:int;
 		
 		//ANIMATION STATES
@@ -63,10 +63,9 @@ package Assets
 		private var player_LinearDamping:Number;
 		
 		/**Constructor*/
-		public function Player(xPos:Number, yPos:Number, size:Number)
+		public function Player(size:Number)
 		{
 			//assign parameters to class member variables
-			position = new Point(xPos, yPos);
 			playerRotation = 40;
 			
 			//initialize default private variables
@@ -84,7 +83,6 @@ package Assets
 			
 			STATE = IDLE;
 			
-			make();
 		}
 		
 		/**Makes Player*/

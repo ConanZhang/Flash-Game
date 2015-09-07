@@ -105,9 +105,9 @@ package Game
 			if(userDataA == "PLAYER" && userDataB == "ENEMY"){
 				if(contact.GetFixtureA().GetUserData()[1] == "BODY"){
 					//take away health
-					if(player.playerInvulnerable == 0 && !Stage.slowMotion && Player.playerHealth != 0){
+					if(player.playerInvulnerable == 0 && !Stage.slowMotion && player.playerHealth != 0){
 						player.playerInvulnerable = 50;
-						Player.playerHealth--;
+						player.playerHealth--;
 						HUD.heartDamaged = true;
 						
 						var hit1:Sound = new Hit;
@@ -128,9 +128,9 @@ package Game
 					}
 						//if using slow motion, but don't have any
 					else if(Stage.slowMotion && Stage.slowAmount <=0){
-						if(player.playerInvulnerable == 0 && Player.playerHealth != 0){
+						if(player.playerInvulnerable == 0 && player.playerHealth != 0){
 							player.playerInvulnerable = 50;
-							Player.playerHealth--;
+							player.playerHealth--;
 							HUD.heartDamaged = true;
 							
 							var hit2:Sound = new Hit;
@@ -158,9 +158,9 @@ package Game
 			else if(userDataA == "ENEMY" && userDataB == "PLAYER"){
 				if(contact.GetFixtureB().GetUserData()[1] == "BODY"){
 					//take away health
-					if(player.playerInvulnerable == 0 && !Stage.slowMotion && Player.playerHealth != 0){
+					if(player.playerInvulnerable == 0 && !Stage.slowMotion && player.playerHealth != 0){
 						player.playerInvulnerable = 50;
-						Player.playerHealth--;
+						player.playerHealth--;
 						HUD.heartDamaged = true;
 						
 						var hit3:Sound = new Hit;
@@ -181,9 +181,9 @@ package Game
 					}
 						//if using slow motion, but don't have any
 					else if(Stage.slowMotion && Stage.slowAmount <=0){
-						if(player.playerInvulnerable == 0 && Player.playerHealth != 0){
+						if(player.playerInvulnerable == 0 && player.playerHealth != 0){
 							player.playerInvulnerable = 50;
-							Player.playerHealth--;
+							player.playerHealth--;
 							HUD.heartDamaged = true;
 							
 							var hit4:Sound = new Hit;

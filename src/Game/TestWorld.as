@@ -32,13 +32,14 @@ package Game
 		
 		private var settings:SharedObject;
 		private var HUD:PlayerHUD;
+		private var player:Player;
 		
 		/**			Constructor
 		 * 
 		 * Takes in screen it will be added to
 		 * 
 		 */
-		public function TestWorld(screenP:FlashGame, debugging:Boolean, pacifist:Boolean, world:int, difficulty:int, _hasRain:Boolean, _settings:SharedObject,  _musicChannel:SoundChannel, _HUD:PlayerHUD, _keybindings:Object)
+		public function TestWorld(screenP:FlashGame, debugging:Boolean, pacifist:Boolean, world:int, difficulty:int, _hasRain:Boolean, _settings:SharedObject,  _musicChannel:SoundChannel, _HUD:PlayerHUD, _keybindings:Object, _player:Player)
 		{			
 			screen = screenP;
 			screen.addChildAt(this,0);
@@ -46,7 +47,8 @@ package Game
 			settings = _settings;
 			
 			HUD = _HUD;
-			super(screen,debugging, 115, 7, pacifist, world, difficulty, _musicChannel, settings, HUD, _keybindings);
+			player = _player;
+			super(screen,debugging, 115, 7, pacifist, world, difficulty, _musicChannel, settings, HUD, _keybindings, player);
 			
 			//BACKGROUND
 			background = new Background("test");
@@ -114,7 +116,7 @@ package Game
 		
 			if(!pacifist){
 				//AMMO
-				var beginAmmoDrop:ItemDrop = new ItemDrop(Math.random()*190 + 40, Math.random()*-90, 1.5,1.5, 2, settings, HUD);	
+				var beginAmmoDrop:ItemDrop = new ItemDrop(Math.random()*190 + 40, Math.random()*-90, 1.5,1.5, 2, settings, HUD, player);	
 				
 				ammoAdd = new Timer(15000);
 				ammoAdd.addEventListener(TimerEvent.TIMER, addAmmo);
@@ -124,17 +126,17 @@ package Game
 		
 		private function addEnemy(e:TimerEvent):void{
 			//test enemies
-			if(!paused && Player.playerHealth > 0){
+			if(!paused && player.playerHealth > 0){
 				var randomAdd:Number = Math.random();
 				
 				if(randomAdd > 0.66 && flyCount < 4){
-					var testEnemy1:FlyingEnemy = new FlyingEnemy(Math.random()*190 + 40, Math.random()*-90, 2, 3, settings, HUD);
+					var testEnemy1:FlyingEnemy = new FlyingEnemy(Math.random()*190 + 40, Math.random()*-90, 2, 3, settings, HUD, player);
 				}
 				else if(randomAdd > 0.33 && bigFlyCount < 3){
-					var testEnemy2:BigFlyingEnemy = new BigFlyingEnemy(Math.random()*190 + 40, Math.random()*-90, 4, 5, settings, HUD);
+					var testEnemy2:BigFlyingEnemy = new BigFlyingEnemy(Math.random()*190 + 40, Math.random()*-90, 4, 5, settings, HUD, player);
 				}
 				else if(smallFlyCount < 3){
-					var testEnemy3:SmallFlyingEnemy = new SmallFlyingEnemy(Math.random()*190 + 40, Math.random()*-90, 1.5, 1.5, settings, HUD);
+					var testEnemy3:SmallFlyingEnemy = new SmallFlyingEnemy(Math.random()*190 + 40, Math.random()*-90, 1.5, 1.5, settings, HUD, player);
 				}
 			}
 				
@@ -152,66 +154,66 @@ package Game
 			if(randomAdd > 0.66 && platformCount < 4){
 				//floats
 				if(randomType > 0.66){
-					var testEnemy4:PlatformEnemy = new PlatformEnemy(Math.random()*190 + 40, Math.random()*-90, 4, 4, 0, randomDirection,settings, HUD);
+					var testEnemy4:PlatformEnemy = new PlatformEnemy(Math.random()*190 + 40, Math.random()*-90, 4, 4, 0, randomDirection,settings, HUD, player);
 				}
 				//goes up and down
 				else if(randomType > 0.33){
-					var testEnemy5:PlatformEnemy = new PlatformEnemy(Math.random()*190 + 40, Math.random()*-90, 4, 4, 1, randomDirection, settings, HUD);
+					var testEnemy5:PlatformEnemy = new PlatformEnemy(Math.random()*190 + 40, Math.random()*-90, 4, 4, 1, randomDirection, settings, HUD, player);
 				}
 				//goes left and right
 				else{
-					var testEnemy6:PlatformEnemy = new PlatformEnemy(Math.random()*190 + 40, Math.random()*-90, 4, 4, 2, randomDirection, settings, HUD);
+					var testEnemy6:PlatformEnemy = new PlatformEnemy(Math.random()*190 + 40, Math.random()*-90, 4, 4, 2, randomDirection, settings, HUD, player);
 				}
 			}
 			else if(randomAdd > 0.33 && bigPlatformCount < 3){
 				//floats
 				if(randomType > 0.66){
-					var testEnemy7:BigPlatformEnemy = new BigPlatformEnemy(Math.random()*190 + 40, Math.random()*-90, 5, 5, 0, randomDirection,settings, HUD);
+					var testEnemy7:BigPlatformEnemy = new BigPlatformEnemy(Math.random()*190 + 40, Math.random()*-90, 5, 5, 0, randomDirection,settings, HUD, player);
 				}
 					//goes up and down
 				else if(randomType > 0.33){
-					var testEnemy8:BigPlatformEnemy = new BigPlatformEnemy(Math.random()*190 + 40, Math.random()*-90, 5, 5, 1, randomDirection,  settings, HUD);
+					var testEnemy8:BigPlatformEnemy = new BigPlatformEnemy(Math.random()*190 + 40, Math.random()*-90, 5, 5, 1, randomDirection,  settings, HUD, player);
 				}
 					//goes left and right
 				else{
-					var testEnemy9:BigPlatformEnemy = new BigPlatformEnemy(Math.random()*190 + 40, Math.random()*-90, 5, 5, 2, randomDirection, settings, HUD);
+					var testEnemy9:BigPlatformEnemy = new BigPlatformEnemy(Math.random()*190 + 40, Math.random()*-90, 5, 5, 2, randomDirection, settings, HUD, player);
 				}
 			}
 			else if(smallPlatformCount < 3){
 				//floats
 				if(randomType > 0.66){
-					var testEnemy10:SmallPlatformEnemy = new SmallPlatformEnemy(Math.random()*190 + 40, Math.random()*-90, 2.25, 2.5, 0, randomDirection,settings, HUD);
+					var testEnemy10:SmallPlatformEnemy = new SmallPlatformEnemy(Math.random()*190 + 40, Math.random()*-90, 2.25, 2.5, 0, randomDirection,settings, HUD, player);
 				}
 					//goes up and down
 				else if(randomType > 0.33){
-					var testEnemy11:SmallPlatformEnemy = new SmallPlatformEnemy(Math.random()*190 + 40, Math.random()*-90, 2.25, 2.5, 1, randomDirection,  settings, HUD);
+					var testEnemy11:SmallPlatformEnemy = new SmallPlatformEnemy(Math.random()*190 + 40, Math.random()*-90, 2.25, 2.5, 1, randomDirection,  settings, HUD, player);
 				}
 					//goes left and right
 				else{
-					var testEnemy12:SmallPlatformEnemy = new SmallPlatformEnemy(Math.random()*190 + 40, Math.random()*-90, 2.25, 2.5, 2, randomDirection, settings, HUD);
+					var testEnemy12:SmallPlatformEnemy = new SmallPlatformEnemy(Math.random()*190 + 40, Math.random()*-90, 2.25, 2.5, 2, randomDirection, settings, HUD, player);
 				}
 			}	
 		}
 		
 		private function addAmmo(e:TimerEvent):void{
-			if(!paused && Player.playerHealth != 0){
+			if(!paused && player.playerHealth != 0){
 				var randomDrop: Number = Math.random();
 				
 				if(ammunitionCount < 10){
 					//pistol ammo
 					if(randomDrop < 0.4){
-						var pistolDrop:ItemDrop = new ItemDrop(Math.random()*190 + 40, Math.random()*-90, 1.5,1.5, 2,  settings, HUD);	
+						var pistolDrop:ItemDrop = new ItemDrop(Math.random()*190 + 40, Math.random()*-90, 1.5,1.5, 2,  settings, HUD, player);	
 					}
 						//shotgun ammo
 					else if(randomDrop > 0.4 && randomDrop < 0.65){
-						var shotgunDrop:ItemDrop = new ItemDrop(Math.random()*190 + 40, Math.random()*-90, 2.5,2.5, 3,  settings, HUD);	
+						var shotgunDrop:ItemDrop = new ItemDrop(Math.random()*190 + 40, Math.random()*-90, 2.5,2.5, 3,  settings, HUD, player);	
 					}
 						//machinegun ammo
 					else if(randomDrop > 0.65 && randomDrop < 0.9){
-						var machinegunDrop:ItemDrop = new ItemDrop(Math.random()*190 + 40, Math.random()*-90, 2,2, 4,  settings, HUD);	
+						var machinegunDrop:ItemDrop = new ItemDrop(Math.random()*190 + 40, Math.random()*-90, 2,2, 4,  settings, HUD, player);	
 					}
 					else{
-						var heartDrop:ItemDrop = new ItemDrop(Math.random()*190 + 40, Math.random()*-90, 1.5,1.5, 1,  settings, HUD);	
+						var heartDrop:ItemDrop = new ItemDrop(Math.random()*190 + 40, Math.random()*-90, 1.5,1.5, 1,  settings, HUD, player);	
 					}
 				}
 			}

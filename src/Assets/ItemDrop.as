@@ -42,9 +42,9 @@ package Assets {
 		
 		private var settings:SharedObject;
 		private var HUD:PlayerHUD;
-		
+		private var player:Player;
 		/**Constructor*/
-		public function ItemDrop(xPos:Number, yPos:Number, width:Number, height:Number, type:int, _settings:SharedObject, _HUD:PlayerHUD){
+		public function ItemDrop(xPos:Number, yPos:Number, width:Number, height:Number, type:int, _settings:SharedObject, _HUD:PlayerHUD, _player:Player){
 			//assign parameters to class member variables
 			position = new Point(xPos, yPos);
 			
@@ -53,6 +53,7 @@ package Assets {
 			itemDrop_Height = height;
 			itemType = type;
 			HUD = _HUD;
+			player = _player;
 			
 			settings = _settings;
 			
@@ -126,8 +127,8 @@ package Assets {
 		public override function childUpdate():void{
 			//destroy yourself with any contact
 			if(collisionBody.GetFixtureList().GetUserData()[0] == "DEAD"){
-				if(itemType == 1 && Player.playerHealth < 6){
-					Player.playerHealth++;
+				if(itemType == 1 && player.playerHealth < 6){
+					player.playerHealth++;
 					HUD.heartRevive = true;
 					
 					var lifeUp:Sound = new LifeUp;

@@ -11,6 +11,7 @@ package Game
 	
 	import Assets.BigPlatformEnemy;
 	import Assets.Platform;
+	import Assets.Player;
 	import Assets.Rain;
 	
 	import Parents.Stage;
@@ -26,12 +27,13 @@ package Game
 		private var settings:SharedObject;
 		private var addEnemy:Timer;
 		private var HUD:PlayerHUD;
+		private var player:Player;
 		/**			Constructor
 		 * 
 		 * Takes in screen it will be added to
 		 * 
 		 */
-		public function DodgeWorld(screenP:FlashGame, debugging:Boolean, pacifist:Boolean, world:int, _hasRain:Boolean, _settings:SharedObject,  _musicChannel:SoundChannel, _HUD:PlayerHUD, keybindings:Object)
+		public function DodgeWorld(screenP:FlashGame, debugging:Boolean, pacifist:Boolean, world:int, _hasRain:Boolean, _settings:SharedObject,  _musicChannel:SoundChannel, _HUD:PlayerHUD, keybindings:Object, _player:Player)
 		{			
 			screen = screenP;
 			screen.addChildAt(this,0);
@@ -39,8 +41,8 @@ package Game
 			settings = _settings;
 			
 			HUD = _HUD;
-			
-			super(screen,debugging, 62, 7, pacifist, world, 0, _musicChannel, settings, HUD, keybindings);
+			player = _player;
+			super(screen,debugging, 62, 7, pacifist, world, 0, _musicChannel, settings, HUD, keybindings, player);
 			
 			//BACKGROUND
 			background = new Background("TutorialDodge");
@@ -92,9 +94,9 @@ package Game
 		{
 			addEnemy.stop();
 
-			var testEnemy1:BigPlatformEnemy = new BigPlatformEnemy(95, -1, 8, 8, 2, 0, settings, HUD);
-			var testEnemy2:BigPlatformEnemy = new BigPlatformEnemy(95, 3, 8, 8, 2, 0, settings, HUD);
-			var testEnemy3:BigPlatformEnemy = new BigPlatformEnemy(95, 7, 8, 8, 2, 0, settings, HUD);			
+			var testEnemy1:BigPlatformEnemy = new BigPlatformEnemy(95, -1, 8, 8, 2, 0, settings, HUD, player);
+			var testEnemy2:BigPlatformEnemy = new BigPlatformEnemy(95, 3, 8, 8, 2, 0, settings, HUD, player);
+			var testEnemy3:BigPlatformEnemy = new BigPlatformEnemy(95, 7, 8, 8, 2, 0, settings, HUD, player);			
 		}
 		
 		public override function removeAddRain():void{

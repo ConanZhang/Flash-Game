@@ -76,13 +76,16 @@ package Game
 		private var difficulty:int;
 		
 		private var highScore:SharedObject;
+		private var player:Player;
 		
 		/**Constructor*/
-		public function PlayerHUD(_pacifist:Boolean, _world:int, _difficulty:int)
+		public function PlayerHUD(_pacifist:Boolean, _world:int, _difficulty:int, _player:Player)
 		{
 			//initialize class member variables
 			heartRevive = false;
 			heartDamaged = false;
+			
+			player = _player;
 			
 			heartXPosition = 460;
 			heartYPosition = 35;
@@ -400,43 +403,43 @@ package Game
 
 			//health
 			if(heartRevive){
-				if(Player.playerHealth == 1){
+				if(player.playerHealth == 1){
 					heart6.gotoAndStop("revive");
 				}
-				else if(Player.playerHealth == 2){
+				else if(player.playerHealth == 2){
 					heart5.gotoAndStop("revive");
 				}
-				else if(Player.playerHealth == 3){
+				else if(player.playerHealth == 3){
 					heart4.gotoAndStop("revive");
 				}
-				else if(Player.playerHealth == 4){
+				else if(player.playerHealth == 4){
 					heart3.gotoAndStop("revive");
 				}
-				else if(Player.playerHealth == 5){
+				else if(player.playerHealth == 5){
 					heart2.gotoAndStop("revive");
 				}
-				else if(Player.playerHealth == 6){
+				else if(player.playerHealth == 6){
 					heart1.gotoAndStop("revive");
 				}
 				heartRevive = false
 			}
 			else if(heartDamaged){
-				if(Player.playerHealth == 5){
+				if(player.playerHealth == 5){
 					heart1.gotoAndStop("dying");
 				}
-				else if(Player.playerHealth == 4){
+				else if(player.playerHealth == 4){
 					heart2.gotoAndStop("dying");
 				}
-				else if(Player.playerHealth == 3){
+				else if(player.playerHealth == 3){
 					heart3.gotoAndStop("dying");
 				}
-				else if(Player.playerHealth == 2){
+				else if(player.playerHealth == 2){
 					heart4.gotoAndStop("dying");
 				}
-				else if(Player.playerHealth == 1){
+				else if(player.playerHealth == 1){
 					heart5.gotoAndStop("dying");
 				}
-				else if(Player.playerHealth == 0){
+				else if(player.playerHealth == 0){
 					heart6.gotoAndStop("dying");
 				}
 				heartDamaged = false;
@@ -454,7 +457,7 @@ package Game
 		
 		/**Survive count down timer*/
 		private function surviveCountDown(e:TimerEvent):void{
-			if(!Stage.paused && Player.playerHealth > 0){
+			if(!Stage.paused && player.playerHealth > 0){
 				//slow down real time
 				if(Stage.slowMotion && Stage.slowAmount > 0){
 					surviveTimer.delay = 1500;
@@ -498,13 +501,13 @@ package Game
 			if(countDownSeconds > 0){
 				countDownText.text = countDownSeconds+"!";	
 			}
-			else if(countDownSeconds == 0 && !Stage.paused && Player.playerHealth != 0){
+			else if(countDownSeconds == 0 && !Stage.paused && player.playerHealth != 0){
 				countDownText.text = "Fight!";	
 			}
-			else if(countDownSeconds == -1 && minuteDisplay != 3 && Player.playerHealth != 0){
+			else if(countDownSeconds == -1 && minuteDisplay != 3 && player.playerHealth != 0){
 				countDownText.text = "";
 			}
-			else if(Player.playerHealth == 0){
+			else if(player.playerHealth == 0){
 				countDownText.text = "Dead!\nPress P";
 				
 				var score:Array = [highMinute, highSecond];

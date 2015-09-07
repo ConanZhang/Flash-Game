@@ -144,7 +144,7 @@ package Parents
 		private var backgroundBlock:Shape;
 		
 		/**Constructor*/
-		public function Stage(screenP:FlashGame, debugging:Boolean, playerX:Number, playerY:Number, pacifist:Boolean, world:int, difficulty:int, _musicChannel:SoundChannel,  _settings:SharedObject, _HUD:PlayerHUD, _keybindings:Object)
+		public function Stage(screenP:FlashGame, debugging:Boolean, playerX:Number, playerY:Number, pacifist:Boolean, world:int, difficulty:int, _musicChannel:SoundChannel,  _settings:SharedObject, _HUD:PlayerHUD, _keybindings:Object, _player:Player)
 		{
 			screen = screenP;
 			pacifistState = pacifist;
@@ -210,7 +210,11 @@ package Parents
 			worldStage = new b2World(gravity, doSleep);
 			
 			//PLAYER
-			player = new Player(playerX, playerY, 3.5);
+			player = _player;
+			player.position = new Point(playerX, playerY);
+			player.stage_Sprite = images;
+			player.world_Sprite = worldStage;
+			player.make();
 			this.setPlayer(player.body);
 			player.playerInvulnerable = 100;
 			
@@ -432,7 +436,7 @@ package Parents
 								}
 								break;
 							case keybindings.slow:
-								if(slowMotion == false && slowAmount > 0 && Player.playerHealth > 0){
+								if(slowMotion == false && slowAmount > 0 && player.playerHealth > 0){
 									slowMotion = true;
 									jumpLimit = 12;
 									if(player.playerRotation > 0){
@@ -447,7 +451,7 @@ package Parents
 										jumpTime = 13;
 									}
 								}
-								else if(slowAmount > 0 && Player.playerHealth > 0){
+								else if(slowAmount > 0 && player.playerHealth > 0){
 									slowAmount-=3.375;
 								}
 								break;
@@ -709,7 +713,7 @@ package Parents
 		
 		/**Stages can detect left clicks*/
 		public function leftClick(e:MouseEvent):void{
-			if(Weapon.holdingWeapon && !paused && Player.playerHealth > 0){
+			if(Weapon.holdingWeapon && !paused && player.playerHealth > 0){
 				if(Weapon.weaponType == 1 && Weapon.pistolAmmo > 0){
 					if(weaponRotation > -1.5 && weaponRotation < 1.5 && weapon.weaponClip.endFire){
 						weapon.rightFire = true;
@@ -773,7 +777,7 @@ package Parents
 		
 		/**Stage can detect mouse wheels*/
 		public function mouseWheeled(e:MouseEvent):void{
-			if(Weapon.holdingWeapon && !paused && Player.playerHealth != 0){
+			if(Weapon.holdingWeapon && !paused && player.playerHealth != 0){
 				Weapon.changeWeapon = true;
 
 				//up wheel

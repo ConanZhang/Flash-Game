@@ -7,6 +7,7 @@ package Game
 	import flash.net.SharedObject;
 	
 	import Assets.Platform;
+	import Assets.Player;
 	import Assets.Rain;
 	
 	import Parents.Stage;
@@ -21,20 +22,21 @@ package Game
 		
 		private var settings:SharedObject;
 		private var HUD:PlayerHUD;
+		private var player:Player;
 		/**			Constructor
 		 * 
 		 * Takes in screen it will be added to
 		 * 
 		 */
-		public function MovementWorld(screenP:FlashGame, debugging:Boolean, pacifist:Boolean, world:int, _hasRain:Boolean, _settings:SharedObject,  _musicChannel:SoundChannel, _HUD:PlayerHUD, _keybindings:Object)
+		public function MovementWorld(screenP:FlashGame, debugging:Boolean, pacifist:Boolean, world:int, _hasRain:Boolean, _settings:SharedObject,  _musicChannel:SoundChannel, _HUD:PlayerHUD, _keybindings:Object, _player:Player)
 		{			
 			screen = screenP;
 			screen.addChildAt(this,0);
 			
 			settings = _settings;
-			
+			player = _player;
 			HUD = _HUD;
-			super(screen,debugging, 30, 7, pacifist, world, 0, _musicChannel, settings, HUD, _keybindings);
+			super(screen,debugging, 30, 7, pacifist, world, 0, _musicChannel, settings, HUD, _keybindings, player);
 						
 			//BACKGROUND
 			background = new Background("TutorialMovement");
