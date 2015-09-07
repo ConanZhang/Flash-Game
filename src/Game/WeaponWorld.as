@@ -37,7 +37,7 @@ package Game
 		private var ammoAdd:Timer;
 		
 		private var trapped:Boolean;
-		
+		private var test:Timer;
 		/**			Constructor
 		 * 
 		 * Takes in screen it will be added to
@@ -96,7 +96,29 @@ package Game
 			var endPlatform3:Platform = new Platform(135, -70, 10, 2, "wide");
 			var blockade3:Platform = new Platform(153, -85, 50, 10, "b_wide");
 			
+//			test = new Timer(5000);
+//			test.addEventListener(TimerEvent.TIMER, testing);
+//			test.start();
+			
+
+
+			
 			this.addEventListener(Event.ENTER_FRAME, addTargets);
+		}
+		
+		protected function testing(event:TimerEvent):void
+		{
+			var testEnemy1:PlatformEnemy = new PlatformEnemy(50, 0, 4, 4, 0, 0, settings);
+			var testEnemy2:PlatformEnemy = new PlatformEnemy(55, 0, 4, 4, 0, 0, settings);
+			var testEnemy3:PlatformEnemy = new PlatformEnemy(60, 0, 4, 4, 0, 0, settings);
+			var testEnemy4:PlatformEnemy = new PlatformEnemy(65, 0, 4, 4, 0, 0, settings);
+			var testEnemy5:PlatformEnemy = new PlatformEnemy(70, 0, 4, 4, 0, 0, settings);
+			var testEnemy6:PlatformEnemy = new PlatformEnemy(75, 0, 4, 4, 0, 0, settings);
+			var testEnemy7:PlatformEnemy = new PlatformEnemy(80, 0, 4, 4, 0, 0, settings);
+			var testEnemy8:PlatformEnemy = new PlatformEnemy(85, 0, 4, 4, 0, 0, settings);
+			var testEnemy9:PlatformEnemy = new PlatformEnemy(90, 0, 4, 4, 0, 0, settings);
+			var testEnemy10:PlatformEnemy = new PlatformEnemy(95, 0, 4, 4, 0, 0, settings);
+			test.stop()
 		}
 		
 		protected function addTargets(event:Event):void

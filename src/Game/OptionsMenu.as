@@ -112,7 +112,7 @@ package Game
 			activeButton = _activeButton;
 			
 			settings = _settings;
-			
+						
 			this.x = x;
 			this.y = y;
 						
@@ -338,9 +338,9 @@ package Game
 			
 			fullscreenField = new TextField();
 			fullscreenField.name = "fullscreen";
-			fullscreenField.x = 420;
+			fullscreenField.x = 440;
 			fullscreenField.y = 230;
-			fullscreenField.width = 150;
+			fullscreenField.width = 120;
 			fullscreenField.embedFonts = true;
 			fullscreenField.defaultTextFormat = textFormat;
 			fullscreenField.textColor = 0xff0000;
@@ -811,6 +811,8 @@ package Game
 		
 		public function destroy():void
 		{
+			activeButton = null;
+			
 			this.removeEventListener(MouseEvent.MOUSE_OVER, mouseOver);
 			this.removeEventListener(MouseEvent.MOUSE_OUT, mouseOut);
 			this.removeEventListener(KeyboardEvent.KEY_DOWN, keyDown);

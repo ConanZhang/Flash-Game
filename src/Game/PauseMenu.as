@@ -2,7 +2,6 @@ package Game
 {
 	import flash.display.MovieClip;
 	import flash.display.Sprite;
-	import flash.events.Event;
 	import flash.events.MouseEvent;
 	import flash.media.Sound;
 	import flash.media.SoundChannel;
@@ -226,9 +225,11 @@ package Game
 				newOptionsContainer.x = optionsContainer.x;
 				newOptionsContainer.y = optionsContainer.y;
 				
+				activeButton = null;
+
 				//put the options text on top of that?
 				optionsMenu = new OptionsMenu(this, -360,-275, displayField, musicChannel, settings, false, worldState, pacifistState, difficultyState, activeButton);
-				
+								
 				backButton = new Back;
 				buttonContainer.addChild(backButton);
 				
