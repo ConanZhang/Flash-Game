@@ -44,12 +44,14 @@ package Assets {
 		//BOX2D COLLISION & PHYSICS
 		private var collisionBody:b2Body;
 		private var weaponFixture:b2FixtureDef;
+		private var player:Player;
 		
 		/**Constructor*/
-		public function Weapon(xPos:Number, yPos:Number, type:int){
+		public function Weapon(xPos:Number, yPos:Number, type:int, _player:Player){
 			//assign parameters to class member variables
 			position = new Point(xPos, yPos);
 			weaponType = type;
+			player = _player;
 			
 			//initialize default private variables
 			pistolAmmo = 0;
@@ -322,11 +324,11 @@ package Assets {
 			}
 			
 			//kill yourself if player is dead
-			if(Player.playerClip.dead && holdingWeapon){
+			if(player.playerClip.dead && holdingWeapon){
 				destroyAll();
 			}
 			//just remove body if there is no sprite
-			else if(Player.playerClip.dead && !holdingWeapon){
+			else if(player.playerClip.dead && !holdingWeapon){
 				destroyBody();
 			}
 		}

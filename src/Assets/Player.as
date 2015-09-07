@@ -27,12 +27,12 @@ package Assets
 		
 		//PROPERTIES
 		private var position:Point;
-		public static var playerClip:MovieClip;
+		public var playerClip:MovieClip;
 		private var player_Width:Number;
 		private var player_Height:Number;
-		public static var playerRotation: int;
+		public var playerRotation: int;
 		public static var playerHealth: int;
-		public static var playerInvulnerable:int;
+		public var playerInvulnerable:int;
 		
 		//ANIMATION STATES
 		public static var   STATE   	:int;

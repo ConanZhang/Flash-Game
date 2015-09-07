@@ -20,12 +20,14 @@ package Game
 	{
 		private var settings:SharedObject;
 		private var HUD:PlayerHUD;
+		private var player:Player;
 		
 		/**Constructor DOES NOTHING*/
-		public function ContactListener( _settings:SharedObject, _HUD:PlayerHUD)
+		public function ContactListener( _settings:SharedObject, _HUD:PlayerHUD, _player:Player)
 		{
 			settings = _settings;
 			HUD = _HUD;
+			player = _player;
 		}
 		
 		/**Collision begins*/
@@ -103,8 +105,8 @@ package Game
 			if(userDataA == "PLAYER" && userDataB == "ENEMY"){
 				if(contact.GetFixtureA().GetUserData()[1] == "BODY"){
 					//take away health
-					if(Player.playerInvulnerable == 0 && !Stage.slowMotion && Player.playerHealth != 0){
-						Player.playerInvulnerable = 50;
+					if(player.playerInvulnerable == 0 && !Stage.slowMotion && Player.playerHealth != 0){
+						player.playerInvulnerable = 50;
 						Player.playerHealth--;
 						HUD.heartDamaged = true;
 						
@@ -126,8 +128,8 @@ package Game
 					}
 						//if using slow motion, but don't have any
 					else if(Stage.slowMotion && Stage.slowAmount <=0){
-						if(Player.playerInvulnerable == 0 && Player.playerHealth != 0){
-							Player.playerInvulnerable = 50;
+						if(player.playerInvulnerable == 0 && Player.playerHealth != 0){
+							player.playerInvulnerable = 50;
 							Player.playerHealth--;
 							HUD.heartDamaged = true;
 							
@@ -156,8 +158,8 @@ package Game
 			else if(userDataA == "ENEMY" && userDataB == "PLAYER"){
 				if(contact.GetFixtureB().GetUserData()[1] == "BODY"){
 					//take away health
-					if(Player.playerInvulnerable == 0 && !Stage.slowMotion && Player.playerHealth != 0){
-						Player.playerInvulnerable = 50;
+					if(player.playerInvulnerable == 0 && !Stage.slowMotion && Player.playerHealth != 0){
+						player.playerInvulnerable = 50;
 						Player.playerHealth--;
 						HUD.heartDamaged = true;
 						
@@ -179,8 +181,8 @@ package Game
 					}
 						//if using slow motion, but don't have any
 					else if(Stage.slowMotion && Stage.slowAmount <=0){
-						if(Player.playerInvulnerable == 0 && Player.playerHealth != 0){
-							Player.playerInvulnerable = 50;
+						if(player.playerInvulnerable == 0 && Player.playerHealth != 0){
+							player.playerInvulnerable = 50;
 							Player.playerHealth--;
 							HUD.heartDamaged = true;
 							

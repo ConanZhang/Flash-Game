@@ -209,7 +209,13 @@ package Parents
 			var gravity:b2Vec2 = new b2Vec2(0, 85);
 			var doSleep:Boolean = true;//don't simulate sleeping bodies
 			worldStage = new b2World(gravity, doSleep);
-			worldStage.SetContactListener(new ContactListener(settings, gameHUD) );
+			
+			//PLAYER
+			player = new Player(playerX, playerY, 3.5);
+			this.setPlayer(player.body);
+			player.playerInvulnerable = 100;
+			
+			worldStage.SetContactListener(new ContactListener(settings, gameHUD, player) );
 			slowMotion = false;
 			speed = 1;
 			
@@ -229,14 +235,9 @@ package Parents
 			jumpAmount = defaultJumpAmount;
 			slowRotation = false;
 			flinchTime = 0;
-						
-			//PLAYER
-			player = new Player(playerX, playerY, 3.5);
-			this.setPlayer(player.body);
-			Player.playerInvulnerable = 100;
 			
 			//WEAPON
-			weapon = new Weapon(15, 7,1);
+			weapon = new Weapon(15, 7,1, player);
 			machineFire = false;
 			machineDelay = 2;
 			
@@ -380,10 +381,10 @@ package Parents
 									playerBody.SetAwake(true);
 									playerBody.ApplyForce(direction,playerBody.GetPosition());
 									if(slowMotion && slowAmount > 0){
-										Player.playerRotation = -20;
+										player.playerRotation = -20;
 									}
 									else{
-										Player.playerRotation = -40;
+										player.playerRotation = -40;
 									}
 								}
 								//animation
@@ -409,10 +410,10 @@ package Parents
 									playerBody.SetAwake(true);
 									playerBody.ApplyForce(direction,playerBody.GetPosition());
 									if(slowMotion && slowAmount > 0){
-										Player.playerRotation = 20;
+										player.playerRotation = 20;
 									}
 									else{
-										Player.playerRotation = 40;
+										player.playerRotation = 40;
 									}
 								}
 								//animation
@@ -435,11 +436,11 @@ package Parents
 								if(slowMotion == false && slowAmount > 0 && Player.playerHealth > 0){
 									slowMotion = true;
 									jumpLimit = 12;
-									if(Player.playerRotation > 0){
-										Player.playerRotation = 20;
+									if(player.playerRotation > 0){
+										player.playerRotation = 20;
 									}
 									else{
-										Player.playerRotation = -20;
+										player.playerRotation = -20;
 									}
 									slowRotation = true;
 									speed = 0.75;
@@ -478,7 +479,7 @@ package Parents
 				//fix rotation if necessary
 				if(slowAmount <= 0 && slowRotation){
 					slowRotation = false;
-					Player.playerRotation = 40;
+					player.playerRotation = 40;
 				}
 				
 				//flinch
@@ -696,11 +697,11 @@ package Parents
 				if(slowMotion == true){
 					slowMotion = false;
 					jumpLimit = 5;
-					if(Player.playerRotation > 0){
-						Player.playerRotation = 40;	
+					if(player.playerRotation > 0){
+						player.playerRotation = 40;	
 					}
 					else{
-						Player.playerRotation = -40;							
+						player.playerRotation = -40;							
 					}
 					speed = 1;
 				}
