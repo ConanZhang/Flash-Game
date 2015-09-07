@@ -390,15 +390,15 @@ package Assets {
 							var randomDrop: Number = Math.random();
 							//pistol ammo
 							if(randomDrop < 0.6){
-								var pistolDrop:ItemDrop = new ItemDrop(Math.random()*190 + 40, Math.random()*-90, 1.5,1.5, 2, settings, HUD, player, weapon);	
+								var pistolDrop:ItemDrop = new ItemDrop(collisionBody.GetPosition().x, collisionBody.GetPosition().y, 1.5,1.5, 2, settings, HUD, player, weapon);	
 							}
 								//shotgun ammo
 							else if(randomDrop > 0.6 && randomDrop < 0.8){
-								var shotgunDrop:ItemDrop = new ItemDrop(Math.random()*190 + 40, Math.random()*-90, 2.5,2.5, 3,  settings, HUD, player, weapon);	
+								var shotgunDrop:ItemDrop = new ItemDrop(collisionBody.GetPosition().x, collisionBody.GetPosition().y, 2.5,2.5, 3,  settings, HUD, player, weapon);	
 							}
 								//machinegun ammo
 							else if(randomDrop > 0.8 && randomDrop < 1){
-								var machinegunDrop:ItemDrop = new ItemDrop(Math.random()*190 + 40, Math.random()*-90, 2,2, 4, settings, HUD, player, weapon);	
+								var machinegunDrop:ItemDrop = new ItemDrop(collisionBody.GetPosition().x, collisionBody.GetPosition().y, 2,2, 4, settings, HUD, player, weapon);	
 							}
 						}
 					}
