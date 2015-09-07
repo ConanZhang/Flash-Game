@@ -123,8 +123,8 @@ package Assets {
 			else if(backgroundObjectType == "tree5"){
 				backgroundObjectClip = new background_tree5();
 			}
-			else if(backgroundObjectType == "tutorialR"){
-				backgroundObjectClip = new TutorialR();
+			else if(backgroundObjectType == "tutorialP"){
+				backgroundObjectClip = new TutorialP();
 			}
 			else if(backgroundObjectType == "tutorialAD"){
 				backgroundObjectClip = new TutorialAD();

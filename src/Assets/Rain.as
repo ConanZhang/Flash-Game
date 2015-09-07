@@ -63,7 +63,7 @@ package Assets
 			}
 			assignDirection();
 			
-			stage.addChildAt(this, 0);
+			stage.addChild(this);
 		}
 		
 		/**Movement*/

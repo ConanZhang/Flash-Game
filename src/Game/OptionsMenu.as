@@ -56,6 +56,7 @@ package Game
 		private const fullscreen:int = 12;
 		private const quality:int = 13;
 		private const rain:int = 14;
+		private const night:int = 15;
 		
 		//Text format
 		private var textFormat:TextFormat;
@@ -75,6 +76,7 @@ package Game
 		private var fullscreenField:TextField;
 		private var qualityField:TextField;
 		private var rainField:TextField;
+		private var nightField:TextField;
 		
 		private var keyCodeStrings:Dictionary;
 		
@@ -95,7 +97,6 @@ package Game
 		private var musicBox:Rectangle;
 		private var musicChannel:SoundChannel;
 		private var effectsBox:Rectangle;
-		private var musicVolume:Number;		
 		private var musicField:TextField;
 		private var effectsField:TextField;
 		
@@ -111,7 +112,6 @@ package Game
 			activeButton = _activeButton;
 			
 			settings = _settings;
-			musicVolume = settings.data.musicVolume;
 			
 			this.x = x;
 			this.y = y;
@@ -155,7 +155,7 @@ package Game
 			musicSlide.y = 355;
 			
 			buttonContainer.addChild(musicKnob);
-			musicKnob.x = (musicVolume*sliderLength)+380;
+			musicKnob.x = (settings.data.musicVolume*sliderLength)+380;
 			musicKnob.y = 355;
 			
 			buttonContainer.addChild(effectsSlide);
@@ -188,7 +188,8 @@ package Game
 					pause: Keyboard.P,
 					fullscreen: Keyboard.F,
 					quality: Keyboard.C,
-					rain: Keyboard.Z
+					rain: Keyboard.Z,
+					night: Keyboard.X
 				};
 				
 				bindings.data.bindings = keybindings;
@@ -300,7 +301,7 @@ package Game
 			
 			shotgunField = new TextField();
 			shotgunField.name = "shotgun";
-			shotgunField.x = 255;
+			shotgunField.x = 240;
 			shotgunField.y = 230;
 			shotgunField.width = 200;
 			shotgunField.embedFonts = true;
@@ -337,9 +338,9 @@ package Game
 			
 			fullscreenField = new TextField();
 			fullscreenField.name = "fullscreen";
-			fullscreenField.x = 460;
+			fullscreenField.x = 420;
 			fullscreenField.y = 230;
-			fullscreenField.width = 200;
+			fullscreenField.width = 150;
 			fullscreenField.embedFonts = true;
 			fullscreenField.defaultTextFormat = textFormat;
 			fullscreenField.textColor = 0xff0000;
@@ -373,6 +374,19 @@ package Game
 			rainField.type= TextFieldType.INPUT;
 			rainField.text = "Rain i " + keyCodeStrings[keybindings.rain];
 			
+			nightField = new TextField();
+			nightField.name = "night";
+			nightField.x = 550;
+			nightField.y = 230;
+			nightField.width = 100;
+			nightField.height = 50;
+			nightField.embedFonts = true;
+			nightField.defaultTextFormat = textFormat;
+			nightField.textColor = 0xff0000;
+			nightField.selectable = false;
+			nightField.type= TextFieldType.INPUT;
+			nightField.text = "Night i " + keyCodeStrings[keybindings.night];
+			
 			addChild(jumpField);
 			addChild(fallField);
 			addChild(leftField);
@@ -387,6 +401,7 @@ package Game
 			addChild(fullscreenField);
 			addChild(qualityField);
 			addChild(rainField);
+			addChild(nightField);
 
 			// Music
 			musicField = new TextField();
@@ -449,6 +464,8 @@ package Game
 			qualityField.addEventListener(MouseEvent.CLICK, mouseClick);
 			rainField.addEventListener(KeyboardEvent.KEY_DOWN, keyDown);
 			rainField.addEventListener(MouseEvent.CLICK, mouseClick);
+			nightField.addEventListener(KeyboardEvent.KEY_DOWN, keyDown);
+			nightField.addEventListener(MouseEvent.CLICK, mouseClick);
 			
 			dragging = false;
 			
@@ -578,6 +595,10 @@ package Game
 					currentKey = 0;
 					rainField.textColor = 0xff0000;
 				}
+				else if(currentKey == night){
+					currentKey = 0;
+					rainField.textColor = 0xff0000;
+				}
 			}
 			
 			//Change font to indicate focus
@@ -636,6 +657,10 @@ package Game
 			else if(event.currentTarget.name == "rain"){
 				currentKey = rain;
 				rainField.textColor = 0xffffff;
+			}
+			else if(event.currentTarget.name == "night"){
+				currentKey = night;
+				nightField.textColor = 0xffffff;
 			}
 		}
 		
@@ -711,6 +736,11 @@ package Game
 				rainField.textColor = 0xff0000;
 				currentKey = 0;
 			}
+			else if(currentKey == night){
+				keybindings.night = e.keyCode;
+				nightField.textColor = 0xff0000;
+				currentKey = 0;
+			}
 			
 			
 			bindings.data.bindings = keybindings;
@@ -723,7 +753,6 @@ package Game
 				activeButton = event.target as MovieClip;
 			}
 		}
-		
 		protected function mouseOut(event:MouseEvent):void
 		{
 			if(event.target == activeButton){
@@ -777,6 +806,7 @@ package Game
 			fullscreenField.text = "Fullscreen i " + keyCodeStrings[keybindings.fullscreen];
 			qualityField.text = "Quality i " + keyCodeStrings[keybindings.quality];
 			rainField.text = "Rain i " + keyCodeStrings[keybindings.rain];
+			nightField.text = "Night i " + keyCodeStrings[keybindings.night];
 		}
 		
 		public function destroy():void
@@ -819,6 +849,8 @@ package Game
 			qualityField.removeEventListener(MouseEvent.CLICK, mouseClick);
 			rainField.removeEventListener(KeyboardEvent.KEY_DOWN, keyDown);
 			rainField.removeEventListener(MouseEvent.CLICK, mouseClick);
+			nightField.removeEventListener(KeyboardEvent.KEY_DOWN, keyDown);
+			nightField.removeEventListener(MouseEvent.CLICK, mouseClick);
 			
 			screen.removeChild(this);
 		}

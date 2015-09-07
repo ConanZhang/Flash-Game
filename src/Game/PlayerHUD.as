@@ -508,7 +508,7 @@ package Game
 				countDownText.text = "";
 			}
 			else if(Player.playerHealth == 0){
-				countDownText.text = "Dead!\nPress R";
+				countDownText.text = "Dead!\nPress P";
 				
 				var score:Array = [highMinute, highSecond];
 				if(pacifist){

@@ -4,6 +4,7 @@
 package Parents
 {
 	import flash.display.MovieClip;
+	import flash.display.Shape;
 	import flash.display.Sprite;
 	import flash.events.Event;
 	import flash.events.KeyboardEvent;
@@ -139,7 +140,9 @@ package Parents
 		
 		private var stageMusic:Sound;
 		private var settings:SharedObject;
-				
+		
+		private var backgroundBlock:Shape;
+		
 		/**Constructor*/
 		public function Stage(screenP:FlashGame, debugging:Boolean, playerX:Number, playerY:Number, pacifist:Boolean, world:int, difficulty:int, _musicChannel:SoundChannel,  _settings:SharedObject)
 		{
@@ -156,6 +159,21 @@ package Parents
 			stageMusic = new MenuMusic;
 			musicChannel = stageMusic.play(0, int.MAX_VALUE);
 			musicChannel.soundTransform = new SoundTransform(settings.data.musicVolume);
+			
+			backgroundBlock = new Shape();
+			backgroundBlock.graphics.beginFill(0x080808); 
+			backgroundBlock.graphics.drawRect(-700, 0, 2100, 525);
+			backgroundBlock.graphics.endFill(); 
+			
+			if(settings.data.night != null){
+				if(settings.data.night == "true"){
+					addChildAt(backgroundBlock, 0);
+				}
+			}
+			else{
+				settings.data.night = "false";
+				settings.flush();
+			}
 			
 			/**BOX2D*/
 			//initiate time
@@ -538,7 +556,7 @@ package Parents
 			}
 			
 			//pausing
-			if(e.keyCode == OptionsMenu.keybindings.pause || e.keyCode == Keyboard.R){
+			if(e.keyCode == OptionsMenu.keybindings.pause){
 				if(paused == false){
 					pauseMenu = new PauseMenu(this, 350, 260, pacifistState, worldState, difficultyState, musicChannel, settings);
 					paused = true;
@@ -626,6 +644,17 @@ package Parents
 			}
 			else if(e.keyCode == OptionsMenu.keybindings.rain){
 				removeAddRain();
+			}
+			else if(e.keyCode == OptionsMenu.keybindings.night){
+				if(settings.data.night == "true"){
+					removeChild(backgroundBlock);
+					settings.data.night = "false";
+				}
+				else{
+					settings.data.night = "true";
+					addChildAt(backgroundBlock, 0);	
+				}
+				settings.flush();
 			}
 		}
 		

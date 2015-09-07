@@ -106,7 +106,6 @@ package Game
 		private var settings:SharedObject;
 		
 		private var menuMusic:Sound;
-		private var backgroundBlock:Shape;
 		
 		public function Menu(screenP:Sprite, _musicChannel:SoundChannel, _settings:SharedObject)
 		{			
@@ -125,16 +124,16 @@ package Game
 			
 			menuMusic = new MenuMusic;
 			
+			var backgroundBlock:Shape = new Shape();
+			backgroundBlock.graphics.beginFill(0x080808); 
+			backgroundBlock.graphics.drawRect(-700, 0, 2100, 525);
+			backgroundBlock.graphics.endFill(); 
+			addChildAt(backgroundBlock, 0);
+			
 			var musicTransform:SoundTransform = new SoundTransform(musicVolume);
 			musicChannel = menuMusic.play(0, int.MAX_VALUE);
 			musicChannel.soundTransform = musicTransform;
-			
-			backgroundBlock = new Shape();
-			backgroundBlock.graphics.beginFill(0x050505); 
-			backgroundBlock.graphics.drawRect(-700, 0, 2100, 525);
-			backgroundBlock.graphics.endFill(); 
-			addChild(backgroundBlock); 
-			
+						
 			displayFormat = new TextFormat();
 			displayFormat.size = 50;
 			displayFormat.align = "left";
