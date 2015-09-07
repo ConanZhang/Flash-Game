@@ -16,6 +16,7 @@ package
 	import flash.ui.Mouse;
 	
 	import Assets.Player;
+	import Assets.Weapon;
 	
 	import Game.DodgeWorld;
 	import Game.Menu;
@@ -81,6 +82,7 @@ package
 		private var gameHUD:PlayerHUD;
 		private var keybindings:Object;
 		private var player:Player;
+		private var weaponEquip:Weapon;
 		
 		/**Constructor*/
 		public function FlashGame()
@@ -101,6 +103,7 @@ package
 			gameReticule.height = 25;
 			
 			player = new Player(3.5);
+			weaponEquip = new Weapon(1, player);
 
 			world = 1;
 			pacifist = false;
@@ -192,28 +195,28 @@ package
 			if(event.target is Menu){		
 				menu = null;
 				if(world == testWorld){
-					gameHUD = new PlayerHUD(pacifist, testWorld,difficulty, player);
-					test = new TestWorld(this, false, pacifist, testWorld, difficulty, hasRain, settings, musicChannel, gameHUD, keybindings, player);
+					gameHUD = new PlayerHUD(pacifist, testWorld,difficulty, player, weaponEquip);
+					test = new TestWorld(this, false, pacifist, testWorld, difficulty, hasRain, settings, musicChannel, gameHUD, keybindings, player, weaponEquip);
 				} 
 				else if(world == wallWorld){
-					gameHUD = new PlayerHUD(pacifist, wallWorld,difficulty, player);
-					walls = new WallJumpingWorld(this, false, pacifist, wallWorld,difficulty, hasRain, settings, musicChannel, gameHUD, keybindings, player);	
+					gameHUD = new PlayerHUD(pacifist, wallWorld,difficulty, player, weaponEquip);
+					walls = new WallJumpingWorld(this, false, pacifist, wallWorld,difficulty, hasRain, settings, musicChannel, gameHUD, keybindings, player, weaponEquip);	
 				}
 				else if(world == tutorialWorld){
-					gameHUD = new PlayerHUD(pacifist, tutorialWorld,difficulty, player);
-					tutorial = new MovementWorld(this, false, pacifist, tutorialWorld, hasRain, settings, musicChannel, gameHUD, keybindings, player);	
+					gameHUD = new PlayerHUD(pacifist, tutorialWorld,difficulty, player, weaponEquip);
+					tutorial = new MovementWorld(this, false, pacifist, tutorialWorld, hasRain, settings, musicChannel, gameHUD, keybindings, player, weaponEquip);	
 				}
 				else if(world == smallWorld){
-					gameHUD = new PlayerHUD(pacifist, smallWorld,difficulty, player);
-					small = new SmallWorld(this, false, pacifist, smallWorld, difficulty, hasRain, settings, musicChannel, gameHUD, keybindings, player);	 
+					gameHUD = new PlayerHUD(pacifist, smallWorld,difficulty, player, weaponEquip);
+					small = new SmallWorld(this, false, pacifist, smallWorld, difficulty, hasRain, settings, musicChannel, gameHUD, keybindings, player, weaponEquip);	 
 				}
 				else if(world == dodgeWorld){
-					gameHUD = new PlayerHUD(pacifist, dodgeWorld,difficulty, player);
-					dodge = new DodgeWorld(this, false, pacifist, dodgeWorld, hasRain, settings, musicChannel, gameHUD, keybindings, player);	
+					gameHUD = new PlayerHUD(pacifist, dodgeWorld,difficulty, player, weaponEquip);
+					dodge = new DodgeWorld(this, false, pacifist, dodgeWorld, hasRain, settings, musicChannel, gameHUD, keybindings, player, weaponEquip);	
 				}
 				else{
-					gameHUD = new PlayerHUD(pacifist, weaponWorld,difficulty, player);
-					weapon = new WeaponWorld(this, false, pacifist, weaponWorld, hasRain, settings, musicChannel, gameHUD, keybindings, player);	
+					gameHUD = new PlayerHUD(pacifist, weaponWorld,difficulty, player, weaponEquip);
+					weapon = new WeaponWorld(this, false, pacifist, weaponWorld, hasRain, settings, musicChannel, gameHUD, keybindings, player, weaponEquip);	
 				}
 			}
 			else if(event.target is MovementWorld || 

@@ -13,6 +13,7 @@ package Game
 	import Assets.Platform;
 	import Assets.Player;
 	import Assets.Rain;
+	import Assets.Weapon;
 	
 	import Parents.Stage;
 	
@@ -28,12 +29,13 @@ package Game
 		private var addEnemy:Timer;
 		private var HUD:PlayerHUD;
 		private var player:Player;
+		private var weapon:Weapon;
 		/**			Constructor
 		 * 
 		 * Takes in screen it will be added to
 		 * 
 		 */
-		public function DodgeWorld(screenP:FlashGame, debugging:Boolean, pacifist:Boolean, world:int, _hasRain:Boolean, _settings:SharedObject,  _musicChannel:SoundChannel, _HUD:PlayerHUD, keybindings:Object, _player:Player)
+		public function DodgeWorld(screenP:FlashGame, debugging:Boolean, pacifist:Boolean, world:int, _hasRain:Boolean, _settings:SharedObject,  _musicChannel:SoundChannel, _HUD:PlayerHUD, keybindings:Object, _player:Player, _weapon:Weapon)
 		{			
 			screen = screenP;
 			screen.addChildAt(this,0);
@@ -42,7 +44,8 @@ package Game
 			
 			HUD = _HUD;
 			player = _player;
-			super(screen,debugging, 62, 7, pacifist, world, 0, _musicChannel, settings, HUD, keybindings, player);
+			weapon = _weapon;
+			super(screen,debugging, 62, 7, pacifist, world, 0, _musicChannel, settings, HUD, keybindings, player, weapon);
 			
 			//BACKGROUND
 			background = new Background("TutorialDodge");
@@ -94,9 +97,9 @@ package Game
 		{
 			addEnemy.stop();
 
-			var testEnemy1:BigPlatformEnemy = new BigPlatformEnemy(95, -1, 8, 8, 2, 0, settings, HUD, player);
-			var testEnemy2:BigPlatformEnemy = new BigPlatformEnemy(95, 3, 8, 8, 2, 0, settings, HUD, player);
-			var testEnemy3:BigPlatformEnemy = new BigPlatformEnemy(95, 7, 8, 8, 2, 0, settings, HUD, player);			
+			var testEnemy1:BigPlatformEnemy = new BigPlatformEnemy(95, -1, 8, 8, 2, 0, settings, HUD, player, weapon);
+			var testEnemy2:BigPlatformEnemy = new BigPlatformEnemy(95, 3, 8, 8, 2, 0, settings, HUD, player, weapon);
+			var testEnemy3:BigPlatformEnemy = new BigPlatformEnemy(95, 7, 8, 8, 2, 0, settings, HUD, player, weapon);			
 		}
 		
 		public override function removeAddRain():void{

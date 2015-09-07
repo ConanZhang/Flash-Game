@@ -77,16 +77,16 @@ package Game
 		
 		private var highScore:SharedObject;
 		private var player:Player;
-		
+		private var weapon:Weapon;
 		/**Constructor*/
-		public function PlayerHUD(_pacifist:Boolean, _world:int, _difficulty:int, _player:Player)
+		public function PlayerHUD(_pacifist:Boolean, _world:int, _difficulty:int, _player:Player, _weapon:Weapon)
 		{
 			//initialize class member variables
 			heartRevive = false;
 			heartDamaged = false;
 			
 			player = _player;
-			
+			weapon = _weapon;
 			heartXPosition = 460;
 			heartYPosition = 35;
 			heartSize = 35;
@@ -451,8 +451,8 @@ package Game
 			slowMotionBar.graphics.endFill();
 			
 			//ammo
-			ammoCount.text = "Ammo i " + (Weapon.weaponType == 1 ? Weapon.pistolAmmo: (Weapon.weaponType == 2) ? Weapon.shotgunAmmo: (Weapon.weaponType == 3) ? Weapon.machinegunAmmo: 0) + "\n" +
-							 "Weapon i " + (Weapon.weaponType == 1 ? "Pistol": (Weapon.weaponType == 2) ? "Shotgun": (Weapon.weaponType == 3) ? "Machine gun": "None");		 				
+			ammoCount.text = "Ammo i " + (weapon.weaponType == 1 ? weapon.pistolAmmo: (weapon.weaponType == 2) ? weapon.shotgunAmmo: (weapon.weaponType == 3) ? weapon.machinegunAmmo: 0) + "\n" +
+							 "weapon i " + (weapon.weaponType == 1 ? "Pistol": (weapon.weaponType == 2) ? "Shotgun": (weapon.weaponType == 3) ? "Machine gun": "None");		 				
 		}
 		
 		/**Survive count down timer*/

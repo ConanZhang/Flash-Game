@@ -9,6 +9,7 @@ package Game
 	import Assets.Platform;
 	import Assets.Player;
 	import Assets.Rain;
+	import Assets.Weapon;
 	
 	import Parents.Stage;
 	
@@ -23,20 +24,24 @@ package Game
 		private var settings:SharedObject;
 		private var HUD:PlayerHUD;
 		private var player:Player;
+		private var weapon:Weapon;
+		
 		/**			Constructor
 		 * 
 		 * Takes in screen it will be added to
 		 * 
 		 */
-		public function MovementWorld(screenP:FlashGame, debugging:Boolean, pacifist:Boolean, world:int, _hasRain:Boolean, _settings:SharedObject,  _musicChannel:SoundChannel, _HUD:PlayerHUD, _keybindings:Object, _player:Player)
+		public function MovementWorld(screenP:FlashGame, debugging:Boolean, pacifist:Boolean, world:int, _hasRain:Boolean, _settings:SharedObject,  _musicChannel:SoundChannel, _HUD:PlayerHUD, _keybindings:Object, _player:Player, _weapon:Weapon)
 		{			
 			screen = screenP;
 			screen.addChildAt(this,0);
 			
 			settings = _settings;
 			player = _player;
+			weapon = _weapon;
+			
 			HUD = _HUD;
-			super(screen,debugging, 30, 7, pacifist, world, 0, _musicChannel, settings, HUD, _keybindings, player);
+			super(screen,debugging, 30, 7, pacifist, world, 0, _musicChannel, settings, HUD, _keybindings, player, weapon);
 						
 			//BACKGROUND
 			background = new Background("TutorialMovement");

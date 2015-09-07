@@ -144,7 +144,7 @@ package Parents
 		private var backgroundBlock:Shape;
 		
 		/**Constructor*/
-		public function Stage(screenP:FlashGame, debugging:Boolean, playerX:Number, playerY:Number, pacifist:Boolean, world:int, difficulty:int, _musicChannel:SoundChannel,  _settings:SharedObject, _HUD:PlayerHUD, _keybindings:Object, _player:Player)
+		public function Stage(screenP:FlashGame, debugging:Boolean, playerX:Number, playerY:Number, pacifist:Boolean, world:int, difficulty:int, _musicChannel:SoundChannel,  _settings:SharedObject, _HUD:PlayerHUD, _keybindings:Object, _player:Player, _weapon:Weapon)
 		{
 			screen = screenP;
 			pacifistState = pacifist;
@@ -218,6 +218,12 @@ package Parents
 			this.setPlayer(player.body);
 			player.playerInvulnerable = 100;
 			
+			weapon = _weapon;
+			weapon.position = new Point(15, 7);
+			weapon.stage_Sprite = images;
+			weapon.world_Sprite = worldStage;
+			weapon.make();
+			
 			worldStage.SetContactListener(new ContactListener(settings, gameHUD, player) );
 			slowMotion = false;
 			speed = 1;
@@ -240,7 +246,6 @@ package Parents
 			flinchTime = 0;
 			
 			//WEAPON
-			weapon = new Weapon(15, 7,1, player);
 			machineFire = false;
 			machineDelay = 2;
 			
@@ -507,15 +512,15 @@ package Parents
 				//fire machine gun
 				if(machineFire == true){
 					if(machineDelay == 2){
-						var machineBullet:Bullet = new Bullet(playerBody.GetPosition().x + 3 * Math.cos(weaponRotation), playerBody.GetPosition().y + 3 * Math.sin(weaponRotation),0.3,0.3);
-						Weapon.machinegunAmmo--;
+						var machineBullet:Bullet = new Bullet(playerBody.GetPosition().x + 3 * Math.cos(weaponRotation), playerBody.GetPosition().y + 3 * Math.sin(weaponRotation),0.3,0.3, weapon);
+						weapon.machinegunAmmo--;
 						machineDelay = 0;
 					}
 					else{
 						machineDelay++;
 					}
 					
-					if(Weapon.machinegunAmmo <= 0){
+					if(weapon.machinegunAmmo <= 0){
 						machineFire = false;
 						machineDelay = 2;
 					}
@@ -578,73 +583,73 @@ package Parents
 			}
 			//change weapon
 			else if(e.keyCode == keybindings.weaponLeft){
-				if(Weapon.weaponType == 1 && Weapon.machinegunAmmo > 0){
-					Weapon.weaponType = 3;
-					Weapon.changeWeapon = true;
+				if(weapon.weaponType == 1 && weapon.machinegunAmmo > 0){
+					weapon.weaponType = 3;
+					weapon.changeWeapon = true;
 				}
-				else if(Weapon.weaponType == 1 && Weapon.machinegunAmmo <= 0 && Weapon.shotgunAmmo > 0){
-					Weapon.weaponType = 2;
-					Weapon.changeWeapon = true;
+				else if(weapon.weaponType == 1 && weapon.machinegunAmmo <= 0 && weapon.shotgunAmmo > 0){
+					weapon.weaponType = 2;
+					weapon.changeWeapon = true;
 				}
-				else if(Weapon.weaponType == 2 && Weapon.pistolAmmo > 0){
-					Weapon.weaponType = 1;
-					Weapon.changeWeapon = true;
+				else if(weapon.weaponType == 2 && weapon.pistolAmmo > 0){
+					weapon.weaponType = 1;
+					weapon.changeWeapon = true;
 				}
-				else if(Weapon.weaponType == 2 && Weapon.pistolAmmo <= 0 && Weapon.machinegunAmmo > 0){
-					Weapon.weaponType = 3;
-					Weapon.changeWeapon = true;
+				else if(weapon.weaponType == 2 && weapon.pistolAmmo <= 0 && weapon.machinegunAmmo > 0){
+					weapon.weaponType = 3;
+					weapon.changeWeapon = true;
 				}
-				else if(Weapon.weaponType == 3 && Weapon.shotgunAmmo > 0){
-					Weapon.weaponType = 2;
-					Weapon.changeWeapon = true;
+				else if(weapon.weaponType == 3 && weapon.shotgunAmmo > 0){
+					weapon.weaponType = 2;
+					weapon.changeWeapon = true;
 				}
-				else if(Weapon.weaponType == 3 && Weapon.shotgunAmmo <= 0 && Weapon.pistolAmmo > 0){
-					Weapon.weaponType = 1;
-					Weapon.changeWeapon = true;
+				else if(weapon.weaponType == 3 && weapon.shotgunAmmo <= 0 && weapon.pistolAmmo > 0){
+					weapon.weaponType = 1;
+					weapon.changeWeapon = true;
 				}
 			}
 			else if(e.keyCode == keybindings.weaponRight){
-				if(Weapon.weaponType == 1 && Weapon.shotgunAmmo > 0){
-					Weapon.weaponType = 2;
-					Weapon.changeWeapon = true;
+				if(weapon.weaponType == 1 && weapon.shotgunAmmo > 0){
+					weapon.weaponType = 2;
+					weapon.changeWeapon = true;
 				}
-				else if(Weapon.weaponType == 1 && Weapon.shotgunAmmo <= 0 && Weapon.machinegunAmmo > 0){
-					Weapon.weaponType = 3;
-					Weapon.changeWeapon = true;
+				else if(weapon.weaponType == 1 && weapon.shotgunAmmo <= 0 && weapon.machinegunAmmo > 0){
+					weapon.weaponType = 3;
+					weapon.changeWeapon = true;
 				}
-				else if(Weapon.weaponType == 2 && Weapon.machinegunAmmo > 0){
-					Weapon.weaponType = 3;
-					Weapon.changeWeapon = true;
+				else if(weapon.weaponType == 2 && weapon.machinegunAmmo > 0){
+					weapon.weaponType = 3;
+					weapon.changeWeapon = true;
 				}
-				else if(Weapon.weaponType == 2 && Weapon.machinegunAmmo <= 0 && Weapon.pistolAmmo > 0){
-					Weapon.weaponType = 1;
-					Weapon.changeWeapon = true;
+				else if(weapon.weaponType == 2 && weapon.machinegunAmmo <= 0 && weapon.pistolAmmo > 0){
+					weapon.weaponType = 1;
+					weapon.changeWeapon = true;
 				}
-				else if(Weapon.weaponType == 3 && Weapon.pistolAmmo > 0){
-					Weapon.weaponType = 1;
-					Weapon.changeWeapon = true;
+				else if(weapon.weaponType == 3 && weapon.pistolAmmo > 0){
+					weapon.weaponType = 1;
+					weapon.changeWeapon = true;
 				}
-				else if(Weapon.weaponType == 3 && Weapon.pistolAmmo <= 0 && Weapon.shotgunAmmo > 0){
-					Weapon.weaponType = 2;
-					Weapon.changeWeapon = true;
+				else if(weapon.weaponType == 3 && weapon.pistolAmmo <= 0 && weapon.shotgunAmmo > 0){
+					weapon.weaponType = 2;
+					weapon.changeWeapon = true;
 				}
 			}
 			else if(e.keyCode == keybindings.pistol){
-				if(Weapon.pistolAmmo > 0){
-					Weapon.weaponType = 1;
-					Weapon.changeWeapon = true;
+				if(weapon.pistolAmmo > 0){
+					weapon.weaponType = 1;
+					weapon.changeWeapon = true;
 				}
 			}
 			else if(e.keyCode == keybindings.shotgun){
-				if(Weapon.shotgunAmmo > 0){
-					Weapon.weaponType = 2;
-					Weapon.changeWeapon = true;
+				if(weapon.shotgunAmmo > 0){
+					weapon.weaponType = 2;
+					weapon.changeWeapon = true;
 				}
 			}
 			else if(e.keyCode == keybindings.machinegun){
-				if(Weapon.machinegunAmmo > 0){
-					Weapon.weaponType = 3;
-					Weapon.changeWeapon = true;
+				if(weapon.machinegunAmmo > 0){
+					weapon.weaponType = 3;
+					weapon.changeWeapon = true;
 				}
 			}
 			else if(e.keyCode ==keybindings.rain){
@@ -713,46 +718,46 @@ package Parents
 		
 		/**Stages can detect left clicks*/
 		public function leftClick(e:MouseEvent):void{
-			if(Weapon.holdingWeapon && !paused && player.playerHealth > 0){
-				if(Weapon.weaponType == 1 && Weapon.pistolAmmo > 0){
+			if(weapon.holdingWeapon && !paused && player.playerHealth > 0){
+				if(weapon.weaponType == 1 && weapon.pistolAmmo > 0){
 					if(weaponRotation > -1.5 && weaponRotation < 1.5 && weapon.weaponClip.endFire){
 						weapon.rightFire = true;
 						weapon.weaponClip.endFire = false;
 						
-						var pistolRight:Bullet = new Bullet(playerBody.GetPosition().x + Math.cos(weaponRotation), playerBody.GetPosition().y +Math.sin(weaponRotation),0.3,0.3);	
-						Weapon.pistolAmmo--;
+						var pistolRight:Bullet = new Bullet(playerBody.GetPosition().x + Math.cos(weaponRotation), playerBody.GetPosition().y +Math.sin(weaponRotation),0.3,0.3, weapon);	
+						weapon.pistolAmmo--;
 					}
 					else if(!weapon.leftFire && weapon.weaponClip.endFire){
 						weapon.leftFire = true;
 						weapon.weaponClip.endFire = false;
 						
-						var pistolLeft:Bullet = new Bullet(playerBody.GetPosition().x + Math.cos(weaponRotation), playerBody.GetPosition().y +Math.sin(weaponRotation),0.3,0.3);	
-						Weapon.pistolAmmo--;
+						var pistolLeft:Bullet = new Bullet(playerBody.GetPosition().x + Math.cos(weaponRotation), playerBody.GetPosition().y +Math.sin(weaponRotation),0.3,0.3, weapon);	
+						weapon.pistolAmmo--;
 					}
 				}
-				else if(Weapon.weaponType == 2 && Weapon.shotgunAmmo > 0){
+				else if(weapon.weaponType == 2 && weapon.shotgunAmmo > 0){
 					if(weaponRotation > -1.5 && weaponRotation < 1.5 && weapon.weaponClip.endFire){
 						weapon.rightFire = true;
 						weapon.weaponClip.endFire = false;
 							
-						var shotgunRight1:Bullet = new Bullet(playerBody.GetPosition().x + Math.cos(weaponRotation), playerBody.GetPosition().y +Math.sin(weaponRotation),0.3,0.3);
-						var shotgunRight2:Bullet = new Bullet(playerBody.GetPosition().x + Math.cos(weaponRotation), playerBody.GetPosition().y +Math.sin(weaponRotation),0.3,0.3);	
-						var shotgunRight3:Bullet = new Bullet(playerBody.GetPosition().x + Math.cos(weaponRotation), playerBody.GetPosition().y +Math.sin(weaponRotation),0.3,0.3);	
+						var shotgunRight1:Bullet = new Bullet(playerBody.GetPosition().x + Math.cos(weaponRotation), playerBody.GetPosition().y +Math.sin(weaponRotation),0.3,0.3, weapon);
+						var shotgunRight2:Bullet = new Bullet(playerBody.GetPosition().x + Math.cos(weaponRotation), playerBody.GetPosition().y +Math.sin(weaponRotation),0.3,0.3, weapon);	
+						var shotgunRight3:Bullet = new Bullet(playerBody.GetPosition().x + Math.cos(weaponRotation), playerBody.GetPosition().y +Math.sin(weaponRotation),0.3,0.3, weapon);	
 
-						Weapon.shotgunAmmo--;
+						weapon.shotgunAmmo--;
 					}
 					else if(!weapon.leftFire && weapon.weaponClip.endFire){
 						weapon.leftFire = true;
 						weapon.weaponClip.endFire = false;
 						
-						var shotgunLeft1:Bullet = new Bullet(playerBody.GetPosition().x + Math.cos(weaponRotation), playerBody.GetPosition().y +Math.sin(weaponRotation),0.3,0.3);	
-						var shotgunLeft2:Bullet = new Bullet(playerBody.GetPosition().x + Math.cos(weaponRotation), playerBody.GetPosition().y +Math.sin(weaponRotation),0.3,0.3);	
-						var shotgunLeft3:Bullet = new Bullet(playerBody.GetPosition().x + Math.cos(weaponRotation), playerBody.GetPosition().y +Math.sin(weaponRotation),0.3,0.3);	
+						var shotgunLeft1:Bullet = new Bullet(playerBody.GetPosition().x + Math.cos(weaponRotation), playerBody.GetPosition().y +Math.sin(weaponRotation),0.3,0.3, weapon);	
+						var shotgunLeft2:Bullet = new Bullet(playerBody.GetPosition().x + Math.cos(weaponRotation), playerBody.GetPosition().y +Math.sin(weaponRotation),0.3,0.3, weapon);	
+						var shotgunLeft3:Bullet = new Bullet(playerBody.GetPosition().x + Math.cos(weaponRotation), playerBody.GetPosition().y +Math.sin(weaponRotation),0.3,0.3, weapon);	
 
-						Weapon.shotgunAmmo--;
+						weapon.shotgunAmmo--;
 					}
 				}
-				else if(Weapon.weaponType == 3 && Weapon.machinegunAmmo > 0){
+				else if(weapon.weaponType == 3 && weapon.machinegunAmmo > 0){
 					if(weaponRotation > -1.5 && weaponRotation < 1.5){
 						machineFire = true;
 						weapon.rightFire = true;						
@@ -767,7 +772,7 @@ package Parents
 		
 		/**Stages can detect left mouse lifts*/
 		public function leftUp(e:MouseEvent):void{
-			if(Weapon.weaponType == 3){
+			if(weapon.weaponType == 3){
 				machineFire = false;
 				weapon.rightFire = false;
 				weapon.leftFire = false;
@@ -777,49 +782,49 @@ package Parents
 		
 		/**Stage can detect mouse wheels*/
 		public function mouseWheeled(e:MouseEvent):void{
-			if(Weapon.holdingWeapon && !paused && player.playerHealth != 0){
-				Weapon.changeWeapon = true;
+			if(weapon.holdingWeapon && !paused && player.playerHealth != 0){
+				weapon.changeWeapon = true;
 
 				//up wheel
 				if(e.delta > 0){
-					if(Weapon.weaponType == 1 && Weapon.shotgunAmmo > 0){
-						Weapon.weaponType = 2;
+					if(weapon.weaponType == 1 && weapon.shotgunAmmo > 0){
+						weapon.weaponType = 2;
 					}
-					else if(Weapon.weaponType == 1 && Weapon.shotgunAmmo <= 0 && Weapon.machinegunAmmo > 0){
-						Weapon.weaponType = 3;
+					else if(weapon.weaponType == 1 && weapon.shotgunAmmo <= 0 && weapon.machinegunAmmo > 0){
+						weapon.weaponType = 3;
 					}
-					else if(Weapon.weaponType == 2 && Weapon.machinegunAmmo > 0){
-						Weapon.weaponType = 3;
+					else if(weapon.weaponType == 2 && weapon.machinegunAmmo > 0){
+						weapon.weaponType = 3;
 					}
-					else if(Weapon.weaponType == 2 && Weapon.machinegunAmmo <= 0 && Weapon.pistolAmmo > 0){
-						Weapon.weaponType = 1;
+					else if(weapon.weaponType == 2 && weapon.machinegunAmmo <= 0 && weapon.pistolAmmo > 0){
+						weapon.weaponType = 1;
 					}
-					else if(Weapon.weaponType == 3 && Weapon.pistolAmmo > 0){
-						Weapon.weaponType = 1;
+					else if(weapon.weaponType == 3 && weapon.pistolAmmo > 0){
+						weapon.weaponType = 1;
 					}
-					else if(Weapon.weaponType == 3 && Weapon.pistolAmmo <= 0 && Weapon.shotgunAmmo > 0){
-						Weapon.weaponType = 2;
+					else if(weapon.weaponType == 3 && weapon.pistolAmmo <= 0 && weapon.shotgunAmmo > 0){
+						weapon.weaponType = 2;
 					}
 				}
 				//down wheel
 				else{
-					if(Weapon.weaponType == 1 && Weapon.machinegunAmmo > 0){
-						Weapon.weaponType = 3;
+					if(weapon.weaponType == 1 && weapon.machinegunAmmo > 0){
+						weapon.weaponType = 3;
 					}
-					else if(Weapon.weaponType == 1 && Weapon.machinegunAmmo <= 0 && Weapon.shotgunAmmo > 0){
-						Weapon.weaponType = 2;
+					else if(weapon.weaponType == 1 && weapon.machinegunAmmo <= 0 && weapon.shotgunAmmo > 0){
+						weapon.weaponType = 2;
 					}
-					else if(Weapon.weaponType == 2 && Weapon.pistolAmmo > 0){
-						Weapon.weaponType = 1;
+					else if(weapon.weaponType == 2 && weapon.pistolAmmo > 0){
+						weapon.weaponType = 1;
 					}
-					else if(Weapon.weaponType == 2 && Weapon.pistolAmmo <= 0 && Weapon.machinegunAmmo > 0){
-						Weapon.weaponType = 3;
+					else if(weapon.weaponType == 2 && weapon.pistolAmmo <= 0 && weapon.machinegunAmmo > 0){
+						weapon.weaponType = 3;
 					}
-					else if(Weapon.weaponType == 3 && Weapon.shotgunAmmo > 0){
-						Weapon.weaponType = 2;
+					else if(weapon.weaponType == 3 && weapon.shotgunAmmo > 0){
+						weapon.weaponType = 2;
 					}
-					else if(Weapon.weaponType == 3 && Weapon.shotgunAmmo <= 0 && Weapon.pistolAmmo > 0){
-						Weapon.weaponType = 1;
+					else if(weapon.weaponType == 3 && weapon.shotgunAmmo <= 0 && weapon.pistolAmmo > 0){
+						weapon.weaponType = 1;
 					}
 				}
 			}

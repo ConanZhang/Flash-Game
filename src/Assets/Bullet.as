@@ -34,12 +34,13 @@ package Assets {
 		private var bullet_Density:Number;
 		private var bulletXDirection:Number;
 		private var bulletYDirection:Number;
+		private var weapon:Weapon;
 		
 		/**Constructor*/
-		public function Bullet(xPos:Number, yPos:Number, width:Number, height:Number){
+		public function Bullet(xPos:Number, yPos:Number, width:Number, height:Number, _weapon:Weapon){
 			//assign parameters to class member variables
 			position = new Point(xPos, yPos);
-			
+			weapon = _weapon;
 			//initialize default private variables
 			bullet_Width = width;
 			bullet_Height = height;
@@ -65,17 +66,17 @@ package Assets {
 			bulletFixture.userData = new Array("BULLET");
 			
 			//initial velocity
-			if(Weapon.weaponType == 1){
+			if(weapon.weaponType == 1){
 				bulletXDirection = Math.cos(Stage.weaponRotation)*300;
 				bulletYDirection = Math.sin(Stage.weaponRotation)*300;
 				bulletFixture.userData.push("PISTOL");
 			}
-			else if(Weapon.weaponType == 2){
+			else if(weapon.weaponType == 2){
 				bulletXDirection = Math.cos(Stage.weaponRotation+Math.random()*0.5 - 0.25)*300;
 				bulletYDirection = Math.sin(Stage.weaponRotation+Math.random()*0.5 - 0.25)*300;
 				bulletFixture.userData.push("SHOTGUN");
 			}
-			else if(Weapon.weaponType == 3){
+			else if(weapon.weaponType == 3){
 				bulletXDirection = Math.cos(Stage.weaponRotation+Math.random()*0.25 - 0.12)*300;
 				bulletYDirection = Math.sin(Stage.weaponRotation+Math.random()*0.25 - 0.12)*300;
 				bulletFixture.userData.push("MACHINEGUN");

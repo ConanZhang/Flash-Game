@@ -43,8 +43,9 @@ package Assets {
 		private var settings:SharedObject;
 		private var HUD:PlayerHUD;
 		private var player:Player;
+		private var weapon:Weapon;
 		/**Constructor*/
-		public function ItemDrop(xPos:Number, yPos:Number, width:Number, height:Number, type:int, _settings:SharedObject, _HUD:PlayerHUD, _player:Player){
+		public function ItemDrop(xPos:Number, yPos:Number, width:Number, height:Number, type:int, _settings:SharedObject, _HUD:PlayerHUD, _player:Player, _weapon:Weapon){
 			//assign parameters to class member variables
 			position = new Point(xPos, yPos);
 			
@@ -54,6 +55,7 @@ package Assets {
 			itemType = type;
 			HUD = _HUD;
 			player = _player;
+			weapon = _weapon;
 			
 			settings = _settings;
 			
@@ -135,27 +137,27 @@ package Assets {
 					lifeUp.play(0, 0, new SoundTransform(settings.data.effectsVolume));
 				}
 				else if(itemType == 2){
-					Weapon.pistolAmmo +=5;
+					weapon.pistolAmmo +=5;
 					Stage.ammunitionCount--;
-					if(!Weapon.holdingWeapon){
-						Weapon.needWeapon = true;
-						Weapon.weaponType = 1;
+					if(!weapon.holdingWeapon){
+						weapon.needWeapon = true;
+						weapon.weaponType = 1;
 					}
 				}
 				else if(itemType == 3){
-					Weapon.shotgunAmmo +=2;
+					weapon.shotgunAmmo +=2;
 					Stage.ammunitionCount--;
-					if(!Weapon.holdingWeapon){
-						Weapon.needWeapon = true;
-						Weapon.weaponType = 2;
+					if(!weapon.holdingWeapon){
+						weapon.needWeapon = true;
+						weapon.weaponType = 2;
 					}
 				}
 				else if(itemType == 4){
-					Weapon.machinegunAmmo +=10;
+					weapon.machinegunAmmo +=10;
 					Stage.ammunitionCount--;
-					if(!Weapon.holdingWeapon){
-						Weapon.needWeapon = true;
-						Weapon.weaponType = 3;
+					if(!weapon.holdingWeapon){
+						weapon.needWeapon = true;
+						weapon.weaponType = 3;
 					}
 				}
 				destroyAll();

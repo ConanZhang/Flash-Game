@@ -19,27 +19,27 @@ package Assets {
 	public class Weapon extends Objects{
 		/**Class Member Variables*/
 		//STAGE
-		private var stage_Sprite:Sprite = Stage.sprites;
-		private var world_Sprite:b2World = Stage.world;
+		public var stage_Sprite:Sprite;
+		public var world_Sprite:b2World;
 		
 		//ANIMATION STATES
-		public static var   STATE   	:int;
-		public static const LEFT    	:int = 0;
-		public static const RIGHT	  	:int = 1;
+		public var   STATE   	:int;
+		public const LEFT    	:int = 0;
+		public const RIGHT	  	:int = 1;
 		
 		public var leftFire:Boolean;
 		public var rightFire:Boolean;
 		
 		//PROPERTIES
-		private var position:Point;
+		public var position:Point;
 		public var weaponClip:MovieClip;
-		public static var weaponType:int;
-		public static var pistolAmmo:int;
-		public static var shotgunAmmo:int;
-		public static var machinegunAmmo:int;
-		public static var holdingWeapon:Boolean;
-		public static var needWeapon:Boolean;
-		public static var changeWeapon:Boolean;
+		public var weaponType:int;
+		public var pistolAmmo:int;
+		public var shotgunAmmo:int;
+		public var machinegunAmmo:int;
+		public var holdingWeapon:Boolean;
+		public var needWeapon:Boolean;
+		public var changeWeapon:Boolean;
 		
 		//BOX2D COLLISION & PHYSICS
 		private var collisionBody:b2Body;
@@ -47,9 +47,8 @@ package Assets {
 		private var player:Player;
 		
 		/**Constructor*/
-		public function Weapon(xPos:Number, yPos:Number, type:int, _player:Player){
+		public function Weapon(type:int, _player:Player){
 			//assign parameters to class member variables
-			position = new Point(xPos, yPos);
 			weaponType = type;
 			player = _player;
 			
@@ -66,8 +65,6 @@ package Assets {
 			rightFire = false;
 			
 			weaponFixture = new b2FixtureDef();
-			
-			make();
 		}
 		
 		/**Makes Weapon*/
