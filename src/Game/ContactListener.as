@@ -19,11 +19,13 @@ package Game
 	public class ContactListener extends b2ContactListener
 	{
 		private var settings:SharedObject;
+		private var HUD:PlayerHUD;
 		
 		/**Constructor DOES NOTHING*/
-		public function ContactListener( _settings:SharedObject)
+		public function ContactListener( _settings:SharedObject, _HUD:PlayerHUD)
 		{
 			settings = _settings;
+			HUD = _HUD;
 		}
 		
 		/**Collision begins*/
@@ -104,7 +106,7 @@ package Game
 					if(Player.playerInvulnerable == 0 && !Stage.slowMotion && Player.playerHealth != 0){
 						Player.playerInvulnerable = 50;
 						Player.playerHealth--;
-						PlayerHUD.heartDamaged = true;
+						HUD.heartDamaged = true;
 						
 						var hit1:Sound = new Hit;
 						hit1.play(0, 0, new SoundTransform(settings.data.effectsVolume));
@@ -127,7 +129,7 @@ package Game
 						if(Player.playerInvulnerable == 0 && Player.playerHealth != 0){
 							Player.playerInvulnerable = 50;
 							Player.playerHealth--;
-							PlayerHUD.heartDamaged = true;
+							HUD.heartDamaged = true;
 							
 							var hit2:Sound = new Hit;
 							hit2.play(0, 0, new SoundTransform(settings.data.effectsVolume));
@@ -157,7 +159,7 @@ package Game
 					if(Player.playerInvulnerable == 0 && !Stage.slowMotion && Player.playerHealth != 0){
 						Player.playerInvulnerable = 50;
 						Player.playerHealth--;
-						PlayerHUD.heartDamaged = true;
+						HUD.heartDamaged = true;
 						
 						var hit3:Sound = new Hit;
 						hit3.play(0, 0, new SoundTransform(settings.data.effectsVolume));
@@ -180,7 +182,7 @@ package Game
 						if(Player.playerInvulnerable == 0 && Player.playerHealth != 0){
 							Player.playerInvulnerable = 50;
 							Player.playerHealth--;
-							PlayerHUD.heartDamaged = true;
+							HUD.heartDamaged = true;
 							
 							var hit4:Sound = new Hit;
 							hit4.play(0, 0, new SoundTransform(settings.data.effectsVolume));

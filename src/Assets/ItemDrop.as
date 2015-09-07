@@ -41,9 +41,10 @@ package Assets {
 		private var itemDropYDirection:Number;
 		
 		private var settings:SharedObject;
+		private var HUD:PlayerHUD;
 		
 		/**Constructor*/
-		public function ItemDrop(xPos:Number, yPos:Number, width:Number, height:Number, type:int, _settings:SharedObject){
+		public function ItemDrop(xPos:Number, yPos:Number, width:Number, height:Number, type:int, _settings:SharedObject, _HUD:PlayerHUD){
 			//assign parameters to class member variables
 			position = new Point(xPos, yPos);
 			
@@ -51,6 +52,7 @@ package Assets {
 			itemDrop_Width = width;
 			itemDrop_Height = height;
 			itemType = type;
+			HUD = _HUD;
 			
 			settings = _settings;
 			
@@ -126,7 +128,7 @@ package Assets {
 			if(collisionBody.GetFixtureList().GetUserData()[0] == "DEAD"){
 				if(itemType == 1 && Player.playerHealth < 6){
 					Player.playerHealth++;
-					PlayerHUD.heartRevive = true;
+					HUD.heartRevive = true;
 					
 					var lifeUp:Sound = new LifeUp;
 					lifeUp.play(0, 0, new SoundTransform(settings.data.effectsVolume));

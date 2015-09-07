@@ -67,8 +67,8 @@ package Game
 		private var countDownTimer:Timer;
 		
 		//item collected
-		public static var heartRevive:Boolean;
-		public static var heartDamaged:Boolean;
+		public var heartRevive:Boolean;
+		public var heartDamaged:Boolean;
 		
 		// High score
 		private var pacifist:Boolean;
@@ -78,7 +78,7 @@ package Game
 		private var highScore:SharedObject;
 		
 		/**Constructor*/
-		public function PlayerHUD(screenP:Sprite, _pacifist:Boolean, _world:int, _difficulty:int)
+		public function PlayerHUD(_pacifist:Boolean, _world:int, _difficulty:int)
 		{
 			//initialize class member variables
 			heartRevive = false;
@@ -87,9 +87,6 @@ package Game
 			heartXPosition = 460;
 			heartYPosition = 35;
 			heartSize = 35;
-			
-			screen = screenP;
-			screen.addChild(this);
 			
 			pacifist = _pacifist;
 			world = _world;
@@ -159,7 +156,7 @@ package Game
 			slowMotionBar = new Shape();
 			slowMotionBar.graphics.clear();
 			slowMotionBar.graphics.beginFill(0xff0000);
-			slowMotionBar.graphics.drawRect(38, 24, Stage.slowAmount, 22);
+			slowMotionBar.graphics.drawRect(38, 24, 0, 22);
 			slowMotionBar.graphics.endFill();
 			
 			this.addChild(slowMotionBar);

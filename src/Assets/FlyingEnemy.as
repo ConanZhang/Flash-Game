@@ -24,6 +24,8 @@ package Assets {
 	import Box2D.Dynamics.Joints.b2RevoluteJoint;
 	import Box2D.Dynamics.Joints.b2RevoluteJointDef;
 	
+	import Game.PlayerHUD;
+	
 	import Parents.Objects;
 	import Parents.Stage;
 	
@@ -65,12 +67,14 @@ package Assets {
 		private var rayFraction2:Number;
 		
 		private var settings:SharedObject;
+		private var HUD:PlayerHUD;
 		
 		/**Constructor*/
-		public function FlyingEnemy(xPos:Number, yPos:Number, width:Number, height:Number ,  _settings:SharedObject){
+		public function FlyingEnemy(xPos:Number, yPos:Number, width:Number, height:Number ,  _settings:SharedObject, _HUD:PlayerHUD){
 			//assign parameters to class member variables
 			position = new Point(xPos, yPos);
 			settings = _settings;
+			HUD = _HUD;
 			
 			//initialize default private variables
 			flyingEnemy_Width = width;
@@ -314,21 +318,21 @@ package Assets {
 					if(Math.random() > 0.9){
 						//health
 						if(Math.random() > 0.7 && Player.playerHealth < 6){
-							var healthDrop:ItemDrop = new ItemDrop(collisionBody.GetPosition().x, collisionBody.GetPosition().y, 1.5, 1.5, 1,  settings);
+							var healthDrop:ItemDrop = new ItemDrop(collisionBody.GetPosition().x, collisionBody.GetPosition().y, 1.5, 1.5, 1,  settings, HUD);
 						}
 						else{
 							var randomDrop: Number = Math.random();
 							//pistol ammo
 							if(randomDrop < 0.6){
-								var pistolDrop:ItemDrop = new ItemDrop(Math.random()*190 + 40, Math.random()*-90, 1.5,1.5, 2, settings);	
+								var pistolDrop:ItemDrop = new ItemDrop(Math.random()*190 + 40, Math.random()*-90, 1.5,1.5, 2, settings, HUD);	
 							}
 								//shotgun ammo
 							else if(randomDrop > 0.6 && randomDrop < 0.8){
-								var shotgunDrop:ItemDrop = new ItemDrop(Math.random()*190 + 40, Math.random()*-90, 2.5,2.5, 3,  settings);	
+								var shotgunDrop:ItemDrop = new ItemDrop(Math.random()*190 + 40, Math.random()*-90, 2.5,2.5, 3,  settings, HUD);	
 							}
 								//machinegun ammo
 							else if(randomDrop > 0.8 && randomDrop < 1){
-								var machinegunDrop:ItemDrop = new ItemDrop(Math.random()*190 + 40, Math.random()*-90, 2,2, 4,  settings);	
+								var machinegunDrop:ItemDrop = new ItemDrop(Math.random()*190 + 40, Math.random()*-90, 2,2, 4,  settings, HUD);	
 							}
 						}
 					}

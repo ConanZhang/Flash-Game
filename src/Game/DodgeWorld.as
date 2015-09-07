@@ -25,19 +25,22 @@ package Game
 		
 		private var settings:SharedObject;
 		private var addEnemy:Timer;
+		private var HUD:PlayerHUD;
 		/**			Constructor
 		 * 
 		 * Takes in screen it will be added to
 		 * 
 		 */
-		public function DodgeWorld(screenP:FlashGame, debugging:Boolean, pacifist:Boolean, world:int, _hasRain:Boolean, _settings:SharedObject,  _musicChannel:SoundChannel)
+		public function DodgeWorld(screenP:FlashGame, debugging:Boolean, pacifist:Boolean, world:int, _hasRain:Boolean, _settings:SharedObject,  _musicChannel:SoundChannel, _HUD:PlayerHUD)
 		{			
 			screen = screenP;
 			screen.addChildAt(this,0);
 			
 			settings = _settings;
 			
-			super(screen,debugging, 62, 7, pacifist, world, 0, _musicChannel, settings);
+			HUD = _HUD;
+			
+			super(screen,debugging, 62, 7, pacifist, world, 0, _musicChannel, settings, HUD);
 			
 			//BACKGROUND
 			background = new Background("TutorialDodge");
@@ -89,9 +92,9 @@ package Game
 		{
 			addEnemy.stop();
 
-			var testEnemy1:BigPlatformEnemy = new BigPlatformEnemy(95, -1, 8, 8, 2, 0, settings);
-			var testEnemy2:BigPlatformEnemy = new BigPlatformEnemy(95, 3, 8, 8, 2, 0, settings);
-			var testEnemy3:BigPlatformEnemy = new BigPlatformEnemy(95, 7, 8, 8, 2, 0, settings);			
+			var testEnemy1:BigPlatformEnemy = new BigPlatformEnemy(95, -1, 8, 8, 2, 0, settings, HUD);
+			var testEnemy2:BigPlatformEnemy = new BigPlatformEnemy(95, 3, 8, 8, 2, 0, settings, HUD);
+			var testEnemy3:BigPlatformEnemy = new BigPlatformEnemy(95, 7, 8, 8, 2, 0, settings, HUD);			
 		}
 		
 		public override function removeAddRain():void{

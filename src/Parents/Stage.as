@@ -144,7 +144,7 @@ package Parents
 		private var backgroundBlock:Shape;
 		
 		/**Constructor*/
-		public function Stage(screenP:FlashGame, debugging:Boolean, playerX:Number, playerY:Number, pacifist:Boolean, world:int, difficulty:int, _musicChannel:SoundChannel,  _settings:SharedObject)
+		public function Stage(screenP:FlashGame, debugging:Boolean, playerX:Number, playerY:Number, pacifist:Boolean, world:int, difficulty:int, _musicChannel:SoundChannel,  _settings:SharedObject, _HUD:PlayerHUD)
 		{
 			screen = screenP;
 			pacifistState = pacifist;
@@ -199,13 +199,17 @@ package Parents
 			/**EVENT*/
 			paused = false;
 			
+			//HUD
+			slowAmount = 225;
+			gameHUD = _HUD;
+			this.addChild(gameHUD);
+			
 			/**WORLD*/
 			var gravity:b2Vec2 = new b2Vec2(0, 85);
 			var doSleep:Boolean = true;//don't simulate sleeping bodies
 			worldStage = new b2World(gravity, doSleep);
-			worldStage.SetContactListener(new ContactListener(settings) );
+			worldStage.SetContactListener(new ContactListener(settings, gameHUD) );
 			slowMotion = false;
-			slowAmount = 225;
 			speed = 1;
 			
 			/**PLAYER*/
@@ -234,10 +238,6 @@ package Parents
 			weapon = new Weapon(15, 7,1);
 			machineFire = false;
 			machineDelay = 2;
-			
-			//HUD
-			gameHUD = new PlayerHUD(this, pacifist, world, difficulty);
-			this.addChild(gameHUD);
 			
 			//delay controls
 			beginTimer = new Timer(3000, 1);

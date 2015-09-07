@@ -18,6 +18,7 @@ package
 	import Game.Menu;
 	import Game.MovementWorld;
 	import Game.OptionsMenu;
+	import Game.PlayerHUD;
 	import Game.SmallWorld;
 	import Game.TestWorld;
 	import Game.WallJumpingWorld;
@@ -73,6 +74,8 @@ package
 		private var hasRain:Boolean;
 		private var musicChannel:SoundChannel;
 
+		private var gameHUD:PlayerHUD;
+		
 		/**Constructor*/
 		public function FlashGame()
 		{
@@ -152,24 +155,29 @@ package
 			
 			if(event.target is Menu){		
 				menu = null;
-				
 				if(world == testWorld){
-					test = new TestWorld(this, false, pacifist, testWorld, difficulty, hasRain, settings, musicChannel);
+					gameHUD = new PlayerHUD(pacifist, testWorld,difficulty);
+					test = new TestWorld(this, false, pacifist, testWorld, difficulty, hasRain, settings, musicChannel, gameHUD);
 				} 
 				else if(world == wallWorld){
-					walls = new WallJumpingWorld(this, false, pacifist, wallWorld,difficulty, hasRain, settings, musicChannel);	
+					gameHUD = new PlayerHUD(pacifist, wallWorld,difficulty);
+					walls = new WallJumpingWorld(this, false, pacifist, wallWorld,difficulty, hasRain, settings, musicChannel, gameHUD);	
 				}
 				else if(world == tutorialWorld){
-					tutorial = new MovementWorld(this, false, pacifist, tutorialWorld, hasRain, settings, musicChannel);	
+					gameHUD = new PlayerHUD(pacifist, tutorialWorld,difficulty);
+					tutorial = new MovementWorld(this, false, pacifist, tutorialWorld, hasRain, settings, musicChannel, gameHUD);	
 				}
 				else if(world == smallWorld){
-					small = new SmallWorld(this, false, pacifist, smallWorld, difficulty, hasRain, settings, musicChannel);	 
+					gameHUD = new PlayerHUD(pacifist, smallWorld,difficulty);
+					small = new SmallWorld(this, false, pacifist, smallWorld, difficulty, hasRain, settings, musicChannel, gameHUD);	 
 				}
 				else if(world == dodgeWorld){
-					dodge = new DodgeWorld(this, false, pacifist, dodgeWorld, hasRain, settings, musicChannel);	
+					gameHUD = new PlayerHUD(pacifist, dodgeWorld,difficulty);
+					dodge = new DodgeWorld(this, false, pacifist, dodgeWorld, hasRain, settings, musicChannel, gameHUD);	
 				}
 				else{
-					weapon = new WeaponWorld(this, false, pacifist, weaponWorld, hasRain, settings, musicChannel);	
+					gameHUD = new PlayerHUD(pacifist, weaponWorld,difficulty);
+					weapon = new WeaponWorld(this, false, pacifist, weaponWorld, hasRain, settings, musicChannel, gameHUD);	
 				}
 			}
 			else if(event.target is MovementWorld || 
