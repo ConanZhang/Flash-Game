@@ -12,6 +12,7 @@ package
 	import flash.media.SoundChannel;
 	import flash.net.SharedObject;
 	import flash.text.Font;
+	import flash.ui.Keyboard;
 	import flash.ui.Mouse;
 	
 	import Game.DodgeWorld;
@@ -71,10 +72,12 @@ package
 		
 		//settings
 		private var settings:SharedObject;
+		private var bindings:SharedObject;
 		private var hasRain:Boolean;
 		private var musicChannel:SoundChannel;
 
 		private var gameHUD:PlayerHUD;
+		private var keybindings:Object;
 		
 		/**Constructor*/
 		public function FlashGame()
@@ -140,9 +143,37 @@ package
 			
 			settings.flush();
 						
-			musicChannel = new SoundChannel();
+			bindings = SharedObject.getLocal("Bindings");
 			
-			menu = new Menu(this, musicChannel, settings);
+			if(bindings.data.bindings != null){
+				keybindings = bindings.data.bindings;
+			}
+			else{
+				keybindings = {
+					jump : Keyboard.W,
+						left : Keyboard.A,
+						fall : Keyboard.S,
+						right: Keyboard.D,
+						slow : Keyboard.SPACE,
+						weaponLeft: Keyboard.Q,
+						weaponRight: Keyboard.E,
+						pistol : Keyboard.NUMBER_1,
+						shotgun : Keyboard.NUMBER_2,
+						machinegun : Keyboard.NUMBER_3,
+						pause: Keyboard.P,
+						fullscreen: Keyboard.F,
+						quality: Keyboard.C,
+						rain: Keyboard.Z,
+						night: Keyboard.X
+				};
+				
+				bindings.data.bindings = keybindings;
+				
+				bindings.flush();
+			}
+			
+			musicChannel = new SoundChannel();
+			menu = new Menu(this, musicChannel, settings, keybindings);
 		}
 		
 		private function testingRemove(event:Event):void{
@@ -157,27 +188,27 @@ package
 				menu = null;
 				if(world == testWorld){
 					gameHUD = new PlayerHUD(pacifist, testWorld,difficulty);
-					test = new TestWorld(this, false, pacifist, testWorld, difficulty, hasRain, settings, musicChannel, gameHUD);
+					test = new TestWorld(this, false, pacifist, testWorld, difficulty, hasRain, settings, musicChannel, gameHUD, keybindings);
 				} 
 				else if(world == wallWorld){
 					gameHUD = new PlayerHUD(pacifist, wallWorld,difficulty);
-					walls = new WallJumpingWorld(this, false, pacifist, wallWorld,difficulty, hasRain, settings, musicChannel, gameHUD);	
+					walls = new WallJumpingWorld(this, false, pacifist, wallWorld,difficulty, hasRain, settings, musicChannel, gameHUD, keybindings);	
 				}
 				else if(world == tutorialWorld){
 					gameHUD = new PlayerHUD(pacifist, tutorialWorld,difficulty);
-					tutorial = new MovementWorld(this, false, pacifist, tutorialWorld, hasRain, settings, musicChannel, gameHUD);	
+					tutorial = new MovementWorld(this, false, pacifist, tutorialWorld, hasRain, settings, musicChannel, gameHUD, keybindings);	
 				}
 				else if(world == smallWorld){
 					gameHUD = new PlayerHUD(pacifist, smallWorld,difficulty);
-					small = new SmallWorld(this, false, pacifist, smallWorld, difficulty, hasRain, settings, musicChannel, gameHUD);	 
+					small = new SmallWorld(this, false, pacifist, smallWorld, difficulty, hasRain, settings, musicChannel, gameHUD, keybindings);	 
 				}
 				else if(world == dodgeWorld){
 					gameHUD = new PlayerHUD(pacifist, dodgeWorld,difficulty);
-					dodge = new DodgeWorld(this, false, pacifist, dodgeWorld, hasRain, settings, musicChannel, gameHUD);	
+					dodge = new DodgeWorld(this, false, pacifist, dodgeWorld, hasRain, settings, musicChannel, gameHUD, keybindings);	
 				}
 				else{
 					gameHUD = new PlayerHUD(pacifist, weaponWorld,difficulty);
-					weapon = new WeaponWorld(this, false, pacifist, weaponWorld, hasRain, settings, musicChannel, gameHUD);	
+					weapon = new WeaponWorld(this, false, pacifist, weaponWorld, hasRain, settings, musicChannel, gameHUD, keybindings);	
 				}
 			}
 			else if(event.target is MovementWorld || 
@@ -194,7 +225,7 @@ package
 				dodge = null;
 				weapon = null;
 				
-				menu = new Menu(this, musicChannel, settings);
+				menu = new Menu(this, musicChannel, settings, keybindings);
 			} 
 		}
 
@@ -228,7 +259,7 @@ package
 		
 		private function options(e:KeyboardEvent):void{
 			//full screen
-			if(e.keyCode == OptionsMenu.keybindings.fullscreen){
+			if(e.keyCode == keybindings.fullscreen){
 				if(stage.displayState == StageDisplayState.NORMAL){
 					stage.displayState = StageDisplayState.FULL_SCREEN_INTERACTIVE;
 				}
@@ -237,7 +268,7 @@ package
 				}
 			}
 				//quality
-			else if(e.keyCode == OptionsMenu.keybindings.quality){
+			else if(e.keyCode == keybindings.quality){
 				if(stage.quality == "LOW" ){
 					stage.quality = StageQuality.MEDIUM;
 					settings.data.quality = "medium";

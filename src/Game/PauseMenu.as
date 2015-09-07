@@ -58,8 +58,8 @@ package Game
 		private var musicChannel:SoundChannel;
 		
 		private var settings:SharedObject
-		
-		public function PauseMenu(screenP: Stage, x:int, y:int, _pacifist:Boolean, _world:int, _difficulty:int, _musicChannel:SoundChannel,_settings:SharedObject)
+		private var keybindings:Object;
+		public function PauseMenu(screenP: Stage, x:int, y:int, _pacifist:Boolean, _world:int, _difficulty:int, _musicChannel:SoundChannel,_settings:SharedObject, _keybindings:Object)
 		{
 			screen = screenP;
 			screen.addChild(this);
@@ -73,6 +73,7 @@ package Game
 			difficulty = _difficulty;
 			
 			settings = _settings;
+			keybindings = _keybindings;
 			
 			musicChannel = _musicChannel;
 			
@@ -228,7 +229,7 @@ package Game
 				activeButton = null;
 
 				//put the options text on top of that?
-				optionsMenu = new OptionsMenu(this, -360,-275, displayField, musicChannel, settings, false, worldState, pacifistState, difficultyState, activeButton);
+				optionsMenu = new OptionsMenu(this, -360,-275, displayField, musicChannel, settings, false, worldState, pacifistState, difficultyState, activeButton, keybindings);
 								
 				backButton = new Back;
 				buttonContainer.addChild(backButton);

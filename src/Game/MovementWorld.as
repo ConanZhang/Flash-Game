@@ -26,7 +26,7 @@ package Game
 		 * Takes in screen it will be added to
 		 * 
 		 */
-		public function MovementWorld(screenP:FlashGame, debugging:Boolean, pacifist:Boolean, world:int, _hasRain:Boolean, _settings:SharedObject,  _musicChannel:SoundChannel, _HUD:PlayerHUD)
+		public function MovementWorld(screenP:FlashGame, debugging:Boolean, pacifist:Boolean, world:int, _hasRain:Boolean, _settings:SharedObject,  _musicChannel:SoundChannel, _HUD:PlayerHUD, _keybindings:Object)
 		{			
 			screen = screenP;
 			screen.addChildAt(this,0);
@@ -34,7 +34,7 @@ package Game
 			settings = _settings;
 			
 			HUD = _HUD;
-			super(screen,debugging, 30, 7, pacifist, world, 0, _musicChannel, settings, HUD);
+			super(screen,debugging, 30, 7, pacifist, world, 0, _musicChannel, settings, HUD, _keybindings);
 						
 			//BACKGROUND
 			background = new Background("TutorialMovement");

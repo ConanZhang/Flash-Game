@@ -106,8 +106,9 @@ package Game
 		private var settings:SharedObject;
 		
 		private var menuMusic:Sound;
+		private var keybindings:Object;
 		
-		public function Menu(screenP:FlashGame, _musicChannel:SoundChannel, _settings:SharedObject)
+		public function Menu(screenP:FlashGame, _musicChannel:SoundChannel, _settings:SharedObject, _keybindings:Object)
 		{			
 			screen = screenP;
 			screen.addChildAt(this, 0);
@@ -120,6 +121,7 @@ package Game
 			musicChannel = _musicChannel;
 			
 			settings = _settings;
+			keybindings = _keybindings;
 			musicVolume = settings.data.musicVolume;
 			
 			menuMusic = new MenuMusic;
@@ -645,7 +647,7 @@ package Game
 			addEventListener(MouseEvent.MOUSE_OUT, mouseOut);
 			addEventListener(MouseEvent.CLICK, buttonClicked);
 			
-			optionsMenu = new OptionsMenu(this, 0, 2000, displayField, musicChannel, settings, true, "", "", "", activeButton);
+			optionsMenu = new OptionsMenu(this, 0, 2000, displayField, musicChannel, settings, true, "", "", "", activeButton, keybindings);
 			addChild(displayField);
 		}
 		private function mouseOver(event:MouseEvent):void

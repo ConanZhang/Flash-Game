@@ -38,7 +38,7 @@ package Game
 		private var onMenu:Boolean;
 		
 		//keybindings
-		public static var keybindings:Object;
+		public var keybindings:Object;
 		private var bindings:SharedObject;
 		private var currentKey:int;
 		
@@ -102,7 +102,7 @@ package Game
 		
 		private var settings:SharedObject;
 
-		public function OptionsMenu(screenP: Sprite, x:int, y:int, display:TextField, _musicChannel:SoundChannel, _settings:SharedObject, _onMenu:Boolean, _worldState:String, _pacifistState:String, _difficultyState:String, _activeButton:MovieClip)
+		public function OptionsMenu(screenP: Sprite, x:int, y:int, display:TextField, _musicChannel:SoundChannel, _settings:SharedObject, _onMenu:Boolean, _worldState:String, _pacifistState:String, _difficultyState:String, _activeButton:MovieClip, _keybindings:Object)
 		{
 			screen = screenP;
 			screen.addChild(this);
@@ -169,34 +169,7 @@ package Game
 			buttons = [audio, controls];
 			
 			bindings = SharedObject.getLocal("Bindings");
-			
-			if(bindings.data.bindings != null){
-				keybindings = bindings.data.bindings;
-			}
-			else{
-				keybindings = {
-					jump : Keyboard.W,
-					left : Keyboard.A,
-					fall : Keyboard.S,
-					right: Keyboard.D,
-					slow : Keyboard.SPACE,
-					weaponLeft: Keyboard.Q,
-					weaponRight: Keyboard.E,
-					pistol : Keyboard.NUMBER_1,
-					shotgun : Keyboard.NUMBER_2,
-					machinegun : Keyboard.NUMBER_3,
-					pause: Keyboard.P,
-					fullscreen: Keyboard.F,
-					quality: Keyboard.C,
-					rain: Keyboard.Z,
-					night: Keyboard.X
-				};
-				
-				bindings.data.bindings = keybindings;
-				
-				bindings.flush();
-			}
-			
+			keybindings = _keybindings;
 			
 			textFormat = new TextFormat();
 			textFormat.size = 25;

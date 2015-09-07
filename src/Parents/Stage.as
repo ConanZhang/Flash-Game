@@ -140,11 +140,12 @@ package Parents
 		
 		private var stageMusic:Sound;
 		private var settings:SharedObject;
+		private var keybindings:Object;
 		
 		private var backgroundBlock:Shape;
 		
 		/**Constructor*/
-		public function Stage(screenP:FlashGame, debugging:Boolean, playerX:Number, playerY:Number, pacifist:Boolean, world:int, difficulty:int, _musicChannel:SoundChannel,  _settings:SharedObject, _HUD:PlayerHUD)
+		public function Stage(screenP:FlashGame, debugging:Boolean, playerX:Number, playerY:Number, pacifist:Boolean, world:int, difficulty:int, _musicChannel:SoundChannel,  _settings:SharedObject, _HUD:PlayerHUD, _keybindings:Object)
 		{
 			screen = screenP;
 			pacifistState = pacifist;
@@ -153,7 +154,7 @@ package Parents
 			
 			settings = _settings;
 			settings = SharedObject.getLocal("Settings");
-			
+			keybindings = _keybindings;
 			musicChannel = _musicChannel;
 			
 			stageMusic = new MenuMusic;
@@ -290,7 +291,7 @@ package Parents
 				for(var i:uint = 0; i < keyPresses.length;i++){
 					if(flinchTime == 0){
 						switch(keyPresses[i]){
-							case OptionsMenu.keybindings.fall:
+							case keybindings.fall:
 								//downward velocity in air
 								if(jumping){
 									direction.Set(0, 180);
@@ -301,7 +302,7 @@ package Parents
 									}
 								}
 								break;
-							case OptionsMenu.keybindings.jump:
+							case keybindings.jump:
 								//initial jump
 								if(jumping == false && !rightWall && !leftWall){
 									jumping = true;
@@ -372,7 +373,7 @@ package Parents
 									}
 								}
 								break;	
-							case OptionsMenu.keybindings.left:
+							case keybindings.left:
 								//limit speed
 								if(horizontal>-2){
 									direction.Set(-250*speed,0);
@@ -401,7 +402,7 @@ package Parents
 									Player.STATE = Player.IDLE;
 								}
 								break;
-							case OptionsMenu.keybindings.right:
+							case keybindings.right:
 								//limit speed
 								if(horizontal<2){
 									direction.Set(250*speed,0);
@@ -430,7 +431,7 @@ package Parents
 									Player.STATE = Player.IDLE;
 								}
 								break;
-							case OptionsMenu.keybindings.slow:
+							case keybindings.slow:
 								if(slowMotion == false && slowAmount > 0 && Player.playerHealth > 0){
 									slowMotion = true;
 									jumpLimit = 12;
@@ -556,9 +557,9 @@ package Parents
 			}
 			
 			//pausing
-			if(e.keyCode == OptionsMenu.keybindings.pause){
+			if(e.keyCode == keybindings.pause){
 				if(paused == false){
-					pauseMenu = new PauseMenu(this, 350, 260, pacifistState, worldState, difficultyState, musicChannel, settings);
+					pauseMenu = new PauseMenu(this, 350, 260, pacifistState, worldState, difficultyState, musicChannel, settings, keybindings);
 					paused = true;
 				}
 				else if(paused == true){
@@ -572,7 +573,7 @@ package Parents
 				menuSelect.play(0,0, new SoundTransform(settings.data.effectsVolume));
 			}
 			//change weapon
-			else if(e.keyCode == OptionsMenu.keybindings.weaponLeft){
+			else if(e.keyCode == keybindings.weaponLeft){
 				if(Weapon.weaponType == 1 && Weapon.machinegunAmmo > 0){
 					Weapon.weaponType = 3;
 					Weapon.changeWeapon = true;
@@ -598,7 +599,7 @@ package Parents
 					Weapon.changeWeapon = true;
 				}
 			}
-			else if(e.keyCode == OptionsMenu.keybindings.weaponRight){
+			else if(e.keyCode == keybindings.weaponRight){
 				if(Weapon.weaponType == 1 && Weapon.shotgunAmmo > 0){
 					Weapon.weaponType = 2;
 					Weapon.changeWeapon = true;
@@ -624,28 +625,28 @@ package Parents
 					Weapon.changeWeapon = true;
 				}
 			}
-			else if(e.keyCode == OptionsMenu.keybindings.pistol){
+			else if(e.keyCode == keybindings.pistol){
 				if(Weapon.pistolAmmo > 0){
 					Weapon.weaponType = 1;
 					Weapon.changeWeapon = true;
 				}
 			}
-			else if(e.keyCode == OptionsMenu.keybindings.shotgun){
+			else if(e.keyCode == keybindings.shotgun){
 				if(Weapon.shotgunAmmo > 0){
 					Weapon.weaponType = 2;
 					Weapon.changeWeapon = true;
 				}
 			}
-			else if(e.keyCode == OptionsMenu.keybindings.machinegun){
+			else if(e.keyCode == keybindings.machinegun){
 				if(Weapon.machinegunAmmo > 0){
 					Weapon.weaponType = 3;
 					Weapon.changeWeapon = true;
 				}
 			}
-			else if(e.keyCode == OptionsMenu.keybindings.rain){
+			else if(e.keyCode ==keybindings.rain){
 				removeAddRain();
 			}
-			else if(e.keyCode == OptionsMenu.keybindings.night){
+			else if(e.keyCode == keybindings.night){
 				if(settings.data.night == "true"){
 					removeChild(backgroundBlock);
 					settings.data.night = "false";
@@ -671,7 +672,7 @@ package Parents
 			}
 			
 			//jumping
-			if(e.keyCode == OptionsMenu.keybindings.jump){
+			if(e.keyCode == keybindings.jump){
 				airJumping = false;
 				if(jumpAmount > 0){
 					jumpAmount--;
@@ -681,17 +682,17 @@ package Parents
 					Player.STATE = Player.JUMPING;
 				}
 			}
-			else if(e.keyCode ==OptionsMenu.keybindings.fall){
+			else if(e.keyCode ==keybindings.fall){
 				if(Player.STATE == Player.FAST_FALL){
 					Player.STATE = Player.JUMPING;
 				}
 			}
 			//movement
-			else if(e.keyCode == OptionsMenu.keybindings.right && !jumping && !rightWall || e.keyCode == OptionsMenu.keybindings.left && !jumping && !leftWall){
+			else if(e.keyCode ==keybindings.right && !jumping && !rightWall || e.keyCode == keybindings.left && !jumping && !leftWall){
 				Player.STATE = Player.IDLE;
 			}
 			//slow motion
-			else if(e.keyCode == OptionsMenu.keybindings.slow){
+			else if(e.keyCode == keybindings.slow){
 				if(slowMotion == true){
 					slowMotion = false;
 					jumpLimit = 5;
