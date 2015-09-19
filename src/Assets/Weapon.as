@@ -188,7 +188,7 @@ package Assets {
 			}
 			
 			
-			collisionBody.SetPosition( Stage.playerBody.GetPosition() );
+			collisionBody.SetPosition(player.body.GetPosition() );
 			weaponClip.rotation = weaponRotation*180/Math.PI;
 			
 			//match rotation

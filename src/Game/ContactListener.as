@@ -117,12 +117,12 @@ package Game
 						
 						//flinch
 						if(contact.GetFixtureA().GetBody().GetPosition().x < contact.GetFixtureB().GetBody().GetPosition().x){
-							Stage.playerBody.SetLinearVelocity( new b2Vec2(-75, 0) );
+							player.body.SetLinearVelocity( new b2Vec2(-75, 0) );
 							arena.flinchTime = 12;
 							player.STATE = player.FLINCH;
 						}
 						else if(contact.GetFixtureA().GetBody().GetPosition().x > contact.GetFixtureB().GetBody().GetPosition().x){
-							Stage.playerBody.SetLinearVelocity( new b2Vec2(75, 0) );
+							player.body.SetLinearVelocity( new b2Vec2(75, 0) );
 							arena.flinchTime = 12;
 							player.STATE = player.FLINCH;
 						}
@@ -140,12 +140,12 @@ package Game
 							
 							//flinch
 							if(contact.GetFixtureB().GetBody().GetPosition().x < contact.GetFixtureA().GetBody().GetPosition().x){
-								Stage.playerBody.SetLinearVelocity( new b2Vec2(-75, 0) );
+								player.body.SetLinearVelocity( new b2Vec2(-75, 0) );
 								arena.flinchTime = 12;
 								player.STATE = player.FLINCH;
 							}
 							else if(contact.GetFixtureB().GetBody().GetPosition().x > contact.GetFixtureA().GetBody().GetPosition().x){
-								Stage.playerBody.SetLinearVelocity( new b2Vec2(75, 0) );
+								player.body.SetLinearVelocity( new b2Vec2(75, 0) );
 								arena.flinchTime = 12;
 								player.STATE = player.FLINCH;
 							}
@@ -170,12 +170,12 @@ package Game
 
 						//flinch
 						if(contact.GetFixtureB().GetBody().GetPosition().x < contact.GetFixtureA().GetBody().GetPosition().x){
-							Stage.playerBody.SetLinearVelocity( new b2Vec2(-75, 0) );
+							player.body.SetLinearVelocity( new b2Vec2(-75, 0) );
 							arena.flinchTime = 12;
 							player.STATE = player.FLINCH;
 						}
 						else if(contact.GetFixtureB().GetBody().GetPosition().x > contact.GetFixtureA().GetBody().GetPosition().x){
-							Stage.playerBody.SetLinearVelocity( new b2Vec2(75, 0) );
+							player.body.SetLinearVelocity( new b2Vec2(75, 0) );
 							arena.flinchTime = 12;
 							player.STATE = player.FLINCH;
 						}
@@ -193,12 +193,12 @@ package Game
 
 							//flinch
 							if(contact.GetFixtureB().GetBody().GetPosition().x < contact.GetFixtureA().GetBody().GetPosition().x){
-								Stage.playerBody.SetLinearVelocity( new b2Vec2(-75, 0) );
+								player.body.SetLinearVelocity( new b2Vec2(-75, 0) );
 								arena.flinchTime = 12;
 								player.STATE = player.FLINCH;
 							}
 							else if(contact.GetFixtureB().GetBody().GetPosition().x > contact.GetFixtureA().GetBody().GetPosition().x){
-								Stage.playerBody.SetLinearVelocity( new b2Vec2(75, 0) );
+								player.body.SetLinearVelocity( new b2Vec2(75, 0) );
 								arena.flinchTime = 12;
 								player.STATE = player.FLINCH;
 							}

@@ -135,7 +135,7 @@ package Assets {
 			
 			/**Follow player*/ 
 			//get direction and magnitude to player
-			direction = b2Math.SubtractVV(Stage.playerBody.GetPosition() , collisionBody.GetPosition());
+			direction = b2Math.SubtractVV(player.body.GetPosition() , collisionBody.GetPosition());
 			
 			beginRayCast = collisionBody.GetPosition();
 			direction.Normalize();
@@ -266,10 +266,10 @@ package Assets {
 			}
 			
 			//push away if too close
-			if(Stage.playerBody.GetPosition().x - collisionBody.GetPosition().x < 1 &&
-				Stage.playerBody.GetPosition().x - collisionBody.GetPosition().x > -1 && 
-				Stage.playerBody.GetPosition().y - collisionBody.GetPosition().y < 1 && 
-				Stage.playerBody.GetPosition().y - collisionBody.GetPosition().y > -1){
+			if(player.body.GetPosition().x - collisionBody.GetPosition().x < 1 &&
+				player.body.GetPosition().x - collisionBody.GetPosition().x > -1 && 
+				player.body.GetPosition().y - collisionBody.GetPosition().y < 1 && 
+				player.body.GetPosition().y - collisionBody.GetPosition().y > -1){
 				direction.Set(0, -600);
 				collisionBody.SetAwake(true);
 				collisionBody.ApplyForce(direction, collisionBody.GetPosition() );
