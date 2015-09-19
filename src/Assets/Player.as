@@ -62,6 +62,7 @@ package Assets
 		private var player_Restitution:Number;
 		private var player_LinearDamping:Number;
 		
+		public var jumping:Boolean;
 		private var player_size:Number;
 		/**Constructor*/
 		public function Player(size:Number)
@@ -258,7 +259,7 @@ package Assets
 				playerClip.rotation = 0;
 				if(playerClip.dodged){
 					playerClip.dodged = false;
-					if(Stage.jumping){
+					if(jumping){
 						STATE = JUMPING;
 					}
 					else{

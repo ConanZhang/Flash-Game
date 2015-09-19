@@ -99,8 +99,6 @@ package Parents
 		private var vertical:Number;
 		//acceleration
 		private var acceleration:Number;
-		//is the player jumping
-		public static var jumping:Boolean;
 		//is the player air jumping
 		public var airJumping:Boolean;
 		//is the player wall jumping from the right
@@ -120,7 +118,7 @@ package Parents
 		//fix player rotation speed after slow motion is over
 		private var slowRotation:Boolean;
 		//flinching
-		public static var flinchTime:int;
+		public var flinchTime:int;
 		
 		/**WEAPON*/
 		private var weapon:Weapon;
@@ -207,6 +205,7 @@ package Parents
 			
 			//PLAYER
 			player = _player;
+			player.jumping = false;
 			player.position = new Point(playerX, playerY);
 			player.stage_Sprite = images;
 			player.world_Sprite = worldStage;
@@ -231,7 +230,6 @@ package Parents
 			horizontal = 0;
 			vertical = 0;
 			acceleration = 0;
-			jumping = false;
 			airJumping = false;
 			rightWall = false;
 			leftWall = false;
@@ -299,7 +297,7 @@ package Parents
 						switch(keyPresses[i]){
 							case keybindings.fall:
 								//downward velocity in air
-								if(jumping){
+								if(player.jumping){
 									direction.Set(0, 180);
 									playerBody.SetAwake(true);
 									playerBody.ApplyForce(direction, playerBody.GetPosition() );
@@ -310,8 +308,8 @@ package Parents
 								break;
 							case keybindings.jump:
 								//initial jump
-								if(jumping == false && !rightWall && !leftWall){
-									jumping = true;
+								if(player.jumping == false && !rightWall && !leftWall){
+									player.jumping = true;
 									direction.Set(0,-25);
 									playerBody.SetAwake(true);
 									playerBody.ApplyImpulse(direction, playerBody.GetPosition() );
@@ -320,7 +318,7 @@ package Parents
 									}
 								}
 									//continuing initial jump
-								else if(jumping == true && 
+								else if(player.jumping == true && 
 									jumpTime <= jumpLimit && 
 									jumpAmount == defaultJumpAmount){
 									jumpTime++;
@@ -329,7 +327,7 @@ package Parents
 									playerBody.ApplyForce(direction, playerBody.GetPosition() );
 								}
 									//air jump initial
-								else if(jumping == true &&
+								else if(player.jumping == true &&
 									jumpAmount < defaultJumpAmount && 
 									jumpAmount > 0 &&
 									!airJumping){
@@ -358,7 +356,7 @@ package Parents
 								}
 									//initial jump off right wall
 								else if(rightWall){
-									jumping = true;
+									player.jumping = true;
 									rightWall = false;
 									direction.Set(-90,-43);
 									playerBody.SetAwake(true);
@@ -369,7 +367,7 @@ package Parents
 								}
 									//initial jump off left wall
 								else if(leftWall){
-									jumping = true;
+									player.jumping = true;
 									leftWall = false;
 									direction.Set(90,-43);
 									playerBody.SetAwake(true);
@@ -394,10 +392,10 @@ package Parents
 								}
 								//animation
 								if(player.STATE != player.DODGE && player.STATE != player.R_WALK && player.STATE != player.R_WALK_SLOW){
-									if(!jumping && !leftWall && !rightWall && !slowMotion && floor || !jumping && !leftWall && !rightWall && slowMotion && slowAmount <= 0 && floor){
+									if(!player.jumping && !leftWall && !rightWall && !slowMotion && floor || !player.jumping && !leftWall && !rightWall && slowMotion && slowAmount <= 0 && floor){
 										player.STATE = player.L_WALK;
 									}
-									else if(!jumping && !leftWall && !rightWall && slowMotion && slowAmount > 0 && floor){
+									else if(!player.jumping && !leftWall && !rightWall && slowMotion && slowAmount > 0 && floor){
 										player.STATE = player.L_WALK_SLOW;
 									}
 									else if(leftWall){
@@ -423,10 +421,10 @@ package Parents
 								}
 								//animation
 								if(player.STATE != player.DODGE && player.STATE != player.L_WALK && player.STATE != player.L_WALK_SLOW){
-									if(!jumping && !rightWall && !leftWall && !slowMotion && floor || !jumping && !rightWall && !leftWall && slowMotion && slowAmount <= 0 && floor){
+									if(!player.jumping && !rightWall && !leftWall && !slowMotion && floor || !player.jumping && !rightWall && !leftWall && slowMotion && slowAmount <= 0 && floor){
 										player.STATE = player.R_WALK;
 									}
-									else if(!jumping && !rightWall && !leftWall && slowMotion && slowAmount > 0 && floor){
+									else if(!player.jumping && !rightWall && !leftWall && slowMotion && slowAmount > 0 && floor){
 										player.STATE = player.R_WALK_SLOW;
 									}
 									else if(rightWall){
@@ -493,7 +491,7 @@ package Parents
 				} 	
 				else if(flinchTime == 1){
 					flinchTime--;
-					if(jumping){
+					if(player.jumping){
 						player.STATE = player.JUMPING;
 					}
 					else{
@@ -694,7 +692,7 @@ package Parents
 				}
 			}
 			//movement
-			else if(e.keyCode ==keybindings.right && !jumping && !rightWall || e.keyCode == keybindings.left && !jumping && !leftWall){
+			else if(e.keyCode ==keybindings.right && !player.jumping && !rightWall || e.keyCode == keybindings.left && !player.jumping && !leftWall){
 				player.STATE = player.IDLE;
 			}
 			//slow motion
