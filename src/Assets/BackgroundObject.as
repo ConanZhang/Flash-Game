@@ -192,6 +192,9 @@ package Assets {
 			else if(backgroundObjectType == "tutorialShoot"){
 				backgroundObjectClip = new TutorialShoot();
 			}
+			else if(backgroundObjectType == "tutorialExit"){
+				backgroundObjectClip = new TutorialExit();
+			}
 
 
 			backgroundObjectClip.stop();

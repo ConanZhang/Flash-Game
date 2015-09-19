@@ -24,7 +24,7 @@ package
 	import Game.OptionsMenu;
 	import Game.PlayerHUD;
 	import Game.SmallWorld;
-	import Game.TestWorld;
+	import Game.EarthWorld;
 	import Game.WallJumpingWorld;
 	import Game.WeaponWorld;
 	
@@ -43,7 +43,7 @@ package
 		private var gameReticule:Sprite;
 		
 		//Levels
-		private var test:TestWorld; 
+		private var test:EarthWorld; 
 		private var walls:WallJumpingWorld;
 		private var small:SmallWorld;
 		private var tutorial:MovementWorld;
@@ -196,7 +196,7 @@ package
 				menu = null;
 				if(world == testWorld){
 					gameHUD = new PlayerHUD(pacifist, testWorld,difficulty, player, weaponEquip);
-					test = new TestWorld(this, false, pacifist, testWorld, difficulty, hasRain, settings, musicChannel, gameHUD, keybindings, player, weaponEquip);
+					test = new EarthWorld(this, false, pacifist, testWorld, difficulty, hasRain, settings, musicChannel, gameHUD, keybindings, player, weaponEquip);
 				} 
 				else if(world == wallWorld){
 					gameHUD = new PlayerHUD(pacifist, wallWorld,difficulty, player, weaponEquip);
@@ -221,7 +221,7 @@ package
 			}
 			else if(event.target is MovementWorld || 
 				event.target is WallJumpingWorld || 
-				event.target is TestWorld || 
+				event.target is EarthWorld || 
 				event.target is SmallWorld|| 
 				event.target is DodgeWorld|| 
 				event.target is WeaponWorld){

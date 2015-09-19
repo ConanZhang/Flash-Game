@@ -38,16 +38,16 @@ package Game
 			var tutorialMachineGun:BackgroundObject = new BackgroundObject(81, 6, 6, 4, "tutorialMachineGun");
 			var tutorialHeart:BackgroundObject = new BackgroundObject(96, 6, 5, 3, "tutorialHeart");
 			var tutorialShoot:BackgroundObject = new BackgroundObject(111, 5, 7, 4, "tutorialShoot");
-			var tutorialR2:BackgroundObject = new BackgroundObject(135, 5, 4, 3, "tutorialP");
+			var tutorialR2:BackgroundObject = new BackgroundObject(135, 5, 6, 7, "tutorialExit");
 		}
 		
 		private function tutorialDodge():void
 		{
-			var tutorialR1:BackgroundObject = new BackgroundObject(43, 7, 4, 3, "tutorialP");
+			var tutorialR1:BackgroundObject = new BackgroundObject(43, 7, 6, 7, "tutorialExit");
 			var tutorialSpace:BackgroundObject = new BackgroundObject(64, 9, 5, 3, "tutorialSpace");
 			var tutorialBar:BackgroundObject = new BackgroundObject(54, 4, 6, 2, "tutorialBar");
 			var tutorialHealth:BackgroundObject = new BackgroundObject(77, 5, 7, 4, "tutorialHealth");
-			var tutorialR2:BackgroundObject = new BackgroundObject(88, 7, 4, 3, "tutorialP");
+			var tutorialR2:BackgroundObject = new BackgroundObject(88, 7, 6, 7, "tutorialExit");
 		}
 		
 		private function tutorialMovement():void
@@ -65,7 +65,7 @@ package Game
 			var tutorialWallHug:BackgroundObject = new BackgroundObject(137, -75, 7, 4, "tutorialWallHug");
 			var tutorialFastFall:BackgroundObject = new BackgroundObject(148, -47, 8, 4, "tutorialFalling");
 			var tutorialFalling:BackgroundObject = new BackgroundObject(156, -90, 4, 2, "tutorialFastFall");
-			var tutorialR2:BackgroundObject = new BackgroundObject(164, 8, 4, 3, "tutorialP");
+			var tutorialR2:BackgroundObject = new BackgroundObject(164, 8, 6, 7, "tutorialExit");
 		}
 		
 		/**Test background*/

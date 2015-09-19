@@ -12,6 +12,7 @@ package Game
 	
 	import Assets.BigFlyingEnemy;
 	import Assets.BigPlatformEnemy;
+	import Assets.EasterEgg;
 	import Assets.FlyingEnemy;
 	import Assets.ItemDrop;
 	import Assets.Platform;
@@ -103,6 +104,8 @@ package Game
 			var endPlatform3:Platform = new Platform(135, -70, 10, 2, "wide");
 			var blockade3:Platform = new Platform(153, -85, 50, 10, "b_wide");
 			
+			var egg:EasterEgg = new EasterEgg(190, -100, 2, 3);
+
 //			test = new Timer(5000);
 //			test.addEventListener(TimerEvent.TIMER, testing);
 //			test.start();

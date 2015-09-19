@@ -10,6 +10,7 @@ package Game
 	import flash.utils.Timer;
 	
 	import Assets.BigPlatformEnemy;
+	import Assets.EasterEgg;
 	import Assets.Platform;
 	import Assets.Player;
 	import Assets.Rain;
@@ -88,6 +89,8 @@ package Game
 				var row1:Platform = new Platform(41+(i*15), 0,0.5, 0.5, "square");
 			}
 			
+			var egg:EasterEgg = new EasterEgg(55.25, -130, 2, 3);
+
 			addEnemy = new Timer(8000);
 			addEnemy.addEventListener(TimerEvent.TIMER, addEnemies);
 			addEnemy.start();

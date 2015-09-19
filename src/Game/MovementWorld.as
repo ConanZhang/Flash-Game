@@ -6,6 +6,7 @@ package Game
 	import flash.media.SoundChannel;
 	import flash.net.SharedObject;
 	
+	import Assets.EasterEgg;
 	import Assets.Platform;
 	import Assets.Player;
 	import Assets.Rain;
@@ -97,6 +98,8 @@ package Game
 				var row2:Platform = new Platform(185+(i*25), -15,1, 10, "tall");
 				var row1:Platform = new Platform(173+(i*25), 0,1, 10, "tall");
 			}
+			
+			var egg:EasterEgg = new EasterEgg(272.5, -95, 2, 3);
 		}
 		
 		public override function removeAddRain():void{
