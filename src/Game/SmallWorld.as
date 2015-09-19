@@ -119,7 +119,7 @@ package Game
 			
 			if(!pacifist){
 				//AMMO
-				var beginAmmoDrop:ItemDrop = new ItemDrop(Math.random()*190 + 40, Math.random()*-90, 1.5,1.5, 2, settings, HUD, player, weapon);	
+				var beginAmmoDrop:ItemDrop = new ItemDrop(this, Math.random()*190 + 40, Math.random()*-90, 1.5,1.5, 2, settings, HUD, player, weapon);	
 				
 				ammoAdd = new Timer(15000);
 				ammoAdd.addEventListener(TimerEvent.TIMER, addAmmo);
@@ -133,13 +133,13 @@ package Game
 				var randomAdd:Number = Math.random();
 				
 				if(randomAdd > 0.66 && flyCount < 4){
-					var testEnemy1:FlyingEnemy = new FlyingEnemy(Math.random()*190 + 40, Math.random()*-90, 2, 3, settings, HUD, player, weapon);
+					var testEnemy1:FlyingEnemy = new FlyingEnemy(this, Math.random()*190 + 40, Math.random()*-90, 2, 3, settings, HUD, player, weapon);
 				}
 				else if(randomAdd > 0.33 && bigFlyCount < 3){
-					var testEnemy2:BigFlyingEnemy = new BigFlyingEnemy(Math.random()*190 + 40, Math.random()*-90, 4, 5, settings, HUD, player, weapon);
+					var testEnemy2:BigFlyingEnemy = new BigFlyingEnemy(this, Math.random()*190 + 40, Math.random()*-90, 4, 5, settings, HUD, player, weapon);
 				}
 				else if(smallFlyCount < 3){ 
-					var testEnemy3:SmallFlyingEnemy = new SmallFlyingEnemy(Math.random()*190 + 40, Math.random()*-90, 1.5, 1.5, settings, HUD, player, weapon);
+					var testEnemy3:SmallFlyingEnemy = new SmallFlyingEnemy(this, Math.random()*190 + 40, Math.random()*-90, 1.5, 1.5, settings, HUD, player, weapon);
 				}
 			}
 			
@@ -157,43 +157,43 @@ package Game
 			if(randomAdd > 0.66 && platformCount < 4){
 				//floats
 				if(randomType > 0.66){
-					var testEnemy4:PlatformEnemy = new PlatformEnemy(Math.random()*190 + 40, Math.random()*-90, 4, 4, 0, randomDirection,  settings, HUD, player, weapon);
+					var testEnemy4:PlatformEnemy = new PlatformEnemy(this, Math.random()*190 + 40, Math.random()*-90, 4, 4, 0, randomDirection,  settings, HUD, player, weapon);
 				}
 					//goes up and down
 				else if(randomType > 0.33){
-					var testEnemy5:PlatformEnemy = new PlatformEnemy(Math.random()*190 + 40, Math.random()*-90, 4, 4, 1, randomDirection,  settings, HUD, player, weapon);
+					var testEnemy5:PlatformEnemy = new PlatformEnemy(this, Math.random()*190 + 40, Math.random()*-90, 4, 4, 1, randomDirection,  settings, HUD, player, weapon);
 				}
 					//goes left and right
 				else{
-					var testEnemy6:PlatformEnemy = new PlatformEnemy(Math.random()*190 + 40, Math.random()*-90, 4, 4, 2, randomDirection,  settings, HUD, player, weapon);
+					var testEnemy6:PlatformEnemy = new PlatformEnemy(this, Math.random()*190 + 40, Math.random()*-90, 4, 4, 2, randomDirection,  settings, HUD, player, weapon);
 				}
 			}
 			else if(randomAdd > 0.33 && bigPlatformCount < 3){
 				//floats
 				if(randomType > 0.66){
-					var testEnemy7:BigPlatformEnemy = new BigPlatformEnemy(Math.random()*190 + 40, Math.random()*-90, 5, 5, 0, randomDirection,  settings, HUD, player, weapon);
+					var testEnemy7:BigPlatformEnemy = new BigPlatformEnemy(this, Math.random()*190 + 40, Math.random()*-90, 5, 5, 0, randomDirection,  settings, HUD, player, weapon);
 				}
 					//goes up and down
 				else if(randomType > 0.33){
-					var testEnemy8:BigPlatformEnemy = new BigPlatformEnemy(Math.random()*190 + 40, Math.random()*-90, 5, 5, 1, randomDirection,settings, HUD, player, weapon);
+					var testEnemy8:BigPlatformEnemy = new BigPlatformEnemy(this, Math.random()*190 + 40, Math.random()*-90, 5, 5, 1, randomDirection,settings, HUD, player, weapon);
 				}
 					//goes left and right
 				else{
-					var testEnemy9:BigPlatformEnemy = new BigPlatformEnemy(Math.random()*190 + 40, Math.random()*-90, 5, 5, 2, randomDirection,settings, HUD, player, weapon);
+					var testEnemy9:BigPlatformEnemy = new BigPlatformEnemy(this, Math.random()*190 + 40, Math.random()*-90, 5, 5, 2, randomDirection,settings, HUD, player, weapon);
 				}
 			}
 			else if(smallPlatformCount < 3){
 				//floats
 				if(randomType > 0.66){
-					var testEnemy10:SmallPlatformEnemy = new SmallPlatformEnemy(Math.random()*190 + 40, Math.random()*-90, 2.25, 2.5, 0, randomDirection,  settings, HUD, player, weapon);
+					var testEnemy10:SmallPlatformEnemy = new SmallPlatformEnemy(this, Math.random()*190 + 40, Math.random()*-90, 2.25, 2.5, 0, randomDirection,  settings, HUD, player, weapon);
 				}
 					//goes up and down
 				else if(randomType > 0.33){
-					var testEnemy11:SmallPlatformEnemy = new SmallPlatformEnemy(Math.random()*190 + 40, Math.random()*-90, 2.25, 2.5, 1, randomDirection,  settings, HUD, player, weapon);
+					var testEnemy11:SmallPlatformEnemy = new SmallPlatformEnemy(this, Math.random()*190 + 40, Math.random()*-90, 2.25, 2.5, 1, randomDirection,  settings, HUD, player, weapon);
 				}
 					//goes left and right
 				else{
-					var testEnemy12:SmallPlatformEnemy = new SmallPlatformEnemy(Math.random()*190 + 40, Math.random()*-90, 2.25, 2.5, 2, randomDirection,  settings, HUD, player, weapon);
+					var testEnemy12:SmallPlatformEnemy = new SmallPlatformEnemy(this, Math.random()*190 + 40, Math.random()*-90, 2.25, 2.5, 2, randomDirection,  settings, HUD, player, weapon);
 				}
 			}	
 		}
@@ -205,18 +205,18 @@ package Game
 				if(ammunitionCount < 10){
 					//pistol ammo
 					if(randomDrop < 0.4){
-						var pistolDrop:ItemDrop = new ItemDrop(Math.random()*190 + 40, Math.random()*-90, 1.5,1.5, 2, settings, HUD, player, weapon);	
+						var pistolDrop:ItemDrop = new ItemDrop(this, Math.random()*190 + 40, Math.random()*-90, 1.5,1.5, 2, settings, HUD, player, weapon);	
 					}
 						//shotgun ammo
 					else if(randomDrop > 0.4 && randomDrop < 0.65){
-						var shotgunDrop:ItemDrop = new ItemDrop(Math.random()*190 + 40, Math.random()*-90, 2.5,2.5, 3,  settings, HUD, player, weapon);	
+						var shotgunDrop:ItemDrop = new ItemDrop(this, Math.random()*190 + 40, Math.random()*-90, 2.5,2.5, 3,  settings, HUD, player, weapon);	
 					}
 						//machinegun ammo
 					else if(randomDrop > 0.65 && randomDrop < 0.9){
-						var machinegunDrop:ItemDrop = new ItemDrop(Math.random()*190 + 40, Math.random()*-90, 2,2, 4, settings, HUD, player, weapon);	
+						var machinegunDrop:ItemDrop = new ItemDrop(this, Math.random()*190 + 40, Math.random()*-90, 2,2, 4, settings, HUD, player, weapon);	
 					}
 					else{
-						var heartDrop:ItemDrop = new ItemDrop(Math.random()*190 + 40, Math.random()*-90, 1.5,1.5, 1, settings, HUD, player, weapon);	
+						var heartDrop:ItemDrop = new ItemDrop(this, Math.random()*190 + 40, Math.random()*-90, 1.5,1.5, 1, settings, HUD, player, weapon);	
 					}
 				}
 			}

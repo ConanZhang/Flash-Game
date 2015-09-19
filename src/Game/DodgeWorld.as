@@ -100,9 +100,9 @@ package Game
 		{
 			addEnemy.stop();
 
-			var testEnemy1:BigPlatformEnemy = new BigPlatformEnemy(95, -1, 8, 8, 2, 0, settings, HUD, player, weapon);
-			var testEnemy2:BigPlatformEnemy = new BigPlatformEnemy(95, 3, 8, 8, 2, 0, settings, HUD, player, weapon);
-			var testEnemy3:BigPlatformEnemy = new BigPlatformEnemy(95, 7, 8, 8, 2, 0, settings, HUD, player, weapon);			
+			var testEnemy1:BigPlatformEnemy = new BigPlatformEnemy(this, 95, -1, 8, 8, 2, 0, settings, HUD, player, weapon);
+			var testEnemy2:BigPlatformEnemy = new BigPlatformEnemy(this, 95, 3, 8, 8, 2, 0, settings, HUD, player, weapon);
+			var testEnemy3:BigPlatformEnemy = new BigPlatformEnemy(this, 95, 7, 8, 8, 2, 0, settings, HUD, player, weapon);			
 		}
 		
 		public override function removeAddRain():void{

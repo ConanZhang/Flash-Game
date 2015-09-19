@@ -50,19 +50,19 @@ package Parents
 		//paused or playing
 		public static var paused:Boolean;
 		//flying enemy count
-		public static var flyCount:int;
+		public var flyCount:int;
 		//flying enemy count
-		public static var smallFlyCount:int;
+		public var smallFlyCount:int;
 		//flying enemy count
-		public static var bigFlyCount:int;
+		public var bigFlyCount:int;
 		//platform enemy count
-		public static var platformCount:int;
+		public var platformCount:int;
 		//platform enemy count
-		public static var smallPlatformCount:int;
+		public var smallPlatformCount:int;
 		//platform enemy count
-		public static var bigPlatformCount:int;
+		public var bigPlatformCount:int;
 		//ammunition count
-		public static var ammunitionCount:int;
+		public  var ammunitionCount:int;
 		//array to hold key presses
 		private var keyPresses:Array;
 		

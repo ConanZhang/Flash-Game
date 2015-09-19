@@ -44,10 +44,14 @@ package Assets {
 		private var HUD:PlayerHUD;
 		private var player:Player;
 		private var weapon:Weapon;
+		
+		private var arena:Stage;
+		
 		/**Constructor*/
-		public function ItemDrop(xPos:Number, yPos:Number, width:Number, height:Number, type:int, _settings:SharedObject, _HUD:PlayerHUD, _player:Player, _weapon:Weapon){
+		public function ItemDrop(_arena:Stage, xPos:Number, yPos:Number, width:Number, height:Number, type:int, _settings:SharedObject, _HUD:PlayerHUD, _player:Player, _weapon:Weapon){
 			//assign parameters to class member variables
 			position = new Point(xPos, yPos);
+			arena = _arena;
 			
 			//initialize default private variables
 			itemDrop_Width = width;
@@ -103,7 +107,7 @@ package Assets {
 				itemDropClip.height = itemDrop_Height*metricPixRatio;
 				super.sprite = itemDropClip;
 				Stage.sprites.addChild(itemDropClip);
-				Stage.ammunitionCount++;
+				arena.ammunitionCount++;
 			}
 			//shotgun ammo
 			else if(itemType == 3){
@@ -112,7 +116,7 @@ package Assets {
 				itemDropClip.height = itemDrop_Height*metricPixRatio;
 				super.sprite = itemDropClip;
 				Stage.sprites.addChild(itemDropClip);
-				Stage.ammunitionCount++;
+				arena.ammunitionCount++;
 			}
 				//shotgun ammo
 			else if(itemType == 4){
@@ -121,7 +125,7 @@ package Assets {
 				itemDropClip.height = itemDrop_Height*metricPixRatio;
 				super.sprite = itemDropClip;
 				Stage.sprites.addChild(itemDropClip);
-				Stage.ammunitionCount++;
+				arena.ammunitionCount++;
 			}
 		}
 		
@@ -138,7 +142,7 @@ package Assets {
 				}
 				else if(itemType == 2){
 					weapon.pistolAmmo +=5;
-					Stage.ammunitionCount--;
+					arena.ammunitionCount--;
 					if(!weapon.holdingWeapon){
 						weapon.needWeapon = true;
 						weapon.weaponType = 1;
@@ -146,7 +150,7 @@ package Assets {
 				}
 				else if(itemType == 3){
 					weapon.shotgunAmmo +=2;
-					Stage.ammunitionCount--;
+					arena.ammunitionCount--;
 					if(!weapon.holdingWeapon){
 						weapon.needWeapon = true;
 						weapon.weaponType = 2;
@@ -154,7 +158,7 @@ package Assets {
 				}
 				else if(itemType == 4){
 					weapon.machinegunAmmo +=10;
-					Stage.ammunitionCount--;
+					arena.ammunitionCount--;
 					if(!weapon.holdingWeapon){
 						weapon.needWeapon = true;
 						weapon.weaponType = 3;
