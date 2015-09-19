@@ -21,10 +21,12 @@ package Game
 		private var settings:SharedObject;
 		private var HUD:PlayerHUD;
 		private var player:Player;
+		private var arena:Stage;
 		
 		/**Constructor DOES NOTHING*/
-		public function ContactListener( _settings:SharedObject, _HUD:PlayerHUD, _player:Player)
+		public function ContactListener(_arena:Stage, _settings:SharedObject, _HUD:PlayerHUD, _player:Player)
 		{
+			arena = _arena;
 			settings = _settings;
 			HUD = _HUD;
 			player = _player;
@@ -44,26 +46,26 @@ package Game
 				
 				if(playerDataA == "FOOT"){
 					Stage.jumping = false;
-					Stage.airJumping = false;
-					Stage.jumpTime = 0;
-					Stage.jumpAmount = Stage.defaultJumpAmount;
-					Stage.floor = true;
+					arena.airJumping = false;
+					arena.jumpTime = 0;
+					arena.jumpAmount = arena.defaultJumpAmount;
+					arena.floor = true;
 					player.STATE = player.IDLE;
 				}
 				else if(playerDataA == "RIGHT"){
 					Stage.jumping = false;
-					Stage.airJumping = false;
-					Stage.jumpTime = 0;
-					Stage.jumpAmount = Stage.defaultJumpAmount;
-					Stage.rightWall = true;
+					arena.airJumping = false;
+					arena.jumpTime = 0;
+					arena.jumpAmount = arena.defaultJumpAmount;
+					arena.rightWall = true;
 					player.STATE = player.R_WALL;
 				}
 				else if(playerDataA == "LEFT"){
 					Stage.jumping = false;
-					Stage.airJumping = false;
-					Stage.jumpTime = 0;
-					Stage.jumpAmount = Stage.defaultJumpAmount;
-					Stage.leftWall = true;
+					arena.airJumping = false;
+					arena.jumpTime = 0;
+					arena.jumpAmount = arena.defaultJumpAmount;
+					arena.leftWall = true;
 					player.STATE = player.L_WALL;
 				}
 			}
@@ -77,26 +79,26 @@ package Game
 				
 				if(playerDataB == "FOOT"){
 					Stage.jumping = false;
-					Stage.airJumping = false;
-					Stage.jumpTime = 0;
-					Stage.jumpAmount = Stage.defaultJumpAmount;
-					Stage.floor = true;
+					arena.airJumping = false;
+					arena.jumpTime = 0;
+					arena.jumpAmount = arena.defaultJumpAmount;
+					arena.floor = true;
 					player.STATE = player.IDLE;
 				}
 				else if(playerDataB == "RIGHT"){
 					Stage.jumping = false;
-					Stage.airJumping = false;
-					Stage.jumpTime = 0;
-					Stage.jumpAmount = Stage.defaultJumpAmount;
-					Stage.rightWall = true;
+					arena.airJumping = false;
+					arena.jumpTime = 0;
+					arena.jumpAmount = arena.defaultJumpAmount;
+					arena.rightWall = true;
 					player.STATE = player.R_WALL;
 				}
 				else if(playerDataB == "LEFT"){
 					Stage.jumping = false;
-					Stage.airJumping = false;
-					Stage.jumpTime = 0;
-					Stage.jumpAmount = Stage.defaultJumpAmount;
-					Stage.leftWall = true;
+					arena.airJumping = false;
+					arena.jumpTime = 0;
+					arena.jumpAmount = arena.defaultJumpAmount;
+					arena.leftWall = true;
 					player.STATE = player.L_WALL;
 				}
 			}
@@ -345,18 +347,18 @@ package Game
 				if(playerDataA == "FOOT"){
 					Stage.jumping = true;
 					player.STATE = player.JUMPING;
-					Stage.floor = false;
+					arena.floor = false;
 				}
 				else if(playerDataA == "RIGHT"){
-					Stage.rightWall = false;
-					if(!Stage.floor){
+					arena.rightWall = false;
+					if(!arena.floor){
 						Stage.jumping = true;
 						player.STATE = player.JUMPING;
 					}
 				}
 				else if(playerDataA == "LEFT"){
-					Stage.leftWall = false;
-					if(!Stage.floor){
+					arena.leftWall = false;
+					if(!arena.floor){
 						Stage.jumping = true;
 						player.STATE = player.JUMPING;
 					}
@@ -371,20 +373,20 @@ package Game
 				
 				if(playerDataB == "FOOT"){
 					Stage.jumping = true;
-					Stage.floor = false;
+					arena.floor = false;
 					player.STATE = player.JUMPING;
 				}
 				else if(playerDataB == "RIGHT"){
-					Stage.rightWall = false;
-					if(!Stage.floor){
+					arena.rightWall = false;
+					if(!arena.floor){
 						Stage.jumping = true;
 						player.STATE = player.JUMPING;
 					}
 				}
 				else if(playerDataB == "LEFT"){
-					Stage.leftWall = false;
+					arena.leftWall = false;
 					Stage.jumping = true;
-					if(!Stage.floor){
+					if(!arena.floor){
 						Stage.jumping = true;
 						player.STATE = player.JUMPING;
 					}

@@ -96,29 +96,29 @@ package Parents
 		//the last position the player was (for speed calculation)
 		private var lastPos:Point;
 		//horizontal speed
-		private static var horizontal:Number;
+		private var horizontal:Number;
 		//vertical speed
-		private static var vertical:Number;
+		private var vertical:Number;
 		//acceleration
 		private var acceleration:Number;
 		//is the player jumping
 		public static var jumping:Boolean;
 		//is the player air jumping
-		public static var airJumping:Boolean;
+		public var airJumping:Boolean;
 		//is the player wall jumping from the right
-		public static var rightWall:Boolean;
+		public var rightWall:Boolean;
 		//is the player wall jumping from the left
-		public static var leftWall:Boolean;
+		public var leftWall:Boolean;
 		//is the player standing
-		public static var floor:Boolean;
+		public var floor:Boolean;
 		//how long have they been jumping
-		public static var jumpTime:int;
+		public var jumpTime:int;
 		//limit to length of jumping
-		public static var jumpLimit:int;
+		public var jumpLimit:int;
 		//current number of times player can jump
-		public static const defaultJumpAmount:int = 2;
+		public const defaultJumpAmount:int = 2;
 		//current number of times player can jump
-		public static var jumpAmount:int;
+		public var jumpAmount:int;
 		//fix player rotation speed after slow motion is over
 		private var slowRotation:Boolean;
 		//flinching
@@ -223,7 +223,7 @@ package Parents
 			weapon.world_Sprite = worldStage;
 			weapon.make();
 			
-			worldStage.SetContactListener(new ContactListener(settings, gameHUD, player) );
+			worldStage.SetContactListener(new ContactListener(this, settings, gameHUD, player) );
 			slowMotion = false;
 			speed = 1;
 			
@@ -365,7 +365,7 @@ package Parents
 									direction.Set(-90,-43);
 									playerBody.SetAwake(true);
 									playerBody.ApplyImpulse(direction, playerBody.GetPosition() );
-									if(player.STATE != player.DODGE && !Stage.floor){
+									if(player.STATE != player.DODGE && !floor){
 										player.STATE = player.JUMPING;
 									}
 								}
@@ -376,7 +376,7 @@ package Parents
 									direction.Set(90,-43);
 									playerBody.SetAwake(true);
 									playerBody.ApplyImpulse(direction, playerBody.GetPosition() );
-									if(player.STATE != player.DODGE && !Stage.floor){
+									if(player.STATE != player.DODGE && !floor){
 										player.STATE = player.JUMPING;
 									}
 								}
@@ -396,10 +396,10 @@ package Parents
 								}
 								//animation
 								if(player.STATE != player.DODGE && player.STATE != player.R_WALK && player.STATE != player.R_WALK_SLOW){
-									if(!jumping && !leftWall && !rightWall && !slowMotion && Stage.floor || !jumping && !leftWall && !rightWall && slowMotion && slowAmount <= 0 && Stage.floor){
+									if(!jumping && !leftWall && !rightWall && !slowMotion && floor || !jumping && !leftWall && !rightWall && slowMotion && slowAmount <= 0 && floor){
 										player.STATE = player.L_WALK;
 									}
-									else if(!jumping && !leftWall && !rightWall && slowMotion && slowAmount > 0 && Stage.floor){
+									else if(!jumping && !leftWall && !rightWall && slowMotion && slowAmount > 0 && floor){
 										player.STATE = player.L_WALK_SLOW;
 									}
 									else if(leftWall){
@@ -425,10 +425,10 @@ package Parents
 								}
 								//animation
 								if(player.STATE != player.DODGE && player.STATE != player.L_WALK && player.STATE != player.L_WALK_SLOW){
-									if(!jumping && !rightWall && !leftWall && !slowMotion && Stage.floor || !jumping && !rightWall && !leftWall && slowMotion && slowAmount <= 0 && Stage.floor){
+									if(!jumping && !rightWall && !leftWall && !slowMotion && floor || !jumping && !rightWall && !leftWall && slowMotion && slowAmount <= 0 && floor){
 										player.STATE = player.R_WALK;
 									}
-									else if(!jumping && !rightWall && !leftWall && slowMotion && slowAmount > 0 && Stage.floor){
+									else if(!jumping && !rightWall && !leftWall && slowMotion && slowAmount > 0 && floor){
 										player.STATE = player.R_WALK_SLOW;
 									}
 									else if(rightWall){
