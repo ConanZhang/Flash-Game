@@ -64,6 +64,8 @@ package Assets
 		
 		public var jumping:Boolean;
 		private var player_size:Number;
+		public var machineFire:Boolean;
+		
 		/**Constructor*/
 		public function Player(size:Number)
 		{
@@ -273,7 +275,7 @@ package Assets
 
 				//remove yourself
 				if(playerClip.dead){
-					Stage.machineFire = false;
+					machineFire = false;
 					destroyAll();
 				}
 			}

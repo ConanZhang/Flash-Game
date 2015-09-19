@@ -52,7 +52,10 @@ package Assets {
 			//assign parameters to class member variables
 			weaponType = type;
 			player = _player;
-			
+		}
+		
+		/**Makes Weapon*/
+		public function make():void{
 			//initialize default private variables
 			pistolAmmo = 0;
 			shotgunAmmo = 0;
@@ -66,10 +69,7 @@ package Assets {
 			rightFire = false;
 			
 			weaponFixture = new b2FixtureDef();
-		}
-		
-		/**Makes Weapon*/
-		public function make():void{
+			
 			//Box2D shape
 			var weaponShape:b2PolygonShape = new b2PolygonShape();
 			weaponShape.SetAsBox(0.1, 0.1);
@@ -152,7 +152,7 @@ package Assets {
 				if(weaponClip != null){
 					destroySprite();
 				}
-				Stage.machineFire = false;
+				player.machineFire = false;
 				//switch to pistol
 				if(weaponType == 1 && pistolAmmo > 0){
 					weaponClip = new pistol();

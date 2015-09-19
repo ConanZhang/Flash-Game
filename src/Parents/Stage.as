@@ -116,7 +116,6 @@ package Parents
 		
 		/**WEAPON*/
 		private var weapon:Weapon;
-		public static var machineFire:Boolean;
 		private var machineDelay:int;
 		
 		private var pacifistState:Boolean;
@@ -200,6 +199,7 @@ package Parents
 			//PLAYER
 			player = _player;
 			player.jumping = false;
+			player.machineFire = false;
 			player.position = new Point(playerX, playerY);
 			player.stage_Sprite = images;
 			player.world_Sprite = worldStage;
@@ -235,7 +235,6 @@ package Parents
 			flinchTime = 0;
 			
 			//WEAPON
-			machineFire = false;
 			machineDelay = 2;
 			
 			//delay controls
@@ -499,7 +498,7 @@ package Parents
 				weapon.weaponRotation = Math.atan2(mouseDirectionY, mouseDirectionX);
 				
 				//fire machine gun
-				if(machineFire == true){
+				if(player.machineFire == true){
 					if(machineDelay == 2){
 						var machineBullet:Bullet = new Bullet(playerBody.GetPosition().x + 3 * Math.cos(weapon.weaponRotation), playerBody.GetPosition().y + 3 * Math.sin(weapon.weaponRotation),0.3,0.3, weapon);
 						weapon.machinegunAmmo--;
@@ -510,7 +509,7 @@ package Parents
 					}
 					
 					if(weapon.machinegunAmmo <= 0){
-						machineFire = false;
+						player.machineFire = false;
 						machineDelay = 2;
 					}
 				}
@@ -748,11 +747,11 @@ package Parents
 				}
 				else if(weapon.weaponType == 3 && weapon.machinegunAmmo > 0){
 					if(weapon.weaponRotation > -1.5 && weapon.weaponRotation < 1.5){
-						machineFire = true;
+						player.machineFire = true;
 						weapon.rightFire = true;						
 					}
 					else{
-						machineFire = true;
+						player.machineFire = true;
 						weapon.leftFire = true;
 					}
 				}
@@ -762,7 +761,7 @@ package Parents
 		/**Stages can detect left mouse lifts*/
 		public function leftUp(e:MouseEvent):void{
 			if(weapon.weaponType == 3){
-				machineFire = false;
+				player.machineFire = false;
 				weapon.rightFire = false;
 				weapon.leftFire = false;
 				machineDelay = 2;
