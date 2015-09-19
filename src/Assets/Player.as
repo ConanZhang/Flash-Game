@@ -6,6 +6,9 @@ package Assets
 	import flash.display.MovieClip;
 	import flash.display.Sprite;
 	import flash.geom.Point;
+	import flash.media.Sound;
+	import flash.media.SoundTransform;
+	import flash.net.SharedObject;
 	
 	import Box2D.Collision.Shapes.b2PolygonShape;
 	import Box2D.Common.Math.b2Vec2;
@@ -66,10 +69,12 @@ package Assets
 		private var player_size:Number;
 		public var machineFire:Boolean;
 		
+		private var settings:SharedObject;
 		/**Constructor*/
-		public function Player(size:Number)
+		public function Player(size:Number, _settings:SharedObject)
 		{
 			player_size = size;
+			settings = _settings;
 		}
 		
 		/**Makes Player*/
@@ -275,6 +280,9 @@ package Assets
 
 				//remove yourself
 				if(playerClip.dead){
+					var deadSound:Sound = new Dead;
+					deadSound.play(0, 0, new SoundTransform(settings.data.effectsVolume));
+					
 					machineFire = false;
 					destroyAll();
 				}

@@ -293,6 +293,8 @@ package Game
 					contact.GetFixtureA().GetUserData()[0] ="DEAD";
 					if(userDataB == "ENEMY"){
 						contact.GetFixtureB().GetUserData().push(1);
+						var monsterHit:Sound = new MonsterHit;
+						monsterHit.play(0, 0, new SoundTransform(settings.data.effectsVolume));
 					}
 				}
 				//2 damage
@@ -300,6 +302,8 @@ package Game
 					contact.GetFixtureA().GetUserData()[0] ="DEAD";
 					if(userDataB == "ENEMY"){
 						contact.GetFixtureB().GetUserData().push(2);
+						var monsterHit1:Sound = new MonsterHit;
+						monsterHit1.play(0, 0, new SoundTransform(settings.data.effectsVolume));
 					}
 				}
 			}
@@ -311,6 +315,8 @@ package Game
 					contact.GetFixtureB().GetUserData()[0] ="DEAD";
 					if(userDataA == "ENEMY"){
 						contact.GetFixtureA().GetUserData().push(1);
+						var monsterHit2:Sound = new MonsterHit;
+						monsterHit2.play(0, 0, new SoundTransform(settings.data.effectsVolume));
 					}
 				}
 				//2 damage
@@ -318,6 +324,8 @@ package Game
 					contact.GetFixtureB().GetUserData()[0] ="DEAD";
 					if(userDataA == "ENEMY"){
 						contact.GetFixtureA().GetUserData().push(2);
+						var monsterHit3:Sound = new MonsterHit;
+						monsterHit3.play(0, 0, new SoundTransform(settings.data.effectsVolume));
 					}
 				}
 			}

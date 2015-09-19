@@ -99,9 +99,6 @@ package
 			gameReticule = new reticule();
 			gameReticule.width = 25;
 			gameReticule.height = 25;
-			
-			player = new Player(3.5);
-			weaponEquip = new Weapon(1, player);
 
 			world = 1;
 			pacifist = false;
@@ -177,6 +174,9 @@ package
 				
 				bindings.flush();
 			}
+			
+			player = new Player(3.5, settings);
+			weaponEquip = new Weapon(1, player);
 			
 			musicChannel = new SoundChannel();
 			menu = new Menu(this, musicChannel, settings, keybindings);
