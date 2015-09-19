@@ -40,6 +40,7 @@ package Assets {
 		public var holdingWeapon:Boolean;
 		public var needWeapon:Boolean;
 		public var changeWeapon:Boolean;
+		public var weaponRotation:Number;
 		
 		//BOX2D COLLISION & PHYSICS
 		private var collisionBody:b2Body;
@@ -188,7 +189,7 @@ package Assets {
 			
 			
 			collisionBody.SetPosition( Stage.playerBody.GetPosition() );
-			weaponClip.rotation = Stage.weaponRotation*180/Math.PI;
+			weaponClip.rotation = weaponRotation*180/Math.PI;
 			
 			//match rotation
 			if(weaponClip.rotation > -90 && weaponClip.rotation  < 90 && !leftFire){

@@ -67,18 +67,18 @@ package Assets {
 			
 			//initial velocity
 			if(weapon.weaponType == 1){
-				bulletXDirection = Math.cos(Stage.weaponRotation)*300;
-				bulletYDirection = Math.sin(Stage.weaponRotation)*300;
+				bulletXDirection = Math.cos(weapon.weaponRotation)*300;
+				bulletYDirection = Math.sin(weapon.weaponRotation)*300;
 				bulletFixture.userData.push("PISTOL");
 			}
 			else if(weapon.weaponType == 2){
-				bulletXDirection = Math.cos(Stage.weaponRotation+Math.random()*0.5 - 0.25)*300;
-				bulletYDirection = Math.sin(Stage.weaponRotation+Math.random()*0.5 - 0.25)*300;
+				bulletXDirection = Math.cos(weapon.weaponRotation+Math.random()*0.5 - 0.25)*300;
+				bulletYDirection = Math.sin(weapon.weaponRotation+Math.random()*0.5 - 0.25)*300;
 				bulletFixture.userData.push("SHOTGUN");
 			}
 			else if(weapon.weaponType == 3){
-				bulletXDirection = Math.cos(Stage.weaponRotation+Math.random()*0.25 - 0.12)*300;
-				bulletYDirection = Math.sin(Stage.weaponRotation+Math.random()*0.25 - 0.12)*300;
+				bulletXDirection = Math.cos(weapon.weaponRotation+Math.random()*0.25 - 0.12)*300;
+				bulletYDirection = Math.sin(weapon.weaponRotation+Math.random()*0.25 - 0.12)*300;
 				bulletFixture.userData.push("MACHINEGUN");
 			}
 			
