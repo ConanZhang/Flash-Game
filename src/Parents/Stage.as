@@ -500,8 +500,8 @@ package Parents
 						weapon.machinegunAmmo--;
 						machineDelay = 0;
 						
-						var gunShot:Sound = new GunShot;
-						gunShot.play(0, 0, new SoundTransform(settings.data.effectsVolume));
+						var machinegunShot:Sound = new MachineGunShot;
+						machinegunShot.play(0, 0, new SoundTransform(settings.data.effectsVolume));
 					}
 					else{
 						machineDelay++;

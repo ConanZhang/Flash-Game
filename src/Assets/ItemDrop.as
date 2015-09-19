@@ -144,6 +144,9 @@ package Assets {
 					weapon.pistolAmmo +=5;
 					arena.ammunitionCount--;
 
+					var pistolReload:Sound = new PistolReload;
+					pistolReload.play(0, 0, new SoundTransform(settings.data.effectsVolume));
+					
 					if(!weapon.holdingWeapon){
 						weapon.needWeapon = true;
 						weapon.weaponType = 1;
@@ -153,6 +156,10 @@ package Assets {
 				else if(itemType == 3){
 					weapon.shotgunAmmo +=2;
 					arena.ammunitionCount--;
+					
+					var shotgunReload:Sound = new ShotgunReload;
+					shotgunReload.play(0, 0, new SoundTransform(settings.data.effectsVolume));
+					
 					if(!weapon.holdingWeapon){
 						weapon.needWeapon = true;
 						weapon.weaponType = 2;
@@ -161,6 +168,10 @@ package Assets {
 				else if(itemType == 4){
 					weapon.machinegunAmmo +=10;
 					arena.ammunitionCount--;
+					
+					var machinegunReload:Sound = new MachineGunReload;
+					machinegunReload.play(0, 0, new SoundTransform(settings.data.effectsVolume));
+					
 					if(!weapon.holdingWeapon){
 						weapon.needWeapon = true;
 						weapon.weaponType = 3;
