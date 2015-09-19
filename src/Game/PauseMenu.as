@@ -207,13 +207,11 @@ package Game
 			lastButtonClicked = activeButton;
 			
 			if(activeButton.toString() == "[object Resume]"){
-				screen.gameHUD.paused = false;
 				//resume game
 				destroy();
 			}
 			else if(activeButton.toString() == "[object Restart]"){
 				//restart game
-				screen.gameHUD.paused = false;
 				destroy();
 				screen.destroy();
 				screen.screen.restart();
@@ -300,6 +298,8 @@ package Game
 		
 		public function destroy():void
 		{
+			screen.gameHUD.paused = false;
+
 			this.removeEventListener(MouseEvent.MOUSE_OVER, mouseOver);
 			this.removeEventListener(MouseEvent.MOUSE_OUT, mouseOut);
 			this.removeEventListener(MouseEvent.CLICK, buttonClicked);

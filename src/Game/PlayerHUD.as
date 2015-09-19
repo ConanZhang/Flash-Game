@@ -14,9 +14,7 @@ package Game
 	
 	import Assets.Player;
 	import Assets.Weapon;
-	
-	import Parents.Stage;
-	
+		
 	public class PlayerHUD extends Sprite
 	{		
 		private var screen:Sprite;

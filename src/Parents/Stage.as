@@ -6,7 +6,6 @@ package Parents
 	import flash.display.MovieClip;
 	import flash.display.Shape;
 	import flash.display.Sprite;
-	import flash.events.Event;
 	import flash.events.KeyboardEvent;
 	import flash.events.MouseEvent;
 	import flash.events.TimerEvent;

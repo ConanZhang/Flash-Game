@@ -143,9 +143,11 @@ package Assets {
 				else if(itemType == 2){
 					weapon.pistolAmmo +=5;
 					arena.ammunitionCount--;
+
 					if(!weapon.holdingWeapon){
 						weapon.needWeapon = true;
 						weapon.weaponType = 1;
+						trace("Pistol");
 					}
 				}
 				else if(itemType == 3){

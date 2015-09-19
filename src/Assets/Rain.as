@@ -8,9 +8,7 @@ package Assets
 	import flash.events.Event;
 	
 	import Game.PlayerHUD;
-	
-	import Parents.Stage;
-	
+		
 	public class Rain extends MovieClip
 	{
 		private var stage:Sprite;

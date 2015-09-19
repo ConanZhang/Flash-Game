@@ -10,7 +10,6 @@ package Game
 	
 	import Assets.BigFlyingEnemy;
 	import Assets.BigPlatformEnemy;
-	import Assets.EasterEgg;
 	import Assets.FlyingEnemy;
 	import Assets.ItemDrop;
 	import Assets.Platform;

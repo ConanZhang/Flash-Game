@@ -52,6 +52,7 @@ package Assets {
 			//assign parameters to class member variables
 			weaponType = type;
 			player = _player;
+			holdingWeapon = true;
 		}
 		
 		/**Makes Weapon*/
@@ -60,7 +61,6 @@ package Assets {
 			pistolAmmo = 0;
 			shotgunAmmo = 0;
 			machinegunAmmo = 0;
-			holdingWeapon = true;
 			needWeapon = false;
 			changeWeapon = false;
 			

@@ -3,7 +3,6 @@
  */
 package
 {
-	import flash.display.Shape;
 	import flash.display.Sprite;
 	import flash.display.StageDisplayState;
 	import flash.display.StageQuality;
@@ -21,7 +20,6 @@ package
 	import Game.DodgeWorld;
 	import Game.Menu;
 	import Game.MovementWorld;
-	import Game.OptionsMenu;
 	import Game.PlayerHUD;
 	import Game.SmallWorld;
 	import Game.EarthWorld;
@@ -43,7 +41,7 @@ package
 		private var gameReticule:Sprite;
 		
 		//Levels
-		private var test:EarthWorld; 
+		private var earth:EarthWorld; 
 		private var walls:WallJumpingWorld;
 		private var small:SmallWorld;
 		private var tutorial:MovementWorld;
@@ -66,7 +64,7 @@ package
 		public var world:int;
 		
 		public const tutorialWorld:int = 0;
-		public const testWorld:int = 1;
+		public const earthWorld:int = 1;
 		public const wallWorld:int = 2;
 		public const smallWorld:int = 3;
 		public const dodgeWorld:int = 4;
@@ -90,9 +88,9 @@ package
 			//register font to global list
 			Font.registerFont(Zenzai_Itacha);
 			
-			this.addEventListener(Event.ENTER_FRAME, moveReticule);
+			this.addEventListener(Event.ENTER_FRAME, updateGame);
 			stage.addEventListener(KeyboardEvent.KEY_DOWN, options);
-			this.addEventListener(Event.REMOVED, testingRemove);
+			this.addEventListener(Event.REMOVED, removedMenu);
 
 			//hide cursor
 			Mouse.hide();
@@ -184,7 +182,7 @@ package
 			menu = new Menu(this, musicChannel, settings, keybindings);
 		}
 		
-		private function testingRemove(event:Event):void{
+		private function removedMenu(event:Event):void{
 			if(settings.data.hasRain == "true"){
 				hasRain = true;
 			}
@@ -194,9 +192,9 @@ package
 			
 			if(event.target is Menu){		
 				menu = null;
-				if(world == testWorld){
-					gameHUD = new PlayerHUD(pacifist, testWorld,difficulty, player, weaponEquip);
-					test = new EarthWorld(this, false, pacifist, testWorld, difficulty, hasRain, settings, musicChannel, gameHUD, keybindings, player, weaponEquip);
+				if(world == earthWorld){
+					gameHUD = new PlayerHUD(pacifist, earthWorld,difficulty, player, weaponEquip);
+					earth = new EarthWorld(this, false, pacifist, earthWorld, difficulty, hasRain, settings, musicChannel, gameHUD, keybindings, player, weaponEquip);
 				} 
 				else if(world == wallWorld){
 					gameHUD = new PlayerHUD(pacifist, wallWorld,difficulty, player, weaponEquip);
@@ -226,7 +224,7 @@ package
 				event.target is DodgeWorld|| 
 				event.target is WeaponWorld){
 				
-				test = null;
+				earth = null;
 				walls = null;
 				tutorial = null;
 				small = null;
@@ -237,13 +235,13 @@ package
 			} 
 		}
 
-		private function moveReticule(event:Event):void{
+		private function updateGame(event:Event):void{
 			//reticule
 			gameReticule.x = this.mouseX;
 			gameReticule.y = this.mouseY;
 			
-			if(world == testWorld && test != null){
-				test.update();
+			if(world == earthWorld && earth != null){
+				earth.update();
 			} 
 			else if(world == wallWorld && walls != null){
 				walls.update();
