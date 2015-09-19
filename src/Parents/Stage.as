@@ -43,10 +43,6 @@ package Parents
 		private var timeStep:Number;
 		
 		/**LOGIC*/
-		//world is in slow motion
-		public static var slowMotion:Boolean;
-		//amount of slow motion
-		public static var slowAmount:Number;
 		//paused or playing
 		public static var paused:Boolean;
 		//flying enemy count
@@ -194,8 +190,8 @@ package Parents
 			paused = false;
 			
 			//HUD
-			slowAmount = 225;
 			gameHUD = _HUD;
+			gameHUD.slowAmount = 225;
 			this.addChild(gameHUD);
 			
 			/**WORLD*/
@@ -221,7 +217,7 @@ package Parents
 			weapon.make();
 			
 			worldStage.SetContactListener(new ContactListener(this, settings, gameHUD, player) );
-			slowMotion = false;
+			gameHUD.slowMotion = false;
 			speed = 1;
 			
 			/**PLAYER*/
@@ -278,12 +274,12 @@ package Parents
 						
 						//slow motion
 						var bodyVelocity:b2Vec2 = bodies.GetLinearVelocity();
-						if(slowMotion == true && slowAmount > 0 ){
+						if(gameHUD.slowMotion && gameHUD.slowAmount > 0 ){
 							var slowVelocity:b2Vec2 = new b2Vec2(bodyVelocity.x*0.5,bodyVelocity.y*0.5);
 							
 							bodies.SetLinearVelocity(slowVelocity);
 						}
-						else if(slowMotion == false){
+						else if(gameHUD.slowMotion == false){
 							bodies.SetLinearVelocity(bodyVelocity);
 						}
 					}
@@ -383,7 +379,7 @@ package Parents
 									direction.Set(-250*speed,0);
 									playerBody.SetAwake(true);
 									playerBody.ApplyForce(direction,playerBody.GetPosition());
-									if(slowMotion && slowAmount > 0){
+									if(gameHUD.slowMotion && gameHUD.slowAmount > 0){
 										player.playerRotation = -20;
 									}
 									else{
@@ -392,10 +388,10 @@ package Parents
 								}
 								//animation
 								if(player.STATE != player.DODGE && player.STATE != player.R_WALK && player.STATE != player.R_WALK_SLOW){
-									if(!player.jumping && !leftWall && !rightWall && !slowMotion && floor || !player.jumping && !leftWall && !rightWall && slowMotion && slowAmount <= 0 && floor){
+									if(!player.jumping && !leftWall && !rightWall && !gameHUD.slowMotion && floor || !player.jumping && !leftWall && !rightWall && gameHUD.slowMotion && gameHUD.slowAmount <= 0 && floor){
 										player.STATE = player.L_WALK;
 									}
-									else if(!player.jumping && !leftWall && !rightWall && slowMotion && slowAmount > 0 && floor){
+									else if(!player.jumping && !leftWall && !rightWall && gameHUD.slowMotion && gameHUD.slowAmount > 0 && floor){
 										player.STATE = player.L_WALK_SLOW;
 									}
 									else if(leftWall){
@@ -412,7 +408,7 @@ package Parents
 									direction.Set(250*speed,0);
 									playerBody.SetAwake(true);
 									playerBody.ApplyForce(direction,playerBody.GetPosition());
-									if(slowMotion && slowAmount > 0){
+									if(gameHUD.slowMotion && gameHUD.slowAmount > 0){
 										player.playerRotation = 20;
 									}
 									else{
@@ -421,10 +417,10 @@ package Parents
 								}
 								//animation
 								if(player.STATE != player.DODGE && player.STATE != player.L_WALK && player.STATE != player.L_WALK_SLOW){
-									if(!player.jumping && !rightWall && !leftWall && !slowMotion && floor || !player.jumping && !rightWall && !leftWall && slowMotion && slowAmount <= 0 && floor){
+									if(!player.jumping && !rightWall && !leftWall && !gameHUD.slowMotion && floor || !player.jumping && !rightWall && !leftWall && gameHUD.slowMotion && gameHUD.slowAmount <= 0 && floor){
 										player.STATE = player.R_WALK;
 									}
-									else if(!player.jumping && !rightWall && !leftWall && slowMotion && slowAmount > 0 && floor){
+									else if(!player.jumping && !rightWall && !leftWall && gameHUD.slowMotion && gameHUD.slowAmount > 0 && floor){
 										player.STATE = player.R_WALK_SLOW;
 									}
 									else if(rightWall){
@@ -436,8 +432,8 @@ package Parents
 								}
 								break;
 							case keybindings.slow:
-								if(slowMotion == false && slowAmount > 0 && player.playerHealth > 0){
-									slowMotion = true;
+								if(gameHUD.slowMotion == false && gameHUD.slowAmount > 0 && player.playerHealth > 0){
+									gameHUD.slowMotion = true;
 									jumpLimit = 12;
 									if(player.playerRotation > 0){
 										player.playerRotation = 20;
@@ -451,8 +447,8 @@ package Parents
 										jumpTime = 13;
 									}
 								}
-								else if(slowAmount > 0 && player.playerHealth > 0){
-									slowAmount-=3.375;
+								else if(gameHUD.slowAmount > 0 && player.playerHealth > 0){
+									gameHUD.slowAmount-=3.375;
 								}
 								break;
 						}
@@ -471,16 +467,16 @@ package Parents
 				lastPos = currentPos;
 				
 				//slow meter
-				if(slowAmount < 225 && !slowMotion){
-					slowAmount+= 2.25;
+				if(gameHUD.slowAmount < 225 && !gameHUD.slowMotion){
+					gameHUD.slowAmount+= 2.25;
 				}
-				else if(slowAmount <= 0 && slowMotion){
+				else if(gameHUD.slowAmount <= 0 && gameHUD.slowMotion){
 					jumpLimit = 5;
 					speed = 1;
 				}
 				
 				//fix rotation if necessary
-				if(slowAmount <= 0 && slowRotation){
+				if(gameHUD.slowAmount <= 0 && slowRotation){
 					slowRotation = false;
 					player.playerRotation = 40;
 				}
@@ -697,8 +693,8 @@ package Parents
 			}
 			//slow motion
 			else if(e.keyCode == keybindings.slow){
-				if(slowMotion == true){
-					slowMotion = false;
+				if(gameHUD.slowMotion == true){
+					gameHUD.slowMotion = false;
 					jumpLimit = 5;
 					if(player.playerRotation > 0){
 						player.playerRotation = 40;	

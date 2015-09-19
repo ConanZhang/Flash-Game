@@ -57,10 +57,10 @@ package Game
 			hasRain = _hasRain;
 			if(hasRain){
 				if(Math.random() > 0.5){
-					rain = new Rain(this, 100,900,525,50, Math.random()*(20-10)+10, Math.random()*(8-3)+3, "left");
+					rain = new Rain(this, 100,900,525,50, Math.random()*(20-10)+10, Math.random()*(8-3)+3, "left", HUD);
 				}
 				else{
-					rain = new Rain(this, 100,900,525,50, Math.random()*(20-10)+10, Math.random()*(8-3)+3, "right");
+					rain = new Rain(this, 100,900,525,50, Math.random()*(20-10)+10, Math.random()*(8-3)+3, "right", HUD);
 				}
 			}
 			
@@ -113,10 +113,10 @@ package Game
 			}
 			else{
 				if(Math.random() > 0.5){
-					rain = new Rain(this, 100,900,525,50, Math.random()*(20-10)+10, Math.random()*(8-3)+3, "left");
+					rain = new Rain(this, 100,900,525,50, Math.random()*(20-10)+10, Math.random()*(8-3)+3, "left", HUD);
 				}
 				else{
-					rain = new Rain(this, 100,900,525,50, Math.random()*(20-10)+10, Math.random()*(8-3)+3, "right");
+					rain = new Rain(this, 100,900,525,50, Math.random()*(20-10)+10, Math.random()*(8-3)+3, "right", HUD);
 				}
 				hasRain = true;
 				settings.data.hasRain = "true";

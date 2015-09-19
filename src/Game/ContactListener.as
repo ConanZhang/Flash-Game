@@ -107,7 +107,7 @@ package Game
 			if(userDataA == "PLAYER" && userDataB == "ENEMY"){
 				if(contact.GetFixtureA().GetUserData()[1] == "BODY"){
 					//take away health
-					if(player.playerInvulnerable == 0 && !Stage.slowMotion && player.playerHealth != 0){
+					if(player.playerInvulnerable == 0 && !HUD.slowMotion && player.playerHealth != 0){
 						player.playerInvulnerable = 50;
 						player.playerHealth--;
 						HUD.heartDamaged = true;
@@ -129,7 +129,7 @@ package Game
 						
 					}
 						//if using slow motion, but don't have any
-					else if(Stage.slowMotion && Stage.slowAmount <=0){
+					else if(HUD.slowMotion && HUD.slowAmount <=0){
 						if(player.playerInvulnerable == 0 && player.playerHealth != 0){
 							player.playerInvulnerable = 50;
 							player.playerHealth--;
@@ -151,7 +151,7 @@ package Game
 							}
 						}
 					}
-					else if(Stage.slowMotion && Stage.slowAmount > 0){
+					else if(HUD.slowMotion && HUD.slowAmount > 0){
 						player.STATE = player.DODGE;
 					}
 				}
@@ -160,7 +160,7 @@ package Game
 			else if(userDataA == "ENEMY" && userDataB == "PLAYER"){
 				if(contact.GetFixtureB().GetUserData()[1] == "BODY"){
 					//take away health
-					if(player.playerInvulnerable == 0 && !Stage.slowMotion && player.playerHealth != 0){
+					if(player.playerInvulnerable == 0 && !HUD.slowMotion && player.playerHealth != 0){
 						player.playerInvulnerable = 50;
 						player.playerHealth--;
 						HUD.heartDamaged = true;
@@ -182,7 +182,7 @@ package Game
 						
 					}
 						//if using slow motion, but don't have any
-					else if(Stage.slowMotion && Stage.slowAmount <=0){
+					else if(HUD.slowMotion && HUD.slowAmount <=0){
 						if(player.playerInvulnerable == 0 && player.playerHealth != 0){
 							player.playerInvulnerable = 50;
 							player.playerHealth--;
@@ -204,7 +204,7 @@ package Game
 							}
 						}
 					}
-					else if(Stage.slowMotion && Stage.slowAmount > 0){
+					else if(HUD.slowMotion && HUD.slowAmount > 0){
 						player.STATE = player.DODGE;
 					}
 				}

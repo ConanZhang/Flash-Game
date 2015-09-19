@@ -249,7 +249,7 @@ package Assets {
 			}
 			
 			//moving even when there is slow motion
-			if(Stage.slowMotion && Stage.slowAmount >= 0){
+			if(HUD.slowMotion && HUD.slowAmount >= 0){
 				//limit speed
 				if(collisionBody.GetLinearVelocity().x < 30 &&
 					collisionBody.GetLinearVelocity().x > -30 &&

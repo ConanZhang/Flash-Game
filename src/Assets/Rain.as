@@ -7,6 +7,8 @@ package Assets
 	import flash.display.Sprite;
 	import flash.events.Event;
 	
+	import Game.PlayerHUD;
+	
 	import Parents.Stage;
 	
 	public class Rain extends MovieClip
@@ -21,9 +23,10 @@ package Assets
 
 		private var windSpeed:int;
 		private var slowWind:int;
+		private var HUD:PlayerHUD;
 		
 		/**Constructor*/
-		public function Rain(_stage:Sprite, _areaOffset:int, areaHeight:int, areaWidth:int, _dropNumber:int, _fallSpeed:int, _windSpeed:int, direction:String)
+		public function Rain(_stage:Sprite, _areaOffset:int, areaHeight:int, areaWidth:int, _dropNumber:int, _fallSpeed:int, _windSpeed:int, direction:String, _HUD:PlayerHUD)
 		{
 			//class member variables to parameters
 			stage = _stage;
@@ -31,6 +34,7 @@ package Assets
 			dropNumber = _dropNumber;
 			dropVector = new Vector.<MovieClip>();
 			fallSpeed = _fallSpeed;
+			HUD = _HUD;
 			
 			windSpeed = _windSpeed;
 			slowWind = windSpeed*0.3;
@@ -98,7 +102,7 @@ package Assets
 		
 		private function moveLeft(e:Event):void{
 			//slow motion or default movement
-			if(Stage.slowMotion && Stage.slowAmount > 0){
+			if(HUD.slowMotion && HUD.slowAmount > 0){
 				e.target.x -= slowWind;
 				e.target.y += e.target.slowFall;
 			}
@@ -116,7 +120,7 @@ package Assets
 		
 		private function moveRight(e:Event):void{
 			//slow motion or default movement
-			if(Stage.slowMotion && Stage.slowAmount > 0){
+			if(HUD.slowMotion && HUD.slowAmount > 0){
 				e.target.x += slowWind;
 				e.target.y += e.target.slowFall;
 			}

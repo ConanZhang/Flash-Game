@@ -78,6 +78,10 @@ package Game
 		private var highScore:SharedObject;
 		private var player:Player;
 		private var weapon:Weapon;
+		
+		public var slowMotion:Boolean;
+		public var slowAmount:Number;
+		
 		/**Constructor*/
 		public function PlayerHUD(_pacifist:Boolean, _world:int, _difficulty:int, _player:Player, _weapon:Weapon)
 		{
@@ -394,10 +398,10 @@ package Game
 		/**Called in stage update*/
 		public function updateHUD():void{
 			//VISUAL fade effect
-			if(fadeClip.alpha < 0.3 && Stage.slowMotion && Stage.slowAmount > 0){
+			if(fadeClip.alpha < 0.3 && slowMotion && slowAmount > 0){
 				fadeClip.alpha+=0.02;
 			}
-			else if(fadeClip.alpha > 0 && !Stage.slowMotion || Stage.slowAmount <= 0 && fadeClip.alpha > 0){
+			else if(fadeClip.alpha > 0 && !slowMotion || slowAmount <= 0 && fadeClip.alpha > 0){
 				fadeClip.alpha-=0.02;
 			}
 
@@ -447,7 +451,7 @@ package Game
 			//slow motion bar
 			slowMotionBar.graphics.clear();
 			slowMotionBar.graphics.beginFill(0xff0000);
-			slowMotionBar.graphics.drawRect(38, 24, Stage.slowAmount, 22);
+			slowMotionBar.graphics.drawRect(38, 24, slowAmount, 22);
 			slowMotionBar.graphics.endFill();
 			
 			//ammo
@@ -459,7 +463,7 @@ package Game
 		private function surviveCountDown(e:TimerEvent):void{
 			if(!Stage.paused && player.playerHealth > 0){
 				//slow down real time
-				if(Stage.slowMotion && Stage.slowAmount > 0){
+				if(slowMotion && slowAmount > 0){
 					surviveTimer.delay = 1500;
 				}
 				else{
