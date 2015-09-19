@@ -27,7 +27,6 @@ package Parents
 	import Box2D.Dynamics.b2World;
 	
 	import Game.ContactListener;
-	import Game.OptionsMenu;
 	import Game.PauseMenu;
 	import Game.PlayerHUD;
 	
@@ -91,7 +90,7 @@ package Parents
 		
 		/**PLAYER*/
 		//player
-		public var player:Player;
+		private var player:Player;
 		//player body for collision detection
 		public static var playerBody:b2Body;
 		//the last position the player was (for speed calculation)
@@ -126,7 +125,7 @@ package Parents
 		public static var flinchTime:int;
 		
 		/**WEAPON*/
-		public var weapon:Weapon;
+		private var weapon:Weapon;
 		public static var machineFire:Boolean;
 		private var machineDelay:int;
 		

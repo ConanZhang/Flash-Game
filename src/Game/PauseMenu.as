@@ -170,7 +170,7 @@ package Game
 				worldState = "Air";
 			}
 				
-			displayField.text = "Arena i " + worldState + "   Difficulty i " + difficultyState + "  Mode i " + pacifistState;
+			displayField.text = "Difficulty i " + difficultyState + "  Mode i " + pacifistState + "   Arena i " + worldState;
 			
 			addChild(displayField);
 		}
@@ -254,7 +254,7 @@ package Game
 					activeButton = null;
 					buttonContainer.removeChild(backButton);
 					buttons.pop();
-					displayField.text = "Arena i " + worldState + "   Difficulty i " + difficultyState + "  Mode i " + pacifistState;
+					displayField.text = "Difficulty i " + difficultyState + "  Mode i " + pacifistState + "   Arena i " + worldState;
 				}
 			}		
 		}
@@ -292,7 +292,7 @@ package Game
 					if(button.scaleX >= 1){
 						button.scaleX -=0.1;
 						button.scaleY -=0.1;
-						displayField.text = "Arena i " + worldState + "   Difficulty i " + difficultyState + "  Mode i " + pacifistState;
+						displayField.text = "Difficulty i " + difficultyState + "  Mode i " + pacifistState + "   Arena i " + worldState;
 					}
 				}
 			}

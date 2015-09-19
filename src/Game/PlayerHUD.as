@@ -452,7 +452,7 @@ package Game
 			
 			//ammo
 			ammoCount.text = "Ammo i " + (weapon.weaponType == 1 ? weapon.pistolAmmo: (weapon.weaponType == 2) ? weapon.shotgunAmmo: (weapon.weaponType == 3) ? weapon.machinegunAmmo: 0) + "\n" +
-							 "weapon i " + (weapon.weaponType == 1 ? "Pistol": (weapon.weaponType == 2) ? "Shotgun": (weapon.weaponType == 3) ? "Machine gun": "None");		 				
+							 "Weapon i " + (weapon.weaponType == 1 ? "Pistol": (weapon.weaponType == 2) ? "Shotgun": (weapon.weaponType == 3) ? "Machine gun": "None");		 				
 		}
 		
 		/**Survive count down timer*/

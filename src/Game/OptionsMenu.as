@@ -759,7 +759,7 @@ package Game
 							displayField.text = "";
 						}
 						else{
-							displayField.text = "Arena i " + worldState + "   Difficulty i " + difficultyState + "  Mode i " + pacifistState;
+							displayField.text = "Difficulty i " + difficultyState + "  Mode i " + pacifistState + "   Arena i " + worldState;
 						}
 					}
 				}

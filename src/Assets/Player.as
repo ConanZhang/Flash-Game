@@ -62,15 +62,21 @@ package Assets
 		private var player_Restitution:Number;
 		private var player_LinearDamping:Number;
 		
+		private var player_size:Number;
 		/**Constructor*/
 		public function Player(size:Number)
 		{
+			player_size = size;
+		}
+		
+		/**Makes Player*/
+		public function make():void{
 			//assign parameters to class member variables
 			playerRotation = 40;
 			
 			//initialize default private variables
-			player_Width = size;
-			player_Height = size;
+			player_Width = player_size;
+			player_Height = player_size;
 			player_Friction = 0.4;
 			player_Density = 0.4;
 			player_Restitution = 0;
@@ -82,11 +88,6 @@ package Assets
 			playerJoints = new b2RevoluteJointDef();
 			
 			STATE = IDLE;
-			
-		}
-		
-		/**Makes Player*/
-		public function make():void{
 			
 			/**Head*/
 			//Box2D shape
