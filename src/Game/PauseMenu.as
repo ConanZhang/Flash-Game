@@ -207,13 +207,13 @@ package Game
 			lastButtonClicked = activeButton;
 			
 			if(activeButton.toString() == "[object Resume]"){
-				Stage.paused = false;
+				screen.gameHUD.paused = false;
 				//resume game
 				destroy();
 			}
 			else if(activeButton.toString() == "[object Restart]"){
 				//restart game
-				Stage.paused = false;
+				screen.gameHUD.paused = false;
 				destroy();
 				screen.destroy();
 				screen.screen.restart();

@@ -43,8 +43,6 @@ package Parents
 		private var timeStep:Number;
 		
 		/**LOGIC*/
-		//paused or playing
-		public static var paused:Boolean;
 		//flying enemy count
 		public var flyCount:int;
 		//flying enemy count
@@ -68,7 +66,7 @@ package Parents
 		//variable for all images to be held in for camera movement
 		private static var images:Sprite;
 		//HUD
-		private var gameHUD:PlayerHUD;
+		public var gameHUD:PlayerHUD;
 		//speed world is; slow motion or normal
 		private var speed:Number;
 		//screen
@@ -187,10 +185,10 @@ package Parents
 			this.addChild(images);
 			
 			/**EVENT*/
-			paused = false;
 			
 			//HUD
 			gameHUD = _HUD;
+			gameHUD.paused = false;
 			gameHUD.slowAmount = 225;
 			this.addChild(gameHUD);
 			
@@ -254,7 +252,7 @@ package Parents
 		
 		/**Stages can update their properties*/
 		public function update():void{
-			if(!paused){
+			if(!gameHUD.paused){
 				//clear sprites from last frame
 				sprites.graphics.clear();
 				
@@ -558,15 +556,15 @@ package Parents
 			
 			//pausing
 			if(e.keyCode == keybindings.pause){
-				if(paused == false){
+				if(gameHUD.paused == false){
 					pauseMenu = new PauseMenu(this, 350, 260, pacifistState, worldState, difficultyState, musicChannel, settings, keybindings);
-					paused = true;
+					gameHUD.paused = true;
 				}
-				else if(paused == true){
+				else if(gameHUD.paused == true){
 					pauseMenu.destroy();
 					pauseMenu = null;
 					
-					paused = false;
+					gameHUD.paused = false;
 				}
 				
 				var menuSelect:Sound = new MenuSelect;
@@ -709,7 +707,7 @@ package Parents
 		
 		/**Stages can detect left clicks*/
 		public function leftClick(e:MouseEvent):void{
-			if(weapon.holdingWeapon && !paused && player.playerHealth > 0){
+			if(weapon.holdingWeapon && !gameHUD.paused && player.playerHealth > 0){
 				if(weapon.weaponType == 1 && weapon.pistolAmmo > 0){
 					if(weapon.weaponRotation > -1.5 && weapon.weaponRotation < 1.5 && weapon.weaponClip.endFire){
 						weapon.rightFire = true;
@@ -773,7 +771,7 @@ package Parents
 		
 		/**Stage can detect mouse wheels*/
 		public function mouseWheeled(e:MouseEvent):void{
-			if(weapon.holdingWeapon && !paused && player.playerHealth != 0){
+			if(weapon.holdingWeapon && !gameHUD.paused && player.playerHealth != 0){
 				weapon.changeWeapon = true;
 
 				//up wheel

@@ -133,7 +133,7 @@ package Game
 		
 		private function addEnemy(e:TimerEvent):void{
 			//test enemies
-			if(!paused && player.playerHealth > 0){
+			if(!HUD.paused && player.playerHealth > 0){
 				var randomAdd:Number = Math.random();
 				
 				if(randomAdd > 0.66 && flyCount < 4){
@@ -204,7 +204,7 @@ package Game
 		}
 		
 		private function addAmmo(e:TimerEvent):void{
-			if(!paused && player.playerHealth != 0){
+			if(!HUD.paused && player.playerHealth != 0){
 				var randomDrop: Number = Math.random();
 				
 				if(ammunitionCount < 10){

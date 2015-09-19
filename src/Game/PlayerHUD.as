@@ -81,6 +81,7 @@ package Game
 		
 		public var slowMotion:Boolean;
 		public var slowAmount:Number;
+		public var paused:Boolean;
 		
 		/**Constructor*/
 		public function PlayerHUD(_pacifist:Boolean, _world:int, _difficulty:int, _player:Player, _weapon:Weapon)
@@ -461,7 +462,7 @@ package Game
 		
 		/**Survive count down timer*/
 		private function surviveCountDown(e:TimerEvent):void{
-			if(!Stage.paused && player.playerHealth > 0){
+			if(!paused && player.playerHealth > 0){
 				//slow down real time
 				if(slowMotion && slowAmount > 0){
 					surviveTimer.delay = 1500;
@@ -496,7 +497,7 @@ package Game
 		
 		/**Begin count down timer*/
 		private function beginCountDown(e:TimerEvent):void{
-			if(!Stage.paused && countDownSeconds > -1){
+			if(!paused && countDownSeconds > -1){
 				//minus seconds
 				countDownSeconds--;
 			}
@@ -505,7 +506,7 @@ package Game
 			if(countDownSeconds > 0){
 				countDownText.text = countDownSeconds+"!";	
 			}
-			else if(countDownSeconds == 0 && !Stage.paused && player.playerHealth != 0){
+			else if(countDownSeconds == 0 && !paused && player.playerHealth != 0){
 				countDownText.text = "Fight!";	
 			}
 			else if(countDownSeconds == -1 && minuteDisplay != 3 && player.playerHealth != 0){
