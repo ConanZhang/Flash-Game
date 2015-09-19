@@ -499,6 +499,9 @@ package Parents
 						var machineBullet:Bullet = new Bullet(player.body.GetPosition().x + 3 * Math.cos(weapon.weaponRotation), player.body.GetPosition().y + 3 * Math.sin(weapon.weaponRotation),0.3,0.3, weapon);
 						weapon.machinegunAmmo--;
 						machineDelay = 0;
+						
+						var gunShot:Sound = new GunShot;
+						gunShot.play(0, 0, new SoundTransform(settings.data.effectsVolume));
 					}
 					else{
 						machineDelay++;
@@ -710,6 +713,9 @@ package Parents
 						
 						var pistolRight:Bullet = new Bullet(player.body.GetPosition().x + Math.cos(weapon.weaponRotation), player.body.GetPosition().y +Math.sin(weapon.weaponRotation),0.3,0.3, weapon);	
 						weapon.pistolAmmo--;
+						
+						var gunShot:Sound = new GunShot;
+						gunShot.play(0, 0, new SoundTransform(settings.data.effectsVolume));
 					}
 					else if(!weapon.leftFire && weapon.weaponClip.endFire){
 						weapon.leftFire = true;
@@ -717,6 +723,9 @@ package Parents
 						
 						var pistolLeft:Bullet = new Bullet(player.body.GetPosition().x + Math.cos(weapon.weaponRotation), player.body.GetPosition().y +Math.sin(weapon.weaponRotation),0.3,0.3, weapon);	
 						weapon.pistolAmmo--;
+						
+						var gunShot1:Sound = new GunShot;
+						gunShot1.play(0, 0, new SoundTransform(settings.data.effectsVolume));
 					}
 				}
 				else if(weapon.weaponType == 2 && weapon.shotgunAmmo > 0){
@@ -729,6 +738,9 @@ package Parents
 						var shotgunRight3:Bullet = new Bullet(player.body.GetPosition().x + Math.cos(weapon.weaponRotation), player.body.GetPosition().y +Math.sin(weapon.weaponRotation),0.3,0.3, weapon);	
 
 						weapon.shotgunAmmo--;
+						
+						var shotgunShot:Sound = new ShotgunShot;
+						shotgunShot.play(0, 0, new SoundTransform(settings.data.effectsVolume));
 					}
 					else if(!weapon.leftFire && weapon.weaponClip.endFire){
 						weapon.leftFire = true;
@@ -739,6 +751,9 @@ package Parents
 						var shotgunLeft3:Bullet = new Bullet(player.body.GetPosition().x + Math.cos(weapon.weaponRotation), player.body.GetPosition().y +Math.sin(weapon.weaponRotation),0.3,0.3, weapon);	
 
 						weapon.shotgunAmmo--;
+						
+						var shotgunShot1:Sound = new ShotgunShot;
+						shotgunShot1.play(0, 0, new SoundTransform(settings.data.effectsVolume));
 					}
 				}
 				else if(weapon.weaponType == 3 && weapon.machinegunAmmo > 0){
