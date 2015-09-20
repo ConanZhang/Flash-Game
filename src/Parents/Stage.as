@@ -146,7 +146,7 @@ package Parents
 			musicChannel.soundTransform = new SoundTransform(settings.data.musicVolume);
 			
 			backgroundBlock = new Shape();
-			backgroundBlock.graphics.beginFill(0x080808); 
+			backgroundBlock.graphics.beginFill(0x111111); 
 			backgroundBlock.graphics.drawRect(-700, 0, 2100, 525);
 			backgroundBlock.graphics.endFill(); 
 			
