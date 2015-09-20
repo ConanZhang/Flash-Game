@@ -426,6 +426,12 @@ package Parents
 								break;
 							case keybindings.slow:
 								if(gameHUD.slowMotion == false && gameHUD.slowAmount > 0 && player.playerHealth > 0){
+									musicChannel.soundTransform= new SoundTransform(settings.data.musicVolume*0.15);  
+
+									if(!gameHUD.slowMotion){
+										var slowEnter:Sound = new SlowMotionEnter;
+										slowEnter.play(0, 0, new SoundTransform(settings.data.effectsVolume));
+									}
 									gameHUD.slowMotion = true;
 									jumpLimit = 12;
 									if(player.playerRotation > 0){
@@ -442,6 +448,9 @@ package Parents
 								}
 								else if(gameHUD.slowAmount > 0 && player.playerHealth > 0){
 									gameHUD.slowAmount-=3.375;
+								}
+								else if(gameHUD.slowAmount <= 0){
+									musicChannel.soundTransform= new SoundTransform(settings.data.musicVolume);  
 								}
 								break;
 						}
@@ -690,6 +699,13 @@ package Parents
 			//slow motion
 			else if(e.keyCode == keybindings.slow){
 				if(gameHUD.slowMotion == true){
+					musicChannel.soundTransform= new SoundTransform(settings.data.musicVolume);  
+					
+					if(gameHUD.slowMotion){
+						var slowExit:Sound = new SlowMotionExit;
+						slowExit.play(0, 0, new SoundTransform(settings.data.effectsVolume));
+					}
+					
 					gameHUD.slowMotion = false;
 					jumpLimit = 5;
 					if(player.playerRotation > 0){
@@ -715,7 +731,13 @@ package Parents
 						weapon.pistolAmmo--;
 						
 						var gunShot:Sound = new GunShot;
-						gunShot.play(0, 0, new SoundTransform(settings.data.effectsVolume));
+						
+						if(gameHUD.slowMotion && gameHUD.slowAmount > 0){
+							gunShot.play(0, 0, new SoundTransform(settings.data.effectsVolume*0.15));
+						}
+						else{
+							gunShot.play(0, 0, new SoundTransform(settings.data.effectsVolume));
+						}
 					}
 					else if(!weapon.leftFire && weapon.weaponClip.endFire){
 						weapon.leftFire = true;
