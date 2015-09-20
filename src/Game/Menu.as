@@ -156,9 +156,9 @@ package Game
 			title = new Title;
 			this.addChild(title);
 			title.x = 400;
-			title.y = 280;
-			title.scaleX = 0.35;
-			title.scaleY = 0.35;
+			title.y = 270;
+			title.scaleX = 0.3;
+			title.scaleY = 0.3;
 			back = new Back;
 			play = new Play;
 			highscore = new High_Scores;
