@@ -322,8 +322,12 @@ package Assets {
 				
 				if(flyingEnemyClip.dead){
 					var deadSound:Sound = new MonsterDeath;
-					deadSound.play(0, 0, new SoundTransform(settings.data.effectsVolume));
-					
+					if(HUD.slowMotion && HUD.slowAmount > 0){
+						deadSound.play(0, 0, new SoundTransform(settings.data.effectsVolume*0.15));
+					}
+					else{
+						deadSound.play(0, 0, new SoundTransform(settings.data.effectsVolume));
+					}						
 					//create random drop
 					if(Math.random() > 0.9){
 						//health

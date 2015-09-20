@@ -138,15 +138,23 @@ package Assets {
 					HUD.heartRevive = true;
 					
 					var lifeUp:Sound = new LifeUp;
-					lifeUp.play(0, 0, new SoundTransform(settings.data.effectsVolume));
-				}
+					if(HUD.slowMotion && HUD.slowAmount > 0){
+						lifeUp.play(0, 0, new SoundTransform(settings.data.effectsVolume*0.15));
+					}
+					else{
+						lifeUp.play(0, 0, new SoundTransform(settings.data.effectsVolume));
+					}					}
 				else if(itemType == 2){
 					weapon.pistolAmmo +=5;
 					arena.ammunitionCount--;
 
 					var pistolReload:Sound = new PistolReload;
-					pistolReload.play(0, 0, new SoundTransform(settings.data.effectsVolume));
-					
+					if(HUD.slowMotion && HUD.slowAmount > 0){
+						pistolReload.play(0, 0, new SoundTransform(settings.data.effectsVolume*0.15));
+					}
+					else{
+						pistolReload.play(0, 0, new SoundTransform(settings.data.effectsVolume));
+					}						
 					if(!weapon.holdingWeapon){
 						weapon.needWeapon = true;
 						weapon.weaponType = 1;
@@ -158,8 +166,12 @@ package Assets {
 					arena.ammunitionCount--;
 					
 					var shotgunReload:Sound = new ShotgunReload;
-					shotgunReload.play(0, 0, new SoundTransform(settings.data.effectsVolume));
-					
+					if(HUD.slowMotion && HUD.slowAmount > 0){
+						shotgunReload.play(0, 0, new SoundTransform(settings.data.effectsVolume*0.15));
+					}
+					else{
+						shotgunReload.play(0, 0, new SoundTransform(settings.data.effectsVolume));
+					}						
 					if(!weapon.holdingWeapon){
 						weapon.needWeapon = true;
 						weapon.weaponType = 2;
@@ -170,8 +182,12 @@ package Assets {
 					arena.ammunitionCount--;
 					
 					var machinegunReload:Sound = new MachineGunReload;
-					machinegunReload.play(0, 0, new SoundTransform(settings.data.effectsVolume));
-					
+					if(HUD.slowMotion && HUD.slowAmount > 0){
+						machinegunReload.play(0, 0, new SoundTransform(settings.data.effectsVolume*0.15));
+					}
+					else{
+						machinegunReload.play(0, 0, new SoundTransform(settings.data.effectsVolume));
+					}						
 					if(!weapon.holdingWeapon){
 						weapon.needWeapon = true;
 						weapon.weaponType = 3;

@@ -510,8 +510,12 @@ package Parents
 						machineDelay = 0;
 						
 						var machinegunShot:Sound = new MachineGunShot;
-						machinegunShot.play(0, 0, new SoundTransform(settings.data.effectsVolume));
-					}
+						if(gameHUD.slowMotion && gameHUD.slowAmount > 0){
+							machinegunShot.play(0, 0, new SoundTransform(settings.data.effectsVolume*0.15));
+						}
+						else{
+							machinegunShot.play(0, 0, new SoundTransform(settings.data.effectsVolume));
+						}						}
 					else{
 						machineDelay++;
 					}
@@ -747,8 +751,12 @@ package Parents
 						weapon.pistolAmmo--;
 						
 						var gunShot1:Sound = new GunShot;
-						gunShot1.play(0, 0, new SoundTransform(settings.data.effectsVolume));
-					}
+						if(gameHUD.slowMotion && gameHUD.slowAmount > 0){
+							gunShot1.play(0, 0, new SoundTransform(settings.data.effectsVolume*0.15));
+						}
+						else{
+							gunShot1.play(0, 0, new SoundTransform(settings.data.effectsVolume));
+						}					}
 				}
 				else if(weapon.weaponType == 2 && weapon.shotgunAmmo > 0){
 					if(weapon.weaponRotation > -1.5 && weapon.weaponRotation < 1.5 && weapon.weaponClip.endFire){
@@ -762,8 +770,12 @@ package Parents
 						weapon.shotgunAmmo--;
 						
 						var shotgunShot:Sound = new ShotgunShot;
-						shotgunShot.play(0, 0, new SoundTransform(settings.data.effectsVolume));
-					}
+						if(gameHUD.slowMotion && gameHUD.slowAmount > 0){
+							shotgunShot.play(0, 0, new SoundTransform(settings.data.effectsVolume*0.15));
+						}
+						else{
+							shotgunShot.play(0, 0, new SoundTransform(settings.data.effectsVolume));
+						}					}
 					else if(!weapon.leftFire && weapon.weaponClip.endFire){
 						weapon.leftFire = true;
 						weapon.weaponClip.endFire = false;
@@ -775,8 +787,12 @@ package Parents
 						weapon.shotgunAmmo--;
 						
 						var shotgunShot1:Sound = new ShotgunShot;
-						shotgunShot1.play(0, 0, new SoundTransform(settings.data.effectsVolume));
-					}
+						if(gameHUD.slowMotion && gameHUD.slowAmount > 0){
+							shotgunShot1.play(0, 0, new SoundTransform(settings.data.effectsVolume*0.15));
+						}
+						else{
+							shotgunShot1.play(0, 0, new SoundTransform(settings.data.effectsVolume));
+						}					}
 				}
 				else if(weapon.weaponType == 3 && weapon.machinegunAmmo > 0){
 					if(weapon.weaponRotation > -1.5 && weapon.weaponRotation < 1.5){

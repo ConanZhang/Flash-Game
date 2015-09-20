@@ -114,7 +114,7 @@ package Game
 						
 						var hit1:Sound = new Hit;
 						hit1.play(0, 0, new SoundTransform(settings.data.effectsVolume));
-						
+												
 						//flinch
 						if(contact.GetFixtureA().GetBody().GetPosition().x < contact.GetFixtureB().GetBody().GetPosition().x){
 							player.body.SetLinearVelocity( new b2Vec2(-75, 0) );
@@ -137,7 +137,7 @@ package Game
 							
 							var hit2:Sound = new Hit;
 							hit2.play(0, 0, new SoundTransform(settings.data.effectsVolume));
-							
+															
 							//flinch
 							if(contact.GetFixtureB().GetBody().GetPosition().x < contact.GetFixtureA().GetBody().GetPosition().x){
 								player.body.SetLinearVelocity( new b2Vec2(-75, 0) );
@@ -167,7 +167,7 @@ package Game
 						
 						var hit3:Sound = new Hit;
 						hit3.play(0, 0, new SoundTransform(settings.data.effectsVolume));
-
+						
 						//flinch
 						if(contact.GetFixtureB().GetBody().GetPosition().x < contact.GetFixtureA().GetBody().GetPosition().x){
 							player.body.SetLinearVelocity( new b2Vec2(-75, 0) );
@@ -190,7 +190,7 @@ package Game
 							
 							var hit4:Sound = new Hit;
 							hit4.play(0, 0, new SoundTransform(settings.data.effectsVolume));
-
+							
 							//flinch
 							if(contact.GetFixtureB().GetBody().GetPosition().x < contact.GetFixtureA().GetBody().GetPosition().x){
 								player.body.SetLinearVelocity( new b2Vec2(-75, 0) );
@@ -294,8 +294,12 @@ package Game
 					if(userDataB == "ENEMY"){
 						contact.GetFixtureB().GetUserData().push(1);
 						var monsterHit:Sound = new MonsterHit;
-						monsterHit.play(0, 0, new SoundTransform(settings.data.effectsVolume));
-					}
+						if(HUD.slowMotion && HUD.slowAmount > 0){
+							monsterHit.play(0, 0, new SoundTransform(settings.data.effectsVolume*0.15));
+						}
+						else{
+							monsterHit.play(0, 0, new SoundTransform(settings.data.effectsVolume));
+						}						}
 				}
 				//2 damage
 				else if(bulletDataA == "SHOTGUN"){
@@ -303,8 +307,12 @@ package Game
 					if(userDataB == "ENEMY"){
 						contact.GetFixtureB().GetUserData().push(2);
 						var monsterHit1:Sound = new MonsterHit;
-						monsterHit1.play(0, 0, new SoundTransform(settings.data.effectsVolume));
-					}
+						if(HUD.slowMotion && HUD.slowAmount > 0){
+							monsterHit1.play(0, 0, new SoundTransform(settings.data.effectsVolume*0.15));
+						}
+						else{
+							monsterHit1.play(0, 0, new SoundTransform(settings.data.effectsVolume));
+						}						}
 				}
 			}
 			else if(userDataB == "BULLET"){
@@ -316,7 +324,12 @@ package Game
 					if(userDataA == "ENEMY"){
 						contact.GetFixtureA().GetUserData().push(1);
 						var monsterHit2:Sound = new MonsterHit;
-						monsterHit2.play(0, 0, new SoundTransform(settings.data.effectsVolume));
+						if(HUD.slowMotion && HUD.slowAmount > 0){
+							monsterHit2.play(0, 0, new SoundTransform(settings.data.effectsVolume*0.15));
+						}
+						else{
+							monsterHit2.play(0, 0, new SoundTransform(settings.data.effectsVolume));
+						}						
 					}
 				}
 				//2 damage
@@ -325,8 +338,12 @@ package Game
 					if(userDataA == "ENEMY"){
 						contact.GetFixtureA().GetUserData().push(2);
 						var monsterHit3:Sound = new MonsterHit;
-						monsterHit3.play(0, 0, new SoundTransform(settings.data.effectsVolume));
-					}
+						if(HUD.slowMotion && HUD.slowAmount > 0){
+							monsterHit3.play(0, 0, new SoundTransform(settings.data.effectsVolume*0.15));
+						}
+						else{
+							monsterHit3.play(0, 0, new SoundTransform(settings.data.effectsVolume));
+						}						}
 				}
 			}
 			
