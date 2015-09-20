@@ -113,13 +113,13 @@ package Game
 				//Apprentice
 			else if(difficulty == 1){
 				enemyAdd = new Timer(5000);
-				enemyAdd.addEventListener(TimerEvent.TIMER, addEnemy);
+				enemyAdd.addEventListener(TimerEvent.TIMER, addEnemyNormal);
 				enemyAdd.start();
 			}
 				//Master
 			else if(difficulty == 2){
 				enemyAdd = new Timer(3500);
-				enemyAdd.addEventListener(TimerEvent.TIMER, addEnemy);
+				enemyAdd.addEventListener(TimerEvent.TIMER, addEnemyHard);
 				enemyAdd.start();
 			}
 			
@@ -133,6 +133,78 @@ package Game
 			}
 		}
 		
+		protected function addEnemyNormal(event:TimerEvent):void
+		{
+			//test enemies
+			if(!HUD.paused && player.playerHealth > 0){
+				var randomAdd:Number = Math.random();
+				
+				if(randomAdd > 0.66 && flyCount < 6){
+					var testEnemy1:FlyingEnemy = new FlyingEnemy(this, Math.random()*190 + 40, Math.random()*-90, 2, 3, settings, HUD, player, weapon);
+				}
+				else if(randomAdd > 0.33 && bigFlyCount < 3){
+					var testEnemy2:BigFlyingEnemy = new BigFlyingEnemy(this, Math.random()*190 + 40, Math.random()*-90, 4, 5, settings, HUD, player, weapon);
+				}
+				else if(smallFlyCount < 1){ 
+					var testEnemy3:SmallFlyingEnemy = new SmallFlyingEnemy(this, Math.random()*190 + 40, Math.random()*-90, 1.5, 1.5, settings, HUD, player, weapon);
+				}
+			}
+			
+			randomAdd = Math.random();
+			
+			var randomType:Number = Math.random();
+			var randomDirection:int;
+			if(Math.random() > 0.5){
+				randomDirection = 1;
+			}
+			else{
+				randomDirection = 2;
+			}
+			
+			if(randomAdd > 0.66 && platformCount < 4){
+				//floats
+				if(randomType > 0.66){
+					var testEnemy4:PlatformEnemy = new PlatformEnemy(this, Math.random()*190 + 40, Math.random()*-90, 4, 4, 0, randomDirection,  settings, HUD, player, weapon);
+				}
+					//goes up and down
+				else if(randomType > 0.33){
+					var testEnemy5:PlatformEnemy = new PlatformEnemy(this, Math.random()*190 + 40, Math.random()*-90, 4, 4, 1, randomDirection,  settings, HUD, player, weapon);
+				}
+					//goes left and right
+				else{
+					var testEnemy6:PlatformEnemy = new PlatformEnemy(this, Math.random()*190 + 40, Math.random()*-90, 4, 4, 2, randomDirection,  settings, HUD, player, weapon);
+				}
+			}
+			else if(randomAdd > 0.33 && bigPlatformCount < 3){
+				//floats
+				if(randomType > 0.66){
+					var testEnemy7:BigPlatformEnemy = new BigPlatformEnemy(this, Math.random()*190 + 40, Math.random()*-90, 5, 5, 0, randomDirection,  settings, HUD, player, weapon);
+				}
+					//goes up and down
+				else if(randomType > 0.33){
+					var testEnemy8:BigPlatformEnemy = new BigPlatformEnemy(this, Math.random()*190 + 40, Math.random()*-90, 5, 5, 1, randomDirection,settings, HUD, player, weapon);
+				}
+					//goes left and right
+				else{
+					var testEnemy9:BigPlatformEnemy = new BigPlatformEnemy(this, Math.random()*190 + 40, Math.random()*-90, 5, 5, 2, randomDirection,settings, HUD, player, weapon);
+				}
+			}
+			else if(smallPlatformCount < 3){
+				//floats
+				if(randomType > 0.66){
+					var testEnemy10:SmallPlatformEnemy = new SmallPlatformEnemy(this, Math.random()*190 + 40, Math.random()*-90, 2.25, 2.5, 0, randomDirection,  settings, HUD, player, weapon);
+				}
+					//goes up and down
+				else if(randomType > 0.33){
+					var testEnemy11:SmallPlatformEnemy = new SmallPlatformEnemy(this, Math.random()*190 + 40, Math.random()*-90, 2.25, 2.5, 1, randomDirection,  settings, HUD, player, weapon);
+				}
+					//goes left and right
+				else{
+					var testEnemy12:SmallPlatformEnemy = new SmallPlatformEnemy(this, Math.random()*190 + 40, Math.random()*-90, 2.25, 2.5, 2, randomDirection,  settings, HUD, player, weapon);
+				}
+			}				
+		}
+		
 		protected function addEnemyEasy(event:TimerEvent):void
 		{
 			//test enemies
@@ -142,7 +214,7 @@ package Game
 				if(randomAdd > 0.5 && flyCount < 6){
 					var testEnemy1:FlyingEnemy = new FlyingEnemy(this, Math.random()*190 + 40, Math.random()*-90, 2, 3, settings, HUD, player, weapon);
 				}
-				else if(randomAdd > 0.5 && bigFlyCount < 4){
+				else if(randomAdd < 0.5 && bigFlyCount < 4){
 					var testEnemy2:BigFlyingEnemy = new BigFlyingEnemy(this, Math.random()*190 + 40, Math.random()*-90, 4, 5, settings, HUD, player, weapon);
 				}
 			}
@@ -202,7 +274,7 @@ package Game
 			}				
 		}
 		
-		private function addEnemy(e:TimerEvent):void{
+		private function addEnemyHard(e:TimerEvent):void{
 			//test enemies
 			if(!HUD.paused && player.playerHealth > 0){
 				var randomAdd:Number = Math.random();
@@ -326,8 +398,11 @@ package Game
 			if(difficulty == 0){
 				enemyAdd.removeEventListener(TimerEvent.TIMER, addEnemyEasy);
 			}
+			else if(difficulty == 1){
+				enemyAdd.removeEventListener(TimerEvent.TIMER, addEnemyNormal);
+			}
 			else{
-				enemyAdd.removeEventListener(TimerEvent.TIMER, addEnemy);
+				enemyAdd.removeEventListener(TimerEvent.TIMER, addEnemyHard);
 			}
 			enemyAdd.stop();
 		}
