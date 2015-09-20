@@ -141,7 +141,7 @@ package Parents
 			keybindings = _keybindings;
 			musicChannel = _musicChannel;
 			
-			stageMusic = new MenuMusic;
+			stageMusic = new ChasingClouds;
 			musicChannel = stageMusic.play(0, int.MAX_VALUE);
 			musicChannel.soundTransform = new SoundTransform(settings.data.musicVolume);
 			
