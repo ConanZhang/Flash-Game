@@ -570,7 +570,7 @@ package Game
 				}
 				else if(currentKey == night){
 					currentKey = 0;
-					rainField.textColor = 0xff0000;
+					nightField.textColor = 0xff0000;
 				}
 			}
 			

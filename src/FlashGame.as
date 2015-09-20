@@ -154,20 +154,20 @@ package
 			else{
 				keybindings = {
 					jump : Keyboard.W,
-						left : Keyboard.A,
-						fall : Keyboard.S,
-						right: Keyboard.D,
-						slow : Keyboard.SPACE,
-						weaponLeft: Keyboard.Q,
-						weaponRight: Keyboard.E,
-						pistol : Keyboard.NUMBER_1,
-						shotgun : Keyboard.NUMBER_2,
-						machinegun : Keyboard.NUMBER_3,
-						pause: Keyboard.P,
-						fullscreen: Keyboard.F,
-						quality: Keyboard.C,
-						rain: Keyboard.Z,
-						night: Keyboard.X
+					left : Keyboard.A,
+					fall : Keyboard.S,
+					right: Keyboard.D,
+					slow : Keyboard.SPACE,
+					weaponLeft: Keyboard.Q,
+					weaponRight: Keyboard.E,
+					pistol : Keyboard.NUMBER_1,
+					shotgun : Keyboard.NUMBER_2,
+					machinegun : Keyboard.NUMBER_3,
+					pause: Keyboard.P,
+					fullscreen: Keyboard.F,
+					quality: Keyboard.C,
+					rain: Keyboard.Z,
+					night: Keyboard.X
 				};
 				
 				bindings.data.bindings = keybindings;
