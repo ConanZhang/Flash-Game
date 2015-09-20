@@ -82,7 +82,8 @@ package Game
 			var leftWallJump:Platform = new Platform(120, -50, 2, 10, "tall");
 			var endWallJump:Platform = new Platform(131, -47, 10, 2, "wide");
 			var singleWallJump:Platform = new Platform(143, -82, 2, 30, "tall");
-			
+			var wallJumpLand:Platform = new Platform(148, -85, 3, 3, "square");
+
 			var channelLeft:Platform = new Platform(155,-87, 2, 120, "b_tall");
 			var channelRight:Platform = new Platform(165,-120, 2, 120, "b_tall");
 			
