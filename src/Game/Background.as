@@ -45,11 +45,6 @@ package Game
 			var tutorialHeart:BackgroundObject = new BackgroundObject(96, 6, 5, 3, "tutorialHeart");
 			var tutorialShoot:BackgroundObject = new BackgroundObject(111, 5, 7, 4, "tutorialShoot");
 			var tutorialR2:BackgroundObject = new BackgroundObject(135, 5, 6, 7, "tutorialExit");
-			
-			var backgroundClouds:BackgroundObject = new BackgroundObject(30, -150, 200, 100, "backgroundClouds");
-			var backgroundClouds1:BackgroundObject = new BackgroundObject(30, -50, 200, 100, "backgroundClouds");
-			var backgroundClouds2:BackgroundObject = new BackgroundObject(130, -150, 200, 100, "backgroundClouds");
-			var backgroundClouds3:BackgroundObject = new BackgroundObject(130, -50, 200, 100, "backgroundClouds");
 		}
 		
 		private function tutorialDodge():void
@@ -59,9 +54,6 @@ package Game
 			var tutorialBar:BackgroundObject = new BackgroundObject(54, 4, 6, 2, "tutorialBar");
 			var tutorialHealth:BackgroundObject = new BackgroundObject(77, 5, 7, 4, "tutorialHealth");
 			var tutorialR2:BackgroundObject = new BackgroundObject(88, 7, 6, 7, "tutorialExit");
-			
-			var backgroundClouds:BackgroundObject = new BackgroundObject(-5, -120, 200, 100, "backgroundClouds");
-			var backgroundClouds1:BackgroundObject = new BackgroundObject(-5, -20, 200, 100, "backgroundClouds");
 		}
 		
 		private function tutorialMovement():void
@@ -80,28 +72,15 @@ package Game
 			var tutorialFastFall:BackgroundObject = new BackgroundObject(148, -47, 8, 4, "tutorialFalling");
 			var tutorialFalling:BackgroundObject = new BackgroundObject(156, -90, 4, 2, "tutorialFastFall");
 			var tutorialR2:BackgroundObject = new BackgroundObject(164, 8, 6, 7, "tutorialExit");
-			
-			var backgroundClouds:BackgroundObject = new BackgroundObject(0, -130, 200, 100, "backgroundClouds");
-			var backgroundClouds1:BackgroundObject = new BackgroundObject(0, -30, 200, 100, "backgroundClouds");
-			var backgroundClouds2:BackgroundObject = new BackgroundObject(100, -130, 200, 100, "backgroundClouds");
-			var backgroundClouds3:BackgroundObject = new BackgroundObject(100, -30, 200, 100, "backgroundClouds");
 		}
 		
 		public function earth():void{
-			var backgroundClouds:BackgroundObject = new BackgroundObject(40, -80, 200, 100, "backgroundClouds");
 		}
 		
 		public function water():void{
-			var backgroundClouds:BackgroundObject = new BackgroundObject(30, -120, 200, 100, "backgroundClouds");
-			var backgroundClouds1:BackgroundObject = new BackgroundObject(30, -20, 200, 100, "backgroundClouds");
-			var backgroundClouds2:BackgroundObject = new BackgroundObject(130, -120, 200, 100, "backgroundClouds");
-			var backgroundClouds3:BackgroundObject = new BackgroundObject(130, -20, 200, 100, "backgroundClouds");
 		}
 		
 		public function air():void{
-			var backgroundClouds:BackgroundObject = new BackgroundObject(30, -140, 200, 100, "backgroundClouds");
-			var backgroundClouds1:BackgroundObject = new BackgroundObject(30, -40, 200, 100, "backgroundClouds");
-			var backgroundClouds2:BackgroundObject = new BackgroundObject(140, -140, 200, 100, "backgroundClouds");
-			var backgroundClouds3:BackgroundObject = new BackgroundObject(140, -40, 200, 100, "backgroundClouds");		}
+		}
 	}
 }
