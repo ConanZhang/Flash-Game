@@ -57,7 +57,7 @@ package Game
 			super(screen,debugging, 139.5, -123, pacifist, world, difficulty, _musicChannel, settings, HUD, _keybindings, player, weapon);
 						
 			//BACKGROUND
-			background = new Background("test");
+			background = new Background("Air");
 			
 			settings = _settings;
 			

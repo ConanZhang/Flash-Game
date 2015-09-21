@@ -195,6 +195,15 @@ package Assets {
 			else if(backgroundObjectType == "tutorialExit"){
 				backgroundObjectClip = new TutorialExit();
 			}
+			else if(backgroundObjectType == "backgroundClouds"){
+				backgroundObjectClip = new full_background_1();
+			}
+			else if(backgroundObjectType == "backgroundGrass"){
+				backgroundObjectClip = new background_final_ground();
+			}
+			else if(backgroundObjectType == "backgroundTrees"){
+				backgroundObjectClip = new background_final_trees();
+			}
 
 
 			backgroundObjectClip.stop();

@@ -55,7 +55,7 @@ package Game
 			super(screen,debugging, 115, 7, pacifist, world, difficulty, _musicChannel, settings, HUD, _keybindings, player, weapon);
 			
 			//BACKGROUND
-			background = new Background("test");
+			background = new Background("Earth");
 						
 			//RAIN
 			hasRain = _hasRain;
