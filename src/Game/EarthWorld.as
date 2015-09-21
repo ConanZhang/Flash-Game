@@ -127,7 +127,7 @@ package Game
 				var beginAmmoDrop:ItemDrop = new ItemDrop(this, Math.random()*190 + 40, Math.random()*-90, 1.5,1.5, 2, settings, HUD, player, weapon);	
 				
 				if(difficulty == 0){
-					ammoAdd = new Timer(5000);
+					ammoAdd = new Timer(3000);
 					ammoAdd.addEventListener(TimerEvent.TIMER, addAmmoEasy);
 					ammoAdd.start();
 				}
@@ -144,7 +144,7 @@ package Game
 			if(!HUD.paused && player.playerHealth != 0){
 				var randomDrop: Number = Math.random();
 				
-				if(ammunitionCount < 10){
+				if(ammunitionCount < 20){
 					//pistol ammo
 					if(randomDrop < 0.25){
 						var pistolDrop:ItemDrop = new ItemDrop(this, Math.random()*190 + 40, Math.random()*-90, 1.5,1.5, 2,  settings, HUD, player, weapon);	
