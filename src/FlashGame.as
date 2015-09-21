@@ -18,17 +18,16 @@ package
 	import Assets.Weapon;
 	
 	import Game.DodgeWorld;
+	import Game.EarthWorld;
 	import Game.Menu;
 	import Game.MovementWorld;
 	import Game.PlayerHUD;
 	import Game.SmallWorld;
-	import Game.EarthWorld;
 	import Game.WallJumpingWorld;
 	import Game.WeaponWorld;
 	
 	/**SWF Options*/
 	//default color #C4A57C
-	[SWF(backgroundColor="#C4A57C", width="700", height="525", frameRate="30")]
 
 	public class FlashGame extends Sprite
 	{
@@ -85,13 +84,20 @@ package
 		/**Constructor*/
 		public function FlashGame()
 		{
+			this.addEventListener(Event.ADDED_TO_STAGE, addedToStage)
+		}
+		
+		protected function addedToStage(event:Event):void
+		{
+			this.removeEventListener(Event.ADDED_TO_STAGE, addedToStage);
+			
 			//register font to global list
 			Font.registerFont(Zenzai_Itacha);
 			
 			this.addEventListener(Event.ENTER_FRAME, updateGame);
 			stage.addEventListener(KeyboardEvent.KEY_DOWN, options);
 			this.addEventListener(Event.REMOVED, removedMenu);
-
+			
 			//hide cursor
 			Mouse.hide();
 			
@@ -99,7 +105,7 @@ package
 			gameReticule = new reticule();
 			gameReticule.width = 25;
 			gameReticule.height = 25;
-
+			
 			world = 1;
 			pacifist = false;
 			difficulty = beginner;
@@ -145,7 +151,7 @@ package
 			}
 			
 			settings.flush();
-						
+			
 			bindings = SharedObject.getLocal("Bindings");
 			
 			if(bindings.data.bindings != null){
@@ -154,20 +160,20 @@ package
 			else{
 				keybindings = {
 					jump : Keyboard.W,
-					left : Keyboard.A,
-					fall : Keyboard.S,
-					right: Keyboard.D,
-					slow : Keyboard.SPACE,
-					weaponLeft: Keyboard.Q,
-					weaponRight: Keyboard.E,
-					pistol : Keyboard.NUMBER_1,
-					shotgun : Keyboard.NUMBER_2,
-					machinegun : Keyboard.NUMBER_3,
-					pause: Keyboard.P,
-					fullscreen: Keyboard.F,
-					quality: Keyboard.C,
-					rain: Keyboard.Z,
-					night: Keyboard.X
+						left : Keyboard.A,
+						fall : Keyboard.S,
+						right: Keyboard.D,
+						slow : Keyboard.SPACE,
+						weaponLeft: Keyboard.Q,
+						weaponRight: Keyboard.E,
+						pistol : Keyboard.NUMBER_1,
+						shotgun : Keyboard.NUMBER_2,
+						machinegun : Keyboard.NUMBER_3,
+						pause: Keyboard.P,
+						fullscreen: Keyboard.F,
+						quality: Keyboard.C,
+						rain: Keyboard.Z,
+						night: Keyboard.X
 				};
 				
 				bindings.data.bindings = keybindings;

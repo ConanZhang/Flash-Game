@@ -158,7 +158,6 @@ package Assets {
 					if(!weapon.holdingWeapon){
 						weapon.needWeapon = true;
 						weapon.weaponType = 1;
-						trace("Pistol");
 					}
 				}
 				else if(itemType == 3){

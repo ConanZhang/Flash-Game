@@ -127,10 +127,42 @@ package Game
 				//AMMO
 				var beginAmmoDrop:ItemDrop = new ItemDrop(this, Math.random()*190 + 40, Math.random()*-90, 1.5,1.5, 2, settings, HUD, player, weapon);	
 				
-				ammoAdd = new Timer(15000);
-				ammoAdd.addEventListener(TimerEvent.TIMER, addAmmo);
-				ammoAdd.start();	
+				if(difficulty == 0){
+					ammoAdd = new Timer(5000);
+					ammoAdd.addEventListener(TimerEvent.TIMER, addAmmoEasy);
+					ammoAdd.start();	
+				}
+				else{
+					ammoAdd = new Timer(15000);
+					ammoAdd.addEventListener(TimerEvent.TIMER, addAmmo);
+					ammoAdd.start();	
+				}
 			}
+		}
+		
+		protected function addAmmoEasy(event:TimerEvent):void
+		{
+			if(!HUD.paused && player.playerHealth != 0){
+				var randomDrop: Number = Math.random();
+				
+				if(ammunitionCount < 10){
+					//pistol ammo
+					if(randomDrop < 0.25){
+						var pistolDrop:ItemDrop = new ItemDrop(this, Math.random()*190 + 40, Math.random()*-90, 1.5,1.5, 2, settings, HUD, player, weapon);	
+					}
+						//shotgun ammo
+					else if(randomDrop > 0.25 && randomDrop < 0.5){
+						var shotgunDrop:ItemDrop = new ItemDrop(this, Math.random()*190 + 40, Math.random()*-90, 2.5,2.5, 3,  settings, HUD, player, weapon);	
+					}
+						//machinegun ammo
+					else if(randomDrop > 0.5 && randomDrop < 0.75){
+						var machinegunDrop:ItemDrop = new ItemDrop(this, Math.random()*190 + 40, Math.random()*-90, 2,2, 4, settings, HUD, player, weapon);	
+					}
+					else{
+						var heartDrop:ItemDrop = new ItemDrop(this, Math.random()*190 + 40, Math.random()*-90, 1.5,1.5, 1, settings, HUD, player, weapon);	
+					}
+				}
+			}			
 		}
 		
 		protected function addEnemyNormal(event:TimerEvent):void
@@ -391,7 +423,12 @@ package Game
 		
 		public override function childDestroy():void{
 			if(ammoAdd != null){
-				ammoAdd.removeEventListener(TimerEvent.TIMER, addAmmo);
+				if(difficulty == 0){
+					ammoAdd.removeEventListener(TimerEvent.TIMER, addAmmoEasy);
+				}
+				else{
+					ammoAdd.removeEventListener(TimerEvent.TIMER, addAmmo);
+				}
 				ammoAdd.stop();	
 			}
 			
