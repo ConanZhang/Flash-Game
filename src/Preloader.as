@@ -52,7 +52,6 @@ package
 		{
 			removeEventListener(Event.ADDED_TO_STAGE, onAddedToStage);
 			stage.scaleMode = StageScaleMode.SHOW_ALL;
-			stage.align = StageAlign.TOP_LEFT;
 			addEventListener(Event.ENTER_FRAME, onEnterFrame);
 		}
 		
