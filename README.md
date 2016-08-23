@@ -1,12 +1,8 @@
 ###CREDITS
 
-#### Art & Animation
-Georbec Ammon
+#### Art & Animation: Georbec Ammon
 
-#### Programming & Sound
-Conan Zhang
-
-Scavenge for randomly dropped ammo and avoid randomly spawning enemies for as long as you can!
+#### Programming & Sound: Conan Zhang
 
 ###GOAL
 
